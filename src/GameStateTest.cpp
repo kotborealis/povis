@@ -18,6 +18,8 @@ GameStateTest::GameStateTest(){
 	});
 	area = new Area(zones);
 	world = new World(area);
+
+	ShaderPtr s = Game::i().g()->loadShader("assets/shaders/test.vert","assets/shaders/test.frag");
 }
 
 GameStateTest::~GameStateTest() {
@@ -32,8 +34,7 @@ void GameStateTest::update(){
 }
 
 void GameStateTest::draw(){
-	glLoadIdentity();
-	world->draw();
+
 }
 
 } /* namespace PovisEngine */

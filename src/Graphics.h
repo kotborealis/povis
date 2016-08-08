@@ -10,6 +10,9 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include <memory>
+#include <fstream>
 
 #include <SDL2/SDL.h>
 #include <gl/glew.h>
@@ -21,20 +24,46 @@
 
 namespace PovisEngine {
 
-struct Texture {
-	std::string filename;
-	GLuint tId;
+class Texture{
+public:
+	Texture(GLuint id)
+		:m_id(id){}
+	~Texture(){
+		glDeleteTextures(1,&m_id);
+	}
+	GLuint id(){
+		return m_id;
+	}
+private:
+	GLuint m_id;
 };
+
+class Shader{
+public:
+	Shader(GLuint id)
+		:m_id(id){}
+	~Shader(){
+		glDeleteProgram(m_id);
+	}
+	GLuint id(){
+		return m_id;
+	}
+private:
+	GLuint m_id;
+};
+
+typedef std::shared_ptr<Texture> TexturePtr;
+typedef std::shared_ptr<Shader> ShaderPtr;
 
 class Graphics {
 public:
 	Graphics(std::string title, unsigned int width, unsigned int height);
 	virtual ~Graphics();
 
-	GLuint loadTexture(std::string filename);
-	GLuint reserveTexture();
+	TexturePtr loadTexture(std::string filename);
+	TexturePtr reserveTexture();
 
-	void removeTexture(GLuint tId);
+	ShaderPtr loadShader(std::string vertex_filename, std::string fragment_filename);
 
 	void clear();
 	void render();
@@ -51,11 +80,12 @@ private:
 	SDL_Window* window;
 	SDL_GLContext gl;
 
-	GLuint tIdCounter = 1;
-	std::map<GLuint,Texture*> tMap;
-	std::map<std::string,GLuint> fMap;
+	GLuint textureIdCounter = 1;
+	std::map<TexturePtr,std::string> loadedTextures;
 
-	GLuint lookUpTextureByFilename(std::string filename);
+	std::vector<ShaderPtr> loadedShaders;
+
+	TexturePtr lookUpTextureByFilename(std::string filename);
 };
 
 } /* namespace PovisEngine */

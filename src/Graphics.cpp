@@ -13,8 +13,6 @@ Graphics::Graphics(std::string title, unsigned int width, unsigned int height)
 	:m_width(width)
 	,m_height(height){
 
-	Logger::info("Initializing graphics");
-
 	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
 	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
 	SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
@@ -45,25 +43,21 @@ Graphics::Graphics(std::string title, unsigned int width, unsigned int height)
 }
 
 Graphics::~Graphics() {
-	Logger::info("Destroying graphics");
-	for(auto it = tMap.begin(); it!=tMap.end(); it++){
-		glDeleteTextures(1,&(it->second->tId));
-	}
+	for(GLuint i = 0; i < textureIdCounter; i++)
+		glDeleteTextures(1,&i);
+
 	SDL_DestroyWindow(window);
 	IMG_Quit();
 	SDL_Quit();
 }
 
-GLuint Graphics::loadTexture(std::string filename){
+TexturePtr Graphics::loadTexture(std::string filename){
 	Logger::info("Loading texture "<<filename);
 
-	GLuint _id = lookUpTextureByFilename(filename);
-	if(_id != 0){
-		Logger::info("Already loaded");
-		return _id;
-	}
+	TexturePtr t = lookUpTextureByFilename(filename);
+	if(t != nullptr)
+		return t;
 
-	Texture* t = new Texture();
 	auto surface = IMG_Load(filename.c_str());
 
 	if(surface==nullptr){
@@ -71,10 +65,7 @@ GLuint Graphics::loadTexture(std::string filename){
 		return 0;
 	}
 
-	GLuint tId = tIdCounter++;
-
-	t->filename = filename;
-	t->tId = tId;
+	GLuint tId = textureIdCounter++;
 
 	int mode = GL_RGB;
 	if(surface->format->BytesPerPixel == 4) mode = GL_RGBA;
@@ -87,31 +78,114 @@ GLuint Graphics::loadTexture(std::string filename){
 
 	SDL_FreeSurface(surface);
 
-	tMap.insert(std::pair<GLuint,Texture*>(tId,t));
-	fMap.insert(std::pair<std::string,GLuint>(filename,tId));
+	t.reset(new Texture(tId));
+	loadedTextures.insert(std::make_pair(t,filename));
 
-	return tId;
+	return t;
 }
 
-GLuint Graphics::lookUpTextureByFilename(std::string filename){
-	for(auto it = tMap.begin(); it!=tMap.end(); it++)
-			if(it->second->filename == filename)
-				return it->second->tId;
-	return 0;
+TexturePtr Graphics::lookUpTextureByFilename(std::string filename){
+	for(auto it = loadedTextures.begin(); it != loadedTextures.end(); it++)
+		if(it->second == filename)
+			return it->first;
+	return nullptr;
 }
 
-GLuint Graphics::reserveTexture(){
-	return tIdCounter++;
+TexturePtr Graphics::reserveTexture(){
+	auto t = TexturePtr(new Texture(textureIdCounter++));
+	loadedTextures.insert(std::make_pair(t,""));
+	return t;
 }
 
-void Graphics::removeTexture(GLuint tId){
-	auto t = tMap.find(tId);
-	if(t!=tMap.end()){
-		Logger::info("Destroying texture "<<t->second->filename);
-		tMap.erase(tId);
+ShaderPtr Graphics::loadShader(std::string vert, std::string frag){
+	GLuint vert_id = glCreateShader(GL_VERTEX_SHADER);
+	GLuint frag_id = glCreateShader(GL_FRAGMENT_SHADER);
+
+	std::string line;
+
+	//load vertex shader
+	std::string vert_code;
+	std::ifstream vert_stream(vert, std::ios::in);
+	if(!vert_stream.is_open()){
+		Logger::error("Could not open vert shader "<<vert);
+		return ShaderPtr(nullptr);
+	}
+	line = "";
+	while(std::getline(vert_stream, line))
+		vert_code += "\n" + line;
+	vert_stream.close();
+
+	//load fragment shader
+	std::string frag_code;
+	std::ifstream frag_stream(frag, std::ios::in);
+	if(!frag_stream.is_open()){
+		Logger::error("Could not open frag shader "<<frag);
+		return ShaderPtr(nullptr);
+	}
+	line = "";
+	while(std::getline(frag_stream, line))
+		frag_code += "\n" + line;
+	frag_stream.close();
+
+	GLint result = GL_FALSE;
+	int log_length;
+
+	//compile vertex shader
+	Logger::info("Compiling vert shader "<<vert);
+	char const * vert_source = vert_code.c_str();
+	glShaderSource(vert_id, 1, &vert_source, NULL);
+	glCompileShader(vert_id);
+
+	//check
+	glGetShaderiv(vert_id, GL_COMPILE_STATUS, &result);
+	glGetShaderiv(vert_id, GL_INFO_LOG_LENGTH, &log_length);
+	if(log_length > 0){
+		std::vector<char> vert_error(log_length+1);
+		glGetShaderInfoLog(vert_id, log_length, NULL, &vert_error[0]);
+		Logger::error(&vert_error[0]);
 	}
 
-	glDeleteTextures(1,&tId);
+	//compile fragment shader
+	Logger::info("Compiling frag shader "<<frag);
+	char const * frag_source = frag_code.c_str();
+	glShaderSource(frag_id, 1, &frag_source, NULL);
+	glCompileShader(frag_id);
+
+	//check
+	glGetShaderiv(frag_id, GL_COMPILE_STATUS, &result);
+	glGetShaderiv(frag_id, GL_INFO_LOG_LENGTH, &log_length);
+	if(log_length > 0){
+		std::vector<char> frag_error(log_length+1);
+		glGetShaderInfoLog(frag_id, log_length, NULL, &frag_error[0]);
+		Logger::error(&frag_error[0]);
+	}
+
+	//linking
+	Logger::info("Linking");
+	GLuint prog_id = glCreateProgram();
+	glAttachShader(prog_id, vert_id);
+	glAttachShader(prog_id, frag_id);
+	glLinkProgram(prog_id);
+
+	//check
+	glGetShaderiv(prog_id, GL_COMPILE_STATUS, &result);
+	glGetShaderiv(prog_id, GL_INFO_LOG_LENGTH, &log_length);
+	if(log_length > 0){
+		std::vector<char> prog_error(log_length+1);
+		glGetShaderInfoLog(prog_id, log_length, NULL, &prog_error[0]);
+		Logger::error(&prog_error[0]);
+	}
+
+	glDetachShader(prog_id, vert_id);
+	glDetachShader(prog_id, frag_id);
+
+	glDeleteShader(vert_id);
+	glDeleteShader(frag_id);
+
+	auto shader = ShaderPtr(new Shader(prog_id));
+	loadedShaders.push_back(shader);
+
+	return shader;
 }
 
 void Graphics::clear() {
