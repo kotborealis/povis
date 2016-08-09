@@ -39,7 +39,7 @@ set(SDL2_PATH "C:\\MinGW")
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
-find_package(OPENGL REQUIRED)
+find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLU REQUIRED)
 

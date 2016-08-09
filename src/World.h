@@ -13,7 +13,7 @@
 
 #include "Game.h"
 #include "Area.h"
-#include "GL/GLU.h"
+#include "GL/glu.h"
 
 namespace PovisEngine {
 
