@@ -3,14 +3,6 @@ project(timepovis)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-#opengl32
-#glew32
-#glu32
-#mingw32
-#SDL2
-#SDL2main
-#SDL2_image
-
 set(SOURCE_FILES
         src/AABB.h
         src/Area.cpp
