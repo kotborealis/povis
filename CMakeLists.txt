@@ -37,7 +37,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${timepovis_SOURCE_DIR}/cmake)
 set(SDL2_PATH "C:\\MinGW")
 
 find_package(SDL2 REQUIRED)
-find_package(SDL2_Image REQUIRED)
+find_package(SDL2_image REQUIRED)
 
 find_package(OPENGL REQUIRED)
 find_package(GLEW REQUIRED)
