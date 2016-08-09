@@ -1,7 +1,7 @@
 /*
  * AABB.h
  *
- *  Created on: 27 èþë. 2016 ã.
+ *  Created on: 27 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -10,11 +10,11 @@
 
 #include "v2.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-struct AABB {
-	v2 min;
-	v2 max;
+struct AABB{
+    v2 min;
+    v2 max;
 };
 
 } /* namespace PovisEngine */

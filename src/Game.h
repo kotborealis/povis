@@ -1,7 +1,7 @@
 /*
  * Game.h
  *
- *  Created on: 24 èþë. 2016 ã.
+ *  Created on: 24 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -18,46 +18,53 @@
 #include "GameState.h"
 #include "Logger.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
 class GameState;
-class Game {
+
+class Game{
 public:
-	static Game& i(){
-		return instance();
-	}
-	static Game& instance(){
-		static Game g;
-		return g;
-	}
+    static Game &i(){
+        return instance();
+    }
 
-	void run();
+    static Game &instance(){
+        static Game g;
+        return g;
+    }
 
-	void setState(GameState* newState);
-	void pushState(GameState* newState);
-	void popState();
+    void run();
+
+    void setState(GameState *newState);
+
+    void pushState(GameState *newState);
+
+    void popState();
 
 
-	Graphics* g(){return _g;}
+    Graphics *g(){return _g;}
 
 private:
-	Game();
-	~Game();
+    Game();
 
-	Game(Game const&) = delete;
-	Game& operator= (Game const&) = delete;
+    ~Game();
 
-	inline void CState(){cState = states.back();}
-	std::vector<GameState*> states;
-	GameState* cState;
-	Graphics* _g;
+    Game(Game const &)=delete;
 
-	constexpr static float max_framerate = 60.f;
-	constexpr static float min_frametime = 1000 / max_framerate;
+    Game &operator=(Game const &)=delete;
 
-	float time_buffer = 0.f;
+    inline void CState(){cState=states.back();}
 
-	void update_needed(const float);
+    std::vector<GameState *> states;
+    GameState *cState;
+    Graphics *_g;
+
+    constexpr static float max_framerate=60.f;
+    constexpr static float min_frametime=1000/max_framerate;
+
+    float time_buffer=0.f;
+
+    void update_needed(const float);
 };
 
 } /* namespace PovisEngine */

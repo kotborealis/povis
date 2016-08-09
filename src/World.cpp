@@ -7,14 +7,14 @@
 
 #include "World.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-World::World(Area* _map) {
-	map = _map;
+World::World(Area *_map){
+    map=_map;
 }
 
-World::~World() {
-	// TODO Auto-generated destructor stub
+World::~World(){
+    // TODO Auto-generated destructor stub
 }
 
 void World::draw(){

@@ -1,7 +1,7 @@
 /*
  * Graphics.h
  *
- *  Created on: 24 èþë. 2016 ã.
+ *  Created on: 24 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -22,70 +22,80 @@
 
 #include "Logger.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
 class Texture{
 public:
-	Texture(GLuint id)
-		:m_id(id){}
-	~Texture(){
-		glDeleteTextures(1,&m_id);
-	}
-	GLuint id(){
-		return m_id;
-	}
+    Texture(GLuint id)
+            :m_id(id){}
+
+    ~Texture(){
+        glDeleteTextures(1, &m_id);
+    }
+
+    GLuint id(){
+        return m_id;
+    }
+
 private:
-	GLuint m_id;
+    GLuint m_id;
 };
 
 class Shader{
 public:
-	Shader(GLuint id)
-		:m_id(id){}
-	~Shader(){
-		glDeleteProgram(m_id);
-	}
-	GLuint id(){
-		return m_id;
-	}
+    Shader(GLuint id)
+            :m_id(id){}
+
+    ~Shader(){
+        glDeleteProgram(m_id);
+    }
+
+    GLuint id(){
+        return m_id;
+    }
+
 private:
-	GLuint m_id;
+    GLuint m_id;
 };
 
 typedef std::shared_ptr<Texture> TexturePtr;
 typedef std::shared_ptr<Shader> ShaderPtr;
 
-class Graphics {
+class Graphics{
 public:
-	Graphics(std::string title, unsigned int width, unsigned int height);
-	virtual ~Graphics();
+    Graphics(std::string title, unsigned int width, unsigned int height);
 
-	TexturePtr loadTexture(std::string filename);
-	TexturePtr reserveTexture();
+    virtual ~Graphics();
 
-	ShaderPtr loadShader(std::string vertex_filename, std::string fragment_filename);
+    TexturePtr loadTexture(std::string filename);
 
-	void clear();
-	void render();
+    TexturePtr reserveTexture();
 
-	unsigned int width(){
-		return m_width;
-	}
-	unsigned int height(){
-		return m_height;
-	}
+    ShaderPtr loadShader(std::string vertex_filename, std::string fragment_filename);
+
+    void clear();
+
+    void render();
+
+    unsigned int width(){
+        return m_width;
+    }
+
+    unsigned int height(){
+        return m_height;
+    }
 
 private:
-	unsigned int m_width, m_height;
-	SDL_Window* window;
-	SDL_GLContext gl;
+    unsigned int m_width, m_height;
+    SDL_Window *window;
+    SDL_GLContext gl;
 
-	GLuint textureIdCounter = 1;
-	std::map<TexturePtr,std::string> loadedTextures;
+    GLuint textureIdCounter=1;
+    std::map<TexturePtr, std::string> loadedTextures;
 
-	std::vector<ShaderPtr> loadedShaders;
+    std::vector<ShaderPtr> loadedShaders;
 
-	TexturePtr lookUpTextureByFilename(std::string filename);
+    TexturePtr lookUpTextureByFilename(std::string filename);
 };
 
 } /* namespace PovisEngine */

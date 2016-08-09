@@ -1,7 +1,7 @@
 /*
  * World.h
  *
- *  Created on: 8 àâã. 2016 ã.
+ *  Created on: 8 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -15,25 +15,27 @@
 #include "Area.h"
 #include "GL/glu.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-class World {
+class World{
 public:
-	World(Area*);
-	~World();
+    World(Area *);
 
-	void update();
-	void draw();
+    ~World();
+
+    void update();
+
+    void draw();
 
 private:
-	Area* map;
-	GLuint background_texture;
-	GLuint terrain_texture;
-	GLuint foreground_texture;
+    Area *map;
+    GLuint background_texture;
+    GLuint terrain_texture;
+    GLuint foreground_texture;
 
-	std::map<unsigned char, GLuint> textures;
+    std::map<unsigned char, GLuint> textures;
 
-	void renderTexture();
+    void renderTexture();
 };
 
 } /* namespace PovisEngine */

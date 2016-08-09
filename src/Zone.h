@@ -1,23 +1,23 @@
 /*
  * Tile.h
  *
- *  Created on: 8 àâã. 2016 ã.
+ *  Created on: 8 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
 #ifndef SRC_ZONE_H_
 #define SRC_ZONE_H_
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-struct Zone {
-	unsigned  int x; //x-coord
-	unsigned  int y; //y-coord
-	unsigned  int w; //width of region
-	unsigned  int h; //height of region
-	unsigned char type; //0-253 - tiles, 253 - entity, 254 - collision, 255 - trigger
-	unsigned char zindex; //0 - background, 1 - terrain, 2 - foreground
-	unsigned char data[2];
+struct Zone{
+    unsigned int x; //x-coord
+    unsigned int y; //y-coord
+    unsigned int w; //width of region
+    unsigned int h; //height of region
+    unsigned char type; //0-253 - tiles, 253 - entity, 254 - collision, 255 - trigger
+    unsigned char zindex; //0 - background, 1 - terrain, 2 - foreground
+    unsigned char data[2];
 };
 
 } /* namespace PovisEngine */

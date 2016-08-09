@@ -1,7 +1,7 @@
 /*
  * Logger.h
  *
- *  Created on: 24 èþë. 2016 ã.
+ *  Created on: 24 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -12,20 +12,20 @@
 #include <iostream>
 #include <sstream>
 
-#define SSTR( x ) static_cast< std::ostringstream & >( \
+#define SSTR(x) static_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
 
 #define info(str) log(__FILE__,__LINE__,"info",SSTR(str));
 #define warn(str) log(__FILE__,__LINE__,"warn",SSTR(str));
 #define error(str) log(__FILE__,__LINE__,"error",SSTR(str));
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-class Logger {
+class Logger{
 public:
-	static void log(const char* file, int line, const char* type, std::string text){
-		std::cout<<"{"<<file<<" at "<<line<<"}"<<"["<<type<<"] "<<text<<std::endl;
-	}
+    static void log(const char *file, int line, const char *type, std::string text){
+        std::cout<<"{"<<file<<" at "<<line<<"}"<<"["<<type<<"] "<<text<<std::endl;
+    }
 };
 
 } /* namespace PovisEngine */

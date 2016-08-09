@@ -1,7 +1,7 @@
 /*
  * GameState.h
  *
- *  Created on: 24 èþë. 2016 ã.
+ *  Created on: 24 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -10,19 +10,23 @@
 
 #include "SDL2/SDL.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
 class Graphics;
+
 class Game;
 
-class GameState {
+class GameState{
 public:
-	GameState(){};
-	virtual ~GameState(){};
+    GameState(){};
 
-	virtual void handleEvent(SDL_Event* event) = 0;
-	virtual void update() = 0;
-	virtual void draw() = 0;
+    virtual ~GameState(){};
+
+    virtual void handleEvent(SDL_Event *event)=0;
+
+    virtual void update()=0;
+
+    virtual void draw()=0;
 };
 
 } /* namespace PovisEngine */

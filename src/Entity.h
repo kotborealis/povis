@@ -1,7 +1,7 @@
 /*
  * Entity.h
  *
- *  Created on: 25 èþë. 2016 ã.
+ *  Created on: 25 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -10,14 +10,17 @@
 
 #include "Graphics.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-class Entity {
+class Entity{
 public:
-	Entity(){};
-	virtual ~Entity(){};
-	virtual void draw()=0;
-	virtual void update()=0;
+    Entity(){};
+
+    virtual ~Entity(){};
+
+    virtual void draw()=0;
+
+    virtual void update()=0;
 };
 
 } /* namespace PovisEngine */

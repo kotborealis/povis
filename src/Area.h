@@ -1,7 +1,7 @@
 /*
  * RegionMap.h
  *
- *  Created on: 8 àâã. 2016 ã.
+ *  Created on: 8 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
@@ -11,20 +11,21 @@
 #include <vector>
 #include "Zone.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-class Area {
+class Area{
 public:
-	Area(std::vector<Zone>);
-	~Area();
+    Area(std::vector<Zone>);
 
-	std::vector<Zone> background_tiles;
-	std::vector<Zone> foreground_tiles;
-	std::vector<Zone> terrain_tiles;
+    ~Area();
 
-	std::vector<Zone> collision_tiles;
-	std::vector<Zone> trigger_tiles;
-	std::vector<Zone> entities_tiles;
+    std::vector<Zone> background_tiles;
+    std::vector<Zone> foreground_tiles;
+    std::vector<Zone> terrain_tiles;
+
+    std::vector<Zone> collision_tiles;
+    std::vector<Zone> trigger_tiles;
+    std::vector<Zone> entities_tiles;
 };
 
 } /* namespace PovisEngine */

@@ -1,44 +1,44 @@
 /*
  * RegionMap.cpp
  *
- *  Created on: 8 àâã. 2016 ã.
+ *  Created on: 8 ï¿½ï¿½ï¿½. 2016 ï¿½.
  *      Author: kotborealis
  */
 
 #include "Area.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-Area::Area(std::vector<Zone> _z) {
-	for(auto it = _z.begin(); it != _z.end(); it++){
-		Zone z = *it;
+Area::Area(std::vector<Zone> _z){
+    for(auto it=_z.begin();it!=_z.end();it++){
+        Zone z=*it;
 
-		switch(z.type){
-			case 255:
-				trigger_tiles.push_back(z);
-				break;
-			case 254:
-				collision_tiles.push_back(z);
-				break;
-			case 253:
-				entities_tiles.push_back(z);
-				break;
-			default:
-				switch(z.zindex){
-					case 0:
-						background_tiles.push_back(z);
-						break;
-					case 1:
-						terrain_tiles.push_back(z);
-						break;
-					default:
-						foreground_tiles.push_back(z);
-				}
-		}
-	}
+        switch(z.type){
+            case 255:
+                trigger_tiles.push_back(z);
+                break;
+            case 254:
+                collision_tiles.push_back(z);
+                break;
+            case 253:
+                entities_tiles.push_back(z);
+                break;
+            default:
+                switch(z.zindex){
+                    case 0:
+                        background_tiles.push_back(z);
+                        break;
+                    case 1:
+                        terrain_tiles.push_back(z);
+                        break;
+                    default:
+                        foreground_tiles.push_back(z);
+                }
+        }
+    }
 }
 
-Area::~Area() {
+Area::~Area(){
 
 }
 

@@ -17,22 +17,25 @@
 #include "Game.h"
 #include "World.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-class GameStateTest: public GameState {
+class GameStateTest:public GameState{
 public:
-	GameStateTest();
-	~GameStateTest();
+    GameStateTest();
 
-	void handleEvent(SDL_Event* event);
-	void update();
-	void draw();
+    ~GameStateTest();
+
+    void handleEvent(SDL_Event *event);
+
+    void update();
+
+    void draw();
 
 private:
-	std::list<Entity*> entities;
-	std::vector<Zone> zones;
-	World* world;
-	Area* area;
+    std::list<Entity *> entities;
+    std::vector<Zone> zones;
+    World *world;
+    Area *area;
 };
 
 } /* namespace PovisEngine */
