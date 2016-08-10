@@ -23,7 +23,9 @@ Window::Window(std::string title, unsigned int height, unsigned int width):width
 }
 
 Window::~Window(){
-
+    SDL_DestroyWindow(sdl_window);
+    IMG_Quit();
+    SDL_Quit();
 }
 
 GLenum Window::init_sdl(){
@@ -42,6 +44,10 @@ GLenum Window::init_sdl_img(){
 }
 
 GLenum Window::init_gl(){
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
     gl_context = SDL_GL_CreateContext(sdl_window);
 
     glewExperimental = GL_TRUE;
