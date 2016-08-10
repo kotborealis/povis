@@ -12,8 +12,6 @@
 
 namespace PovisEngine{
 
-class Graphics;
-
 class Game;
 
 class GameState{

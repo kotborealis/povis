@@ -1,14 +1,4 @@
-/*
- * Entity.h
- *
- *  Created on: 25 ���. 2016 �.
- *      Author: kotborealis
- */
-
-#ifndef ENTITY_H_
-#define ENTITY_H_
-
-#include "Graphics.h"
+#pragma once
 
 namespace PovisEngine{
 
@@ -23,6 +13,4 @@ public:
     virtual void update()=0;
 };
 
-} /* namespace PovisEngine */
-
-#endif /* ENTITY_H_ */
+}

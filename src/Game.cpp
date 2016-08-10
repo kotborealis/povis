@@ -1,10 +1,3 @@
-/*
- * Game.cpp
- *
- *  Created on: 24 ���. 2016 �.
- *      Author: kotborealis
- */
-
 #include "Game.h"
 
 
@@ -12,14 +5,12 @@ namespace PovisEngine{
 
 Game::Game(){
     Logger::info("Initializing engine");
-    _g=new Graphics("Awoo", 800, 600);
 }
 
 Game::~Game(){
     Logger::info("Destroying engine");
     for(auto it=states.begin();it!=states.end();it++)
         delete *it;
-    delete _g;
 }
 
 void Game::run(){
@@ -35,9 +26,8 @@ void Game::run(){
 
         cState->update();
 
-        Game::i().g()->clear();
+
         cState->draw();
-        Game::i().g()->render();
 
     }
     Logger::info("Engine stop");
