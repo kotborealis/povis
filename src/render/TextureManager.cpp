@@ -14,7 +14,7 @@ TextureManager::~TextureManager(){
         glDeleteTextures(1, &i);
 }
 
-Texture TextureManager::loadTexture(std::string filename){
+Texture TextureManager::load(std::string filename){
     Logger::info("Loading texture: "<<filename);
 
     //Search for loaded texture
@@ -57,7 +57,7 @@ Texture TextureManager::searchTexture(std::string filename){
     return nullptr;
 }
 
-Texture TextureManager::reserveTexture(){
+Texture TextureManager::reserve(){
     return PovisEngine::Texture(new TextureObject(textureIdCounter++));
 }
 

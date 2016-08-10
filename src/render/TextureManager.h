@@ -23,8 +23,8 @@ public:
     TextureManager();
     ~TextureManager();
 
-    Texture loadTexture(std::string filename);
-    Texture reserveTexture();
+    Texture load(std::string filename);
+    Texture reserve();
 
 private:
     Texture searchTexture(std::string filename);

@@ -20,7 +20,7 @@ public:
     ShaderManager();
     ~ShaderManager();
 
-    Shader loadShader(std::string vert, std::string frag);
+    Shader load(std::string vert, std::string frag);
 
 private:
     Shader searchShader(std::string filename);

@@ -24,7 +24,7 @@ Shader ShaderManager::searchShader(std::string filename){
     return nullptr;
 }
 
-Shader ShaderManager::loadShader(std::string vert, std::string frag){
+Shader ShaderManager::load(std::string vert, std::string frag){
     GLuint vert_id=glCreateShader(GL_VERTEX_SHADER);
     GLuint frag_id=glCreateShader(GL_FRAGMENT_SHADER);
 
