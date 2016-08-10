@@ -66,7 +66,7 @@ Shader ShaderManager::load(std::string vert, std::string frag){
     //check
     glGetShaderiv(vert_id, GL_COMPILE_STATUS, &result);
     glGetShaderiv(vert_id, GL_INFO_LOG_LENGTH, &log_length);
-    if(log_length>0){
+    if(log_length>1){
         std::vector<char> vert_error((unsigned int)(log_length+1));
         glGetShaderInfoLog(vert_id, log_length, NULL, &vert_error[0]);
         Logger::error(&vert_error[0]);
@@ -81,7 +81,7 @@ Shader ShaderManager::load(std::string vert, std::string frag){
     //check
     glGetShaderiv(frag_id, GL_COMPILE_STATUS, &result);
     glGetShaderiv(frag_id, GL_INFO_LOG_LENGTH, &log_length);
-    if(log_length>0){
+    if(log_length>1){
         std::vector<char> frag_error((unsigned int)(log_length+1));
         glGetShaderInfoLog(frag_id, log_length, NULL, &frag_error[0]);
         Logger::error(&frag_error[0]);
@@ -97,7 +97,7 @@ Shader ShaderManager::load(std::string vert, std::string frag){
     //check
     glGetShaderiv(prog_id, GL_COMPILE_STATUS, &result);
     glGetShaderiv(prog_id, GL_INFO_LOG_LENGTH, &log_length);
-    if(log_length>0){
+    if(log_length>1){
         std::vector<char> prog_error((unsigned int)(log_length+1));
         glGetShaderInfoLog(prog_id, log_length, NULL, &prog_error[0]);
         Logger::error(&prog_error[0]);
