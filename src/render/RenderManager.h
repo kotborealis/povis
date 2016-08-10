@@ -15,9 +15,9 @@ public:
     RenderManager(std::string title, unsigned int width, unsigned int height);
     ~RenderManager();
 
-    const ShaderManager* shader() const;
-    const TextureManager* texture() const;
-    const WindowManager* window() const;
+    ShaderManager* shader() const;
+    TextureManager* texture() const;
+    WindowManager* window() const;
 
     void start() const;
     void end() const;

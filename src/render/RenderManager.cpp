@@ -16,16 +16,16 @@ RenderManager::~RenderManager(){
 
 }
 
-const ShaderManager* RenderManager::shader() const{
-    return m_shaderManager;
+ShaderManager* RenderManager::shader() const{
+    return (ShaderManager*)m_shaderManager;
 }
 
-const TextureManager* RenderManager::texture() const{
-    return m_textureManager;
+TextureManager* RenderManager::texture() const{
+    return (TextureManager*)m_textureManager;
 }
 
-const WindowManager* RenderManager::window() const{
-    return m_windowManager;
+WindowManager* RenderManager::window() const{
+    return (WindowManager*)m_windowManager;
 }
 
 void RenderManager::start() const{

@@ -5,6 +5,7 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <string>
 
 namespace PovisEngine{
 
@@ -15,6 +16,9 @@ class ShaderObject{
 
 public:
     ~ShaderObject();
+
+    GLint uniform(std::string& uniform_name);
+
     const GLuint id;
 
 private:

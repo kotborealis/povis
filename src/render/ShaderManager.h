@@ -27,6 +27,10 @@ private:
     std::map<Shader,std::string> shaders;
 };
 
+GLint ShaderObject::uniform(std::string& uniform_name){
+    return glGetUniformLocation(id, uniform_name.c_str());
+}
+
 }
 
 
