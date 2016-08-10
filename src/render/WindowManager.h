@@ -11,7 +11,7 @@ namespace PovisEngine{
 
 class WindowManager{
 public:
-    WindowManager(std::string title, unsigned int height, unsigned int width);
+    WindowManager(std::string& title, unsigned int height, unsigned int width);
     ~WindowManager();
 
     void swap() const;

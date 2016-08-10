@@ -12,7 +12,7 @@ namespace PovisEngine{
 
 class RenderManager{
 public:
-    RenderManager(std::string title, unsigned int width, unsigned int height);
+    RenderManager(std::string& title, unsigned int width, unsigned int height);
     ~RenderManager();
 
     const ShaderManager* shader() const;

@@ -10,7 +10,8 @@
 namespace PovisEngine{
 
 
-WindowManager::WindowManager(std::string title, unsigned int height, unsigned int width):width(width), height(height), title(title){
+WindowManager::WindowManager(std::string& title, unsigned int height, unsigned int width):width(width), height(height),
+                                                                                          title(title){
     if(init_sdl() != 0)
         Logger::error("Failed to init SDL: "<<SDL_GetError());
 
