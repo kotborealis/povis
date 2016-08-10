@@ -42,7 +42,7 @@ Texture TextureManager::load(std::string filename){
 
     SDL_FreeSurface(surface);
 
-    Texture texture = new Texture(new TextureObject(textureId));
+    Texture texture(new TextureObject(textureId));
 
     //Save texture to texture list
     textures.insert(std::make_pair(texture, filename));

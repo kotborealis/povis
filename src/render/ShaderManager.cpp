@@ -109,7 +109,7 @@ Shader ShaderManager::load(std::string vert, std::string frag){
     glDeleteShader(vert_id);
     glDeleteShader(frag_id);
 
-    auto shader=Shader(new ShaderObject(prog_id));
+    Shader shader(new ShaderObject(prog_id));
     shaders.insert(std::make_pair(shader, vert+frag));
 
     return shader;
