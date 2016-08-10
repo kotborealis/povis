@@ -10,7 +10,7 @@
 namespace PovisEngine{
 
 
-WindowManager::WindowManager(std::string& title, unsigned int height, unsigned int width):m_width(width),
+WindowManager::WindowManager(std::string& title, unsigned int width, unsigned int height):m_width(width),
                                                                                           m_height(height),
                                                                                           title(title){
     if(init_sdl() != 0)

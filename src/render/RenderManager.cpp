@@ -7,7 +7,7 @@
 namespace PovisEngine{
 
 
-RenderManager::RenderManager(std::string& title, unsigned int width, unsigned int height)
+RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
         :m_shaderManager(new ShaderManager()),
         m_textureManager(new TextureManager()),
         m_windowManager(new WindowManager(title,width,height)){}
