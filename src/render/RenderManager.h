@@ -6,23 +6,26 @@
 
 #include "ShaderManager.h"
 #include "TextureManager.h"
-#include "Window.h"
+#include "WindowManager.h"
 
 namespace PovisEngine{
 
-class Render{
+class RenderManager{
 public:
-    Render(std::string title, unsigned int width, unsigned int height);
-    ~Render();
+    RenderManager(std::string title, unsigned int width, unsigned int height);
+    ~RenderManager();
 
     const ShaderManager* shader() const;
     const TextureManager* texture() const;
-    const Window* window() const;
+    const WindowManager* window() const;
+
+    void start() const;
+    void end() const;
 
 private:
     const ShaderManager* m_shaderManager;
     const TextureManager* m_textureManager;
-    const Window* m_window;
+    const WindowManager* m_windowManager;
 };
 
 }

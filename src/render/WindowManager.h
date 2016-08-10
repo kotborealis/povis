@@ -9,10 +9,12 @@
 
 namespace PovisEngine{
 
-class Window{
+class WindowManager{
 public:
-    Window(std::string title, unsigned int height, unsigned int width);
-    ~Window();
+    WindowManager(std::string title, unsigned int height, unsigned int width);
+    ~WindowManager();
+
+    void swap() const;
 
     unsigned int getWidth() const;
     unsigned int getHeight() const;

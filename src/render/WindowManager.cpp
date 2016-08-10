@@ -5,12 +5,12 @@
 #include <SDL_image.h>
 #include <GL/glew.h>
 #include <Logger.h>
-#include "Window.h"
+#include "WindowManager.h"
 
 namespace PovisEngine{
 
 
-Window::Window(std::string title, unsigned int height, unsigned int width):width(width), height(height), title(title){
+WindowManager::WindowManager(std::string title, unsigned int height, unsigned int width):width(width), height(height), title(title){
     if(init_sdl() != 0)
         Logger::error("Failed to init SDL: "<<SDL_GetError());
 
@@ -22,13 +22,13 @@ Window::Window(std::string title, unsigned int height, unsigned int width):width
         Logger::error("Failed to init GL: "<<glewGetErrorString(glewError));
 }
 
-Window::~Window(){
+WindowManager::~WindowManager(){
     SDL_DestroyWindow(sdl_window);
     IMG_Quit();
     SDL_Quit();
 }
 
-GLenum Window::init_sdl(){
+GLenum WindowManager::init_sdl(){
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
         return 1;
 
@@ -39,11 +39,11 @@ GLenum Window::init_sdl(){
     return 0;
 }
 
-GLenum Window::init_sdl_img(){
+GLenum WindowManager::init_sdl_img(){
     return (IMG_Init(IMG_INIT_PNG)&IMG_INIT_PNG) ? 0 : 1;
 }
 
-GLenum Window::init_gl(){
+GLenum WindowManager::init_gl(){
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -58,12 +58,16 @@ GLenum Window::init_gl(){
     return glewError;
 }
 
-unsigned int Window::getWidth() const{
+unsigned int WindowManager::getWidth() const{
     return width;
 }
 
-unsigned int Window::getHeight() const{
+unsigned int WindowManager::getHeight() const{
     return height;
+}
+
+void WindowManager::swap() const{
+    SDL_GL_SwapWindow(sdl_window);
 }
 
 }
