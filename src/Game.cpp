@@ -26,9 +26,9 @@ void Game::run(){
 
         cState->update();
 
-
+        render()->start();
         cState->draw();
-
+        render()->end();
     }
     Logger::info("Engine stop");
 }
@@ -50,6 +50,10 @@ void Game::popState(){
         states.pop_back();
     }
     CState();
+}
+
+const RenderManager* Game::render() const{
+    return renderManager;
 }
 
 } /* namespace PovisEngine */

@@ -30,6 +30,8 @@ public:
     void pushState(GameState *newState);
     void popState();
 
+    const RenderManager* render() const;
+
 private:
     Game();
     ~Game();
@@ -42,7 +44,7 @@ private:
     std::vector<GameState *> states;
     GameState *cState;
 
-    RenderManager* renderManager=new RenderManager(std::string("Awooo"), (unsigned int)1024, (unsigned int)768);
+    const RenderManager* renderManager=new RenderManager(std::string("Awooo"), (unsigned int)1024, (unsigned int)768);
 
     constexpr static float max_framerate=60.f;
     constexpr static float min_frametime=1000/max_framerate;
