@@ -13,14 +13,12 @@ set(SOURCE_FILES
         src/GameState.h
         src/GameStateTest.cpp
         src/GameStateTest.h
-        src/Graphics.cpp
-        src/Graphics.h
         src/Logger.h
         src/povis.cpp
         src/v2.h
         src/World.cpp
         src/World.h
-        src/Zone.h)
+        src/Zone.h src/render/TextureManager.cpp src/render/TextureManager.h src/render/TextureObject.cpp src/render/TextureObject.h src/render/ShaderManager.cpp src/render/ShaderManager.h src/render/ShaderObject.cpp src/render/ShaderObject.h src/render/Render.cpp src/render/Render.h)
 
 add_executable(timepovis ${SOURCE_FILES})
 
@@ -36,7 +34,8 @@ find_package(GLEW REQUIRED)
 find_package(GLU REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR}
-        "./include/")
+        "./include/"
+        "./src/")
 
 target_link_libraries(timepovis ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES}
