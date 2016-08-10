@@ -6,7 +6,6 @@
  */
 
 #include "GameStateTest.h"
-#include "glm/glm.hpp"
 
 namespace PovisEngine{
 

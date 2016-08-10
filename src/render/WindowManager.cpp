@@ -2,7 +2,7 @@
 // Created by kotborealis on 10.08.2016.
 //
 
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <GL/glew.h>
 #include <Logger.h>
 #include "WindowManager.h"
