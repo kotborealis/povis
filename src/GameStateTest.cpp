@@ -11,10 +11,11 @@
 namespace PovisEngine{
 
 GLfloat vertices[]={
-        .5f, .5f, 0,
-        .5f, -.5f, 0,
-        -.5f, -.5f, 0,
-        -.5f, .5f, 0
+        // Positions          // Colors           // Texture Coords
+        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 2.0f, 1.0f, // Top Right
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 0.0f, // Bottom Right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // Top Left
 };
 GLuint indices[]={
         0, 1, 3,
@@ -24,6 +25,7 @@ GLuint indices[]={
 GLuint VBO, VAO, EBO;
 
 Shader shader;
+Texture texture;
 
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
@@ -32,6 +34,7 @@ GameStateTest::GameStateTest(){
     world=new World(area);
 
     shader=Game::i().render()->shader()->load("assets/shaders/test.vert", "assets/shaders/test.frag");
+    texture=Game::i().render()->texture()->load("assets/textures/rero.png");
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -45,13 +48,17 @@ GameStateTest::GameStateTest(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GL_FLOAT), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), (GLvoid*)(3*sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), (GLvoid*)(6*sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 GameStateTest::~GameStateTest(){
@@ -69,7 +76,8 @@ void GameStateTest::update(){
 }
 
 void GameStateTest::draw(){
-    glUseProgram(shader->id);
+    shader->use();
+    texture->use();
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

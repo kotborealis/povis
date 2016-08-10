@@ -15,6 +15,9 @@ class TextureObject{
 
 public:
     ~TextureObject();
+
+    void use();
+
     const GLuint id;
 
 private:

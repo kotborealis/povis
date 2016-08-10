@@ -18,6 +18,7 @@ public:
     ~ShaderObject();
 
     GLint uniform(std::string& uniform_name);
+    void use();
 
     const GLuint id;
 
