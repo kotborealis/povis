@@ -18,7 +18,7 @@ set(SOURCE_FILES
         src/v2.h
         src/World.cpp
         src/World.h
-        src/Zone.h src/render/TextureManager.cpp src/render/TextureManager.h src/render/TextureObject.cpp src/render/TextureObject.h src/render/ShaderManager.cpp src/render/ShaderManager.h src/render/ShaderObject.cpp src/render/ShaderObject.h src/render/Render.cpp src/render/Render.h)
+        src/Zone.h src/render/TextureManager.cpp src/render/TextureManager.h src/render/TextureObject.cpp src/render/TextureObject.h src/render/ShaderManager.cpp src/render/ShaderManager.h src/render/ShaderObject.cpp src/render/ShaderObject.h src/render/Render.cpp src/render/Render.h src/render/Window.cpp src/render/Window.h)
 
 add_executable(timepovis ${SOURCE_FILES})
 
