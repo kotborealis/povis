@@ -10,7 +10,8 @@
 namespace PovisEngine{
 
 
-WindowManager::WindowManager(std::string& title, unsigned int height, unsigned int width):width(width), height(height),
+WindowManager::WindowManager(std::string& title, unsigned int height, unsigned int width):m_width(width),
+                                                                                          m_height(height),
                                                                                           title(title){
     if(init_sdl() != 0)
         Logger::error("Failed to init SDL: "<<SDL_GetError());
@@ -33,7 +34,8 @@ GLenum WindowManager::init_sdl(){
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
         return 1;
 
-    sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    sdl_window=SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height,
+                                SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
     if(sdl_window==nullptr)
         return 1;
 
@@ -59,12 +61,12 @@ GLenum WindowManager::init_gl(){
     return glewError;
 }
 
-unsigned int WindowManager::getWidth() const{
-    return width;
+unsigned int WindowManager::width() const{
+    return m_width;
 }
 
-unsigned int WindowManager::getHeight() const{
-    return height;
+unsigned int WindowManager::height() const{
+    return m_height;
 }
 
 void WindowManager::swap() const{

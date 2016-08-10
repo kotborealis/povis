@@ -16,15 +16,15 @@ public:
 
     void swap() const;
 
-    unsigned int getWidth() const;
-    unsigned int getHeight() const;
+    unsigned int width() const;
+    unsigned int height() const;
 
 private:
     GLenum init_sdl();
     GLenum init_sdl_img();
     GLenum init_gl();
 
-    unsigned int width, height;
+    unsigned int m_width, m_height;
     std::string title;
 
     SDL_Window* sdl_window;
