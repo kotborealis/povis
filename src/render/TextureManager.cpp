@@ -14,7 +14,7 @@ Texture TextureManager::load(std::string filename){
     Logger::info("Loading texture: "<<filename);
 
     //Search for loaded texture
-    TextureWeakPtr cached_texture=searchTexture(filename);
+    TextureWeakPtr cached_texture=search(filename);
     if(!cached_texture.expired()){
         Logger::info("Already loaded");
         return cached_texture.lock();
@@ -46,14 +46,14 @@ Texture TextureManager::load(std::string filename){
     TextureWeakPtr textureWeakPtr(texture);
 
     //Save texture to texture list
-    textures.insert(std::make_pair(filename, textureWeakPtr));
+    list.insert(std::make_pair(filename, textureWeakPtr));
 
     return texture;
 }
 
-TextureWeakPtr TextureManager::searchTexture(std::string filename){
-    auto it=textures.find(filename);
-    if(it!=textures.end())
+TextureWeakPtr TextureManager::search(std::string filename){
+    auto it=list.find(filename);
+    if(it!=list.end())
         return it->second;
     return TextureWeakPtr();
 }

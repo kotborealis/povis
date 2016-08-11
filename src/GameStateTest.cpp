@@ -5,64 +5,51 @@
  *      Author: kotborealis
  */
 
+#include <render/Scene.h>
 #include "GameStateTest.h"
-
-#include "glm/glm.hpp"
 
 namespace PovisEngine{
 
-GLfloat vertices[]={
-        // Positions          // Colors           // Texture Coords
-        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 2.0f, 1.0f, // Top Right
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 0.0f, // Bottom Right
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // Top Left
-};
-GLuint indices[]={
-        0, 1, 3,
-        1, 2, 3
-};
-
-GLuint VBO, VAO, EBO;
+std::vector<Vertex> vertices;
+std::vector<Mesh> meshes;
 
 Shader shader;
-Texture texture;
+Material* material;
+std::vector<Texture> diffuse;
+std::vector<Texture> specular;
+
+ModelObject* model;
+SceneNode* node[2];
+
+Scene scene;
 
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
 
-    shader=Game::i().render()->shader()->load("assets/shaders/test.vert", "assets/shaders/test.frag");
-    texture=Game::i().render()->texture()->load("assets/textures/rero.png");
+    diffuse.push_back(Game::i().render()->texture()->load("assets/textures/rero.png"));
+    shader=Game::i().render()->shader()->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
 
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    vertices.push_back(Vertex{glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(1, 1)});
+    vertices.push_back(Vertex{glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(1, 0)});
+    vertices.push_back(Vertex{glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(0, 0)});
+    vertices.push_back(Vertex{glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(0, 1)});
 
-    glBindVertexArray(VAO);
+    meshes.push_back(Mesh(vertices, {0, 1, 3, 1, 2, 3}));
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    material=new Material(shader, diffuse, specular);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    model=new ModelObject(meshes);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), (GLvoid*)(3*sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), (GLvoid*)(6*sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
+    node[0]=new SceneNode(*model, *material, glm::vec3(1, 1, -2));
+    node[1]=new SceneNode(*model, *material, glm::vec3(-1, -1, -1));
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
+    scene.nodes.push_back(*node[0]);
+    scene.nodes.push_back(*node[1]);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 GameStateTest::~GameStateTest(){
     Logger::info("~GameStateTest");
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
 }
 
 void GameStateTest::handleEvent(SDL_Event *event){
@@ -74,11 +61,7 @@ void GameStateTest::update(){
 }
 
 void GameStateTest::draw(){
-    shader->use();
-    texture->use();
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    scene.draw();
 }
 
 } /* namespace PovisEngine */

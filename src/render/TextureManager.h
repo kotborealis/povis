@@ -27,9 +27,9 @@ public:
     Texture load(std::string filename);
 
 private:
-    TextureWeakPtr searchTexture(std::string filename);
+    TextureWeakPtr search(std::string filename);
 
-    std::map<std::string, TextureWeakPtr> textures;
+    std::map<std::string, TextureWeakPtr> list;
 };
 
 }

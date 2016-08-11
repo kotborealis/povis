@@ -29,7 +29,7 @@ set(SOURCE_FILES
         src/render/Material.h
         src/render/Scene.cpp
         src/render/Scene.h
-        src/render/Vertex.h)
+        src/render/Vertex.h src/render/ModelObject.cpp src/render/ModelObject.h src/render/SceneNode.cpp src/render/SceneNode.h src/render/Camera.h src/render/Camera.cpp src/render/ModelManager.cpp src/render/ModelManager.h)
 
 add_executable(timepovis ${SOURCE_FILES})
 

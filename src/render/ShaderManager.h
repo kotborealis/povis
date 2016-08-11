@@ -24,8 +24,8 @@ public:
     Shader load(std::string vert, std::string frag);
 
 private:
-    ShaderWeakPtr searchShader(std::string filename);
-    std::map<std::string, ShaderWeakPtr> shaders;
+    ShaderWeakPtr search(std::string filename);
+    std::map<std::string, ShaderWeakPtr> list;
 };
 
 }

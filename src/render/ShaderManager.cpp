@@ -13,9 +13,9 @@ ShaderManager::ShaderManager(){}
 
 ShaderManager::~ShaderManager(){}
 
-ShaderWeakPtr ShaderManager::searchShader(std::string filename){
-    auto it=shaders.find(filename);
-    if(it!=shaders.end())
+ShaderWeakPtr ShaderManager::search(std::string filename){
+    auto it=list.find(filename);
+    if(it!=list.end())
         return it->second;
     return ShaderWeakPtr();
 }
@@ -23,7 +23,7 @@ ShaderWeakPtr ShaderManager::searchShader(std::string filename){
 Shader ShaderManager::load(std::string vert, std::string frag){
     Logger::info("Loading shader "<<vert<<" "<<frag);
 
-    ShaderWeakPtr cached_shader=searchShader(vert+frag);
+    ShaderWeakPtr cached_shader=search(vert+frag);
     if(!cached_shader.expired()){
         Logger::info("Already loaded");
         return cached_shader.lock();
@@ -115,11 +115,10 @@ Shader ShaderManager::load(std::string vert, std::string frag){
     glDeleteShader(frag_id);
 
     Shader shader(new ShaderObject(prog_id));
-    //shaders.insert(std::make_pair(shader, vert+frag));
     ShaderWeakPtr shaderWeakPtr(shader);
 
     //Save shader to shaders list
-    shaders.insert(std::make_pair(vert+frag, shaderWeakPtr));
+    list.insert(std::make_pair(vert+frag, shaderWeakPtr));
 
     return shader;
 }

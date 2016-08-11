@@ -13,7 +13,7 @@ namespace PovisEngine{
 
 class Mesh{
 public:
-    Mesh(std::vector<PovisEngine::Vertex> vertices, std::vector<GLuint> indices);
+    Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices);
     ~Mesh();
 
     std::vector<Vertex> vertices;
@@ -23,6 +23,10 @@ private:
     void setup();
 
     GLuint VAO, VBO, EBO;
+public:
+    GLuint getVAO() const;
+    GLuint getVBO() const;
+    GLuint getEBO() const;
 };
 
 }
