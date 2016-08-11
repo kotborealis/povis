@@ -44,7 +44,6 @@ find_package(SDL2_image REQUIRED)
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(GLU REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR}
         "./src/")
@@ -52,5 +51,4 @@ include_directories(${SDL2_INCLUDE_DIR}
 target_link_libraries(timepovis ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES}
         ${OPENGL_LIBRARIES}
-        ${GLEW_LIBRARIES}
-        ${GLU_LIBRARIES})
+        ${GLEW_LIBRARIES})
