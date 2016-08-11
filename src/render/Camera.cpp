@@ -16,9 +16,9 @@ glm::mat4 Camera::getView(){
 
 void Camera::update(){
     glm::vec3 front;
-    front.x=glm::cos(glm::radians(yaw)*glm::cos(glm::radians(pitch)));
+    front.x=glm::cos(glm::radians(yaw))*glm::cos(glm::radians(pitch));
     front.y=glm::sin(glm::radians(pitch));
-    front.z=glm::sin(glm::radians(yaw)*glm::cos(glm::radians(pitch)));
+    front.z=glm::sin(glm::radians(yaw))*glm::cos(glm::radians(pitch));
     this->front=front;
 }
 

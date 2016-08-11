@@ -28,6 +28,7 @@ void Game::run(){
         render()->start();
         cState->draw();
         render()->end();
+        SDL_Delay(1000.f/60.f);
     }
     Logger::info("Engine stop");
 }

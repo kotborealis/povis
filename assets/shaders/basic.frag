@@ -10,5 +10,5 @@ uniform sampler2D texture_specular2;
 out vec4 color;
 
 void main(){
-	color = texture(texture_diffuse1, texture_coord);
+	color = texture(texture_diffuse1, -texture_coord);
 }

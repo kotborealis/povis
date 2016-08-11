@@ -23,6 +23,8 @@ SceneNode* node[2];
 
 Scene scene;
 
+int ii=0;
+
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
 
@@ -45,7 +47,7 @@ GameStateTest::GameStateTest(){
 
     scene.nodes.push_back(*node[0]);
     scene.nodes.push_back(*node[1]);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 GameStateTest::~GameStateTest(){
@@ -53,7 +55,13 @@ GameStateTest::~GameStateTest(){
 }
 
 void GameStateTest::handleEvent(SDL_Event *event){
+    if(event->type==SDL_MOUSEWHEEL){
+        scene.camera->setYaw(scene.camera->getYaw()+event->wheel.y);
+    }else if(event->type==SDL_MOUSEBUTTONDOWN){
 
+        node[0]->position=glm::vec3(0+(float(ii++))/10.f, 0, -2);
+        scene.nodes.push_back(*node[0]);
+    }
 }
 
 void GameStateTest::update(){
