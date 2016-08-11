@@ -34,7 +34,6 @@ find_package(GLEW REQUIRED)
 find_package(GLU REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR}
-        "./include/"
         "./src/")
 
 target_link_libraries(timepovis ${SDL2_LIBRARY}
