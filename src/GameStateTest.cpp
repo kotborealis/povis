@@ -5,7 +5,6 @@
  *      Author: kotborealis
  */
 
-#include <render/Scene.h>
 #include "GameStateTest.h"
 
 namespace PovisEngine{
@@ -47,7 +46,7 @@ GameStateTest::GameStateTest(){
 
     scene.nodes.push_back(*node[0]);
     scene.nodes.push_back(*node[1]);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 GameStateTest::~GameStateTest(){

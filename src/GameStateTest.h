@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "Logger.h"
 #include "Game.h"
+#include <render/Scene.h>
 
 namespace PovisEngine{
 

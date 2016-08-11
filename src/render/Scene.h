@@ -4,6 +4,9 @@
 
 #pragma once
 
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Camera.h"
 #include "SceneNode.h"
 #include "Logger.h"
