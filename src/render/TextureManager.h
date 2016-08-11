@@ -17,6 +17,7 @@
 namespace PovisEngine{
 
 typedef std::shared_ptr<TextureObject> Texture;
+typedef std::weak_ptr<TextureObject> TextureWeakPtr;
 
 class TextureManager{
 public:
@@ -24,13 +25,11 @@ public:
     ~TextureManager();
 
     Texture load(std::string filename);
-    Texture reserve();
 
 private:
-    Texture searchTexture(std::string filename);
+    TextureWeakPtr searchTexture(std::string filename);
 
-    GLuint textureIdCounter = 0;
-    std::map<Texture,std::string> textures;
+    std::map<std::string, TextureWeakPtr> textures;
 };
 
 }

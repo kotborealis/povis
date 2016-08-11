@@ -6,9 +6,7 @@
 
 namespace PovisEngine{
 
-TextureObject::TextureObject(GLuint m_id):id(m_id){
-
-}
+TextureObject::TextureObject(GLuint m_id):id(m_id){}
 
 TextureObject::~TextureObject(){
     glDeleteTextures(1, &id);

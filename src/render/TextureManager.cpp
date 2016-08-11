@@ -8,19 +8,17 @@ namespace PovisEngine{
 
 TextureManager::TextureManager(){}
 
-TextureManager::~TextureManager(){
-    //Delete all possible textures
-    for(GLuint i = 0; i < textureIdCounter; i++)
-        glDeleteTextures(1, &i);
-}
+TextureManager::~TextureManager(){}
 
 Texture TextureManager::load(std::string filename){
     Logger::info("Loading texture: "<<filename);
 
     //Search for loaded texture
-    Texture cached_texture = searchTexture(filename);
-    if(cached_texture)
-        return cached_texture;
+    TextureWeakPtr cached_texture=searchTexture(filename);
+    if(!cached_texture.expired()){
+        Logger::info("Already loaded");
+        return cached_texture.lock();
+    }
 
     //Load image to sdl surface
     auto surface = IMG_Load(filename.c_str());
@@ -30,7 +28,7 @@ Texture TextureManager::load(std::string filename){
         return nullptr;
     }
 
-    GLuint textureId = textureIdCounter++;
+    GLuint textureId;
     GLenum mode = surface->format->BytesPerPixel==4 ? GL_RGBA : GL_RGB;
 
     //Generate OpenGL texture from surface pixel data
@@ -45,22 +43,19 @@ Texture TextureManager::load(std::string filename){
     SDL_FreeSurface(surface);
 
     Texture texture(new TextureObject(textureId));
+    TextureWeakPtr textureWeakPtr(texture);
 
     //Save texture to texture list
-    textures.insert(std::make_pair(texture, filename));
+    textures.insert(std::make_pair(filename, textureWeakPtr));
 
     return texture;
 }
 
-Texture TextureManager::searchTexture(std::string filename){
-    for(auto it = textures.begin(); it != textures.end(); it++)
-        if(it->second == filename)
-            return it->first;
-    return nullptr;
-}
-
-Texture TextureManager::reserve(){
-    return PovisEngine::Texture(new TextureObject(textureIdCounter++));
+TextureWeakPtr TextureManager::searchTexture(std::string filename){
+    auto it=textures.find(filename);
+    if(it!=textures.end())
+        return it->second;
+    return TextureWeakPtr();
 }
 
 }
