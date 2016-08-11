@@ -1,12 +1,4 @@
-/*
- * GameState.h
- *
- *  Created on: 24 ���. 2016 �.
- *      Author: kotborealis
- */
-
-#ifndef GAMESTATE_H_
-#define GAMESTATE_H_
+#pragma once
 
 #include "SDL2/SDL.h"
 
@@ -27,6 +19,4 @@ public:
     virtual void draw()=0;
 };
 
-} /* namespace PovisEngine */
-
-#endif /* GAMESTATE_H_ */
+}

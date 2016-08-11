@@ -4,10 +4,6 @@ project(timepovis)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-        src/AABB.h
-        src/Area.cpp
-        src/Area.h
-        src/Entity.h
         src/Game.cpp
         src/Game.h
         src/GameState.h
@@ -15,10 +11,25 @@ set(SOURCE_FILES
         src/GameStateTest.h
         src/Logger.h
         src/povis.cpp
-        src/v2.h
-        src/World.cpp
-        src/World.h
-        src/Zone.h src/render/TextureManager.cpp src/render/TextureManager.h src/render/TextureObject.cpp src/render/TextureObject.h src/render/ShaderManager.cpp src/render/ShaderManager.h src/render/ShaderObject.cpp src/render/ShaderObject.h src/render/RenderManager.cpp src/render/RenderManager.h src/render/WindowManager.cpp src/render/WindowManager.h src/render/Mesh.cpp src/render/Mesh.h src/render/Material.cpp src/render/Material.h src/render/Scene.cpp src/render/Scene.h src/render/Vertex.h)
+        src/render/TextureManager.cpp
+        src/render/TextureManager.h
+        src/render/TextureObject.cpp
+        src/render/TextureObject.h
+        src/render/ShaderManager.cpp
+        src/render/ShaderManager.h
+        src/render/ShaderObject.cpp
+        src/render/ShaderObject.h
+        src/render/RenderManager.cpp
+        src/render/RenderManager.h
+        src/render/WindowManager.cpp
+        src/render/WindowManager.h
+        src/render/Mesh.cpp
+        src/render/Mesh.h
+        src/render/Material.cpp
+        src/render/Material.h
+        src/render/Scene.cpp
+        src/render/Scene.h
+        src/render/Vertex.h)
 
 add_executable(timepovis ${SOURCE_FILES})
 

@@ -1,6 +1,5 @@
 #include "Game.h"
 
-
 namespace PovisEngine{
 
 Game::Game(){
@@ -56,4 +55,4 @@ const RenderManager* Game::render() const{
     return renderManager;
 }
 
-} /* namespace PovisEngine */
+}

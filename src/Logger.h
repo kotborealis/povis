@@ -1,12 +1,4 @@
-/*
- * Logger.h
- *
- *  Created on: 24 ���. 2016 �.
- *      Author: kotborealis
- */
-
-#ifndef LOGGER_H_
-#define LOGGER_H_
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -28,6 +20,4 @@ public:
     }
 };
 
-} /* namespace PovisEngine */
-
-#endif /* LOGGER_H_ */
+}

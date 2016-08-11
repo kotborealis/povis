@@ -30,9 +30,6 @@ Texture texture;
 
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
-    zones.push_back({100, 100, 500, 200, 0, 1, 0, 0});
-    area=new Area(zones);
-    world=new World(area);
 
     shader=Game::i().render()->shader()->load("assets/shaders/test.vert", "assets/shaders/test.frag");
     texture=Game::i().render()->texture()->load("assets/textures/rero.png");
