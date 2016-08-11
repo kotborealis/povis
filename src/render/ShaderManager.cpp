@@ -11,20 +11,25 @@ namespace PovisEngine{
 
 ShaderManager::ShaderManager(){}
 
-ShaderManager::~ShaderManager(){
-    //delete all loaded shaders
-    for(auto it = shaders.begin(); it != shaders.end(); it++)
-        glDeleteProgram(it->first->id);
-}
+ShaderManager::~ShaderManager(){}
 
-Shader ShaderManager::searchShader(std::string filename){
-    for(auto it = shaders.begin(); it != shaders.end(); it++)
-        if(it->second == filename)
-            return it->first;
-    return nullptr;
+ShaderWeakPtr ShaderManager::searchShader(std::string filename){
+    auto it=shaders.find(filename);
+    if(it!=shaders.end())
+        return it->second;
+    return ShaderWeakPtr();
 }
 
 Shader ShaderManager::load(std::string vert, std::string frag){
+    Logger::info("Loading shader "<<vert<<" "<<frag);
+
+    ShaderWeakPtr cached_shader=searchShader(vert+frag);
+    if(!cached_shader.expired()){
+        Logger::info("Already loaded");
+        return cached_shader.lock();
+    }
+
+
     GLuint vert_id=glCreateShader(GL_VERTEX_SHADER);
     GLuint frag_id=glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -110,7 +115,11 @@ Shader ShaderManager::load(std::string vert, std::string frag){
     glDeleteShader(frag_id);
 
     Shader shader(new ShaderObject(prog_id));
-    shaders.insert(std::make_pair(shader, vert+frag));
+    //shaders.insert(std::make_pair(shader, vert+frag));
+    ShaderWeakPtr shaderWeakPtr(shader);
+
+    //Save shader to shaders list
+    shaders.insert(std::make_pair(vert+frag, shaderWeakPtr));
 
     return shader;
 }

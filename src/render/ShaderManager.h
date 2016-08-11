@@ -14,6 +14,7 @@
 namespace PovisEngine{
 
 typedef std::shared_ptr<ShaderObject> Shader;
+typedef std::weak_ptr<ShaderObject> ShaderWeakPtr;
 
 class ShaderManager{
 public:
@@ -23,8 +24,8 @@ public:
     Shader load(std::string vert, std::string frag);
 
 private:
-    Shader searchShader(std::string filename);
-    std::map<Shader,std::string> shaders;
+    ShaderWeakPtr searchShader(std::string filename);
+    std::map<std::string, ShaderWeakPtr> shaders;
 };
 
 }
