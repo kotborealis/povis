@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <string>
-#include <render/RenderManager.h>
+#include <render/Managers/RenderManager.h>
 
 #include "SDL2/SDL.h"
 
@@ -15,13 +15,13 @@ class GameState;
 
 class Game{
 public:
-    static Game &i(){
+    static Game& i(){
         return instance();
     }
 
-    static Game &instance(){
-        static Game g;
-        return g;
+    static Game& instance(){
+        static Game m_instance;
+        return m_instance;
     }
 
     void run();
@@ -29,27 +29,32 @@ public:
     void pushState(GameState *newState);
     void popState();
 
-    const RenderManager* render() const;
+    RenderManager* render() const;
+    ShaderManager* shader() const;
+    TextureManager* texture() const;
+    ModelManager* model() const;
 
     void stop(){
         running=false;
     }
 
 private:
+    //Singletone
     Game();
     ~Game();
-
     Game(Game const &)=delete;
     Game &operator=(Game const &)=delete;
 
-    inline void CState(){
-        cState=states.back();
-    }
-
+    //Game State
+    inline void CState(){cState=states.back();}
     std::vector<GameState *> states;
     GameState *cState;
 
-    const RenderManager* renderManager=new RenderManager(std::string("Awooo"), (unsigned int)1024, (unsigned int)768);
+    //Managers
+    const RenderManager* m_renderManager=new RenderManager(std::string("Awooo"), (unsigned int)1024, (unsigned int)768);
+    const ShaderManager* m_shaderManager=new ShaderManager();
+    const TextureManager* m_textureManager=new TextureManager();
+    const ModelManager* m_modelManager=new ModelManager();
 
     bool running;
 };

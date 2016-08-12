@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "ModelObject.h"
+#include "render/resources/ModelObject.h"
 
 namespace PovisEngine{
 

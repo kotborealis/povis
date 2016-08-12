@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "TextureObject.h"
+#include "render/resources/TextureObject.h"
 
 #include <memory>
 #include <map>

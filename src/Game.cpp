@@ -67,8 +67,20 @@ void Game::popState(){
     CState();
 }
 
-const RenderManager* Game::render() const{
-    return renderManager;
+RenderManager* Game::render() const{
+    return (RenderManager*)m_renderManager;
+}
+
+ShaderManager* Game::shader() const{
+    return (ShaderManager*)m_shaderManager;
+}
+
+TextureManager* Game::texture() const{
+    return (TextureManager*)m_textureManager;
+}
+
+ModelManager* Game::model() const{
+    return (ModelManager*)m_modelManager;
 }
 
 }

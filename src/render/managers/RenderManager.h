@@ -16,19 +16,13 @@ public:
     RenderManager(std::string title, unsigned int width, unsigned int height);
     ~RenderManager();
 
-    ShaderManager* shader() const;
-    TextureManager* texture() const;
     WindowManager* window() const;
-    ModelManager* model() const;
 
     void start() const;
     void end() const;
 
 private:
-    const ShaderManager* m_shaderManager;
-    const TextureManager* m_textureManager;
     const WindowManager* m_windowManager;
-    const ModelManager* m_modelManager;
 };
 
 }

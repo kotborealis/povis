@@ -8,29 +8,14 @@ namespace PovisEngine{
 
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
-        :m_shaderManager(new ShaderManager()),
-         m_textureManager(new TextureManager()),
-         m_windowManager(new WindowManager(title, width, height)),
-         m_modelManager(new ModelManager()){}
+        :m_windowManager(new WindowManager(title, width, height)){}
 
 RenderManager::~RenderManager(){
 
 }
 
-ShaderManager* RenderManager::shader() const{
-    return (ShaderManager*)m_shaderManager;
-}
-
-TextureManager* RenderManager::texture() const{
-    return (TextureManager*)m_textureManager;
-}
-
 WindowManager* RenderManager::window() const{
     return (WindowManager*)m_windowManager;
-}
-
-ModelManager* RenderManager::model() const{
-    return (ModelManager*)m_modelManager;
 }
 
 void RenderManager::start() const{

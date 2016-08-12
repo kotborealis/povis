@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "ShaderObject.h"
+#include "render/resources/ShaderObject.h"
 
 #include <memory>
 #include <map>

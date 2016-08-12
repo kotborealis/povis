@@ -6,7 +6,8 @@
 
 namespace PovisEngine{
 
-Camera::Camera(const glm::vec3& position, GLfloat yaw, GLfloat pitch):position(position), yaw(yaw), pitch(pitch){}
+Camera::Camera(const glm::vec3& position, GLfloat fov, GLfloat yaw, GLfloat pitch):position(position), fov(fov),
+                                                                                   yaw(yaw), pitch(pitch){}
 
 Camera::~Camera(){};
 
@@ -22,24 +23,12 @@ void Camera::update(){
     this->front=front;
 }
 
-const glm::vec3& Camera::getPosition() const{
-    return position;
-}
-
-const glm::vec3& Camera::getFront() const{
-    return front;
-}
-
 GLfloat Camera::getYaw() const{
     return yaw;
 }
 
 GLfloat Camera::getPitch() const{
     return pitch;
-}
-
-void Camera::setPosition(const glm::vec3& position){
-    this->position=position;
 }
 
 void Camera::setYaw(GLfloat yaw){
@@ -50,6 +39,28 @@ void Camera::setYaw(GLfloat yaw){
 void Camera::setPitch(GLfloat pitch){
     this->pitch=pitch;
     update();
+}
+
+void Camera::addYaw(GLfloat yaw){
+    this->yaw+=yaw;
+    update();
+}
+
+void Camera::addPitch(GLfloat pitch){
+    this->pitch+=pitch;
+    update();
+}
+
+glm::mat4 Camera::getProjection(GLfloat ratio){
+    return glm::perspective(fov, ratio, .1f, 100.f);
+}
+
+const glm::vec3& Camera::getFront() const{
+    return front;
+}
+
+const glm::vec3& Camera::getUp() const{
+    return up;
 }
 
 }

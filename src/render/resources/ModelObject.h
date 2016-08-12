@@ -9,12 +9,17 @@
 
 namespace PovisEngine{
 
+class ModelManager; //Forward Delcaration
+
 class ModelObject{
+    friend class ModelManager;
+
 public:
-    ModelObject(std::vector<Mesh>& meshes);
     ~ModelObject();
 
     const std::vector<Mesh> meshes;
+private:
+    ModelObject(std::vector<Mesh>& meshes);
 };
 
 }
