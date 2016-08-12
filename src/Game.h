@@ -2,12 +2,12 @@
 
 #include <vector>
 #include <string>
-#include <render/Managers/RenderManager.h>
 
 #include "SDL2/SDL.h"
 
 #include "GameState.h"
 #include "Logger.h"
+#include "render/managers/RenderManager.h"
 
 namespace PovisEngine{
 

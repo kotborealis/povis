@@ -34,10 +34,10 @@ GameStateTest::GameStateTest(){
 
     Model model=Game::i().model()->create(meshes);
 
-    nodes.push_back(scene->create(model, material, {-10, 10, 0}, {20, 20, 20}));
-    nodes.push_back(scene->create(model, material, {-20, 10, -10}, {20, 20, 20}, {0, glm::radians(90.f), 0}));
-    nodes.push_back(scene->create(model, material, {-10, 10, -20}, {20, 20, 20}));
-    nodes.push_back(scene->create(model, material, {0, 0, 0}, {100, 100, 100}, {glm::radians(90.f), 0, 0}));
+    nodes.push_back(scene->create(model, material, glm::vec3(-10, 10, 0), glm::vec3(20, 20, 20)));
+    nodes.push_back(scene->create(model, material, glm::vec3(-20, 10, -10), glm::vec3(20, 20, 20), glm::vec3(0, glm::radians(90.f), 0)));
+    nodes.push_back(scene->create(model, material, glm::vec3(-10, 10, -20), glm::vec3(20, 20, 20)));
+    nodes.push_back(scene->create(model, material, glm::vec3(0, 0, 0), glm::vec3(100, 100, 100), glm::vec3(glm::radians(90.f), 0, 0)));
 }
 
 GameStateTest::~GameStateTest(){
