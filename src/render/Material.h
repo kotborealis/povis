@@ -13,13 +13,12 @@ namespace PovisEngine{
 
 class Material{
 public:
-    Material(const Shader shader, const std::vector<Texture> texture_diffuse,
-             const std::vector<Texture> texture_specular);
+    Material(const Shader& shader, const Texture& diffuse, const Texture& specular);
     ~Material();
 
     const Shader shader;
-    const std::vector<Texture> texture_diffuse;
-    const std::vector<Texture> texture_specular;
+    const Texture diffuse;
+    const Texture specular;
 };
 
 }

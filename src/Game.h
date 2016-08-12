@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-#include <ctime>
 #include <render/RenderManager.h>
 
 #include "SDL2/SDL.h"
@@ -32,6 +31,10 @@ public:
 
     const RenderManager* render() const;
 
+    void stop(){
+        running=false;
+    }
+
 private:
     Game();
     ~Game();
@@ -39,17 +42,16 @@ private:
     Game(Game const &)=delete;
     Game &operator=(Game const &)=delete;
 
-    inline void CState(){cState=states.back();}
+    inline void CState(){
+        cState=states.back();
+    }
 
     std::vector<GameState *> states;
     GameState *cState;
 
     const RenderManager* renderManager=new RenderManager(std::string("Awooo"), (unsigned int)1024, (unsigned int)768);
 
-    constexpr static float max_framerate=60.f;
-    constexpr static float min_frametime=1000/max_framerate;
-
-    float time_buffer=0.f;
+    bool running;
 };
 
 }

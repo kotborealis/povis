@@ -6,13 +6,13 @@
 
 namespace PovisEngine{
 
-Material::Material(const Shader shader, const std::vector<Texture> texture_diffuse,
-                   const std::vector<Texture> texture_specular)
-        :shader(shader), texture_diffuse(texture_diffuse), texture_specular(texture_specular){}
-
 Material::~Material(){
 
 }
+
+Material::Material(const Shader& shader, const Texture& diffuse, const Texture& specular):shader(shader),
+                                                                                          diffuse(diffuse),
+                                                                                          specular(specular){}
 
 
 }

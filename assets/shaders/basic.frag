@@ -2,13 +2,11 @@
 
 in vec2 texture_coord;
 
-uniform sampler2D texture_diffuse1;
-uniform sampler2D texture_diffuse2;
-uniform sampler2D texture_specular1;
-uniform sampler2D texture_specular2;
+uniform sampler2D diffuse;
+uniform sampler2D specular;
 
 out vec4 color;
 
 void main(){
-	color = texture(texture_diffuse1, -texture_coord);
+	color = texture(diffuse, -texture_coord);
 }

@@ -13,22 +13,37 @@ Game::~Game(){
 }
 
 void Game::run(){
-    bool running=true;
+    running=true;
     SDL_Event event;
 
     Logger::info("Engine running");
+
+    float optimal_fps=60.f;
+    float optimal_frame_time=1000.f/60.f;
+
+    float start_time=SDL_GetTicks();
+    float accumulator=0;
+
     while(running){
+        float end_time=SDL_GetTicks();
+        float delta_time=end_time-start_time;
+        start_time=end_time;
+
+        accumulator+=delta_time;
+
         while(SDL_PollEvent(&event)){
             running=event.type!=SDL_QUIT;
             cState->handleEvent(&event);
         }
 
-        cState->update();
+        while(accumulator>0){
+            cState->update();
+            accumulator-=optimal_frame_time;
+        }
 
         render()->start();
         cState->draw();
         render()->end();
-        SDL_Delay(1000.f/60.f);
     }
     Logger::info("Engine stop");
 }

@@ -17,6 +17,7 @@ public:
     ~ModelManager();
 
     Model load(std::string filename);
+    Model create(std::vector<Mesh>& meshes);
 
 private:
     ModelWeakPtr search(std::string filename);

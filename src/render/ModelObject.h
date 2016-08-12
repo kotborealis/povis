@@ -11,7 +11,7 @@ namespace PovisEngine{
 
 class ModelObject{
 public:
-    ModelObject(std::vector<Mesh> meshes);
+    ModelObject(std::vector<Mesh>& meshes);
     ~ModelObject();
 
     const std::vector<Mesh> meshes;

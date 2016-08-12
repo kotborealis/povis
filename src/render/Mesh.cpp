@@ -6,7 +6,7 @@
 
 namespace PovisEngine{
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
         :vertices(vertices), indices(indices){
     setup();
 }
