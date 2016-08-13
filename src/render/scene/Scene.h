@@ -25,7 +25,7 @@ public:
 
 private:
     SceneManager* sceneManager;
-    Camera* m_camera=new Camera(glm::vec3(0, 0, 0));
+    Camera* m_camera=new Camera(glm::vec3(0, 0, 0), 45);
 };
 
 }

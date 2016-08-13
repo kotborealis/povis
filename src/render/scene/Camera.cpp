@@ -16,6 +16,10 @@ glm::mat4 Camera::getView(){
 }
 
 void Camera::update(){
+    if(pitch<-89)
+        pitch=-89;
+    else if(pitch>89)
+        pitch=89;
     glm::vec3 front;
     front.x=glm::cos(glm::radians(yaw))*glm::cos(glm::radians(pitch));
     front.y=glm::sin(glm::radians(pitch));
