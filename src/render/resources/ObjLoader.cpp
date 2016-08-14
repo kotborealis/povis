@@ -27,7 +27,8 @@ bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisE
             s >> z;
 
             vertices.push_back(glm::vec3(x, y, z));
-        }else if(line.substr(0, 3) == "vt "){
+        }
+        else if(line.substr(0, 3) == "vt "){
             std::istringstream s(line.substr(3));
             GLfloat x, y;
 
@@ -36,9 +37,11 @@ bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisE
 
             uvs.push_back(glm::vec2(x, y));
             containsUVs = true;
-        }else if(line.substr(0, 3) == "vn "){
+        }
+        else if(line.substr(0, 3) == "vn "){
             containsNormals = true;
-        }else if(line.substr(0, 2) == "f "){
+        }
+        else if(line.substr(0, 2) == "f "){
             std::istringstream s(line.substr(2));
             Vertex v[3];
             char trash;
