@@ -11,10 +11,10 @@ PovisEngine::SceneManager::~SceneManager(){
 }
 
 PovisEngine::SceneNode
-PovisEngine::SceneManager::create(PovisEngine::Model& model, PovisEngine::Material& material, glm::vec3 position,
+PovisEngine::SceneManager::create(PovisEngine::Model& model, glm::vec3 position,
                                   glm::vec3 scale, glm::vec3 rotation){
 
-    SceneNode sceneNode(new SceneNodeObject(model, material, position, scale, rotation));
+    SceneNode sceneNode(new SceneNodeObject(model, position, scale, rotation));
     SceneNodeWeakPtr sceneNodeWeakPtr(sceneNode);
 
     list.push_back(sceneNodeWeakPtr);

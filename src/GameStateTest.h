@@ -15,7 +15,7 @@ public:
     GameStateTest();
     ~GameStateTest();
 
-    void handleEvent(SDL_Event *event);
+    void handleEvent(SDL_Event* event);
     void update();
     void draw();
 

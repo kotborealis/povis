@@ -13,11 +13,11 @@ namespace PovisEngine{
 
 class Mesh{
 public:
-    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
+    Mesh(std::vector<Vertex>& vertices, std::vector<GLushort>& indices);
     ~Mesh();
 
     std::vector<Vertex> vertices;
-    std::vector<GLuint> indices;
+    std::vector<GLushort> indices;
 
 private:
     void setup();

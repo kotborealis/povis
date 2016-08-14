@@ -7,7 +7,7 @@
 namespace PovisEngine{
 
 
-ModelObject::ModelObject(std::vector<Mesh>& meshes):meshes(meshes){}
+ModelObject::ModelObject(Mesh& mesh, Material& material):mesh(mesh), material(material){}
 
 ModelObject::~ModelObject(){
 

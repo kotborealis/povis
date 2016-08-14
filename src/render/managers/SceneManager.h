@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "render/scene/SceneNodeObject.h"
 #include <list>
+
+#include "render/scene/SceneNodeObject.h"
 
 namespace PovisEngine{
 
@@ -21,9 +22,9 @@ public:
     SceneManager();
     ~SceneManager();
 
-    SceneNode create(Model& model, Material& material, glm::vec3 position=glm::vec3(0, 0, 0),
-                     glm::vec3 scale=glm::vec3(1, 1, 1),
-                     glm::vec3 rotation=glm::vec3(0, 0, 0));
+    SceneNode create(Model& model, glm::vec3 position = glm::vec3(0, 0, 0),
+                     glm::vec3 scale = glm::vec3(1, 1, 1),
+                     glm::vec3 rotation = glm::vec3(0, 0, 0));
     void validateList();
 
 private:

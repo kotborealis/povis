@@ -15,8 +15,8 @@ namespace PovisEngine{
 
 class Logger{
 public:
-    static void log(const char *file, int line, const char *type, std::string text){
-        std::cout<<"{"<<file<<" at "<<line<<"}"<<"["<<type<<"] "<<text<<std::endl;
+    static void log(const char* file, int line, const char* type, std::string text){
+        std::cout << "{" << file << " at " << line << "}" << "[" << type << "] " << text << std::endl;
     }
 };
 

@@ -17,9 +17,10 @@ class ModelObject{
 public:
     ~ModelObject();
 
-    const std::vector<Mesh> meshes;
+    const Mesh mesh;
+    const Material material;
 private:
-    ModelObject(std::vector<Mesh>& meshes);
+    ModelObject(Mesh& meshes, Material& material);
 };
 
 }

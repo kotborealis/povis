@@ -6,7 +6,7 @@
 
 namespace PovisEngine{
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLushort>& indices)
         :vertices(vertices), indices(indices){
     setup();
 }
@@ -21,10 +21,10 @@ void Mesh::setup(){
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 
     //Vertex Position
     glEnableVertexAttribArray(0);

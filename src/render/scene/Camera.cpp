@@ -12,19 +12,19 @@ Camera::Camera(const glm::vec3& position, GLfloat fov, GLfloat yaw, GLfloat pitc
 Camera::~Camera(){};
 
 glm::mat4 Camera::getView(){
-    return glm::lookAt(position, position+front, up);
+    return glm::lookAt(position, position + front, up);
 }
 
 void Camera::update(){
-    if(pitch<-89)
-        pitch=-89;
-    else if(pitch>89)
-        pitch=89;
+    if(pitch < -89)
+        pitch = -89;
+    else if(pitch > 89)
+        pitch = 89;
     glm::vec3 front;
-    front.x=glm::cos(glm::radians(yaw))*glm::cos(glm::radians(pitch));
-    front.y=glm::sin(glm::radians(pitch));
-    front.z=glm::sin(glm::radians(yaw))*glm::cos(glm::radians(pitch));
-    this->front=front;
+    front.x = glm::cos(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
+    front.y = glm::sin(glm::radians(pitch));
+    front.z = glm::sin(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
+    this->front = front;
 }
 
 GLfloat Camera::getYaw() const{
@@ -36,22 +36,22 @@ GLfloat Camera::getPitch() const{
 }
 
 void Camera::setYaw(GLfloat yaw){
-    this->yaw=yaw;
+    this->yaw = yaw;
     update();
 }
 
 void Camera::setPitch(GLfloat pitch){
-    this->pitch=pitch;
+    this->pitch = pitch;
     update();
 }
 
 void Camera::addYaw(GLfloat yaw){
-    this->yaw+=yaw;
+    this->yaw += yaw;
     update();
 }
 
 void Camera::addPitch(GLfloat pitch){
-    this->pitch+=pitch;
+    this->pitch += pitch;
     update();
 }
 

@@ -15,14 +15,14 @@ PovisEngine::Model PovisEngine::ModelManager::load(std::string filename){
 }
 
 PovisEngine::ModelWeakPtr PovisEngine::ModelManager::search(std::string filename){
-    auto it=list.find(filename);
-    if(it!=list.end())
+    auto it = list.find(filename);
+    if(it != list.end())
         return it->second;
     return ModelWeakPtr();
 }
 
-PovisEngine::Model PovisEngine::ModelManager::create(std::vector<PovisEngine::Mesh>& meshes){
-    Model model(new ModelObject(meshes));
+PovisEngine::Model PovisEngine::ModelManager::create(Mesh& mesh, Material& material){
+    Model model(new ModelObject(mesh, material));
     list.insert(std::make_pair("undefined", ModelWeakPtr(model)));
     return model;
 }

@@ -25,8 +25,8 @@ public:
     }
 
     void run();
-    void setState(GameState *newState);
-    void pushState(GameState *newState);
+    void setState(GameState* newState);
+    void pushState(GameState* newState);
     void popState();
 
     RenderManager* render() const;
@@ -35,26 +35,28 @@ public:
     ModelManager* model() const;
 
     void stop(){
-        running=false;
+        running = false;
     }
 
 private:
     //Singletone
     Game();
     ~Game();
-    Game(Game const &)=delete;
-    Game &operator=(Game const &)=delete;
+    Game(Game const&) = delete;
+    Game& operator=(Game const&)= delete;
 
     //Game State
-    inline void CState(){cState=states.back();}
-    std::vector<GameState *> states;
-    GameState *cState;
+    inline void CState(){cState = states.back();}
+
+    std::vector<GameState*> states;
+    GameState* cState;
 
     //Managers
-    const RenderManager* m_renderManager=new RenderManager(std::string("Awooo"), (unsigned int)1024, (unsigned int)768);
-    const ShaderManager* m_shaderManager=new ShaderManager();
-    const TextureManager* m_textureManager=new TextureManager();
-    const ModelManager* m_modelManager=new ModelManager();
+    const RenderManager* m_renderManager = new RenderManager(std::string("Awooo"), (unsigned int)1024,
+                                                             (unsigned int)768);
+    const ShaderManager* m_shaderManager = new ShaderManager();
+    const TextureManager* m_textureManager = new TextureManager();
+    const ModelManager* m_modelManager = new ModelManager();
 
     bool running;
 };

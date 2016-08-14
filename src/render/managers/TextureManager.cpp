@@ -11,10 +11,10 @@ TextureManager::TextureManager(){}
 TextureManager::~TextureManager(){}
 
 Texture TextureManager::load(std::string filename){
-    Logger::info("Loading texture: "<<filename);
+    Logger::info("Loading texture: " << filename);
 
     //Search for loaded texture
-    TextureWeakPtr cached_texture=search(filename);
+    TextureWeakPtr cached_texture = search(filename);
     if(!cached_texture.expired()){
         Logger::info("Already loaded");
         return cached_texture.lock();
@@ -29,7 +29,7 @@ Texture TextureManager::load(std::string filename){
     }
 
     GLuint textureId;
-    GLenum mode = surface->format->BytesPerPixel==4 ? GL_RGBA : GL_RGB;
+    GLenum mode = surface->format->BytesPerPixel == 4 ? GL_RGBA : GL_RGB;
 
     //Generate OpenGL texture from surface pixel data
     glGenTextures(1, &textureId);
@@ -52,8 +52,8 @@ Texture TextureManager::load(std::string filename){
 }
 
 TextureWeakPtr TextureManager::search(std::string filename){
-    auto it=list.find(filename);
-    if(it!=list.end())
+    auto it = list.find(filename);
+    if(it != list.end())
         return it->second;
     return TextureWeakPtr();
 }

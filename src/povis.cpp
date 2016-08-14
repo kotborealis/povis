@@ -4,9 +4,9 @@
 
 using namespace PovisEngine;
 
-int main(int argc, char *args[]){
+int main(int argc, char* args[]){
     Logger::info("Starting");
-    GameStateTest* _=new GameStateTest();
+    GameStateTest* _ = new GameStateTest();
     Game::i().pushState(_);
     Game::i().run();
     return 0;
