@@ -5,6 +5,7 @@
 #pragma once
 
 #include "render/resources/ModelObject.h"
+#include "render/resources/ObjLoader.h"
 
 namespace PovisEngine{
 
@@ -16,7 +17,7 @@ public:
     ModelManager();
     ~ModelManager();
 
-    Model load(std::string filename);
+    Mesh load_mesh_obj(std::string filename);
     Model create(Mesh& mesh, Material& material);
 
 private:

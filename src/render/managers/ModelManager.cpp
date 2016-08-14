@@ -10,8 +10,15 @@ PovisEngine::ModelManager::~ModelManager(){
 
 }
 
-PovisEngine::Model PovisEngine::ModelManager::load(std::string filename){
-    return PovisEngine::Model();
+PovisEngine::Mesh PovisEngine::ModelManager::load_mesh_obj(std::string filename){
+    std::vector<Vertex> vertices;
+    ObjLoader::import_obj(filename, vertices);
+    std::vector<Vertex> indexed_vertices;
+    std::vector<GLuint> indices;
+    ObjLoader::vbo_indexer(vertices, indexed_vertices, indices);
+
+    Mesh mesh = Mesh(indexed_vertices, indices);
+    return mesh;
 }
 
 PovisEngine::ModelWeakPtr PovisEngine::ModelManager::search(std::string filename){

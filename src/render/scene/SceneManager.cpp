@@ -2,7 +2,7 @@
 // Created by kotborealis on 12.08.2016.
 //
 
-#include "SceneManager.h"
+#include "render/scene/SceneManager.h"
 
 PovisEngine::SceneManager::SceneManager(){}
 

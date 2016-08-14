@@ -6,7 +6,7 @@
 
 namespace PovisEngine{
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLushort>& indices)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
         :vertices(vertices), indices(indices){
     setup();
 }
@@ -36,7 +36,7 @@ void Mesh::setup(){
 
     //Vertex Texture
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texCoords));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
 
     glBindVertexArray(0);
 }

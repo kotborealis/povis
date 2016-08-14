@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <render/managers/SceneManager.h>
+#include <render/scene/SceneManager.h>
 #include "Camera.h"
 #include "SceneNodeObject.h"
 #include "Logger.h"
