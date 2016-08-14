@@ -57,6 +57,7 @@ bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisE
                     index[1]--;
                 }
 
+                int uvs_size = uvs.size();
                 v[i].position = vertices[index[0]];
                 v[i].uv = containsUVs ? uvs[index[1]] : glm::vec2();
                 v[i].normal = glm::vec3();

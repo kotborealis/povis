@@ -15,7 +15,7 @@ GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
     scene = new Scene();
 
-    Texture diffuse = Game::i().texture()->load("assets/textures/rero.png");
+    Texture diffuse = Game::i().texture()->load("assets/textures/karabel.png");
     Texture specular = Game::i().texture()->load("assets/textures/rero.png");
     Shader shader = Game::i().shader()->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
 
@@ -28,7 +28,7 @@ GameStateTest::GameStateTest(){
 //    std::vector<GLuint> indices = {0, 1, 3, 1, 2, 3};
 //
 //    Mesh mesh = Mesh(vertices, indices);
-    Mesh mesh = Game::i().model()->load_mesh_obj("assets/models/test.obj");
+    Mesh mesh = Game::i().model()->load_mesh_obj("assets/models/nanosuit2.obj");
 
     Material material = Material(shader, diffuse, specular);
 
