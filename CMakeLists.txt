@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(timepovis)
+project(povis)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -43,9 +43,9 @@ set(SOURCE_FILES
     src/render/resources/ObjLoader.cpp
     src/render/resources/ObjLoader.h)
 
-add_executable(timepovis ${SOURCE_FILES})
+add_executable(povis ${SOURCE_FILES})
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${timepovis_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${povis_SOURCE_DIR}/cmake)
 
 set(SDL2_PATH "C:\\MinGW")
 
@@ -60,7 +60,7 @@ find_package(GLEW REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR}
         "./src/")
 
-target_link_libraries(timepovis ${SDL2_LIBRARY}
-        ${SDL2_IMAGE_LIBRARIES}
-        ${OPENGL_LIBRARIES}
-        ${GLEW_LIBRARIES})
+target_link_libraries(povis ${SDL2_LIBRARY}
+                      ${SDL2_IMAGE_LIBRARIES}
+                      ${OPENGL_LIBRARIES}
+                      ${GLEW_LIBRARIES})
