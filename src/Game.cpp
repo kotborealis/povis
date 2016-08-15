@@ -4,7 +4,6 @@ namespace PovisEngine{
 
 Game::Game(){
     Logger::info("Initializing engine");
-    Logger::note("You MUST call Game::initialize before doing anything");
 }
 
 Game::~Game(){
