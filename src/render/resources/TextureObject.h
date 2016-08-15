@@ -6,9 +6,9 @@
 
 #include <GL/glew.h>
 
-namespace PovisEngine{
+#include "Logger.h"
 
-class TextureManager; //Forward declaration
+namespace PovisEngine{
 
 class TextureObject{
     friend class TextureManager;
@@ -17,6 +17,7 @@ public:
     ~TextureObject();
 
     void use();
+    void bind(GLuint index);
 
     const GLuint id;
 

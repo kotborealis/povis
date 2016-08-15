@@ -9,8 +9,6 @@
 
 namespace PovisEngine{
 
-class ModelManager; //Forward Delcaration
-
 class ModelObject{
     friend class ModelManager;
 

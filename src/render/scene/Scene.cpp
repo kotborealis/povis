@@ -22,7 +22,7 @@ void Scene::draw(){
         auto node = scene_node->lock();
 
         if(node->model->material.shader){
-            node->model->material.shader->use();
+            node->model->material.shader->bind();
         }
         else{
             Logger::error("No shader bound to material");
@@ -31,26 +31,21 @@ void Scene::draw(){
 
         if(node->model->material.diffuse){
             //Bind diffuse texture;
-            glActiveTexture(GL_TEXTURE0);
             glUniform1f(node->model->material.shader->uniform("diffuseTexture"), 0);
-            node->model->material.diffuse->use();
+            node->model->material.diffuse->bind(0);
         }
 
         if(node->model->material.specular){
             //Bind specular texture
-            glActiveTexture(GL_TEXTURE1);
             glUniform1f(node->model->material.shader->uniform("specularTexture"), 1);
-            node->model->material.specular->use();
+            node->model->material.specular->bind(1);
         }
 
         if(node->model->material.normal){
             //Bind normal texture
-            glActiveTexture(GL_TEXTURE2);
             glUniform1f(node->model->material.shader->uniform("normalTexture"), 1);
-            node->model->material.normal->use();
+            node->model->material.normal->bind(2);
         }
-
-        glActiveTexture(GL_TEXTURE0);
 
         glm::mat4 model;
         model = glm::translate(model, node->position);

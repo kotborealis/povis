@@ -13,7 +13,13 @@ TextureObject::~TextureObject(){
 }
 
 void TextureObject::use(){
+    bind(0);
+}
+
+void TextureObject::bind(GLuint index){
+    glActiveTexture(GL_TEXTURE0 + index);
     glBindTexture(GL_TEXTURE_2D, id);
+    glActiveTexture(GL_TEXTURE0);
 }
 
 }

@@ -9,8 +9,6 @@
 
 namespace PovisEngine{
 
-class ShaderManager; //Forward declaration
-
 class ShaderObject{
     friend class ShaderManager;
 
@@ -18,7 +16,8 @@ public:
     ~ShaderObject();
 
     GLint uniform(std::string uniform_name);
-    void use();
+
+    void bind();
 
     const GLuint id;
 
