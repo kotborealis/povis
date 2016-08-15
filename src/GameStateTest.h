@@ -7,6 +7,7 @@
 #include "Logger.h"
 #include "Game.h"
 #include "render/scene/Scene.h"
+#include "render/ResourceManager.h"
 
 namespace PovisEngine{
 
@@ -16,7 +17,7 @@ public:
     ~GameStateTest();
 
     void handleEvent(SDL_Event* event);
-    void update();
+    void update(float delta);
     void draw();
 
 private:

@@ -15,6 +15,8 @@ WindowManager::WindowManager(std::string& title, unsigned int width, unsigned in
     GLenum glewError = init_gl();
     if(glewError != GLEW_OK)
         Logger::error("Failed to init GL: " << glewGetErrorString(glewError));
+
+    Logger::info("Initialized SDL, SDL_Image and GL/GLEW");
 }
 
 WindowManager::~WindowManager(){

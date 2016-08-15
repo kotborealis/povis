@@ -2,7 +2,7 @@
 // Created by kotborealis on 10.08.2016.
 //
 
-#include "render/managers/ShaderManager.h"
+#include "ShaderManager.h"
 
 #include <fstream>
 #include <vector>

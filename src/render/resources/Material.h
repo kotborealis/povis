@@ -6,8 +6,8 @@
 
 #include <vector>
 
-#include "render/managers/ShaderManager.h"
-#include "render/managers/TextureManager.h"
+#include "render/resource_managers/ShaderManager.h"
+#include "render/resource_managers/TextureManager.h"
 
 namespace PovisEngine{
 

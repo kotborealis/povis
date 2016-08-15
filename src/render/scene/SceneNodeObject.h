@@ -6,7 +6,7 @@
 
 #include "render/resources/ModelObject.h"
 #include "render/resources/Material.h"
-#include "render/managers/ModelManager.h"
+#include "render/resource_managers/ModelManager.h"
 
 namespace PovisEngine{
 

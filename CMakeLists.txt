@@ -11,18 +11,18 @@ set(SOURCE_FILES
     src/GameStateTest.h
     src/Logger.h
     src/povis.cpp
-    src/render/managers/TextureManager.cpp
-    src/render/managers/TextureManager.h
+    src/render/resource_managers/TextureManager.cpp
+    src/render/resource_managers/TextureManager.h
     src/render/resources/TextureObject.cpp
     src/render/resources/TextureObject.h
-    src/render/managers/ShaderManager.cpp
-    src/render/managers/ShaderManager.h
+    src/render/resource_managers/ShaderManager.cpp
+    src/render/resource_managers/ShaderManager.h
     src/render/resources/ShaderObject.cpp
     src/render/resources/ShaderObject.h
-    src/render/managers/RenderManager.cpp
-    src/render/managers/RenderManager.h
-    src/render/managers/WindowManager.cpp
-    src/render/managers/WindowManager.h
+    src/render/RenderManager.cpp
+    src/render/RenderManager.h
+    src/render/WindowManager.cpp
+    src/render/WindowManager.h
     src/render/resources/Mesh.cpp
     src/render/resources/Mesh.h
     src/render/resources/Material.cpp
@@ -36,12 +36,13 @@ set(SOURCE_FILES
     src/render/scene/SceneNodeObject.h
     src/render/scene/Camera.h
     src/render/scene/Camera.cpp
-    src/render/managers/ModelManager.cpp
-    src/render/managers/ModelManager.h
+    src/render/resource_managers/ModelManager.cpp
+    src/render/resource_managers/ModelManager.h
     src/render/scene/SceneManager.cpp
     src/render/scene/SceneManager.h
     src/render/resources/ObjLoader.cpp
-    src/render/resources/ObjLoader.h)
+    src/render/resources/ObjLoader.h
+    src/render/ResourceManager.h)
 
 add_executable(povis ${SOURCE_FILES})
 

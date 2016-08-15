@@ -14,33 +14,13 @@ bool mouse_down = false;
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
     scene = new Scene();
-
-    Texture diffuse = Game::i().texture()->load("assets/textures/karabel.png");
-    Texture specular = Game::i().texture()->load("assets/textures/rero.png");
-    Shader shader = Game::i().shader()->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
-
-//    std::vector<Vertex> vertices;
-//    vertices.push_back(Vertex{glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(1, 1)});
-//    vertices.push_back(Vertex{glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(1, 0)});
-//    vertices.push_back(Vertex{glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(0, 0)});
-//    vertices.push_back(Vertex{glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(0, 0, 0), glm::vec2(0, 1)});
-//
-//    std::vector<GLuint> indices = {0, 1, 3, 1, 2, 3};
-//
-//    Mesh mesh = Mesh(vertices, indices);
-    Mesh mesh = Game::i().model()->load_mesh_obj("assets/models/nanosuit2.obj");
-
+    Texture diffuse = ResourceTexture->load("assets/textures/karabel.png");
+    Texture specular = ResourceTexture->load("assets/textures/rero.png");
+    Shader shader = ResourceShader->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
+    Mesh mesh = ResourceModel->load_mesh_obj("assets/models/nanosuit2.obj");
     Material material = Material(shader, diffuse, specular);
-
-    Model model = Game::i().model()->create(mesh, material);
-
+    Model model = ResourceModel->create(mesh, material);
     nodes.push_back(scene->create(model));
-//    nodes.push_back(scene->create(model, glm::vec3(-10, 10, 0), glm::vec3(20, 20, 20)));
-//    nodes.push_back(scene->create(model, glm::vec3(-20, 10, -10), glm::vec3(20, 20, 20),
-//                                  glm::vec3(0, glm::radians(90.f), 0)));
-//    nodes.push_back(scene->create(model, glm::vec3(-10, 10, -20), glm::vec3(20, 20, 20)));
-//    nodes.push_back(scene->create(model, glm::vec3(0, 0, 0), glm::vec3(100, 100, 100),
-//                                  glm::vec3(glm::radians(90.f), 0, 0)));
 }
 
 GameStateTest::~GameStateTest(){
@@ -80,7 +60,7 @@ void GameStateTest::handleEvent(SDL_Event* event){
     }
 }
 
-void GameStateTest::update(){
+void GameStateTest::update(float delta){
 
 }
 

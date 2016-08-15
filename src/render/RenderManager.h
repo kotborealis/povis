@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "ShaderManager.h"
-#include "TextureManager.h"
+#include "render/resource_managers/ShaderManager.h"
+#include "render/resource_managers/TextureManager.h"
 #include "WindowManager.h"
-#include "ModelManager.h"
+#include "render/resource_managers/ModelManager.h"
 
 namespace PovisEngine{
 
