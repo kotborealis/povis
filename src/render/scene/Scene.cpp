@@ -26,7 +26,7 @@ void Scene::draw(){
         }
         else{
             Logger::error("No shader bound to material");
-            return;
+            continue;
         }
 
         if(node->model->material.diffuse){
@@ -47,6 +47,8 @@ void Scene::draw(){
             node->model->material.normal->bind(2);
         }
 
+        glActiveTexture(0);
+
         glm::mat4 model;
         model = glm::translate(model, node->position);
         model = glm::rotate(model, node->rotation.x, {1, 0, 0});
@@ -60,9 +62,7 @@ void Scene::draw(){
         glUniformMatrix4fv(node->model->material.shader->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(node->model->material.shader->uniform("projection"), 1, GL_FALSE, glm::value_ptr(proj));
 
-        glBindVertexArray(node->model->mesh.getVAO());
-        glDrawElements(GL_TRIANGLES, node->model->mesh.indices.size(), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        node->model->mesh.drawElements();
     }
 
     if(scene_need_validate)

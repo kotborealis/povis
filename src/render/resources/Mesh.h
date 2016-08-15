@@ -19,6 +19,8 @@ public:
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
 
+    void drawElements() const;
+
     GLuint getVAO() const;
     GLuint getVBO() const;
     GLuint getEBO() const;
