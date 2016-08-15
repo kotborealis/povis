@@ -32,4 +32,5 @@ void RenderManager::end() const{
     window()->swap();
 }
 
+
 }

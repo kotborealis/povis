@@ -19,14 +19,13 @@ public:
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
 
+    GLuint getVAO() const;
+    GLuint getVBO() const;
+    GLuint getEBO() const;
 private:
     void setup();
 
     GLuint VAO, VBO, EBO;
-public:
-    GLuint getVAO() const;
-    GLuint getVBO() const;
-    GLuint getEBO() const;
 };
 
 }

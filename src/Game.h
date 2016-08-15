@@ -15,42 +15,32 @@ class GameState;
 
 class Game{
 public:
-    static Game& i(){
-        return instance();
-    }
-
-    static Game& instance(){
-        static Game m_instance;
-        return m_instance;
-    }
+    static void initialize(std::string title, unsigned int width, unsigned int height);
+    static Game& i();
+    static Game& instance();
 
     void run();
+    void stop();
     void setState(GameState* newState);
     void pushState(GameState* newState);
     void popState();
 
     RenderManager* render() const;
 
-    void stop(){
-        running = false;
-    }
-
 private:
     //Singletone
     Game();
     ~Game();
-    Game(Game const&) = delete;
-    Game& operator=(Game const&)= delete;
+    Game(const Game&) = delete;
+    Game& operator=(const Game&) = delete;
 
-    //Game State
-    inline void CState(){cState = states.back();}
+    bool running;
 
+    inline void CState();
     std::vector<GameState*> states;
     GameState* cState;
 
-    const RenderManager* m_renderManager = new RenderManager(std::string("Awooo"), (unsigned int)1024,
-                                                             (unsigned int)768);
-    bool running;
+    static RenderManager* m_renderManager;
 };
 
 }

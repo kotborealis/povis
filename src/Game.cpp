@@ -4,12 +4,11 @@ namespace PovisEngine{
 
 Game::Game(){
     Logger::info("Initializing engine");
+    Logger::note("You MUST call Game::initialize before doing anything");
 }
 
 Game::~Game(){
     Logger::info("Destroying engine");
-    for(auto it = states.begin(); it != states.end(); it++)
-        delete *it;
 }
 
 void Game::run(){
@@ -48,6 +47,10 @@ void Game::run(){
     Logger::info("Engine stop");
 }
 
+void Game::stop(){
+    running = false;
+}
+
 void Game::setState(GameState* newState){
     popState();
     states.push_back(newState);
@@ -68,7 +71,31 @@ void Game::popState(){
 }
 
 RenderManager* Game::render() const{
-    return (RenderManager*)m_renderManager;
+    return m_renderManager;
 }
+
+void Game::initialize(std::string title, unsigned int width, unsigned int height){
+    m_renderManager = new RenderManager(title, width, height);
+}
+
+Game& Game::i(){
+    return instance();
+}
+
+Game& Game::instance(){
+    if(!m_renderManager){
+        Logger::error("You MUST call Game::initialize before doing anything");
+        Logger::error("At this point, your game, going to crash if you'll try to do something opengl related");
+        Logger::error("Because Game initialization initializes opengl context");
+    }
+    static Game m_instance;
+    return m_instance;
+}
+
+void Game::CState(){
+    cState = states.back();
+}
+
+RenderManager* Game::m_renderManager = nullptr;
 
 }

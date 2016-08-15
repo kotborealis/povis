@@ -10,6 +10,7 @@
 #define info(str) log(__FILE__,__LINE__,"info",SSTR(str));
 #define warn(str) log(__FILE__,__LINE__,"warn",SSTR(str));
 #define error(str) log(__FILE__,__LINE__,"error",SSTR(str));
+#define note(str) log(__FILE__,__LINE__,"note",SSTR(str));
 
 namespace PovisEngine{
 
