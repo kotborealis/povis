@@ -48,11 +48,9 @@ void Scene::draw(){
         glUniformMatrix4fv(node->model->material.shader->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(node->model->material.shader->uniform("projection"), 1, GL_FALSE, glm::value_ptr(proj));
 
-//        glBindVertexArray(node->model->mesh.getVAO());
-//        glDrawElements(GL_TRIANGLES, node->model->mesh.indices.size(), GL_UNSIGNED_INT, 0);
-//        glBindVertexArray(0);
         glBindVertexArray(node->model->mesh.getVAO());
-        glDrawArrays(GL_TRIANGLES, 0, node->model->mesh.vertices.size());
+        glDrawElements(GL_TRIANGLES, node->model->mesh.indices.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
 
     if(scene_need_validate)
