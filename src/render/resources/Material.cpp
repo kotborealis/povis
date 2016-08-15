@@ -15,5 +15,9 @@ Material::Material(const Shader& shader, const Texture& diffuse, const Texture& 
          diffuse(diffuse),
          specular(specular), normal(normal){}
 
+Material::Material(){
+
+}
+
 
 }

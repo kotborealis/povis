@@ -16,7 +16,7 @@ GameStateTest::GameStateTest(){
     scene = new Scene();
     Texture diffuse = ResourceTexture->load("assets/textures/karabel.png");
     Shader shader = ResourceShader->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
-    Mesh mesh = ResourceModel->load_mesh_obj("assets/models/nanosuit2.obj");
+    Mesh mesh = ResourceModel->load_mesh_obj("assets/models/Heavy.obj");
     Material material = Material(shader, diffuse, nullptr, PovisEngine::Texture());
     Model model = ResourceModel->create(mesh, material);
     nodes.push_back(scene->create(model));

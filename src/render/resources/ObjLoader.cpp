@@ -45,14 +45,15 @@ bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisE
             std::istringstream s(line.substr(2));
             Vertex v[3];
             char trash;
-            GLushort index[2] = {0, 0};
+            GLuint trash_uint;
+            GLuint index[2] = {0, 0};
 
             for(int i = 0; i < 3; i++){
                 s >> index[0]; // Read vertex index
                 index[0]--;
                 if(containsNormals){
                     s >> trash;
-                    s >> trash; // if obj contains normals, read normal index to trash, we don't need it anyway
+                    s >> trash_uint; // if obj contains normals, read normal index to trash, we don't need it anyway
                 }
                 if(containsUVs){
                     s >> trash;
