@@ -3,6 +3,7 @@
 //
 
 #include "ObjLoader.h"
+#include "render/ResourceManager.h"
 
 bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisEngine::Vertex>& out_vertices){
     std::ifstream stream(filename, std::ios::in);
@@ -109,5 +110,31 @@ bool PovisEngine::ObjLoader::get_similar_vertex(PovisEngine::Vertex& vertex,
         return false;
     }
     result = it->second;
+    return true;
+}
+
+
+bool
+PovisEngine::ObjLoader::import_materials(std::string filename, std::map<std::string, PovisEngine::Material>& materials){
+    std::ifstream stream(filename, std::ios::in);
+    if(!stream.is_open()){
+        Logger::error("Could not open mtl " << filename);
+        return false;
+    }
+
+    materials.clear();
+    std::string line = "";
+    std::string c_name;
+    while(std::getline(stream, line)){
+        if(line.substr(0, 7) == "newmtl "){
+            c_name = line.substr(7);
+            materials[c_name] = Material();
+        }
+        else if(line.substr(0, 7) == "map_Kd "){
+            std::string s = line.substr(7);
+            Texture t = ResourceTexture->load(s);
+            materials[c_name].diffuse = t;
+        }
+    }
     return true;
 }

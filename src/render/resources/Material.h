@@ -23,13 +23,6 @@ public:
     Texture diffuse;
     Texture specular;
     Texture normal;
-
-    glm::vec3 color_ambient = glm::vec3(0, 0, 0); //Ka
-    glm::vec3 color_diffuse = glm::vec3(0, 0, 0); //Kd
-    glm::vec3 color_specular = glm::vec3(0, 0, 0); //Ks
-    GLuint specular_exponent = 1; //Ns
-    GLushort dissolved = 1; //d
-    GLushort illumination_model = 0; //illum
 };
 
 }

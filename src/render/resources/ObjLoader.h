@@ -12,6 +12,7 @@
 
 #include "Vertex.h"
 #include "Logger.h"
+#include "render/resources/Material.h"
 
 namespace PovisEngine{
 
@@ -21,6 +22,8 @@ public:
     static bool vbo_indexer(std::vector<Vertex>& in_vertices, std::vector<Vertex>& out_vertices,
                             std::vector<GLuint>& indices);
     static bool get_similar_vertex(Vertex& vertex, std::map<Vertex, GLuint>& vertex_to_out_index, GLuint& result);
+
+    static bool import_materials(std::string filename, std::map<std::string, PovisEngine::Material>& materials);
 };
 
 }

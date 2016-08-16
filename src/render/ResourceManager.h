@@ -4,9 +4,10 @@
 
 #pragma once
 
+
+#include "render/resource_managers/ModelManager.h"
 #include "render/resource_managers/TextureManager.h"
 #include "render/resource_managers/ShaderManager.h"
-#include "render/resource_managers/ModelManager.h"
 
 #define ResourceTexture ResourceManager::i().texture()
 #define ResourceModel ResourceManager::i().model()
