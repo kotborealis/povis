@@ -15,10 +15,13 @@ class ModelObject{
 public:
     ~ModelObject();
 
-    const Mesh mesh;
-    const Material material;
+    const std::vector<Mesh> mesh;
+    const std::vector<Material> material;
+    const std::vector<GLushort> material_index;
+
 private:
-    ModelObject(Mesh& meshes, Material& material);
+    ModelObject(std::vector<Mesh>& meshes, std::vector<Material>& material,
+                std::vector<GLushort> material_index);
 };
 
 }

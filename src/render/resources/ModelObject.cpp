@@ -7,9 +7,10 @@
 namespace PovisEngine{
 
 
-ModelObject::ModelObject(Mesh& mesh, Material& material):mesh(mesh), material(material){}
+ModelObject::ModelObject(std::vector<Mesh>& mesh, std::vector<Material>& material,
+                         std::vector<GLushort> material_index)
+        :mesh(mesh), material(material), material_index(material_index){}
 
-ModelObject::~ModelObject(){
+ModelObject::~ModelObject(){}
 
-}
 }

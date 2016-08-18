@@ -28,7 +28,11 @@ PovisEngine::ModelWeakPtr PovisEngine::ModelManager::search(std::string filename
 }
 
 PovisEngine::Model PovisEngine::ModelManager::create(Mesh& mesh, Material& material){
-    Model model(new ModelObject(mesh, material));
+    std::vector<Mesh> m;
+    m.push_back(mesh);
+    std::vector<Material> mtl;
+    mtl.push_back(material);
+    Model model(new ModelObject(m, mtl, std::vector<GLushort>({0})));
     list.insert(std::make_pair("undefined", ModelWeakPtr(model)));
     return model;
 }
