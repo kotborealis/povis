@@ -22,10 +22,22 @@ public:
 
     void render(Scene* scene, Camera* camera);
 private:
+    void clear() const;
+    void swap() const;
+
+    void setupGBuffer();
+
+    GLuint quadVAO = 0, quadVBO;
+    void renderQuad();
+
     const WindowManager* m_windowManager;
 
-    void start() const;
-    void end() const;
+    GLuint gBuffer, gPosition, gNormal, gColorSpec;
+    GLuint attachments[3] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2};
+    GLuint rboDepth;
+
+    Shader geometry_shader;
+    Shader light_shader;
 };
 
 }
