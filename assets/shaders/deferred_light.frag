@@ -8,5 +8,5 @@ uniform sampler2D gAlbedoSpec;
 
 void main()
 {
-    FragColor = vec4(texture(gPosition, TexCoords).rgb,1.f);
+    FragColor = vec4(texture(gAlbedoSpec, TexCoords).rgb,1.f) * vec4(texture(gNormal, TexCoords).rgb,1.f);
 }

@@ -13,8 +13,10 @@ RenderManager::RenderManager(std::string title, unsigned int width, unsigned int
         :m_windowManager(new WindowManager(title, width, height)){
     geometry_shader = ResourceShader->load("assets/shaders/deferred_geometry.vert",
                                            "assets/shaders/deferred_geometry.frag");
+
     light_shader = ResourceShader->load("assets/shaders/deferred_light.vert",
                                         "assets/shaders/deferred_light.frag");
+
     setupGBuffer();
 }
 
@@ -97,12 +99,17 @@ void RenderManager::render(Scene* scene, Camera* camera){
     clear();
 
     light_shader->bind();
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gPosition);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, gNormal);
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, gColorSpec);
+
+    glUniform1i(light_shader->uniform("gPosition"), 0);
+    glUniform1i(light_shader->uniform("gNormal"), 1);
+    glUniform1i(light_shader->uniform("gAlbedoSpec"), 2);
 
     renderQuad();
 
