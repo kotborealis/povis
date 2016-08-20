@@ -16,16 +16,13 @@ public:
     Scene();
     ~Scene();
 
-    Camera* camera() const;
-
-    void draw();
+    void draw(Camera* camera);
     SceneNode create(Model& model, glm::vec3 position = glm::vec3(0, 0, 0),
                      glm::vec3 scale = glm::vec3(1, 1, 1),
                      glm::vec3 rotation = glm::vec3(0, 0, 0));
 
 private:
     SceneManager* sceneManager;
-    Camera* m_camera = new Camera(glm::vec3(0, 0, 0), 45);
 };
 
 }
