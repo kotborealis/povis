@@ -39,9 +39,7 @@ void Game::run(){
             accumulator -= optimal_frame_time;
         }
 
-        render()->start();
         cState->draw();
-        render()->end();
     }
     Logger::info("Engine stop");
 }

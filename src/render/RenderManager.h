@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <render/scene/Camera.h>
+#include <render/scene/Scene.h>
 #include "render/resource_managers/ShaderManager.h"
 #include "render/resource_managers/TextureManager.h"
 #include "WindowManager.h"
@@ -18,11 +20,12 @@ public:
 
     WindowManager* window() const;
 
-    void start() const;
-    void end() const;
-
+    void render(Scene* scene, Camera* camera);
 private:
     const WindowManager* m_windowManager;
+
+    void start() const;
+    void end() const;
 };
 
 }
