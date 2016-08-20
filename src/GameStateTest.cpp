@@ -14,9 +14,9 @@ bool mouse_down = false;
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
     scene = new Scene();
-    Texture diffuse = ResourceTexture->load("assets/textures/karabel.png");
+    Texture diffuse = ResourceTexture->load("assets/textures/box.png");
     Shader shader = ResourceShader->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
-    Mesh mesh = ResourceModel->load_mesh_obj("assets/models/Heavy.obj");
+    Mesh mesh = ResourceModel->load_mesh_obj("assets/models/box.obj");
     Material material = Material(shader, diffuse, nullptr, PovisEngine::Texture());
     Model model = ResourceModel->create(mesh, material);
     nodes.push_back(scene->create(model));

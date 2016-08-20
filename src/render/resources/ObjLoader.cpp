@@ -62,9 +62,8 @@ bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisE
                     index[1]--;
                 }
 
-                int uvs_size = uvs.size();
                 v[i].position = vertices[index[0]];
-                v[i].uv = containsUVs ? uvs[index[1]] : glm::vec2();
+                v[i].uv = containsUVs ? uvs[index[1]] * glm::vec2(1, -1) : glm::vec2();
                 v[i].normal = glm::vec3();
 
                 out_vertices.push_back(v[i]);
@@ -77,11 +76,6 @@ bool PovisEngine::ObjLoader::import_obj(std::string filename, std::vector<PovisE
 bool PovisEngine::ObjLoader::vbo_indexer(std::vector<PovisEngine::Vertex>& in_vertices,
                                          std::vector<PovisEngine::Vertex>& out_vertices,
                                          std::vector<GLuint>& indices){
-//    out_vertices = in_vertices;
-//    indices.clear();
-//    for(GLuint i = 0; i < in_vertices.size(); i++)
-//        indices.push_back(i);
-//    return true;
     std::map<Vertex, GLuint> vertex_to_out_index;
 
     for(GLuint i = 0; i < in_vertices.size(); i++){
