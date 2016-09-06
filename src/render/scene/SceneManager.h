@@ -13,10 +13,10 @@ namespace PovisEngine{
 typedef std::shared_ptr<SceneNodeObject> SceneNode;
 typedef std::weak_ptr<SceneNodeObject> SceneNodeWeakPtr;
 
-class Scene; //Forward Delcaration
-
 class SceneManager{
     friend class Scene;
+
+    friend class RenderManager;
 
 public:
     SceneManager();

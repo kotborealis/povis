@@ -64,7 +64,8 @@ void GameStateTest::update(float delta){
 }
 
 void GameStateTest::draw(){
-    scene->draw(camera);
+    //scene->draw(camera);
+    Game::i().render()->render(scene, camera);
 }
 
 } /* namespace PovisEngine */
