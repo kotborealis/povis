@@ -2,6 +2,8 @@
 // Created by kotborealis on 10.08.2016.
 //
 
+#define GLM_FORCE_RADIANS
+
 #include <glm/gtc/type_ptr.hpp>
 #include "RenderManager.h"
 #include "ResourceManager.h"
