@@ -10,10 +10,9 @@ Material::~Material(){
 
 }
 
-Material::Material(const Shader& shader, const Texture& diffuse, const Texture& specular, const Texture normal)
+Material::Material(const Shader& shader, const Texture& diffuse)
         :shader(shader),
-         diffuse(diffuse),
-         specular(specular), normal(normal){}
+         diffuse(diffuse){}
 
 Material::Material(){
 

@@ -17,7 +17,7 @@ GameStateTest::GameStateTest(){
     Texture diffuse = ResourceTexture->load("assets/textures/box.png");
     Shader shader = ResourceShader->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
     Mesh mesh = ResourceModel->load_mesh_obj("assets/models/box.obj");
-    Material material = Material(shader, diffuse, nullptr, PovisEngine::Texture());
+    Material material = Material(shader, diffuse);
     Model model = ResourceModel->create(mesh, material);
     nodes.push_back(scene->create(model));
 }

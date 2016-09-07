@@ -13,11 +13,11 @@ namespace PovisEngine{
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
         :m_windowManager(new WindowManager(title, width, height)){
-    geometry_shader = ResourceShader->load("assets/shaders/deferred_geometry.vert",
-                                           "assets/shaders/deferred_geometry.frag");
+    geometry_shader = ResourceShader->load("assets/shaders/geometry.vert",
+                                           "assets/shaders/geometry.frag");
 
-    light_shader = ResourceShader->load("assets/shaders/deferred_light.vert",
-                                        "assets/shaders/deferred_light.frag");
+    light_shader = ResourceShader->load("assets/shaders/light.vert",
+                                        "assets/shaders/light.frag");
 
     setupGBuffer();
 }
@@ -65,23 +65,8 @@ void RenderManager::render(Scene* scene, Camera* camera){
 
         auto node = scene_node->lock();
 
-        if(node->model->material.diffuse){
-            //Bind diffuse texture;
-            glUniform1f(geometry_shader->uniform("diffuseTexture"), 0);
-            node->model->material.diffuse->bind(0);
-        }
-
-        if(node->model->material.specular){
-            //Bind specular texture
-            glUniform1f(geometry_shader->uniform("specularTexture"), 1);
-            node->model->material.specular->bind(1);
-        }
-
-        if(node->model->material.normal){
-            //Bind normal texture
-            glUniform1f(geometry_shader->uniform("normalTexture"), 1);
-            node->model->material.normal->bind(2);
-        }
+        glUniform1f(geometry_shader->uniform("diffuseTexture"), 0);
+        node->model->material.diffuse->bind(0);
         glActiveTexture(0);
 
         glm::mat4 model;
@@ -104,13 +89,10 @@ void RenderManager::render(Scene* scene, Camera* camera){
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gPosition);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, gNormal);
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, gColorSpec);
 
     glUniform1i(light_shader->uniform("gPosition"), 0);
-    glUniform1i(light_shader->uniform("gNormal"), 1);
     glUniform1i(light_shader->uniform("gAlbedoSpec"), 2);
 
     renderQuad();
