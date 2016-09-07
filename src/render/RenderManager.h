@@ -28,6 +28,7 @@ private:
     void setupGBuffer();
 
     GLuint quadVAO = 0, quadVBO;
+    void setupQuad();
     void renderQuad();
 
     const WindowManager* m_windowManager;
