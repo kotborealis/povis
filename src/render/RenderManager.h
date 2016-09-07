@@ -32,8 +32,8 @@ private:
 
     const WindowManager* m_windowManager;
 
-    GLuint gBuffer, gPosition, gNormal, gColorSpec;
-    GLuint attachments[3] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2};
+    GLuint gBuffer, gPosition, gColorSpec;
+    GLuint attachments[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
     GLuint rboDepth;
 
     Shader geometry_shader;
