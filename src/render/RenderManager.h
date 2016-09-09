@@ -37,8 +37,8 @@ private:
     GLuint attachments[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
     GLuint rboDepth;
 
-    Shader geometry_shader;
-    Shader light_shader;
+    Shader::Ptr geometry_shader;
+    Shader::Ptr light_shader;
 };
 
 }

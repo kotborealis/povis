@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "render/resources/ShaderObject.h"
+#include "render/resources/Shader.h"
 
 #include <memory>
 #include <map>
@@ -13,19 +13,16 @@
 
 namespace PovisEngine{
 
-typedef std::shared_ptr<ShaderObject> Shader;
-typedef std::weak_ptr<ShaderObject> ShaderWeakPtr;
-
 class ShaderManager{
 public:
     ShaderManager();
     ~ShaderManager();
 
-    Shader load(std::string vert, std::string frag);
+    Shader::Ptr load(std::string vert, std::string frag);
 
 private:
-    ShaderWeakPtr search(std::string filename);
-    std::map<std::string, ShaderWeakPtr> list;
+    Shader::WeakPtr search(std::string filename);
+    std::map<std::string, Shader::WeakPtr> list;
 };
 
 }

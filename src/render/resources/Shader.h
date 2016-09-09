@@ -6,14 +6,18 @@
 
 #include <GL/glew.h>
 #include <string>
+#include <memory>
 
 namespace PovisEngine{
 
-class ShaderObject{
+class Shader{
     friend class ShaderManager;
 
 public:
-    ~ShaderObject();
+    ~Shader();
+
+    typedef std::shared_ptr<Shader> Ptr;
+    typedef std::weak_ptr<Shader> WeakPtr;
 
     GLint uniform(std::string uniform_name);
 
@@ -22,7 +26,7 @@ public:
     const GLuint id;
 
 private:
-    ShaderObject(GLuint id);
+    Shader(GLuint id);
 };
 
 }

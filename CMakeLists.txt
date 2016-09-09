@@ -17,8 +17,8 @@ set(SOURCE_FILES
     src/render/resources/Texture.h
     src/render/resource_managers/ShaderManager.cpp
     src/render/resource_managers/ShaderManager.h
-    src/render/resources/ShaderObject.cpp
-    src/render/resources/ShaderObject.h
+    src/render/resources/Shader.cpp
+    src/render/resources/Shader.h
     src/render/RenderManager.cpp
     src/render/RenderManager.h
     src/render/WindowManager.cpp

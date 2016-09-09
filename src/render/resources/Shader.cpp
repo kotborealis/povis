@@ -2,21 +2,21 @@
 // Created by kotborealis on 10.08.2016.
 //
 
-#include "ShaderObject.h"
+#include "Shader.h"
 
 namespace PovisEngine{
 
-ShaderObject::ShaderObject(GLuint id):id(id){}
+Shader::Shader(GLuint id):id(id){}
 
-ShaderObject::~ShaderObject(){
+Shader::~Shader(){
     glDeleteProgram(id);
 }
 
-GLint ShaderObject::uniform(std::string uniform_name){
+GLint Shader::uniform(std::string uniform_name){
     return glGetUniformLocation(id, uniform_name.c_str());
 }
 
-void ShaderObject::bind(){
+void Shader::bind(){
     glUseProgram(id);
 }
 
