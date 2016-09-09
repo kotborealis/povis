@@ -5,16 +5,20 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <memory>
 
 #include "Logger.h"
 
 namespace PovisEngine{
 
-class TextureObject{
+class Texture{
     friend class TextureManager;
 
 public:
-    ~TextureObject();
+    ~Texture();
+
+    typedef std::shared_ptr<Texture> Ptr;
+    typedef std::weak_ptr<Texture> WeakPtr;
 
     void use();
     void bind(GLuint index);
@@ -22,7 +26,7 @@ public:
     const GLuint id;
 
 private:
-    TextureObject(GLuint m_id);
+    Texture(GLuint m_id);
 };
 
 }

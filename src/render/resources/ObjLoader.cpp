@@ -125,7 +125,7 @@ PovisEngine::ObjLoader::import_materials(std::string filename, std::map<std::str
         }
         else if(line.substr(0, 7) == "map_Kd "){
             std::string s = line.substr(7);
-            Texture t = ResourceTexture->load(s);
+            Texture::Ptr t = ResourceTexture->load(s);
             materials[c_name].diffuse = t;
         }
     }

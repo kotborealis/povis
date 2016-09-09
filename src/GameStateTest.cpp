@@ -14,7 +14,7 @@ bool mouse_down = false;
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
     scene = new Scene();
-    Texture diffuse = ResourceTexture->load("assets/textures/box.png");
+    Texture::Ptr diffuse = ResourceTexture->load("assets/textures/box.png");
     Shader shader = ResourceShader->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
     Mesh mesh = ResourceModel->load_mesh_obj("assets/models/box.obj");
     Material material = Material(shader, diffuse);

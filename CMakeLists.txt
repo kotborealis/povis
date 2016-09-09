@@ -13,8 +13,8 @@ set(SOURCE_FILES
     src/povis.cpp
     src/render/resource_managers/TextureManager.cpp
     src/render/resource_managers/TextureManager.h
-    src/render/resources/TextureObject.cpp
-    src/render/resources/TextureObject.h
+    src/render/resources/Texture.cpp
+    src/render/resources/Texture.h
     src/render/resource_managers/ShaderManager.cpp
     src/render/resource_managers/ShaderManager.h
     src/render/resources/ShaderObject.cpp

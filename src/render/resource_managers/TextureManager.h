@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "render/resources/TextureObject.h"
+#include "render/resources/Texture.h"
 
 #include <memory>
 #include <map>
@@ -16,20 +16,17 @@
 
 namespace PovisEngine{
 
-typedef std::shared_ptr<TextureObject> Texture;
-typedef std::weak_ptr<TextureObject> TextureWeakPtr;
-
 class TextureManager{
 public:
     TextureManager();
     ~TextureManager();
 
-    Texture load(std::string filename);
+    Texture::Ptr load(std::string filename);
 
 private:
-    TextureWeakPtr search(std::string filename);
+    Texture::WeakPtr search(std::string filename);
 
-    std::map<std::string, TextureWeakPtr> list;
+    std::map<std::string, Texture::WeakPtr> list;
 };
 
 }

@@ -14,12 +14,12 @@ namespace PovisEngine{
 
 class Material{
 public:
-    Material(const Shader& shader, const Texture& diffuse = nullptr);
+    Material(const Shader& shader, const Texture::Ptr& diffuse = nullptr);
     Material();
     ~Material();
 
     Shader shader;
-    Texture diffuse;
+    Texture::Ptr diffuse;
 };
 
 }

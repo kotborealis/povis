@@ -10,11 +10,11 @@ TextureManager::TextureManager(){}
 
 TextureManager::~TextureManager(){}
 
-Texture TextureManager::load(std::string filename){
+Texture::Ptr TextureManager::load(std::string filename){
     Logger::info("Loading texture: " << filename);
 
     //Search for loaded texture
-    TextureWeakPtr cached_texture = search(filename);
+    Texture::WeakPtr cached_texture = search(filename);
     if(!cached_texture.expired()){
         Logger::info("Already loaded");
         return cached_texture.lock();
@@ -42,8 +42,8 @@ Texture TextureManager::load(std::string filename){
 
     SDL_FreeSurface(surface);
 
-    Texture texture(new TextureObject(textureId));
-    TextureWeakPtr textureWeakPtr(texture);
+    Texture::Ptr texture(new Texture(textureId));
+    Texture::WeakPtr textureWeakPtr(texture);
 
     //Save texture to texture list
     list.insert(std::make_pair(filename, textureWeakPtr));
@@ -51,11 +51,11 @@ Texture TextureManager::load(std::string filename){
     return texture;
 }
 
-TextureWeakPtr TextureManager::search(std::string filename){
+Texture::WeakPtr TextureManager::search(std::string filename){
     auto it = list.find(filename);
     if(it != list.end())
         return it->second;
-    return TextureWeakPtr();
+    return Texture::WeakPtr();
 }
 
 }
