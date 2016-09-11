@@ -9,7 +9,6 @@
 #include "render/resource_managers/ShaderManager.h"
 #include "render/resource_managers/TextureManager.h"
 #include "WindowManager.h"
-#include "render/resource_managers/ModelManager.h"
 
 namespace PovisEngine{
 
@@ -25,20 +24,13 @@ private:
     void clear() const;
     void swap() const;
 
-    void setupGBuffer();
-
-    GLuint quadVAO = 0, quadVBO;
-    void setupQuad();
-    void renderQuad();
-
     const WindowManager* m_windowManager;
 
     GLuint gBuffer, gPosition, gColorSpec;
     GLuint attachments[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
     GLuint rboDepth;
 
-    Shader::Ptr geometry_shader;
-    Shader::Ptr light_shader;
+    Shader::Ptr sprite_shader;
 };
 
 }

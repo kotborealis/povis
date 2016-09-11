@@ -23,7 +23,7 @@ public:
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 0), 45);;
     Scene* scene;
-    std::vector<SceneNode> nodes;
+    std::vector<SceneNode::Ptr> nodes;
 };
 
 }

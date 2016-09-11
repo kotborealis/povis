@@ -19,30 +19,26 @@ set(SOURCE_FILES
     src/render/resource_managers/ShaderManager.h
     src/render/resources/Shader.cpp
     src/render/resources/Shader.h
-    src/render/RenderManager.cpp
     src/render/RenderManager.h
+    src/render/RenderManager.cpp
     src/render/WindowManager.cpp
     src/render/WindowManager.h
     src/render/resources/Mesh.cpp
     src/render/resources/Mesh.h
-    src/render/resources/Material.cpp
-    src/render/resources/Material.h
     src/render/scene/Scene.cpp
     src/render/scene/Scene.h
     src/render/resources/Vertex.h
-    src/render/resources/ModelObject.cpp
-    src/render/resources/ModelObject.h
-    src/render/scene/SceneNodeObject.cpp
-    src/render/scene/SceneNodeObject.h
+    src/render/scene/SceneNode.cpp
+    src/render/scene/SceneNode.h
     src/render/scene/Camera.h
     src/render/scene/Camera.cpp
-    src/render/resource_managers/ModelManager.cpp
-    src/render/resource_managers/ModelManager.h
     src/render/scene/SceneManager.cpp
     src/render/scene/SceneManager.h
-    src/render/resources/ObjLoader.cpp
-    src/render/resources/ObjLoader.h
-    src/render/ResourceManager.h)
+    src/render/ResourceManager.h
+    src/render/resources/Sprite.cpp
+    src/render/resources/Sprite.h
+    src/render/resource_managers/SpriteManager.cpp
+    src/render/resource_managers/SpriteManager.h)
 
 add_executable(povis ${SOURCE_FILES})
 

@@ -4,18 +4,17 @@
 
 #include "render/scene/SceneManager.h"
 
-PovisEngine::SceneManager::SceneManager(){}
+namespace PovisEngine{
 
-PovisEngine::SceneManager::~SceneManager(){
+SceneManager::SceneManager(){}
 
-}
+SceneManager::~SceneManager(){}
 
-PovisEngine::SceneNode
-PovisEngine::SceneManager::create(PovisEngine::Model& model, glm::vec3 position,
+SceneNode::Ptr SceneManager::node(Sprite::Ptr sprite, glm::vec3 position,
                                   glm::vec3 scale, glm::vec3 rotation){
 
-    SceneNode sceneNode(new SceneNodeObject(model, position, scale, rotation));
-    SceneNodeWeakPtr sceneNodeWeakPtr(sceneNode);
+    SceneNode::Ptr sceneNode(new SceneNode(sprite, position, scale, rotation));
+    SceneNode::WeakPtr sceneNodeWeakPtr(sceneNode);
 
     list.push_back(sceneNodeWeakPtr);
 
@@ -23,5 +22,7 @@ PovisEngine::SceneManager::create(PovisEngine::Model& model, glm::vec3 position,
 }
 
 void PovisEngine::SceneManager::validateList(){
-    list.remove_if([](SceneNodeWeakPtr _){return _.expired();});
+    list.remove_if([](SceneNode::WeakPtr _){return _.expired();});
+}
+
 }

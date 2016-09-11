@@ -5,13 +5,14 @@
 #pragma once
 
 
-#include "render/resource_managers/ModelManager.h"
 #include "render/resource_managers/TextureManager.h"
 #include "render/resource_managers/ShaderManager.h"
+#include "render/resource_managers/SpriteManager.h"
+
 
 #define ResourceTexture ResourceManager::i().texture()
-#define ResourceModel ResourceManager::i().model()
 #define ResourceShader ResourceManager::i().shader()
+#define ResourceSprite ResourceManager::i().sprite()
 
 namespace PovisEngine{
 
@@ -34,9 +35,9 @@ public:
         return (TextureManager*)m_textureManager;
     }
 
-    ModelManager* model() const{
-        return (ModelManager*)m_modelManager;
-    };
+    SpriteManager* sprite() const{
+        return (SpriteManager*)m_spriteManager;
+    }
 
 private:
     //Singletone
@@ -50,7 +51,7 @@ private:
 
     const ShaderManager* m_shaderManager = new ShaderManager();
     const TextureManager* m_textureManager = new TextureManager();
-    const ModelManager* m_modelManager = new ModelManager();
+    const SpriteManager* m_spriteManager = new SpriteManager();
 };
 
 }

@@ -5,6 +5,7 @@
  *      Author: kotborealis
  */
 
+#include "render/resources/Mesh.h"
 #include "GameStateTest.h"
 
 namespace PovisEngine{
@@ -14,12 +15,9 @@ bool mouse_down = false;
 GameStateTest::GameStateTest(){
     Logger::info("GameStateTest");
     scene = new Scene();
-    Texture::Ptr diffuse = ResourceTexture->load("assets/textures/box.png");
-    Shader::Ptr shader = ResourceShader->load("assets/shaders/basic.vert", "assets/shaders/basic.frag");
-    Mesh mesh = ResourceModel->load_mesh_obj("assets/models/box.obj");
-    Material material = Material(shader, diffuse);
-    Model model = ResourceModel->create(mesh, material);
-    nodes.push_back(scene->create(model));
+    Texture::Ptr diffuse = ResourceTexture->load("assets/textures/rero.png");
+    Sprite::Ptr sprite = ResourceManager::i().sprite()->create(diffuse);
+    nodes.push_back(scene->create(sprite));
 }
 
 GameStateTest::~GameStateTest(){

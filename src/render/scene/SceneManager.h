@@ -5,13 +5,13 @@
 #pragma once
 
 #include <list>
+#include <glm/vec3.hpp>
 
-#include "render/scene/SceneNodeObject.h"
+#include "render/scene/SceneNode.h"
 
 namespace PovisEngine{
 
-typedef std::shared_ptr<SceneNodeObject> SceneNode;
-typedef std::weak_ptr<SceneNodeObject> SceneNodeWeakPtr;
+
 
 class SceneManager{
     friend class Scene;
@@ -22,13 +22,13 @@ public:
     SceneManager();
     ~SceneManager();
 
-    SceneNode create(Model& model, glm::vec3 position = glm::vec3(0, 0, 0),
-                     glm::vec3 scale = glm::vec3(1, 1, 1),
-                     glm::vec3 rotation = glm::vec3(0, 0, 0));
+    SceneNode::Ptr node(Sprite::Ptr sprite, glm::vec3 position = glm::vec3(0, 0, 0),
+                        glm::vec3 scale = glm::vec3(1, 1, 1),
+                        glm::vec3 rotation = glm::vec3(0, 0, 0));
     void validateList();
 
 private:
-    std::list<SceneNodeWeakPtr> list;
+    std::list<SceneNode::WeakPtr> list;
 };
 
 }

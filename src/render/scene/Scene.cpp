@@ -11,8 +11,8 @@ Scene::Scene():sceneManager(new SceneManager()){}
 
 Scene::~Scene(){}
 
-SceneNode Scene::create(Model& model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation){
-    return sceneManager->create(model, position, scale, rotation);
+SceneNode::Ptr Scene::create(Sprite::Ptr sprite, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation){
+    return sceneManager->node(sprite, position, scale, rotation);
 }
 
 }

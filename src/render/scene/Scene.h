@@ -6,7 +6,7 @@
 
 #include <render/scene/SceneManager.h>
 #include "Camera.h"
-#include "SceneNodeObject.h"
+#include "SceneNode.h"
 #include "Logger.h"
 
 namespace PovisEngine{
@@ -18,9 +18,9 @@ public:
     Scene();
     ~Scene();
 
-    SceneNode create(Model& model, glm::vec3 position = glm::vec3(0, 0, 0),
-                     glm::vec3 scale = glm::vec3(1, 1, 1),
-                     glm::vec3 rotation = glm::vec3(0, 0, 0));
+    SceneNode::Ptr create(Sprite::Ptr sprite, glm::vec3 position = glm::vec3(0, 0, 0),
+                          glm::vec3 scale = glm::vec3(1, 1, 1),
+                          glm::vec3 rotation = glm::vec3(0, 0, 0));
 
 private:
     SceneManager* sceneManager;
