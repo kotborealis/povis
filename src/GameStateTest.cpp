@@ -11,6 +11,7 @@
 namespace PovisEngine{
 
 bool mouse_down = false;
+bool p_left = false, p_right = false, p_up = false, p_down = false;
 Sprite::Ptr sprite;
 
 GameStateTest::GameStateTest(){
@@ -27,7 +28,7 @@ GameStateTest::GameStateTest(){
         });
     }
     sprite = ResourceManager::i().sprite()->create(diffuse, frames);
-    //nodes.push_back(scene->create(sprite));
+
     for(int i = 0; i < 100; i++)
         for(int j = 0; j < 100; j++)
             nodes.push_back(scene->create(sprite, {2 * i, 4 * j, 0}, {1, 2, 1}));
@@ -51,21 +52,34 @@ void GameStateTest::handleEvent(SDL_Event* event){
     if(event->type == SDL_KEYDOWN){
         switch(event->key.keysym.sym){
             case SDLK_w:
-                camera->position += glm::normalize(camera->getFront());
+                p_up = true;
                 break;
             case SDLK_s:
-                camera->position -= glm::normalize(camera->getFront());
+                p_down = true;
                 break;
             case SDLK_a:
-                camera->position -= glm::normalize(
-                        glm::cross(camera->getFront(), camera->getUp()));
+                p_left = true;
                 break;
             case SDLK_d:
-                camera->position += glm::normalize(
-                        glm::cross(camera->getFront(), camera->getUp()));
+                p_right = true;
                 break;
-            case SDLK_n:
-                sprite->tick();
+            default:
+                break;
+        }
+    }
+    else if(event->type == SDL_KEYUP){
+        switch(event->key.keysym.sym){
+            case SDLK_w:
+                p_up = false;
+                break;
+            case SDLK_s:
+                p_down = false;
+                break;
+            case SDLK_a:
+                p_left = false;
+                break;
+            case SDLK_d:
+                p_right = false;
                 break;
             default:
                 break;
@@ -74,7 +88,18 @@ void GameStateTest::handleEvent(SDL_Event* event){
 }
 
 void GameStateTest::update(float delta){
+    sprite->tick();
+    if(p_down)
+        camera->position -= glm::normalize(camera->getFront());
+    else if(p_up)
+        camera->position += glm::normalize(camera->getFront());
 
+    if(p_left)
+        camera->position -= glm::normalize(
+                glm::cross(camera->getFront(), camera->getUp()));
+    else if(p_right)
+        camera->position += glm::normalize(
+                glm::cross(camera->getFront(), camera->getUp()));
 }
 
 void GameStateTest::draw(){
