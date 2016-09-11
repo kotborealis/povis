@@ -3,6 +3,7 @@
 //
 
 #include "Mesh.h"
+#include "Logger.h"
 
 namespace PovisEngine{
 
@@ -56,13 +57,9 @@ void Mesh::drawElements() const{
     glBindVertexArray(0);
 }
 
-void Mesh::updateUV() const{
-    glBindVertexArray(VAO);
-
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
-
-    glBindVertexArray(0);
+void Mesh::updateUV(){
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 }
 
 

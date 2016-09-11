@@ -31,7 +31,7 @@ Sprite::Sprite(Texture::Ptr texture):
     mesh = new Mesh(vertices, indices);
 }
 
-Sprite::Sprite(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>>& UV_frames):
+Sprite::Sprite(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>> UV_frames):
         texture(texture),
         UV_frames(UV_frames){
 

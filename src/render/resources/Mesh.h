@@ -21,7 +21,7 @@ public:
 
     void drawElements() const;
 
-    void updateUV() const;
+    void updateUV();
 
     GLuint getVAO() const;
     GLuint getVBO() const;

@@ -34,7 +34,7 @@ public:
 
 private:
     Sprite(Texture::Ptr texture);
-    Sprite(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>>& UV_frames);
+    Sprite(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>> UV_frames);
 };
 
 }
