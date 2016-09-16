@@ -20,9 +20,9 @@ public:
     WindowManager* window() const;
 
     void render(Scene* scene, Camera* camera);
-private:
     void clear() const;
     void swap() const;
+private:
 
     const WindowManager* m_windowManager;
 

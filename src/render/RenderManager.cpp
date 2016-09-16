@@ -44,8 +44,6 @@ void RenderManager::render(Scene* scene, Camera* camera){
     glm::mat4 view = camera->getView();
     glm::mat4 projection = camera->getProjection(4.f / 3.f);
 
-    clear();
-
     sprite_shader->bind();
     glUniformMatrix4fv(sprite_shader->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(sprite_shader->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -76,8 +74,6 @@ void RenderManager::render(Scene* scene, Camera* camera){
 
         node->sprite->drawSprite();
     }
-
-    swap();
 
     if(scene_need_validate)
         scene->sceneManager->validateList();

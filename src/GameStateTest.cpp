@@ -103,8 +103,9 @@ void GameStateTest::update(float delta){
 }
 
 void GameStateTest::draw(){
-    //scene->draw(camera);
+    Game::i().render()->clear();
     Game::i().render()->render(scene, camera);
+    Game::i().render()->swap();
 }
 
 } /* namespace PovisEngine */

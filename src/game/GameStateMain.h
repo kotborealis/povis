@@ -11,19 +11,22 @@
 
 namespace PovisEngine{
 
-class GameStateTest:public GameState{
+class GameStateMain:public GameState{
 public:
-    GameStateTest();
-    ~GameStateTest();
+    GameStateMain();
+    ~GameStateMain();
 
     void handleEvent(SDL_Event* event);
     void update(float delta);
     void draw();
 
 private:
-    Camera* camera = new Camera(glm::vec3(0, 0, 5), 45);;
+    Camera* camera = new Camera(glm::vec3(0, 0, 20), 45);
     Scene* scene;
     std::vector<SceneNode::Ptr> nodes;
+
+    Sprite::Ptr sprite_bullet;
+    Sprite::Ptr sprite_hitbox;
 };
 
 }
