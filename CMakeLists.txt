@@ -7,8 +7,6 @@ set(SOURCE_FILES
     src/Game.cpp
     src/Game.h
     src/GameState.h
-    src/GameStateTest.cpp
-    src/GameStateTest.h
     src/Logger.h
     src/povis.cpp
     src/render/resource_managers/TextureManager.cpp
@@ -25,15 +23,9 @@ set(SOURCE_FILES
     src/render/WindowManager.h
     src/render/resources/Mesh.cpp
     src/render/resources/Mesh.h
-    src/render/scene/Scene.cpp
-    src/render/scene/Scene.h
     src/render/resources/Vertex.h
-    src/render/scene/SceneNode.cpp
-    src/render/scene/SceneNode.h
-    src/render/scene/Camera.h
-    src/render/scene/Camera.cpp
-    src/render/scene/SceneManager.cpp
-    src/render/scene/SceneManager.h
+    src/render/Camera.h
+    src/render/Camera.cpp
     src/render/ResourceManager.h
     src/render/resources/Sprite.cpp
     src/render/resources/Sprite.h

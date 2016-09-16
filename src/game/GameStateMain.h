@@ -6,7 +6,6 @@
 #include "GameState.h"
 #include "Logger.h"
 #include "Game.h"
-#include "render/scene/Scene.h"
 #include "render/ResourceManager.h"
 
 namespace PovisEngine{
@@ -22,11 +21,11 @@ public:
 
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 20), 45);
-    Scene* scene;
-    std::vector<SceneNode::Ptr> nodes;
 
     Sprite::Ptr sprite_bullet;
     Sprite::Ptr sprite_hitbox;
+
+    Shader::Ptr sprite_shader;
 };
 
 }
