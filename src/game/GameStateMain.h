@@ -20,12 +20,14 @@ public:
     void draw();
 
 private:
-    Camera* camera = new Camera(glm::vec3(0, 0, 20), 45);
+    Camera* camera = new Camera(glm::vec3(0, 0, 10), 45);
 
     Sprite::Ptr sprite_bullet;
     Sprite::Ptr sprite_hitbox;
 
     Shader::Ptr sprite_shader;
+
+
 };
 
 }
