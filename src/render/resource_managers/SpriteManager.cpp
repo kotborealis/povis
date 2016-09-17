@@ -9,17 +9,9 @@ SpriteManager::SpriteManager(){}
 
 SpriteManager::~SpriteManager(){}
 
-Sprite::Ptr SpriteManager::create(Texture::Ptr texture){
-    Sprite::Ptr sprite(new Sprite(texture));
-    Sprite::WeakPtr SpriteWeakPtr(sprite);
-    list.insert(std::make_pair("", SpriteWeakPtr));
-    return sprite;
-}
-
-Sprite::Ptr SpriteManager::create(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>>& UV_frames){
-    Sprite::Ptr sprite(new Sprite(texture, UV_frames));
-    Sprite::WeakPtr SpriteWeakPtr(sprite);
-    list.insert(std::make_pair("", SpriteWeakPtr));
+Sprite::Ptr SpriteManager::create(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset,
+                                  unsigned short int frames){
+    Sprite::Ptr sprite(new Sprite(texture, uv, frameOffset, frames));
     return sprite;
 }
 

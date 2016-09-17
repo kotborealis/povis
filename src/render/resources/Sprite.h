@@ -28,13 +28,15 @@ public:
 
     Texture::Ptr texture;
     Mesh* mesh;
-    std::vector<std::array<glm::vec2, 4>> UV_frames;
-    unsigned short int UV_frames_count = 0;
+    std::array<glm::vec2, 4> uv;
+    glm::vec2 frameOffset;
+    unsigned short int frames = 0;
     unsigned short int current_frame = 0;
 
 private:
-    Sprite(Texture::Ptr texture);
-    Sprite(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>> UV_frames);
+    Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv,
+           glm::vec2 frameOffset,
+           unsigned short int frames);
 };
 
 }

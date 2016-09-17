@@ -22,11 +22,12 @@ public:
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 10), 45);
 
-    Sprite::Ptr sprite_bullet;
-    Sprite::Ptr sprite_hitbox;
+    Texture::Ptr texture_bullet;
+    Sprite::Ptr sprite_bullet1;
+
+    Sprite::Ptr sakuya_test;
 
     Shader::Ptr shader_sprite;
-    Shader::Ptr shader_bullethell;
 };
 
 }

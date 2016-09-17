@@ -18,11 +18,8 @@ public:
     SpriteManager();
     ~SpriteManager();
 
-    Sprite::Ptr create(Texture::Ptr texture);
-    Sprite::Ptr create(Texture::Ptr texture, std::vector<std::array<glm::vec2, 4>>& UV_frames);
-
-private:
-    std::map<std::string, Sprite::WeakPtr> list;
+    Sprite::Ptr
+    create(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, unsigned short int frames);
 };
 
 }
