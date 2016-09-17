@@ -10,10 +10,10 @@
 
 namespace PovisEngine{
 
-class GameStateMain:public GameState{
+class GameStateDemo:public GameState{
 public:
-    GameStateMain();
-    ~GameStateMain();
+    GameStateDemo();
+    ~GameStateDemo();
 
     void handleEvent(SDL_Event* event);
     void update(float delta);
@@ -24,6 +24,9 @@ private:
 
     Texture::Ptr texture_bullet;
     Sprite::Ptr sprite_bullet1;
+
+    Texture::Ptr texture_bg;
+    Sprite::Ptr sprite_bg;
 
     Shader::Ptr shader_sprite;
 };

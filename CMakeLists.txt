@@ -30,7 +30,10 @@ set(SOURCE_FILES
     src/render/resources/Sprite.cpp
     src/render/resources/Sprite.h
     src/render/resource_managers/SpriteManager.cpp
-    src/render/resource_managers/SpriteManager.h src/game/GameStateMain.cpp src/game/GameStateMain.h)
+    src/render/resource_managers/SpriteManager.h
+    src/game/xff2/GameStateDemo.cpp
+    src/game/xff2/GameStateDemo.h
+    src/game/xff2/xff2_game.h)
 
 add_executable(povis ${SOURCE_FILES})
 
