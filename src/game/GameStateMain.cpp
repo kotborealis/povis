@@ -72,20 +72,20 @@ void GameStateMain::draw(){
     glGenBuffers(1, &vbo);
 
     GLfloat bullets[] = {
-            0.0f,  0.5f, 0, 1, 0, 0, 20,
-            0.5f, -0.5f, 0, 0, 1, 0, 30,
-            -0.5f, -0.5f, 0, 0, 0, 1, 40
+            0.0f,  0.5f, 1, 0, 0, 20,
+            0.5f, -0.5f, 0, 1, 0, 30,
+            -0.5f, -0.5f, 0, 0, 1, 40
     };
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(bullets), bullets, GL_DYNAMIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float)*7, 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float)*6, 0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float)*7, (GLvoid*)(sizeof(float)*3));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float)*6, (GLvoid*)(sizeof(float)*2));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(float)*7, (GLvoid*)(sizeof(float)*6));
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(float)*6, (GLvoid*)(sizeof(float)*5));
 
     glPointSize(10);
     glDrawArrays(GL_POINTS, 0, 3);
