@@ -33,7 +33,9 @@ set(SOURCE_FILES
     src/render/resource_managers/SpriteManager.h
     src/game/xff2/GameStateDemo.cpp
     src/game/xff2/GameStateDemo.h
-    src/game/xff2/xff2_game.h)
+    src/game/xff2/xff2_game.h
+    src/game/xff2/Bullets.cpp
+    src/game/xff2/Bullets.h)
 
 add_executable(povis ${SOURCE_FILES})
 

@@ -17,13 +17,23 @@ GameStateDemo::GameStateDemo(){
     shader_sprite = ResourceShader->load("assets/xff2/shaders/sprite.vert",
                                          "assets/xff2/shaders/sprite.frag");
 
-    texture_bullet = ResourceTexture->load("assets/xff2/textures/bullet1.png");
-    sprite_bullet1 = ResourceSprite->create(texture_bullet,
-                                            {{{0, 1.f / 16.f}, {1.f / 16.f, 1.f / 16.f}, {1.f / 16.f, 0}, {0, 0}}},
-                                            {1 / 16.f, 0}, 16, 0);
-
     texture_bg = ResourceTexture->load("assets/xff2/textures/stg1bg.png");
     sprite_bg = ResourceSprite->create(texture_bg, {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
+
+    bullets = new Bullets();
+
+    bulletRed01 = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
+                                         {{
+                                                  {1 / 16.f, 1.f / 16.f},
+                                                  {1.f / 16.f * 2, 1.f / 16.f},
+                                                  {1.f / 16.f * 2, 0},
+                                                  {1 / 16.f, 0}
+                                          }},
+                                         {0, 1 / 16.f}, 16, 3);
+
+    for(int j = 0; j < 60; j += 15)
+        for(int i = 0; i < 360; i += 15)
+            bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
 }
 
 GameStateDemo::~GameStateDemo(){
@@ -31,10 +41,14 @@ GameStateDemo::~GameStateDemo(){
 }
 
 void GameStateDemo::handleEvent(SDL_Event* event){
+    for(int j = 0; j < 60; j += 15)
+        for(int i = 0; i < 360; i += 15)
+            bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
 }
 
 void GameStateDemo::update(float delta){
-    sprite_bullet1->tick();
+    bullets->tick();
+    bullets->validate();
 }
 
 void GameStateDemo::draw(){
@@ -63,26 +77,22 @@ void GameStateDemo::draw(){
     glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
     sprite_bg->texture->bind(0);
     glm::mat4 model;
-    model = glm::scale(model, {8, 8, 1});
+    model = glm::scale(model, {1, 1, 1});
     glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
     sprite_bg->drawSprite();
 
     //bullets
-//    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
-//    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
-//    sprite_bullet1->texture->bind(0);
-//
-//    for(int i = 0; i < 4; i++){
-//        glm::mat4 model;
-//        model = glm::translate(model, {2 * i, 0, 0});
-//        model = glm::rotate(model, 0.f, {1, 0, 0});
-//        model = glm::rotate(model, 0.f, {0, 1, 0});
-//        model = glm::rotate(model, 0.f, {0, 0, 1});
-//        model = glm::scale(model, {1, 1, 1});
-//        glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-//        sprite_bullet1->drawSprite();
-//    }
+    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
 
+    for(auto it = bullets->bullets.begin(); it != bullets->bullets.end(); it++){
+        model = {};
+        model = glm::translate(model, {it->position.x, it->position.y, 0});
+        model = glm::scale(model, {0.02f, 0.02f, 0.02f});
+        glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+        it->sprite->texture->bind(0);
+        it->sprite->drawSprite();
+    }
 
     //GL stack
     glEnable(GL_DEPTH_TEST);

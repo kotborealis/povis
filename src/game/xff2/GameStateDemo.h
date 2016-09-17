@@ -7,6 +7,7 @@
 #include "Logger.h"
 #include "Game.h"
 #include "render/ResourceManager.h"
+#include "Bullets.h"
 
 namespace PovisEngine{
 
@@ -20,15 +21,16 @@ public:
     void draw();
 
 private:
-    Camera* camera = new Camera(glm::vec3(0, 0, 10), 45);
-
-    Texture::Ptr texture_bullet;
-    Sprite::Ptr sprite_bullet1;
+    Camera* camera = new Camera(glm::vec3(0, 0, 1), 45);
 
     Texture::Ptr texture_bg;
     Sprite::Ptr sprite_bg;
 
     Shader::Ptr shader_sprite;
+
+    Bullets* bullets;
+
+    Sprite::Ptr bulletRed01;
 };
 
 }
