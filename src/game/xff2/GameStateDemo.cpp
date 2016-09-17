@@ -56,10 +56,7 @@ void GameStateDemo::draw(){
 
     //GL stack
     glDisable(GL_DEPTH_TEST);
-    glEnable(GL_POINT_SMOOTH);
-    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glEnable(GL_BLEND);
-    glEnable(GL_PROGRAM_POINT_SIZE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //Camera view
