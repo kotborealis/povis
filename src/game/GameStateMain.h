@@ -25,8 +25,6 @@ private:
     Texture::Ptr texture_bullet;
     Sprite::Ptr sprite_bullet1;
 
-    Sprite::Ptr sakuya_test;
-
     Shader::Ptr shader_sprite;
 };
 

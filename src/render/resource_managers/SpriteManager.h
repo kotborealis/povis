@@ -19,7 +19,7 @@ public:
     ~SpriteManager();
 
     Sprite::Ptr
-    create(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, unsigned short int frames);
+    create(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, float frames, float startFrame);
 };
 
 }

@@ -10,8 +10,8 @@ SpriteManager::SpriteManager(){}
 SpriteManager::~SpriteManager(){}
 
 Sprite::Ptr SpriteManager::create(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset,
-                                  unsigned short int frames){
-    Sprite::Ptr sprite(new Sprite(texture, uv, frameOffset, frames));
+                                  float frames, float startFrame){
+    Sprite::Ptr sprite(new Sprite(texture, uv, frameOffset, frames, startFrame));
     return sprite;
 }
 

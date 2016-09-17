@@ -30,13 +30,12 @@ public:
     Mesh* mesh;
     std::array<glm::vec2, 4> uv;
     glm::vec2 frameOffset;
-    unsigned short int frames = 0;
-    unsigned short int current_frame = 0;
+    float frames = 0;
+    float startFrame = 0;
+    float current_frame = 0;
 
 private:
-    Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv,
-           glm::vec2 frameOffset,
-           unsigned short int frames);
+    Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, float frames, float startFrame);
 };
 
 }
