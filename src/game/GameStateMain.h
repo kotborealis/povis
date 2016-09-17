@@ -25,9 +25,8 @@ private:
     Sprite::Ptr sprite_bullet;
     Sprite::Ptr sprite_hitbox;
 
-    Shader::Ptr sprite_shader;
-
-
+    Shader::Ptr shader_sprite;
+    Shader::Ptr shader_bullethell;
 };
 
 }
