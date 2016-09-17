@@ -50,7 +50,9 @@ void GameStateMain::draw(){
     glUniformMatrix4fv(shader_sprite->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(shader_sprite->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
     glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_sprite->uniform("color"), 1, 0.5f, 0.5f);
     sprite_bullet1->texture->bind(0);
+
     for(int i = 0; i < 4; i++){
         glm::mat4 model;
         model = glm::translate(model, {2 * i, 0, 0});
