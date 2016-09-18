@@ -17,12 +17,11 @@ GameStateDemo::GameStateDemo(){
     shader_sprite = ResourceShader->load("assets/xff2/shaders/sprite.vert",
                                          "assets/xff2/shaders/sprite.frag");
 
-    texture_bg = ResourceTexture->load("assets/xff2/textures/stg1bg.png");
-    sprite_bg = ResourceSprite->create(texture_bg, {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
+    sprite_bg = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
+                                       {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
+    texture_bullets = ResourceTexture->load("assets/xff2/textures/bullet1.png");
 
-    bullets = new Bullets();
-
-    bulletRed01 = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
+    bulletRed01 = ResourceSprite->create(texture_bullets,
                                          {{
                                                   {1 / 16.f, 1.f / 16.f},
                                                   {1.f / 16.f * 2, 1.f / 16.f},
@@ -31,9 +30,21 @@ GameStateDemo::GameStateDemo(){
                                           }},
                                          {0, 1 / 16.f}, 16, 3);
 
+    sprite_player = ResourceSprite->create(texture_bullets, {{
+                                                                     {1 / 16.f, 1.f / 16.f},
+                                                                     {1.f / 16.f * 2, 1.f / 16.f},
+                                                                     {1.f / 16.f * 2, 0},
+                                                                     {1 / 16.f, 0}
+                                                             }},
+                                           {0, 1 / 16.f}, 16, 10);
+
+    bullets = new BulletHell();
+
     for(int j = 0; j < 60; j += 15)
         for(int i = 0; i < 360; i += 15)
             bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
+
+    player = new Player(sprite_player);
 }
 
 GameStateDemo::~GameStateDemo(){
@@ -41,12 +52,15 @@ GameStateDemo::~GameStateDemo(){
 }
 
 void GameStateDemo::handleEvent(SDL_Event* event){
-    for(int j = 0; j < 60; j += 15)
-        for(int i = 0; i < 360; i += 15)
-            bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
+    player->handleEvent(event);
+//    for(int j = 0; j < 60; j += 15)
+//        for(int i = 0; i < 360; i += 15)
+//            bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
 }
 
 void GameStateDemo::update(float delta){
+    player->tick();
+
     bullets->tick();
     bullets->validate();
 }
@@ -77,6 +91,16 @@ void GameStateDemo::draw(){
     model = glm::scale(model, {1, 1, 1});
     glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
     sprite_bg->drawSprite();
+
+    //player
+    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
+    player->getSprite()->texture->bind(0);
+    model = {};
+    model = glm::translate(model, {player->getPosition().x, player->getPosition().y, 0});
+    model = glm::scale(model, {0.02f, 0.02f, 0.02f});
+    glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+    player->getSprite()->drawSprite();
 
     //bullets
     glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);

@@ -13,7 +13,7 @@
 
 namespace PovisEngine{
 
-class Bullets{
+class BulletHell{
 public:
     struct Bullet{
         glm::vec2 position;
