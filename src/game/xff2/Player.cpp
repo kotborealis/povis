@@ -7,13 +7,11 @@
 namespace PovisEngine{
 
 
-Player::Player(const Sprite::Ptr& sprite):sprite(sprite){
-
+Player::Player(){
+    scale = {0.02f, 0.02f};
 }
 
-Player::~Player(){
-
-}
+Player::~Player(){}
 
 void Player::tick(){
     glm::vec2 a_velocity = {0, 0};
@@ -78,14 +76,6 @@ void Player::handleEvent(SDL_Event* event){
                 break;
         }
     }
-}
-
-const glm::vec2& Player::getPosition() const{
-    return position;
-}
-
-const Sprite::Ptr& Player::getSprite() const{
-    return sprite;
 }
 
 }

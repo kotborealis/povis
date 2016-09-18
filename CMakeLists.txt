@@ -35,7 +35,15 @@ set(SOURCE_FILES
     src/game/xff2/GameStateDemo.h
     src/game/xff2/xff2_game.h
     src/game/xff2/BulletHell.cpp
-    src/game/xff2/BulletHell.h src/game/xff2/Player.cpp src/game/xff2/Player.h)
+    src/game/xff2/BulletHell.h
+    src/game/xff2/Player.cpp
+    src/game/xff2/Player.h
+    src/game/xff2/Boss.cpp
+    src/game/xff2/Boss.h
+    src/game/xff2/PlayerTest.cpp
+    src/game/xff2/PlayerTest.h
+    src/game/xff2/Entity.cpp
+    src/game/xff2/Entity.h)
 
 add_executable(povis ${SOURCE_FILES})
 
