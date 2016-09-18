@@ -53,9 +53,6 @@ GameStateDemo::~GameStateDemo(){
 
 void GameStateDemo::handleEvent(SDL_Event* event){
     player->handleEvent(event);
-//    for(int j = 0; j < 60; j += 15)
-//        for(int i = 0; i < 360; i += 15)
-//            bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
 }
 
 void GameStateDemo::update(float delta){
