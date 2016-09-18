@@ -9,6 +9,7 @@
 #include "render/ResourceManager.h"
 #include "BulletHell.h"
 #include "Player.h"
+#include "Enemy.h"
 
 namespace PovisEngine{
 
@@ -34,6 +35,7 @@ private:
 
     BulletHell* bullets;
     Player* player;
+    Enemy* enemyTest;
 };
 
 }
