@@ -50,10 +50,14 @@ void GameStateDemo::handleEvent(SDL_Event* event){
 }
 
 void GameStateDemo::update(float delta){
-    player->tick();
+    stateInfo.frameCounter++;
+    stateInfo.player = player;
 
-    bullets->tick();
-    bullets->validate();
+    player->tick(stateInfo);
+    bullets->tick(stateInfo);
+
+    if(stateInfo.frameCounter % 60 == 0)
+        bullets->validate();
 }
 
 void GameStateDemo::draw(){

@@ -23,7 +23,7 @@ Enemy::~Enemy(){
 
 }
 
-void Enemy::tick(){
+void Enemy::tick(StateInfo stateInfo){
 
 }
 }

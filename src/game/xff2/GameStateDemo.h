@@ -36,6 +36,8 @@ private:
     BulletHell* bullets;
     Player* player;
     Enemy* enemyTest;
+
+    StateInfo stateInfo;
 };
 
 }

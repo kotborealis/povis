@@ -15,7 +15,7 @@ public:
     virtual ~Enemy();
 
     BulletHell bulletHell;
-    void tick();
+    void tick(StateInfo stateInfo);
 };
 
 }
