@@ -14,8 +14,9 @@ public:
     Enemy();
     virtual ~Enemy();
 
+    Sprite::Ptr bulletRed01;
     BulletHell bulletHell;
-    void tick(StateInfo stateInfo);
+    void tick(StateInfo* stateInfo);
 };
 
 }

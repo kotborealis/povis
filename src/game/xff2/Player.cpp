@@ -13,7 +13,7 @@ Player::Player(){
 
 Player::~Player(){}
 
-void Player::tick(StateInfo stateInfo){
+void Player::tick(StateInfo* stateInfo){
     glm::vec2 a_velocity = {0, 0};
 
     if(moving[0])

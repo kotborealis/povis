@@ -15,7 +15,7 @@ public:
     Player();
     virtual ~Player();
 
-    void tick(StateInfo stateInfo);
+    void tick(StateInfo* stateInfo);
     void handleEvent(SDL_Event* event);
 
 public:

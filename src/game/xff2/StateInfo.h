@@ -4,13 +4,13 @@
 
 #pragma once
 
-namespace PovisEngine {
+#include <game/xff2/Player.h>
 
-class Player;
+namespace PovisEngine {
 
 struct StateInfo {
     long long unsigned int frameCounter = 0;
-    Player *player = nullptr;
+    Player* player = nullptr;
 };
 
 }

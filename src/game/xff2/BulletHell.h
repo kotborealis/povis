@@ -8,7 +8,7 @@
 #include <vector>
 #include <list>
 #include <render/resources/Sprite.h>
-#include "../../../StateInfo.h"
+#include "StateInfo.h"
 
 #define GLM_FORCE_RADIANS
 
@@ -25,7 +25,7 @@ public:
     std::list<Bullet> bullets;
 
     void create(float x, float y, float velocity, float angle, Sprite::Ptr sprite);
-    void tick(StateInfo stateInfo);
+    void tick(StateInfo* stateInfo);
     void validate();
 };
 

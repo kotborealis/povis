@@ -53,8 +53,9 @@ void GameStateDemo::update(float delta){
     stateInfo.frameCounter++;
     stateInfo.player = player;
 
-    player->tick(stateInfo);
-    bullets->tick(stateInfo);
+    player->tick(&stateInfo);
+    bullets->tick(&stateInfo);
+    enemyTest->tick(&stateInfo);
 
     if(stateInfo.frameCounter % 60 == 0)
         bullets->validate();
@@ -98,6 +99,18 @@ void GameStateDemo::draw(){
     glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
 
     for(auto it = bullets->bullets.begin(); it != bullets->bullets.end(); it++){
+        model = {};
+        model = glm::translate(model, {it->position.x, it->position.y, 0});
+        model = glm::scale(model, {0.02f, 0.02f, 0.02f});
+        glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+        it->sprite->texture->bind(0);
+        it->sprite->drawSprite();
+    }
+
+    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
+
+    for(auto it = enemyTest->bulletHell.bullets.begin(); it != enemyTest->bulletHell.bullets.end(); it++){
         model = {};
         model = glm::translate(model, {it->position.x, it->position.y, 0});
         model = glm::scale(model, {0.02f, 0.02f, 0.02f});

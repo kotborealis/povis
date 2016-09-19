@@ -6,14 +6,15 @@
 
 #include <render/resources/Sprite.h>
 #include <glm/vec2.hpp>
-#include "../../../StateInfo.h"
 
 namespace PovisEngine{
+
+class StateInfo;
 
 class Entity{
 public:
     void draw(Shader::Ptr shader) const;
-    virtual void tick(StateInfo stateInfo) = 0;
+    virtual void tick(StateInfo* stateInfo) = 0;
 
     const glm::vec2& getPosition() const;
     const Sprite::Ptr& getSprite() const;
