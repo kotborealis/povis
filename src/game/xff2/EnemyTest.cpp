@@ -31,13 +31,38 @@ void EnemyTest::tick(StateInfo* stateInfo){
     bulletHell.tick(stateInfo);
 
     glm::vec2 player_pos = stateInfo->player->getPosition();
-    if(stateInfo->frameCounter % 40 == 0){
-        bulletHell.create(position.x, position.y, -0.005f,
-                      (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
-        bulletHell.create(position.x, position.y, -0.005f,
-                          (float) atan2(position.y - player_pos.y, position.x - player_pos.x)+0.3f, bulletRed01);
-        bulletHell.create(position.x, position.y, -0.005f,
-                          (float) atan2(position.y - player_pos.y, position.x - player_pos.x)-0.3f, bulletRed01);
+    if(stateInfo->frameCounter % 60 == 0){
+//        bulletHell.create(position.x, position.y, -0.005f,
+//                      (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+//        bulletHell.create(position.x, position.y, -0.005f,
+//                          (float) atan2(position.y - player_pos.y, position.x - player_pos.x)+0.3f, bulletRed01);
+//        bulletHell.create(position.x, position.y, -0.005f,
+//                          (float) atan2(position.y - player_pos.y, position.x - player_pos.x)-0.3f, bulletRed01);
+        bulletHell.create(position.x, position.y, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x-0.02f*2, position.y, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x-0.04f*2, position.y, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x, position.y-0.02f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x, position.y-0.04f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x+0.02f*2, position.y-0.04f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x+0.04f*2, position.y-0.04f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x+0.04f*2, position.y-0.02f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x+0.04f*2, position.y, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x-0.02f*2, position.y-0.04f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x-0.04f*2, position.y-0.04f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x-0.04f*2, position.y-0.06f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x-0.04f*2, position.y-0.08f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x, position.y-0.06f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x, position.y-0.08f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+
+        bulletHell.create(position.x+0.02f*2, position.y-0.08f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
+        bulletHell.create(position.x+0.04f*2, position.y-0.08f*2, -0.005f, (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
     }
 }
 
