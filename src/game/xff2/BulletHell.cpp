@@ -13,6 +13,9 @@ void BulletHell::create(float x, float y, float velocity, float angle, Sprite::P
 void BulletHell::tick(StateInfo* stateInfo){
     for(auto it = bullets.begin(); it != bullets.end(); it++)
         it->position += it->velocity;
+
+    if(stateInfo->frameCounter % 120 == 0)
+        this->validate();
 }
 
 void BulletHell::validate(){

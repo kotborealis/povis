@@ -16,7 +16,7 @@ public:
 
     Sprite::Ptr bulletRed01;
     BulletHell bulletHell;
-    void tick(StateInfo* stateInfo);
+    virtual void tick(StateInfo* stateInfo) = 0;
 };
 
 }

@@ -27,13 +27,8 @@ private:
 
     Shader::Ptr shader_sprite;
 
-    Texture::Ptr texture_bullets;
-
     Sprite::Ptr sprite_bg;
-    Sprite::Ptr bulletRed01;
-    Sprite::Ptr sprite_player;
 
-    BulletHell* bullets;
     Player* player;
     Enemy* enemyTest;
 

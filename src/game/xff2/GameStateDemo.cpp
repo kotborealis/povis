@@ -9,6 +9,7 @@
 #include "render/resources/Mesh.h"
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
+#include "EnemyTest.h"
 
 namespace PovisEngine{
 
@@ -20,25 +21,8 @@ GameStateDemo::GameStateDemo(){
 
     sprite_bg = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
                                        {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
-    texture_bullets = ResourceTexture->load("assets/xff2/textures/bullet1.png");
-
-    bulletRed01 = ResourceSprite->create(texture_bullets,
-                                         {{
-                                                  {1 / 16.f, 1.f / 16.f},
-                                                  {1.f / 16.f * 2, 1.f / 16.f},
-                                                  {1.f / 16.f * 2, 0},
-                                                  {1 / 16.f, 0}
-                                          }},
-                                         {0, 1 / 16.f}, 16, 3);
-
-    bullets = new BulletHell();
-
-    for(int j = 0; j < 60; j += 15)
-        for(int i = 0; i < 360; i += 15)
-            bullets->create(-.5f + j / 50.f, 0, 0.003f, glm::radians(i * 1.f), bulletRed01);
-
     player = new PlayerTest();
-    enemyTest = new Enemy();
+    enemyTest = new EnemyTest();
 }
 
 GameStateDemo::~GameStateDemo(){
@@ -54,11 +38,7 @@ void GameStateDemo::update(float delta){
     stateInfo.player = player;
 
     player->tick(&stateInfo);
-    bullets->tick(&stateInfo);
     enemyTest->tick(&stateInfo);
-
-    if(stateInfo.frameCounter % 60 == 0)
-        bullets->validate();
 }
 
 void GameStateDemo::draw(){
@@ -95,17 +75,6 @@ void GameStateDemo::draw(){
     enemyTest->draw(shader_sprite);
 
     //bullets
-    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
-    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
-
-    for(auto it = bullets->bullets.begin(); it != bullets->bullets.end(); it++){
-        model = {};
-        model = glm::translate(model, {it->position.x, it->position.y, 0});
-        model = glm::scale(model, {0.02f, 0.02f, 0.02f});
-        glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-        it->sprite->texture->bind(0);
-        it->sprite->drawSprite();
-    }
 
     glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
     glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
