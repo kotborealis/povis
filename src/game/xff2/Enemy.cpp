@@ -36,7 +36,7 @@ void Enemy::tick(StateInfo* stateInfo){
     bulletHell.tick(stateInfo);
 
     glm::vec2 player_pos = stateInfo->player->getPosition();
-    if(stateInfo->frameCounter % 20 == 0){
+    if(stateInfo->frameCounter % 40 == 0){
         bulletHell.create(position.x, position.y, -0.005f,
                           (float) atan2(position.y - player_pos.y, position.x - player_pos.x), bulletRed01);
         bulletHell.create(position.x, position.y, -0.005f,
@@ -44,7 +44,7 @@ void Enemy::tick(StateInfo* stateInfo){
         bulletHell.create(position.x, position.y, -0.005f,
                           (float) atan2(position.y - player_pos.y, position.x - player_pos.x)-0.2f, bulletRed01);
     }
-    bulletHell.create(position.x, position.y, -0.005f,
-                      (float) atan2(position.y - player_pos.y, position.x - player_pos.x)+0.2f, bulletRed01);
+
+    position.x = player_pos.x;
 }
 }
