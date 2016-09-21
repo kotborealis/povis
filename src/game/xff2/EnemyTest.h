@@ -14,6 +14,10 @@ public:
     void tick(StateInfo* stateInfo);
 
     Bullet* bulletRed01;
+    Bullet* bulletRed02;
+
+private:
+    void pattern01(StateInfo* stateInfo);
 };
 
 }
