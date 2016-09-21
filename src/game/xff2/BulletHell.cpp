@@ -6,20 +6,25 @@
 
 namespace PovisEngine{
 
-void BulletHell::create(float x, float y, float velocity, float angle, Sprite::Ptr sprite){
-    bullets.push_back({{x, y}, {velocity * cos(angle), velocity * sin(angle)}, sprite});
+void BulletHell::create(BulletInstance bulletInstance){
+    bullets.push_back(bulletInstance);
 }
 
 void BulletHell::tick(StateInfo* stateInfo){
     for(auto it = bullets.begin(); it != bullets.end(); it++)
-        it->position += it->velocity;
+        it->position += it->linear_velocity;
 
     if(stateInfo->frameCounter % 120 == 0)
         this->validate();
 }
 
+void BulletHell::draw(Shader::Ptr& shader){
+    for(auto it = bullets.begin(); it != bullets.end(); it++)
+        it->type->draw(shader, it->position);
+}
+
 void BulletHell::validate(){
-    bullets.remove_if([](Bullet b){
+    bullets.remove_if([](BulletInstance b){
         return b.position.x > 1 || b.position.y > 1 ||
                b.position.x < -1 || b.position.y < -1;
     });

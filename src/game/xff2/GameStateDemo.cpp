@@ -73,20 +73,7 @@ void GameStateDemo::draw(){
 
     //Enemy
     enemyTest->draw(shader_sprite);
-
-    //bullets
-
-    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
-    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
-
-    for(auto it = enemyTest->bulletHell.bullets.begin(); it != enemyTest->bulletHell.bullets.end(); it++){
-        model = {};
-        model = glm::translate(model, {it->position.x, it->position.y, 0});
-        model = glm::scale(model, {0.02f, 0.02f, 0.02f});
-        glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-        it->sprite->texture->bind(0);
-        it->sprite->drawSprite();
-    }
+    enemyTest->bulletHell.draw(shader_sprite);
 
     //GL stack
     glEnable(GL_DEPTH_TEST);

@@ -13,8 +13,7 @@ class Enemy:public Entity{
 public:
     Enemy();
     virtual ~Enemy();
-
-    Sprite::Ptr bulletRed01;
+    
     BulletHell bulletHell;
     virtual void tick(StateInfo* stateInfo) = 0;
 };

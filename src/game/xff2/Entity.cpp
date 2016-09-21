@@ -17,7 +17,7 @@ const glm::vec2& Entity::getPosition() const{
     return position;
 }
 
-void Entity::draw(Shader::Ptr shader) const{
+void Entity::draw(Shader::Ptr& shader) const{
     glUniform1f(shader->uniform("diffuseTexture"), 0);
     glUniform3f(shader->uniform("color"), 1, 1.f, 1.f);
     sprite->texture->bind(0);

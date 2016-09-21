@@ -12,6 +12,8 @@ class EnemyTest: public Enemy {
 public:
     EnemyTest();
     void tick(StateInfo* stateInfo);
+
+    Bullet* bulletRed01;
 };
 
 }
