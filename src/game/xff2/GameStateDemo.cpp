@@ -9,7 +9,7 @@
 #include "render/resources/Mesh.h"
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
-#include "EnemyTest.h"
+#include "EnemyFairy1.h"
 
 namespace PovisEngine{
 
@@ -22,7 +22,8 @@ GameStateDemo::GameStateDemo(){
     sprite_bg = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
                                        {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
     player = new PlayerTest();
-    enemyTest = new EnemyTest();
+
+    enemies.push_back(new EnemyFairy1());
 }
 
 GameStateDemo::~GameStateDemo(){
@@ -38,7 +39,8 @@ void GameStateDemo::update(float delta){
     stateInfo.player = player;
 
     player->tick(&stateInfo);
-    enemyTest->tick(&stateInfo);
+    for(auto it = enemies.begin(); it != enemies.end(); it++)
+        (*it)->tick(&stateInfo);
 }
 
 void GameStateDemo::draw(){
@@ -72,8 +74,10 @@ void GameStateDemo::draw(){
     player->draw(shader_sprite);
 
     //Enemy
-    enemyTest->draw(shader_sprite);
-    enemyTest->bulletHell.draw(shader_sprite);
+    for(auto it = enemies.begin(); it != enemies.end(); it++){
+        (*it)->draw(shader_sprite);
+        (*it)->bulletHell.draw(shader_sprite);
+    }
 
     //GL stack
     glEnable(GL_DEPTH_TEST);

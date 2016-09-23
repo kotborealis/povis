@@ -30,7 +30,7 @@ private:
     Sprite::Ptr sprite_bg;
 
     Player* player;
-    Enemy* enemyTest;
+    std::vector<Enemy*> enemies;
 
     StateInfo stateInfo;
 };
