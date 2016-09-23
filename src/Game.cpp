@@ -17,7 +17,7 @@ void Game::run(){
     Logger::info("Engine running");
 
     float optimal_fps = 60.f;
-    float optimal_frame_time = 1000.f / 60.f;
+    float optimal_frame_time = 1000.f / optimal_fps;
 
     float start_time = SDL_GetTicks();
     float accumulator = 0;

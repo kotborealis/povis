@@ -10,7 +10,6 @@
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
 #include "EnemyFairy1.h"
-#include "EnemyTest.h"
 
 namespace PovisEngine{
 
@@ -24,7 +23,7 @@ GameStateDemo::GameStateDemo(){
                                        {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
     player = new PlayerTest();
 
-    enemies.push_back(new EnemyTest());
+    //enemies.push_back(new EnemyTest());
     enemies.push_back(new EnemyFairy1());
 }
 
@@ -43,6 +42,19 @@ void GameStateDemo::update(float delta){
     player->tick(&stateInfo);
     for(auto it = enemies.begin(); it != enemies.end(); it++)
         (*it)->tick(&stateInfo);
+
+    for(auto it = enemies.begin(); it != enemies.end(); it++){
+        auto bh = (*it)->bulletHell;
+        for(auto jt = bh.bullets.begin(); jt != bh.bullets.end(); jt++){
+            glm::vec2 _dist = player->getPosition() - jt->position;
+            float dist = (float)sqrt(_dist.x * _dist.x + _dist.y * _dist.y);
+
+            float min_dist = player->getScale() + jt->type->size;
+
+            if(dist <= min_dist)
+                Logger::info("YOU'RE DEAD");
+        }
+    }
 }
 
 void GameStateDemo::draw(){

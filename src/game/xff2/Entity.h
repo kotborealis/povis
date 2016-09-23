@@ -22,7 +22,9 @@ public:
 protected:
     Sprite::Ptr sprite;
     glm::vec2 position = {0, 0};
-    glm::vec2 scale = {1, 1};
+    float scale = 1;
+public:
+    float getScale() const;
 };
 
 }

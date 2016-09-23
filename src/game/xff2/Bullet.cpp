@@ -7,7 +7,7 @@
 #include "Bullet.h"
 
 namespace PovisEngine{
-    Bullet::Bullet(const Sprite::Ptr &sprite, const glm::vec2 &size) : sprite(sprite), size(size) {}
+Bullet::Bullet(const Sprite::Ptr& sprite, float size):sprite(sprite), size(size){}
     Bullet::~Bullet(){}
 
     void Bullet::draw(Shader::Ptr& shader, glm::vec2& position) {
@@ -16,7 +16,7 @@ namespace PovisEngine{
         sprite->texture->bind(0);
         glm::mat4 model = {};
         model = glm::translate(model, {position.x, position.y, 0});
-        model = glm::scale(model, {size.x, size.y, 1});
+            model = glm::scale(model, {size, size, 1});
         glUniformMatrix4fv(shader->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
         sprite->drawSprite();
     }

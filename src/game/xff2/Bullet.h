@@ -11,13 +11,13 @@ namespace PovisEngine{
 
 class Bullet {
 public:
-    Bullet(const Sprite::Ptr &sprite, const glm::vec2 &size);
+    Bullet(const Sprite::Ptr& sprite, float size);
     virtual ~Bullet();
 
     void draw(Shader::Ptr& shader, glm::vec2& position);
 
     Sprite::Ptr sprite = nullptr;
-    glm::vec2 size = {1,1};
+    float size = 1;
     void tick(StateInfo* stateInfo) {
         sprite->tick();
     }

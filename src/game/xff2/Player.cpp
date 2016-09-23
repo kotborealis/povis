@@ -8,7 +8,7 @@ namespace PovisEngine{
 
 
 Player::Player(){
-    scale = {20.f, 20.f};
+    scale = 20.f;
 }
 
 Player::~Player(){}
