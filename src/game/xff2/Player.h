@@ -20,7 +20,7 @@ public:
 
 public:
     bool moving[4] = {false, false, false, false}; //up right down left
-    float velocity = 0.006f;
+    float velocity = 6.f;
 };
 
 

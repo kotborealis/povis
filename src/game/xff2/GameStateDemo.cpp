@@ -10,6 +10,7 @@
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
 #include "EnemyFairy1.h"
+#include "EnemyTest.h"
 
 namespace PovisEngine{
 
@@ -23,6 +24,7 @@ GameStateDemo::GameStateDemo(){
                                        {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
     player = new PlayerTest();
 
+    enemies.push_back(new EnemyTest());
     enemies.push_back(new EnemyFairy1());
 }
 
@@ -66,7 +68,7 @@ void GameStateDemo::draw(){
     glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
     sprite_bg->texture->bind(0);
     glm::mat4 model;
-    model = glm::scale(model, {1, 1, 1});
+    model = glm::scale(model, {1000, 1000, 1});
     glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
     sprite_bg->drawSprite();
 

@@ -8,7 +8,7 @@
 namespace PovisEngine{
 
 EnemyTest::EnemyTest() {
-    scale = {0.08f, 0.08f};
+    scale = {80.f, 80.f};
     sprite = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg8enm.png"),
                                     {{
                                              {164.f / 512.f + 76.f / 512.f, 398.f / 512.f + 76.f / 512.f},
@@ -24,7 +24,7 @@ EnemyTest::EnemyTest() {
                                                              {1.f / 16.f * 2, 0},
                                                              {1 / 16.f, 0}
                                                      }},
-                                                    {0, 1 / 16.f}, 16, 3), {0.04f, 0.04f});
+                                                    {0, 1 / 16.f}, 16, 3), {40.f, 40.f});
 
     bulletRed02 = new Bullet(ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
                                                     {{
@@ -33,7 +33,7 @@ EnemyTest::EnemyTest() {
                                                              {1.f / 16.f * 4, 0},
                                                              {1 / 16.f * 3, 0}
                                                      }},
-                                                    {0, 1 / 16.f}, 16, 3), {0.02f, 0.02f});
+                                                    {0, 1 / 16.f}, 16, 3), {20.f, 20.f});
 }
 
 void EnemyTest::tick(StateInfo* stateInfo){
@@ -50,7 +50,7 @@ void EnemyTest::pattern01(StateInfo* stateInfo){
     float angle_to_player = (float) atan2(position.y - player_pos.y, position.x - player_pos.x);
 
     for(int i = 0; i < 6; i++) {
-        float speed = -0.0045f;
+        float speed = -4.5f;
         float angle1 = angle_to_player + 0.4f * (i+1);
         float angle2 = angle_to_player - 0.4f * (i+1);
         bulletHell.create({position,

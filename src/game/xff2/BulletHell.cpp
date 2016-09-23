@@ -14,7 +14,7 @@ void BulletHell::tick(StateInfo* stateInfo){
     for(auto it = bullets.begin(); it != bullets.end(); it++)
         it->position += it->linear_velocity;
 
-    if(stateInfo->frameCounter % 120 == 0)
+    //if(stateInfo->frameCounter % 120 == 0)
         this->validate();
 }
 
@@ -25,8 +25,8 @@ void BulletHell::draw(Shader::Ptr& shader){
 
 void BulletHell::validate(){
     bullets.remove_if([](BulletInstance b){
-        return b.position.x > 1 || b.position.y > 1 ||
-               b.position.x < -1 || b.position.y < -1;
+        return b.position.x > 1000 || b.position.y > 1000 ||
+               b.position.x < -1000 || b.position.y < -1000;
     });
 }
 }

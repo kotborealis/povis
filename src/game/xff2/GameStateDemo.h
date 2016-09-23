@@ -23,7 +23,7 @@ public:
     void draw();
 
 private:
-    Camera* camera = new Camera(glm::vec3(0, 0, 1), 45);
+    Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
 
     Shader::Ptr shader_sprite;
 
