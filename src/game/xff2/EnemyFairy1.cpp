@@ -39,23 +39,16 @@ void EnemyFairy1::tick(StateInfo* stateInfo){
     glm::vec2 player_pos = stateInfo->player->getPosition();
     float angle_to_player = (float)atan2(position.y - player_pos.y, position.x - player_pos.x);
 
-//    for(int i = 0; i < 1; i++){
-//        float speed = -4.5f;
-//        float angle1 = angle_to_player + 0.1f * (i + 1);
-//        float angle2 = angle_to_player - 0.1f * (i + 1);
-//        bulletHell.create({position,
-//                           speed *
-//                           glm::vec2{glm::cos(angle1), glm::sin(angle1)},
-//                           bulletRed01});
-//        bulletHell.create({position,
-//                           speed *
-//                           glm::vec2{glm::cos(angle2), glm::sin(angle2)},
-//                           bulletRed01});
-//    }
     float speed = -4.5f;
+    float angle1 = angle_to_player + 0.1f;
+    float angle2 = angle_to_player - 0.1f;
     bulletHell.create({position,
                        speed *
-                       glm::vec2{glm::cos(angle_to_player), glm::sin(angle_to_player)},
+                       glm::vec2{glm::cos(angle1), glm::sin(angle1)},
+                       bulletRed01});
+    bulletHell.create({position,
+                       speed *
+                       glm::vec2{glm::cos(angle2), glm::sin(angle2)},
                        bulletRed01});
 }
 }
