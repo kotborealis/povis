@@ -17,16 +17,13 @@ public:
     void draw(Shader::Ptr& shader, glm::vec2& position);
     void tick(StateInfo* stateInfo);
 
-private:
-    Sprite::Ptr sprite = nullptr;
-public:
     const Sprite::Ptr &getSprite() const;
-
     float getRender_radius() const;
-
     float getHitbox_radius() const;
 
 private:
+    Sprite::Ptr sprite = nullptr;
+
     float render_radius = 1;
     float hitbox_radius = 1;
 };
