@@ -9,7 +9,8 @@ uniform vec3 color;
 out vec4 fragColor;
 
 void main(){
-    vec4 _ = texture(diffuseTexture, fragUV) * vec4(color, 1);
+    float d = smoothstep(0.f, 0.5f, 1.f - length(fragPos));
+    vec4 _ = texture(diffuseTexture, fragUV) * vec4(color, d);
     if(_.a < 0.1)
         discard;
     else
