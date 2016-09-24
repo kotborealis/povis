@@ -7,7 +7,10 @@
 #include "Bullet.h"
 
 namespace PovisEngine{
-Bullet::Bullet(const Sprite::Ptr& sprite, float size):sprite(sprite), size(size){}
+Bullet::Bullet(const Sprite::Ptr& sprite, float render_radius, float hitbox_radius)
+        :sprite(sprite),
+         render_radius(render_radius),
+         hitbox_radius(hitbox_radius){}
     Bullet::~Bullet(){}
 
     void Bullet::draw(Shader::Ptr& shader, glm::vec2& position) {
@@ -16,8 +19,24 @@ Bullet::Bullet(const Sprite::Ptr& sprite, float size):sprite(sprite), size(size)
         sprite->texture->bind(0);
         glm::mat4 model = {};
         model = glm::translate(model, {position.x, position.y, 0});
-            model = glm::scale(model, {size, size, 1});
+            model = glm::scale(model, {render_radius, render_radius, 1});
         glUniformMatrix4fv(shader->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
         sprite->drawSprite();
+    }
+
+    void Bullet::tick(StateInfo* stateInfo) {
+        sprite->tick();
+    }
+
+    const Sprite::Ptr &Bullet::getSprite() const {
+        return sprite;
+    }
+
+    float Bullet::getRender_radius() const {
+        return render_radius;
+    }
+
+    float Bullet::getHitbox_radius() const {
+        return hitbox_radius;
     }
 }
