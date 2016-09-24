@@ -25,15 +25,6 @@ EnemyTest::EnemyTest() {
                                                              {1 / 16.f, 0}
                                                      }},
                                                     {0, 1 / 16.f}, 16, 3), 40.f, 35.f);
-
-    bulletRed02 = new Bullet(ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
-                                                    {{
-                                                             {1 / 16.f * 3, 1.f / 16.f},
-                                                             {1.f / 16.f * 4, 1.f / 16.f},
-                                                             {1.f / 16.f * 4, 0},
-                                                             {1 / 16.f * 3, 0}
-                                                     }},
-                                                    {0, 1 / 16.f}, 16, 3), 20.f, 18.f);
 }
 
 void EnemyTest::tick(StateInfo* stateInfo){
@@ -62,21 +53,6 @@ void EnemyTest::pattern01(StateInfo* stateInfo){
                            glm::vec2{glm::cos(angle2), glm::sin(angle2)},
                            bulletRed01});
     }
-
-    float speed = -0.0048f;
-    float angle = angle_to_player;
-    bulletHell.create({position,
-                       speed *
-                       glm::vec2{glm::cos(angle), glm::sin(angle)},
-                       bulletRed02});
-    bulletHell.create({position,
-                       (speed + 0.0002f) *
-                       glm::vec2{glm::cos(angle-0.1f), glm::sin(angle-0.1f)},
-                       bulletRed02});
-    bulletHell.create({position,
-                       (speed + 0.0002f) *
-                       glm::vec2{glm::cos(angle+0.1f), glm::sin(angle+0.1f)},
-                       bulletRed02});
 }
 
 }
