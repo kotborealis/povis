@@ -53,7 +53,7 @@ void GameStateDemo::update(float delta){
             glm::vec2 _dist = player->getPosition() - jt->position;
             float dist = (float)sqrt(_dist.x * _dist.x + _dist.y * _dist.y);
 
-            float min_dist = player->getScale() + jt->type->getRender_radius();
+            float min_dist = player->getScale() + jt->type->getHitbox_radius();
 
             if(dist <= min_dist)
                 Logger::info("YOU'RE DEAD");
