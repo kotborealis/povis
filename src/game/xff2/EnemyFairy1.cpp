@@ -23,7 +23,7 @@ EnemyFairy1::EnemyFairy1(){
                                                              {1.f / 16.f * 2, 0},
                                                              {1 / 16.f, 0}
                                                      }},
-                                                    {0, 1 / 16.f}, 16, 3), 20.f, 15.f);
+                                                    {0, 1 / 16.f}, 16, 3), 20.f, 10.f);
 }
 
 EnemyFairy1::~EnemyFairy1(){

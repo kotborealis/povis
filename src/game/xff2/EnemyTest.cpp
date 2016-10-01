@@ -24,7 +24,7 @@ EnemyTest::EnemyTest() {
                                                              {1.f / 16.f * 2, 0},
                                                              {1 / 16.f, 0}
                                                      }},
-                                                    {0, 1 / 16.f}, 16, 3), 40.f, 30.f);
+                                                    {0, 1 / 16.f}, 16, 3), 40.f, 20.f);
 }
 
 void EnemyTest::tick(StateInfo* stateInfo){

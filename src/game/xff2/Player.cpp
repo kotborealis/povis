@@ -29,6 +29,10 @@ void Player::tick(StateInfo* stateInfo){
         a_velocity = glm::normalize(a_velocity) * velocity;
         position += a_velocity;
     }
+
+    if(hitFrames > 0){
+        hitFrames--;
+    }
 }
 
 void Player::handleEvent(SDL_Event* event){
@@ -77,5 +81,21 @@ void Player::handleEvent(SDL_Event* event){
         }
     }
 }
+
+    void Player::hit() {
+        if (hitFrames == 0 && lives > 0) {
+            lives--;
+            hitFrames = 60;
+        }
+    }
+
+    void Player::draw(Shader::Ptr &shader) const {
+        if(hitFrames == 0) {
+            Entity::draw(shader);
+        }
+        else if(hitFrames % 4 == 0){
+            Entity::draw(shader);
+        }
+    }
 
 }

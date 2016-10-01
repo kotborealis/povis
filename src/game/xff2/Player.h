@@ -18,9 +18,17 @@ public:
     void tick(StateInfo* stateInfo);
     void handleEvent(SDL_Event* event);
 
-public:
+    void draw(Shader::Ptr& shader) const;
+
+    void hit();
+
     bool moving[4] = {false, false, false, false}; //up right down left
     float velocity = 6.f;
+
+    int lives = 4;
+    int bombs = 4;
+
+    int hitFrames = 0;
 };
 
 

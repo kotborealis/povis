@@ -25,6 +25,15 @@ GameStateDemo::GameStateDemo(){
 
     sprite_bg = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
                                        {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
+
+    sprite_player_lives = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
+                                                 {{
+                                                          {1 / 16.f, 1.f / 16.f},
+                                                          {1.f / 16.f * 2, 1.f / 16.f},
+                                                          {1.f / 16.f * 2, 0},
+                                                          {1 / 16.f, 0}}},
+                                                 {0, 1 / 16.f}, 16, 10);
+
     player = new PlayerTest();
 
     enemies.push_back(new EnemyTest());
@@ -55,8 +64,9 @@ void GameStateDemo::update(float delta){
 
             float min_dist = player->getScale() + jt->type->getHitbox_radius();
 
-            if(dist <= min_dist)
-                Logger::info("YOU'RE DEAD");
+            if(dist <= min_dist){
+                player->hit();
+            }
         }
     }
 }
@@ -97,6 +107,18 @@ void GameStateDemo::draw(){
     for(auto it = enemies.begin(); it != enemies.end(); it++){
         (*it)->draw(shader_sprite);
         (*it)->bulletHell.draw(shader_sprite);
+    }
+
+    //HUD
+    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
+    sprite_player_lives->texture->bind(0);
+    for(int i = 0; i < player->lives; i++){
+        glm::mat4 model;
+        model = glm::translate(model, {-700 + 30 * i, 500, 0});
+        model = glm::scale(model, {30, 30, 1});
+        glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+        sprite_player_lives->drawSprite();
     }
 
     //GL stack

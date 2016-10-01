@@ -13,7 +13,7 @@ class StateInfo;
 
 class Entity{
 public:
-    void draw(Shader::Ptr& shader) const;
+    virtual void draw(Shader::Ptr& shader) const;
     virtual void tick(StateInfo* stateInfo) = 0;
 
     const glm::vec2& getPosition() const;
