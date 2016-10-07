@@ -11,7 +11,7 @@ EnemyFairy1::EnemyFairy1(){
     scale = 50.f;
 
     const Texture::Ptr sprite_texture = ResourceTexture->load("assets/xff2/textures/stg8enm.png");
-    constexpr const std::array<glm::vec2, 4> sprite_uv = {{
+    const std::array<glm::vec2, 4> sprite_uv = {{
                                                                   {32 / 512.f, 32 / 512.f},
                                                                   {64 / 512.f, 32 / 512.f},
                                                                   {64 / 512.f, 0},
@@ -20,7 +20,7 @@ EnemyFairy1::EnemyFairy1(){
     sprite = ResourceSprite->create(sprite_texture, sprite_uv, {0, 0}, 0, 0);
 
     const Texture::Ptr bullets_texture = ResourceTexture->load("assets/xff2/textures/bullet1.png");
-    constexpr const std::array<glm::vec2, 4> bullets_uv = {{
+    const std::array<glm::vec2, 4> bullets_uv = {{
                                                                    {1 / 16.f, 1.f / 16.f},
                                                                    {1.f / 16.f * 2, 1.f / 16.f},
                                                                    {1.f / 16.f * 2, 0},
