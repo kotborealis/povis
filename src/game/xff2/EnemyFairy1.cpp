@@ -9,21 +9,20 @@ namespace PovisEngine{
 
 EnemyFairy1::EnemyFairy1(){
     scale = 50.f;
-    sprite = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg8enm.png"),
-                                    {{
-                                             {32 / 512.f, 32 / 512.f},
-                                             {64 / 512.f, 32 / 512.f},
-                                             {64 / 512.f, 0},
-                                             {32 / 512.f, 0}
-                                     }}, {0, 0}, 0, 0);
-    bulletRed01 = new Bullet(ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
-                                                    {{
-                                                             {1 / 16.f, 1.f / 16.f},
-                                                             {1.f / 16.f * 2, 1.f / 16.f},
-                                                             {1.f / 16.f * 2, 0},
-                                                             {1 / 16.f, 0}
-                                                     }},
-                                                    {0, 1 / 16.f}, 16, 3), 20.f, 10.f);
+
+    const Texture::Ptr sprite_texture = ResourceTexture->load("assets/xff2/textures/stg8enm.png");
+    constexpr const std::array<glm::vec2, 4> sprite_uv = {{{32 / 512.f, 32 / 512.f}, {64 / 512.f, 32 / 512.f}, {64 /
+                                                                                                                512.f, 0}, {32 /
+                                                                                                                            512.f, 0}}};
+    sprite = ResourceSprite->create(sprite_texture, sprite_uv, {0, 0}, 0, 0);
+
+    const Texture::Ptr bullets_texture = ResourceTexture->load("assets/xff2/textures/bullet1.png");
+    constexpr const std::array<glm::vec2, 4> bullets_uv = {{{1 / 16.f, 1.f / 16.f}, {1.f / 16.f * 2, 1.f / 16.f}, {1.f /
+                                                                                                                   16.f *
+                                                                                                                   2, 0}, {1 /
+                                                                                                                           16.f, 0}}};
+    const Sprite::Ptr bulletRed01_sprite = ResourceSprite->create(bullets_texture, bullets_uv, {0, 1 / 16.f}, 16, 3);
+    bulletRed01 = new Bullet(bulletRed01_sprite, 20.f, 10.f);
 }
 
 EnemyFairy1::~EnemyFairy1(){
