@@ -18,9 +18,9 @@ void BulletHell::tick(StateInfo* stateInfo){
         this->validate();
 }
 
-void BulletHell::draw(Shader::Ptr& shader){
+void BulletHell::draw(glm::mat4& view, glm::mat4& projection){
     for(auto it = bullets.begin(); it != bullets.end(); it++)
-        it->type->draw(shader, it->position);
+        it->type->draw(view, projection, it->position);
 }
 
 void BulletHell::validate(){

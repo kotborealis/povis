@@ -28,7 +28,7 @@ public:
     void create(BulletInstance bulletInstance);
     void tick(StateInfo* stateInfo);
     void validate();
-    void draw(Shader::Ptr& shader);
+    void draw(glm::mat4& view, glm::mat4& projection);
 };
 
 }

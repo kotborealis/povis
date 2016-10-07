@@ -106,7 +106,7 @@ void GameStateDemo::draw(){
     //Enemy
     for(auto it = enemies.begin(); it != enemies.end(); it++){
         (*it)->draw(shader_sprite);
-        (*it)->bulletHell.draw(shader_sprite);
+        (*it)->bulletHell.draw(view, projection);
     }
 
     //HUD
