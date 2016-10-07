@@ -11,7 +11,6 @@ EnemyTest::EnemyTest() {
     scale = 80.f;
 
     const Texture::Ptr sprite_texture = ResourceTexture->load("assets/xff2/textures/stg8enm.png");
-    // @formatter:off
     constexpr const std::array<glm::vec2, 4> sprite_uv = {{{164.f / 512.f + 76.f / 512.f,
                                                                    398.f / 512.f + 76.f / 512.f}, {164.f / 512.f,
                                                                                                           398.f /
@@ -23,16 +22,13 @@ EnemyTest::EnemyTest() {
                                                                                                                                            76.f /
                                                                                                                                            512.f, 398.f /
                                                                                                                                                   512.f},}};
-    // @formatter:on
     sprite = ResourceSprite->create(sprite_texture, sprite_uv, {0, 0}, 0, 0);
 
     const Texture::Ptr bullets_texture = ResourceTexture->load("assets/xff2/textures/bullet1.png");
-    // @formatter:off
     constexpr const std::array<glm::vec2, 4> bullets_uv = {{{1 / 16.f, 1.f / 16.f}, {1.f / 16.f * 2, 1.f / 16.f}, {1.f /
                                                                                                                    16.f *
                                                                                                                    2, 0}, {1 /
                                                                                                                            16.f, 0}}};
-    // @formatter:on
     const Sprite::Ptr bulletRed01_sprite = ResourceSprite->create(bullets_texture, bullets_uv, {0, 1 / 16.f}, 16, 3);
     bulletRed01 = new Bullet(bulletRed01_sprite, 40.f, 20.f);
 }
