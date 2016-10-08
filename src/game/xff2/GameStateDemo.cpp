@@ -101,12 +101,11 @@ void GameStateDemo::draw(){
     glUniformMatrix4fv(shader_sprite->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     //player
-    player->draw(shader_sprite);
+    player->draw(view, projection);
 
     //Enemy
     for(auto it = enemies.begin(); it != enemies.end(); it++){
-        (*it)->draw(shader_sprite);
-        (*it)->bulletHell.draw(view, projection);
+        (*it)->draw(view, projection);
     }
 
     //HUD

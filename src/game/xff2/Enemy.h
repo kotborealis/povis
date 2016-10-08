@@ -13,9 +13,10 @@ class Enemy:public Entity{
 public:
     Enemy();
     virtual ~Enemy();
-    
+
     BulletHell bulletHell;
     virtual void tick(StateInfo* stateInfo) = 0;
+    virtual void draw(glm::mat4& view, glm::mat4& projection);
 };
 
 }
