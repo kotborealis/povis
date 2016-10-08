@@ -89,12 +89,12 @@ void Player::handleEvent(SDL_Event* event){
         }
     }
 
-    void Player::draw(Shader::Ptr &shader) const {
+    void Player::draw(glm::mat4& view, glm::mat4& projection) const {
         if(hitFrames == 0) {
-            Entity::draw(shader);
+            Entity::draw(view, projection);
         }
         else if(hitFrames % 4 == 0){
-            Entity::draw(shader);
+            Entity::draw(view, projection);
         }
     }
 

@@ -18,7 +18,7 @@ public:
     void tick(StateInfo* stateInfo);
     void handleEvent(SDL_Event* event);
 
-    void draw(Shader::Ptr& shader) const;
+    void draw(glm::mat4& view, glm::mat4& projection) const;
 
     void hit();
 
