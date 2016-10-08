@@ -95,11 +95,6 @@ void GameStateDemo::draw(){
     glUniformMatrix4fv(shader_background->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
     sprite_bg->drawSprite();
 
-    //Sprite shader
-    shader_sprite->bind();
-    glUniformMatrix4fv(shader_sprite->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(shader_sprite->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
     //player
     player->draw(view, projection);
 
