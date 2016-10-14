@@ -34,13 +34,20 @@ EnemyTest::EnemyTest() {
 }
 
 void EnemyTest::tick(StateInfo* stateInfo){
+    Entity::tick(stateInfo);
     bulletHell.tick(stateInfo);
-
     pattern01(stateInfo);
+
+    if(stateInfo->frameCounter % 120 == 0){
+        if(cur >= waypoints.size())
+            cur = 0;
+
+        moveTo(stateInfo, waypoints[cur++], 120);
+    }
 }
 
 void EnemyTest::pattern01(StateInfo* stateInfo){
-    if(stateInfo->frameCounter % 60 != 0)
+    if(stateInfo->frameCounter < 200 || stateInfo->frameCounter % 2 != 0)
         return;
 
     glm::vec2 player_pos = stateInfo->player->getPosition();

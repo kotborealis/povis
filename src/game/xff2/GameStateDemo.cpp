@@ -9,7 +9,6 @@
 #include "render/resources/Mesh.h"
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
-#include "EnemyFairy1.h"
 #include "EnemyTest.h"
 
 namespace PovisEngine{
@@ -37,7 +36,7 @@ GameStateDemo::GameStateDemo(){
     player = new PlayerTest();
 
     enemies.push_back(new EnemyTest());
-    enemies.push_back(new EnemyFairy1());
+    //enemies.push_back(new EnemyFairy1());
 }
 
 GameStateDemo::~GameStateDemo(){
