@@ -39,19 +39,16 @@ void EnemyTest::tick(StateInfo* stateInfo){
     pattern01(stateInfo);
 
     if(stateInfo->frameCounter % 120 == 0){
-        if(mP){
-            moveTo(stateInfo, {-500, 0}, 120);
-            mP = false;
-        }else{
-            moveTo(stateInfo, {500, 0}, 120);
-            mP = true;
-        }
+        if(cur >= waypoints.size())
+            cur = 0;
+
+        moveTo(stateInfo, waypoints[cur++], 120);
     }
 }
 
 void EnemyTest::pattern01(StateInfo* stateInfo){
-//    if(stateInfo->frameCounter % 60 != 0)
-//        return;
+    if(stateInfo->frameCounter < 200 || stateInfo->frameCounter % 2 != 0)
+        return;
 
     glm::vec2 player_pos = stateInfo->player->getPosition();
     float angle_to_player = (float) atan2(position.y - player_pos.y, position.x - player_pos.x);
