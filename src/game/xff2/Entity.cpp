@@ -6,6 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <render/ResourceManager.h>
 #include "Entity.h"
+#include "StateInfo.h"
 
 namespace PovisEngine{
 
@@ -42,4 +43,28 @@ float Entity::getScale() const{
 Entity::~Entity() {
 
 }
+
+void Entity::moveTo(StateInfo* stateInfo, glm::vec2 target, float ticks){
+    moving = true;
+    pos_interp_current_ticks = 0;
+    pos_interp_duration = ticks;
+    pos_interp_start_pos = position;
+    pos_interp_target_pos = target;
+}
+
+void Entity::tick(StateInfo* stateInfo){
+    if(moving){
+        position.x = interpolation(pos_interp_current_ticks, pos_interp_start_pos.x,
+                                   pos_interp_target_pos.x - pos_interp_start_pos.x, pos_interp_duration);
+        position.y = interpolation(pos_interp_current_ticks, pos_interp_start_pos.y,
+                                   pos_interp_target_pos.y - pos_interp_start_pos.y, pos_interp_duration);
+
+        pos_interp_current_ticks++;
+
+        if(pos_interp_current_ticks >= pos_interp_duration){
+            moving = false;
+        }
+    }
+}
+
 }

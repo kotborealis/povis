@@ -49,7 +49,31 @@ set(SOURCE_FILES
     src/game/xff2/Bullet.cpp
     src/game/xff2/Bullet.h
     src/game/xff2/EnemyFairy1.cpp
-    src/game/xff2/EnemyFairy1.h)
+        src/game/xff2/EnemyFairy1.h
+        src/easing/Back.cpp
+        src/easing/Back.h
+        src/easing/Back.cpp
+        src/easing/Back.h
+        src/easing/Bounce.cpp
+        src/easing/Bounce.h
+        src/easing/Circ.cpp
+        src/easing/Circ.h
+        src/easing/Cubic.cpp
+        src/easing/Cubic.h
+        src/easing/Elastic.cpp
+        src/easing/Elastic.h
+        src/easing/Expo.cpp
+        src/easing/Expo.h
+        src/easing/Linear.cpp
+        src/easing/Linear.h
+        src/easing/Quad.cpp
+        src/easing/Quad.h
+        src/easing/Quart.cpp
+        src/easing/Quart.h
+        src/easing/Quint.cpp
+        src/easing/Quint.h
+        src/easing/Sine.cpp
+        src/easing/Sine.h)
 
 add_executable(povis ${SOURCE_FILES})
 
