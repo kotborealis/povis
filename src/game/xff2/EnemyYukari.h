@@ -9,9 +9,9 @@
 
 namespace PovisEngine {
 
-class EnemyTest: public Enemy {
+class EnemyYukari:public Enemy{
 public:
-    EnemyTest();
+    EnemyYukari();
     void tick(StateInfo* stateInfo);
 
 private:

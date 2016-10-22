@@ -3,11 +3,11 @@
 //
 
 #include <render/ResourceManager.h>
-#include "EnemyTest.h"
+#include "EnemyYukari.h"
 
 namespace PovisEngine{
 
-EnemyTest::EnemyTest() {
+EnemyYukari::EnemyYukari(){
     scale = 80.f;
 
     const Texture::Ptr sprite_texture = ResourceTexture->load("assets/xff2/textures/stg8enm.png");
@@ -30,15 +30,15 @@ EnemyTest::EnemyTest() {
     const Sprite::Ptr bulletRed01_sprite = ResourceSprite->create(bullets_texture, bullets_uv, {0, 1 / 16.f}, 16, 3);
     const Shader::Ptr bulletRed01_shader = ResourceShader->load("assets/xff2/shaders/bullets/bulletRed01.vert",
                                                                 "assets/xff2/shaders/bullets/bulletRed01.frag");
-    bulletRed01 = new Bullet(bulletRed01_shader, bulletRed01_sprite, 20.f, 40.f);
+    bulletRed01 = new Bullet(bulletRed01_shader, bulletRed01_sprite, 10.f, 20.f);
 }
 
-void EnemyTest::tick(StateInfo* stateInfo){
+void EnemyYukari::tick(StateInfo* stateInfo){
     Entity::tick(stateInfo);
     bulletHell.tick(stateInfo);
     pattern01(stateInfo);
 
-    if(stateInfo->frameCounter % 120 == 0){
+    if(localTick % 120 == 0){
         if(cur >= waypoints.size())
             cur = 0;
 
@@ -46,8 +46,8 @@ void EnemyTest::tick(StateInfo* stateInfo){
     }
 }
 
-void EnemyTest::pattern01(StateInfo* stateInfo){
-    if(stateInfo->frameCounter < 200 || stateInfo->frameCounter % 2 != 0)
+void EnemyYukari::pattern01(StateInfo* stateInfo){
+    if(localTick < 200 || localTick % 2 != 0)
         return;
 
     glm::vec2 player_pos = stateInfo->player->getPosition();

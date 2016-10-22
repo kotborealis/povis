@@ -9,7 +9,7 @@
 namespace PovisEngine {
 
 struct StateInfo {
-    long long unsigned int frameCounter = 0;
+    long long unsigned int tick = 0;
     Player* player = nullptr;
 };
 

@@ -9,7 +9,7 @@
 #include "render/resources/Mesh.h"
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
-#include "EnemyTest.h"
+#include "EnemyYukari.h"
 
 namespace PovisEngine{
 
@@ -35,7 +35,7 @@ GameStateDemo::GameStateDemo(){
 
     player = new PlayerTest();
 
-    enemies.push_back(new EnemyTest());
+    enemies.push_back(new EnemyYukari());
     //enemies.push_back(new EnemyFairy1());
 }
 
@@ -48,7 +48,7 @@ void GameStateDemo::handleEvent(SDL_Event* event){
 }
 
 void GameStateDemo::update(float delta){
-    stateInfo.frameCounter++;
+    stateInfo.tick++;
     stateInfo.player = player;
 
     player->tick(&stateInfo);

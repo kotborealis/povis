@@ -14,7 +14,7 @@ void BulletHell::tick(StateInfo* stateInfo){
     for(auto it = bullets.begin(); it != bullets.end(); it++)
         it->position += it->linear_velocity;
 
-    if(stateInfo->frameCounter % 120 == 0)
+    if(stateInfo->tick % 120 == 0)
         this->validate();
 }
 

@@ -44,12 +44,10 @@ set(SOURCE_FILES
     src/game/xff2/PlayerTest.h
     src/game/xff2/Entity.cpp
     src/game/xff2/Entity.h src/game/xff2/StateInfo.h
-    src/game/xff2/EnemyTest.cpp
-    src/game/xff2/EnemyTest.h
+        src/game/xff2/EnemyYukari.cpp
+        src/game/xff2/EnemyYukari.h
     src/game/xff2/Bullet.cpp
     src/game/xff2/Bullet.h
-    src/game/xff2/EnemyFairy1.cpp
-        src/game/xff2/EnemyFairy1.h
         src/easing/Back.cpp
         src/easing/Back.h
         src/easing/Back.cpp

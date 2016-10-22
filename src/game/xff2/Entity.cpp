@@ -53,6 +53,8 @@ void Entity::moveTo(StateInfo* stateInfo, glm::vec2 target, float ticks){
 }
 
 void Entity::tick(StateInfo* stateInfo){
+    localTick++;
+    
     if(moving){
         position.x = interpolation(pos_interp_current_ticks, pos_interp_start_pos.x,
                                    pos_interp_target_pos.x - pos_interp_start_pos.x, pos_interp_duration);

@@ -33,6 +33,8 @@ protected:
     glm::vec2 position = {0, 0};
     float scale = 1;
 
+    long long unsigned int localTick = 0;
+
     bool moving = false;
     float pos_interp_current_ticks = 0;
     float pos_interp_duration = 0;
