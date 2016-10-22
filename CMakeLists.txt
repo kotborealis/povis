@@ -71,7 +71,7 @@ set(SOURCE_FILES
         src/easing/Quint.cpp
         src/easing/Quint.h
         src/easing/Sine.cpp
-        src/easing/Sine.h)
+        src/easing/Sine.h src/game/xff2/Background.cpp src/game/xff2/Background.h)
 
 add_executable(povis ${SOURCE_FILES})
 

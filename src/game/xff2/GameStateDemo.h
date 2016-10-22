@@ -10,6 +10,7 @@
 #include "BulletHell.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Background.h"
 
 namespace PovisEngine{
 
@@ -26,9 +27,8 @@ private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
 
     Shader::Ptr shader_sprite;
-    Shader::Ptr shader_background;
 
-    Sprite::Ptr sprite_bg;
+    Background* background;
 
     Player* player;
     std::vector<Enemy*> enemies;

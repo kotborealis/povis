@@ -19,11 +19,10 @@ GameStateDemo::GameStateDemo(){
     shader_sprite = ResourceShader->load("assets/xff2/shaders/sprite.vert",
                                          "assets/xff2/shaders/sprite.frag");
 
-    shader_background = ResourceShader->load("assets/xff2/shaders/background.vert",
-                                         "assets/xff2/shaders/background.frag");
-
-    sprite_bg = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
-                                       {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
+    background = new Background(ResourceShader->load("assets/xff2/shaders/background.vert",
+                                                     "assets/xff2/shaders/background.frag"),
+                                ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
+                                                       {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0));
 
     Logger::info("GameStateDemo");
     sprite_player_lives = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
@@ -84,16 +83,7 @@ void GameStateDemo::draw(){
     glm::mat4 projection = camera->getProjection(4.f / 3.f);
 
     //Background
-    shader_background->bind();
-    glUniformMatrix4fv(shader_background->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(shader_background->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
-    glUniform1f(shader_background->uniform("diffuseTexture"), 0);
-    glUniform3f(shader_background->uniform("color"), 1, 1.f, 1.f);
-    sprite_bg->texture->bind(0);
-    glm::mat4 model;
-    model = glm::scale(model, {1000, 1000, 1});
-    glUniformMatrix4fv(shader_background->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-    sprite_bg->drawSprite();
+    background->draw(view, projection);
 
     //player
     player->draw(view, projection);

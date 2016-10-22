@@ -1,0 +1,27 @@
+//
+// Created by kotborealis on 22.10.2016.
+//
+
+#include "Background.h"
+
+namespace PovisEngine{
+
+
+void Background::tick(StateInfo* stateInfo){
+    Entity::tick(stateInfo);
+}
+
+void Background::draw(glm::mat4& view, glm::mat4& projection) const{
+    Entity::draw(view, projection);
+}
+
+Background::Background(Shader::Ptr shader, Sprite::Ptr sprite, float scale){
+    this->shader = shader;
+    this->sprite = sprite;
+    this->scale = scale;
+}
+
+Background::~Background(){
+
+}
+}
