@@ -27,19 +27,19 @@ void Bullet::draw(glm::mat4& view, glm::mat4& projection, glm::vec2& position){
     sprite->drawSprite();
 }
 
-    void Bullet::tick(StateInfo* stateInfo) {
-        sprite->tick();
-    }
+void Bullet::tick(StateInfo* stateInfo){
+    sprite->tick();
+}
 
-    const Sprite::Ptr &Bullet::getSprite() const {
-        return sprite;
-    }
+const Sprite::Ptr& Bullet::getSprite() const{
+    return sprite;
+}
 
-    float Bullet::getRender_radius() const {
-        return render_radius;
-    }
+float Bullet::getRender_radius() const{
+    return render_radius;
+}
 
-    float Bullet::getHitbox_radius() const {
-        return hitbox_radius;
-    }
+float Bullet::getHitbox_radius() const{
+    return hitbox_radius;
+}
 }
