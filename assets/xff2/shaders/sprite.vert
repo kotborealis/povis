@@ -8,11 +8,11 @@ uniform mat4 view;
 uniform mat4 projection;
 
 out vec2 fragUV;
-out vec2 fragPos;
+out vec2 fragLocalPos;
 
 void main(){
 	gl_Position = projection * view * model * vec4(position, 1.0f);
 
     fragUV = UV;
-    fragPos = position.xy;
+    fragLocalPos = position.xy;
 }
