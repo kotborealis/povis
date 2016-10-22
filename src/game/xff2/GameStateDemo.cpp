@@ -25,6 +25,7 @@ GameStateDemo::GameStateDemo(){
     sprite_bg = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
                                        {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0);
 
+    Logger::info("GameStateDemo");
     sprite_player_lives = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
                                                  {{
                                                           {1 / 16.f, 1.f / 16.f},
@@ -104,7 +105,7 @@ void GameStateDemo::draw(){
 
     //HUD
     glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
-    glUniform3f(shader_sprite->uniform("color"), 1, 1.f, 1.f);
+    glUniform3f(shader_sprite->uniform("color"), 1.f, 0.f, 0.f);
     sprite_player_lives->texture->bind(0);
     for(int i = 0; i < player->lives; i++){
         glm::mat4 model;
