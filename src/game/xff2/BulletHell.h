@@ -10,6 +10,7 @@
 #include <render/resources/Sprite.h>
 #include "StateInfo.h"
 #include "Bullet.h"
+#include "BulletInstance.h"
 
 #define GLM_FORCE_RADIANS
 
@@ -17,12 +18,6 @@ namespace PovisEngine{
 
 class BulletHell{
 public:
-    struct BulletInstance{
-        glm::vec2 position;
-        glm::vec2 linear_velocity;
-        Bullet* type;
-    };
-
     std::list<BulletInstance> bullets;
 
     void create(BulletInstance bulletInstance);

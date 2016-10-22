@@ -95,7 +95,7 @@ void GameStateDemo::draw(){
 
     //HUD
     glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
-    glUniform3f(shader_sprite->uniform("color"), 1.f, 0.f, 0.f);
+    glUniform3f(shader_sprite->uniform("color"), 1.f, 1.f, 1.f);
     sprite_player_lives->texture->bind(0);
     for(int i = 0; i < player->lives; i++){
         glm::mat4 model;

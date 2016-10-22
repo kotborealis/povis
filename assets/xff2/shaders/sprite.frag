@@ -4,7 +4,7 @@ in vec2 fragUV;
 in vec2 fragPos;
 
 uniform sampler2D diffuseTexture;
-uniform vec3 color;
+uniform vec3 color = vec3(1.f, 1.f, 1.f);
 
 out vec4 fragColor;
 

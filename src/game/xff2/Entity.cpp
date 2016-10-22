@@ -27,7 +27,6 @@ void Entity::draw(glm::mat4& view, glm::mat4& projection) const{
     glUniformMatrix4fv(shader->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(shader->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
     glUniform1f(shader->uniform("diffuseTexture"), 0);
-    glUniform3f(shader->uniform("color"), 1, 1.f, 1.f);
     sprite->texture->bind(0);
     glm::mat4 model = {};
     model = glm::translate(model, {position.x, position.y, 0});
@@ -54,7 +53,7 @@ void Entity::moveTo(StateInfo* stateInfo, glm::vec2 target, float ticks){
 
 void Entity::tick(StateInfo* stateInfo){
     localTick++;
-    
+
     if(moving){
         position.x = interpolation(pos_interp_current_ticks, pos_interp_start_pos.x,
                                    pos_interp_target_pos.x - pos_interp_start_pos.x, pos_interp_duration);

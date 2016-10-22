@@ -6,6 +6,7 @@
 
 #include <render/resources/Sprite.h>
 #include "StateInfo.h"
+#include "BulletInstance.h"
 
 namespace PovisEngine{
 
@@ -14,7 +15,7 @@ public:
     Bullet(Shader::Ptr shader, const Sprite::Ptr& sprite, float hitbox_radius, float render_radius);
     virtual ~Bullet();
 
-    void draw(glm::mat4& view, glm::mat4& projection, glm::vec2& position);
+    void draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i);
     void tick(StateInfo* stateInfo);
 
     const Sprite::Ptr &getSprite() const;
@@ -27,6 +28,8 @@ private:
 
     float render_radius = 1;
     float hitbox_radius = 1;
+
+    unsigned int localTick = 0;
 };
 
 }

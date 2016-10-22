@@ -60,11 +60,11 @@ void EnemyYukari::pattern01(StateInfo* stateInfo){
         bulletHell.create({position,
                            speed *
                            glm::vec2{glm::cos(angle1), glm::sin(angle1)},
-                           bulletRed01});
+                           bulletRed01, 0, 150});
         bulletHell.create({position,
                            speed *
                            glm::vec2{glm::cos(angle2), glm::sin(angle2)},
-                           bulletRed01});
+                           bulletRed01, 0, 150});
     }
 }
 
