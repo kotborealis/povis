@@ -1,7 +1,7 @@
 #version 330 core
 
-varying vec2 fragUV;
-varying vec2 fragPos;
+in vec2 fragUV;
+in vec2 fragPos;
 
 uniform sampler2D diffuseTexture;
 uniform vec3 color;
