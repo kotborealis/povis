@@ -16,6 +16,8 @@ namespace PovisEngine{
 GLuint framebuffer;
 GLuint framebuffer_texture;
 
+int mouse_x, mouse_y;
+
 GameStateDemo::GameStateDemo(){
     Logger::info("GameStateDemo");
 
@@ -73,6 +75,10 @@ GameStateDemo::~GameStateDemo(){
 }
 
 void GameStateDemo::handleEvent(SDL_Event* event){
+    if(event->type == SDL_MOUSEMOTION){
+        mouse_x = event->motion.x;
+        mouse_y = event->motion.y;
+    }
     player->handleEvent(event);
 }
 
@@ -149,7 +155,41 @@ void GameStateDemo::draw(){
         (*it)->draw(view, projection);
     }
 
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    Game::i().render()->clear();
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    shader_shading->bind();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
+    glUniformMatrix4fv(shader_shading->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(shader_shading->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniform1f(shader_shading->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_shading->uniform("color"), 1.f, 1.f, 1.f);
+    glUniform1i(shader_shading->uniform("actual_lights"), 2);
+    {
+        glm::vec3 c = {1, 1, 1};
+        glm::mat4 model;
+        model = glm::translate(model, {enemies[0]->getPosition().x, enemies[0]->getPosition().y, 1});
+        glUniformMatrix4fv(shader_shading->uniform("lights[0].model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniform3fv(shader_shading->uniform("lights[0].color"), 3, glm::value_ptr(c));
+        glUniform1f(shader_shading->uniform("lights[0].linear"), 1.f);
+    }
+    {
+        glm::vec3 c = {1, 1, 1};
+        glm::mat4 model;
+        model = glm::translate(model, {player->getPosition().x, player->getPosition().y, 1});
+        glUniformMatrix4fv(shader_shading->uniform("lights[1].model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniform3fv(shader_shading->uniform("lights[1].color"), 3, glm::value_ptr(c));
+        glUniform1f(shader_shading->uniform("lights[1].linear"), 0.5f);
+    }
+
+    RenderQuad();
+
     //HUD
+    shader_sprite->bind();
     glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
     glUniform3f(shader_sprite->uniform("color"), 1.f, 1.f, 1.f);
     sprite_player_lives->texture->bind(0);
@@ -160,19 +200,6 @@ void GameStateDemo::draw(){
         glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
         sprite_player_lives->drawSprite();
     }
-
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    Game::i().render()->clear();
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    shader_shading->bind();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
-    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
-    glUniform3f(shader_sprite->uniform("color"), 1.f, 1.f, 1.f);
-    RenderQuad();
 
     Game::i().render()->swap();
 }
