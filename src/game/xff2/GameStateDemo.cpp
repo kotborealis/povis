@@ -13,11 +13,41 @@
 
 namespace PovisEngine{
 
+GLuint framebuffer;
+GLuint framebuffer_texture;
+
 GameStateDemo::GameStateDemo(){
     Logger::info("GameStateDemo");
 
+    glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    glGenTextures(1, &framebuffer_texture);
+    glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+                 Game::i().render()->window()->width(),
+                 Game::i().render()->window()->height(),
+                 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, framebuffer_texture, 0);
+
+    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+    glDrawBuffers(1, DrawBuffers);
+
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+        Logger::error("glFrameBuffer fucked up!");
+    }else{
+        Logger::info("Framebuffer OK");
+    }
+
     shader_sprite = ResourceShader->load("assets/xff2/shaders/sprite.vert",
                                          "assets/xff2/shaders/sprite.frag");
+
+    shader_shading = ResourceShader->load("assets/xff2/shaders/shading.vert",
+                                          "assets/xff2/shaders/shading.frag");
 
     background = new Background(ResourceShader->load("assets/xff2/shaders/background.vert",
                                                      "assets/xff2/shaders/background.frag"),
@@ -36,7 +66,6 @@ GameStateDemo::GameStateDemo(){
     player = new PlayerTest();
 
     enemies.push_back(new EnemyYukari());
-    //enemies.push_back(new EnemyFairy1());
 }
 
 GameStateDemo::~GameStateDemo(){
@@ -70,10 +99,37 @@ void GameStateDemo::update(float delta){
     }
 }
 
-void GameStateDemo::draw(){
-    Game::i().render()->clear();
+GLuint quadVAO = 0;
+GLuint quadVBO;
 
-    //GL stack
+void RenderQuad(){
+    if(quadVAO == 0){
+        GLfloat quadVertices[] = {
+                // Positions        // Texture Coords
+                -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+                -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+                1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+        };
+        // Setup plane VAO
+        glGenVertexArrays(1, &quadVAO);
+        glGenBuffers(1, &quadVBO);
+        glBindVertexArray(quadVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    }
+    glBindVertexArray(quadVAO);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindVertexArray(0);
+}
+
+void GameStateDemo::draw(){
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    Game::i().render()->clear();
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -105,8 +161,18 @@ void GameStateDemo::draw(){
         sprite_player_lives->drawSprite();
     }
 
-    //GL stack
-    glEnable(GL_DEPTH_TEST);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    Game::i().render()->clear();
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    shader_shading->bind();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
+    glUniform1f(shader_sprite->uniform("diffuseTexture"), 0);
+    glUniform3f(shader_sprite->uniform("color"), 1.f, 1.f, 1.f);
+    RenderQuad();
 
     Game::i().render()->swap();
 }

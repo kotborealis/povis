@@ -6,7 +6,7 @@ in vec2 fragLocalPos;
 uniform sampler2D diffuseTexture;
 uniform vec3 color = vec3(1.f, 1.f, 1.f);
 
-out vec4 fragColor;
+layout (location = 0) out vec4 fragColor;
 
 void main(){
     float d = smoothstep(0.f, 0.5f, 1.f - length(fragLocalPos));

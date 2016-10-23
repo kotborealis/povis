@@ -35,6 +35,7 @@ private:
 
     StateInfo stateInfo;
     Sprite::Ptr sprite_player_lives;
+    Shader::Ptr shader_shading;
 };
 
 }

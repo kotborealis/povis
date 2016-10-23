@@ -6,7 +6,7 @@ in vec2 fragLocalPos;
 uniform sampler2D diffuseTexture;
 uniform vec3 color = vec3(1.f, 1.f, 1.f);
 
-layout (location = 0) out vec4 fragColor;
+out vec4 fragColor;
 
 void main(){
     fragColor = texture(diffuseTexture, fragUV) * vec4(color, 1);
