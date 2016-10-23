@@ -14,5 +14,5 @@ out vec4 fragColor;
 void main(){
     float _ = 1 - float(tick)/float(ttl);
     float d = smoothstep(0.f, 1500.f, 1500.f - distance(fragLocalPos, fragScreenPos));
-    fragColor = texture(diffuseTexture, fragUV) * vec4(fragScreenPos.x/255.f, fragScreenPos.y/255.f, 1.f, d * _) * vec4(color, 1.f);
+    fragColor = texture(diffuseTexture, fragUV) * vec4(1, 1, 1, d * _) * vec4(color, 1.f);
 }
