@@ -23,7 +23,7 @@ uniform int actual_lights;
 
 void main(){
     vec4 diffuse = texture(diffuseTexture, fragUV);
-    float alpha = 0.2f;
+    float alpha = 0.1f;
     for(int i = 0; i < actual_lights; i++){
         vec4 pos = projection * view * lights[i].model * vec4(fragLocalPos.x, fragLocalPos.y, 0, 1) / 1000;  //1000 is Camera Z pos
         float distance = distance(pos.xy, fragLocalPos);
