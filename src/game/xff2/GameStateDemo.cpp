@@ -170,19 +170,19 @@ void GameStateDemo::draw(){
     glUniform3f(shader_shading->uniform("color"), 1.f, 1.f, 1.f);
     glUniform1i(shader_shading->uniform("actual_lights"), 2);
     {
-        glm::vec3 c = {1, 1, 1};
+        glm::vec3 c = {3, 3, 3};
         glm::mat4 model;
         model = glm::translate(model, {enemies[0]->getPosition().x, enemies[0]->getPosition().y, 1});
         glUniformMatrix4fv(shader_shading->uniform("lights[0].model"), 1, GL_FALSE, glm::value_ptr(model));
-        glUniform3fv(shader_shading->uniform("lights[0].color"), 3, glm::value_ptr(c));
+        glUniform3fv(shader_shading->uniform("lights[0].color"), 1, glm::value_ptr(c));
         glUniform1f(shader_shading->uniform("lights[0].inverse_linear"), 1.f);
     }
     {
-        glm::vec3 c = {1, 1, 1};
+        glm::vec3 c = {4, 1, 1};
         glm::mat4 model;
         model = glm::translate(model, {player->getPosition().x, player->getPosition().y, 1});
         glUniformMatrix4fv(shader_shading->uniform("lights[1].model"), 1, GL_FALSE, glm::value_ptr(model));
-        glUniform3fv(shader_shading->uniform("lights[1].color"), 3, glm::value_ptr(c));
+        glUniform3fv(shader_shading->uniform("lights[1].color"), 1, glm::value_ptr(c));
         glUniform1f(shader_shading->uniform("lights[1].inverse_linear"), 2.f); // 1/linear (for better performance)
     }
 
