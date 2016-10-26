@@ -44,6 +44,9 @@ void EnemyYukari::tick(StateInfo* stateInfo){
 
         moveTo(stateInfo, waypoints[cur++], 120);
     }
+
+    if(localTick % 3 == 0 && hitpoints > 0)
+      hitpoints--;
 }
 
 void EnemyYukari::pattern01(StateInfo* stateInfo){

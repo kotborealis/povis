@@ -51,6 +51,9 @@ GameStateDemo::GameStateDemo(){
     shader_shading = ResourceShader->load("assets/xff2/shaders/shading.vert",
                                           "assets/xff2/shaders/shading.frag");
 
+    shader_hitpoints = ResourceShader->load("assets/xff2/shaders/hitpoints.vert",
+                                          "assets/xff2/shaders/hitpoints.frag");
+
     background = new Background(ResourceShader->load("assets/xff2/shaders/background.vert",
                                                      "assets/xff2/shaders/background.frag"),
                                 ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
@@ -204,6 +207,17 @@ void GameStateDemo::draw(){
         glUniformMatrix4fv(shader_sprite->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
         sprite_player_lives->drawSprite();
     }
+
+    shader_hitpoints->bind();
+    glUniformMatrix4fv(shader_hitpoints->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(shader_hitpoints->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glm::mat4 model;
+    model = glm::translate(model, {enemies[0]->getPosition().x, enemies[0]->getPosition().y, 1});
+    model = glm::scale(model, {enemies[0]->getScale(), enemies[0]->getScale(), 1});
+    glUniformMatrix4fv(shader_hitpoints->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+    //1.f/0.01f per point with max points === 200
+    glUniform1f(shader_hitpoints->uniform("hitpoints"), 1.f/enemies[0]->getHitpoints() * 1.f/.01f);
+    RenderQuad();
 
     Game::i().render()->swap();
 }

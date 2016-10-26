@@ -20,4 +20,8 @@ void Enemy::draw(glm::mat4 &view, glm::mat4 &projection) {
     Entity::draw(view, projection);
 }
 
+unsigned int Enemy::getHitpoints(){
+	return hitpoints;
+}
+
 }

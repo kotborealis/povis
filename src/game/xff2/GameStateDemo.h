@@ -27,6 +27,8 @@ private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
 
     Shader::Ptr shader_sprite;
+    Shader::Ptr shader_shading;
+    Shader::Ptr shader_hitpoints;
 
     Background* background;
 
@@ -35,7 +37,6 @@ private:
 
     StateInfo stateInfo;
     Sprite::Ptr sprite_player_lives;
-    Shader::Ptr shader_shading;
 };
 
 }
