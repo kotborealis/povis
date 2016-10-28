@@ -6,6 +6,7 @@
  */
 
 #include <glm/gtc/type_ptr.hpp>
+#include <algorithm>
 #include "render/resources/Mesh.h"
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
@@ -136,6 +137,8 @@ void GameStateDemo::draw(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+
+    const int lights = enemies.size() + 1;
     shader_shading->bind();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
@@ -143,26 +146,27 @@ void GameStateDemo::draw(){
     shader_shading->uniform("projection", projection);
     shader_shading->uniform("diffuseTexture", 0);
     shader_shading->uniform("color", 1.f, 1.f, 1.f);
-    shader_shading->uniform("actual_lights", 2);
-    {
+    shader_shading->uniform("actual_lights", lights);
+
+    for(int i = 0; i < lights - 1; i++){
         glm::vec3 c = {1, 1, 1};
         glm::mat4 model;
-        model = glm::translate(model, {enemies[0]->getPosition().x, enemies[0]->getPosition().y, 1});
-        shader_shading->uniform("lights[0].model", model);
-        shader_shading->uniform("lights[0].color", c);
-        shader_shading->uniform("lights[0].inverse_constant", 0.f);
-        shader_shading->uniform("lights[0].inverse_linear", .25f);
-        shader_shading->uniform("lights[0].inverse_quadratic", 1.f);
+        model = glm::translate(model, {enemies[i]->getPosition().x, enemies[i]->getPosition().y, 1});
+        shader_shading->uniform(TO_STRING("lights[" << i << "].model"), model);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].color"), c);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].inverse_constant"), 0.f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].inverse_linear"), .25f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].inverse_quadratic"), 1.f);
     }
     {
         glm::vec3 c = {1, 1, 1};
         glm::mat4 model;
         model = glm::translate(model, {player->getPosition().x, player->getPosition().y, 1});
-        shader_shading->uniform("lights[1].model", model);
-        shader_shading->uniform("lights[1].color", c);
-        shader_shading->uniform("lights[1].inverse_constant", 0.f);
-        shader_shading->uniform("lights[1].inverse_linear", 1.f);
-        shader_shading->uniform("lights[1].inverse_quadratic", 1.f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].model"), model);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].color"), c);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].inverse_constant"), 0.f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].inverse_linear"), .25f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].inverse_quadratic"), 1.f);
     }
 
     Game::i().render()->renderQuad();
@@ -183,13 +187,15 @@ void GameStateDemo::draw(){
     shader_hitpoints->bind();
     shader_hitpoints->uniform("view", view);
     shader_hitpoints->uniform("projection", projection);
-    glm::mat4 model;
-    model = glm::translate(model, {enemies[0]->getPosition().x, enemies[0]->getPosition().y, 1});
-    model = glm::scale(model, {enemies[0]->getScale(), enemies[0]->getScale(), 1});
-    shader_hitpoints->uniform("model", model);
-    //1.f/0.01f per point with max points === 200
-    shader_hitpoints->uniform("hitpoints", 1.f / enemies[0]->getHitpoints() * 1.f / .01f);
-    Game::i().render()->renderQuad();
+    for(int i = 0; i < enemies.size(); i++){
+        glm::mat4 model;
+        model = glm::translate(model, {enemies[i]->getPosition().x, enemies[i]->getPosition().y, 1});
+        model = glm::scale(model, {enemies[i]->getScale(), enemies[i]->getScale(), 1});
+        shader_hitpoints->uniform("model", model);
+        //1.f/0.01f per point with max points === 200
+        shader_hitpoints->uniform("hitpoints", 1.f / enemies[i]->getHitpoints() * 1.f / .01f);
+        Game::i().render()->renderQuad();
+    }
 
     Game::i().render()->swap();
 }

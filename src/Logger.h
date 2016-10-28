@@ -3,14 +3,12 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "utils/to_string.h"
 
-#define SSTR(x) static_cast< std::ostringstream & >( \
-        ( std::ostringstream() << std::dec << x ) ).str()
-
-#define info(str) log(__FILE__,__LINE__,"info",SSTR(str));
-#define warn(str) log(__FILE__,__LINE__,"warn",SSTR(str));
-#define error(str) log(__FILE__,__LINE__,"error",SSTR(str));
-#define note(str) log(__FILE__,__LINE__,"note",SSTR(str));
+#define info(str) log(__FILE__,__LINE__,"info",TO_STRING(str));
+#define warn(str) log(__FILE__,__LINE__,"warn",TO_STRING(str));
+#define error(str) log(__FILE__,__LINE__,"error",TO_STRING(str));
+#define note(str) log(__FILE__,__LINE__,"note",TO_STRING(str));
 
 namespace PovisEngine{
 
