@@ -53,7 +53,7 @@ GLuint Mesh::getEBO() const{
 
 void Mesh::drawElements() const{
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, (GLsizei) indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

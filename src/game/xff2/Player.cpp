@@ -57,8 +57,7 @@ void Player::handleEvent(SDL_Event* event){
             default:
                 break;
         }
-    }
-    else if(event->type == SDL_KEYUP){
+    }else if(event->type == SDL_KEYUP){
         switch(event->key.keysym.sym){
             case SDLK_w:
             case SDLK_UP:
@@ -82,20 +81,19 @@ void Player::handleEvent(SDL_Event* event){
     }
 }
 
-    void Player::hit() {
-        if (hitFrames == 0 && lives > 0) {
-            lives--;
-            hitFrames = 60;
-        }
+void Player::hit(){
+    if(hitFrames == 0 && lives > 0){
+        lives--;
+        hitFrames = 60;
     }
+}
 
-    void Player::draw(glm::mat4& view, glm::mat4& projection) const {
-        if(hitFrames == 0) {
-            Entity::draw(view, projection);
-        }
-        else if(hitFrames % 4 == 0){
-            Entity::draw(view, projection);
-        }
+void Player::draw(glm::mat4& view, glm::mat4& projection) const{
+    if(hitFrames == 0){
+        Entity::draw(view, projection);
+    }else if(hitFrames % 4 == 0){
+        Entity::draw(view, projection);
     }
+}
 
 }

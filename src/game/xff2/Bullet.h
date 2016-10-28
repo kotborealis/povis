@@ -10,7 +10,7 @@
 
 namespace PovisEngine{
 
-class Bullet {
+class Bullet{
 public:
     Bullet(Shader::Ptr shader, const Sprite::Ptr& sprite, float hitbox_radius, float render_radius);
     virtual ~Bullet();
@@ -18,7 +18,7 @@ public:
     void draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i);
     void tick(StateInfo* stateInfo);
 
-    const Sprite::Ptr &getSprite() const;
+    const Sprite::Ptr& getSprite() const;
     float getRender_radius() const;
     float getHitbox_radius() const;
 

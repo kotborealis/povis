@@ -6,9 +6,9 @@
 
 #include <game/xff2/Player.h>
 
-namespace PovisEngine {
+namespace PovisEngine{
 
-struct StateInfo {
+struct StateInfo{
     long long unsigned int tick = 0;
     Player* player = nullptr;
 };

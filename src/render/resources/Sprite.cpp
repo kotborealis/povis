@@ -40,7 +40,6 @@ Sprite::Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 fram
 }
 
 
-
 void Sprite::tick(){
     current_frame = (int)(current_frame + 1) % (int)frames + startFrame;
     for(int i = 0; i < 4; i++)

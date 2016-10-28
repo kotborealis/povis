@@ -11,7 +11,8 @@ Bullet::Bullet(Shader::Ptr shader, const Sprite::Ptr& sprite, float hitbox_radiu
         :sprite(sprite),
          render_radius(render_radius),
          hitbox_radius(hitbox_radius), shader(shader){}
-    Bullet::~Bullet(){}
+
+Bullet::~Bullet(){}
 
 void Bullet::draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i){
     shader->bind();

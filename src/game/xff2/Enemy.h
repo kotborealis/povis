@@ -21,7 +21,7 @@ public:
     unsigned int getHitpoints();
 
 protected:
-	unsigned int hitpoints = 200;
+    unsigned int hitpoints = 200;
 };
 
 }

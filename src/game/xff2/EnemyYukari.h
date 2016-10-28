@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include "easing/Circ.h"
 
-namespace PovisEngine {
+namespace PovisEngine{
 
 class EnemyYukari:public Enemy{
 public:

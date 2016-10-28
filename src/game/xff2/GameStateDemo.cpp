@@ -53,7 +53,7 @@ GameStateDemo::GameStateDemo(){
                                           "assets/xff2/shaders/shading.frag");
 
     shader_hitpoints = ResourceShader->load("assets/xff2/shaders/hitpoints.vert",
-                                          "assets/xff2/shaders/hitpoints.frag");
+                                            "assets/xff2/shaders/hitpoints.frag");
 
     background = new Background(ResourceShader->load("assets/xff2/shaders/background.vert",
                                                      "assets/xff2/shaders/background.frag"),

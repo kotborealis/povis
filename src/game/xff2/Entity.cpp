@@ -10,7 +10,7 @@
 
 namespace PovisEngine{
 
-Entity::Entity() {
+Entity::Entity(){
     shader = ResourceShader->load("assets/xff2/shaders/sprite.vert", "assets/xff2/shaders/sprite.frag");
 }
 
@@ -39,7 +39,7 @@ float Entity::getScale() const{
     return scale;
 }
 
-Entity::~Entity() {
+Entity::~Entity(){
 
 }
 

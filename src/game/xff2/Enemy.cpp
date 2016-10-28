@@ -15,13 +15,13 @@ Enemy::~Enemy(){
 
 }
 
-void Enemy::draw(glm::mat4 &view, glm::mat4 &projection) {
+void Enemy::draw(glm::mat4& view, glm::mat4& projection){
     bulletHell.draw(view, projection);
     Entity::draw(view, projection);
 }
 
 unsigned int Enemy::getHitpoints(){
-	return hitpoints;
+    return hitpoints;
 }
 
 }
