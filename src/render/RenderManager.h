@@ -20,6 +20,7 @@ public:
 
     void clear() const;
     void swap() const;
+    void renderQuad() const;
 private:
     const WindowManager* m_windowManager;
 };
