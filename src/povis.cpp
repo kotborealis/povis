@@ -5,8 +5,8 @@
 using namespace PovisEngine;
 
 int main(int argc, char* args[]){
-    unsigned int width = 800;
-    unsigned int height = 600;
+    unsigned int width = 720;
+    unsigned int height = 405;
 
     if(argc >= 2){
         width = (unsigned int)atoi(args[1]);
