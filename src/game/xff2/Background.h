@@ -10,7 +10,7 @@ namespace PovisEngine{
 
 class Background:public Entity{
 public:
-    Background(Shader::Ptr shader, Sprite::Ptr sprite, float scale = 1000);
+    Background(Shader::Ptr shader, Sprite::Ptr sprite, glm::vec2 scale = {1000, 1000});
     virtual ~Background();
     void draw(glm::mat4& view, glm::mat4& projection) const;
     void tick(StateInfo* stateInfo);

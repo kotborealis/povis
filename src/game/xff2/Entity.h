@@ -22,7 +22,7 @@ public:
 
     const glm::vec2& getPosition() const;
     const Sprite::Ptr& getSprite() const;
-    float getScale() const;
+    glm::vec2 getScale() const;
 
     void moveTo(StateInfo* stateInfo, glm::vec2 target, float ticks);
 
@@ -31,7 +31,7 @@ protected:
     Shader::Ptr shader = nullptr;
 
     glm::vec2 position = {0, 0};
-    float scale = 1;
+    glm::vec2 scale = {1, 1};
 
     long long unsigned int localTick = 0;
 

@@ -30,12 +30,12 @@ void Entity::draw(glm::mat4& view, glm::mat4& projection) const{
     sprite->texture->bind(0);
     glm::mat4 model = {};
     model = glm::translate(model, {position.x, position.y, 0});
-    model = glm::scale(model, {scale, scale, 1});
+    model = glm::scale(model, {scale.x, scale.y, 1});
     shader->uniform("model", model);
     sprite->drawSprite();
 }
 
-float Entity::getScale() const{
+glm::vec2 Entity::getScale() const{
     return scale;
 }
 

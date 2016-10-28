@@ -15,7 +15,7 @@ void Background::draw(glm::mat4& view, glm::mat4& projection) const{
     Entity::draw(view, projection);
 }
 
-Background::Background(Shader::Ptr shader, Sprite::Ptr sprite, float scale){
+Background::Background(Shader::Ptr shader, Sprite::Ptr sprite, glm::vec2 scale){
     this->shader = shader;
     this->sprite = sprite;
     this->scale = scale;

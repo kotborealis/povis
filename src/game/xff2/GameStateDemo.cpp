@@ -10,7 +10,7 @@
 #include "render/resources/Mesh.h"
 #include "GameStateDemo.h"
 #include "PlayerTest.h"
-#include "EnemyYukari.h"
+#include "EnemyCirno.h"
 
 namespace PovisEngine{
 
@@ -71,7 +71,7 @@ GameStateDemo::GameStateDemo(){
 
     player = new PlayerTest();
 
-    enemies.push_back(new EnemyYukari());
+    enemies.push_back(new EnemyCirno());
 }
 
 GameStateDemo::~GameStateDemo(){
@@ -100,7 +100,7 @@ void GameStateDemo::update(float delta){
             glm::vec2 _dist = player->getPosition() - jt->position;
             float dist = (float)sqrt(_dist.x * _dist.x + _dist.y * _dist.y);
 
-            float min_dist = player->getScale() + jt->type->getHitbox_radius();
+            float min_dist = player->getScale().x + jt->type->getHitbox_radius();
 
             if(dist <= min_dist){
                 player->hit();
@@ -190,7 +190,7 @@ void GameStateDemo::draw(){
     for(int i = 0; i < enemies.size(); i++){
         glm::mat4 model;
         model = glm::translate(model, {enemies[i]->getPosition().x, enemies[i]->getPosition().y, 1});
-        model = glm::scale(model, {enemies[i]->getScale(), enemies[i]->getScale(), 1});
+        model = glm::scale(model, {enemies[i]->getScale().x, enemies[i]->getScale().y, 1});
         shader_hitpoints->uniform("model", model);
         //1.f/0.01f per point with max points === 200
         shader_hitpoints->uniform("hitpoints", 1.f / enemies[i]->getHitpoints() * 1.f / .01f);

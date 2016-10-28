@@ -29,10 +29,6 @@ void Bullet::draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i){
     sprite->drawSprite();
 }
 
-void Bullet::tick(StateInfo* stateInfo){
-    sprite->tick();
-}
-
 const Sprite::Ptr& Bullet::getSprite() const{
     return sprite;
 }

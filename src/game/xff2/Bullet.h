@@ -16,7 +16,6 @@ public:
     virtual ~Bullet();
 
     void draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i);
-    void tick(StateInfo* stateInfo);
 
     const Sprite::Ptr& getSprite() const;
     float getRender_radius() const;

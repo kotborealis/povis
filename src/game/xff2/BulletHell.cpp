@@ -11,6 +11,7 @@ void BulletHell::create(BulletInstance bulletInstance){
 }
 
 void BulletHell::tick(StateInfo* stateInfo){
+
     bool needValidate = false;
     for(auto it = bullets.begin(); it != bullets.end(); it++){
         it->position += it->linear_velocity;
