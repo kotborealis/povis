@@ -15,16 +15,16 @@ Bullet::Bullet(Shader::Ptr shader, const Sprite::Ptr& sprite, float hitbox_radiu
 
 void Bullet::draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i){
     shader->bind();
-    glUniformMatrix4fv(shader->uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(shader->uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
-    glUniform1f(shader->uniform("diffuseTexture"), 0);
-    glUniform1ui(shader->uniform("tick"), i.tick);
-    glUniform1ui(shader->uniform("ttl"), i.ttl);
+    shader->uniform("view", view);
+    shader->uniform("projection", projection);
+    shader->uniform("diffuseTexture", 0);
+    shader->uniform("tick", i.tick);
+    shader->uniform("ttl", i.ttl);
     sprite->texture->bind(0);
     glm::mat4 model = {};
     model = glm::translate(model, {i.position.x, i.position.y, 0});
     model = glm::scale(model, {render_radius, render_radius, 1});
-    glUniformMatrix4fv(shader->uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+    shader->uniform("model", model);
     sprite->drawSprite();
 }
 
