@@ -19,7 +19,7 @@ void Bullet::draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i){
     shader->uniform("projection", projection);
     shader->uniform("diffuseTexture", 0);
     shader->uniform("tick", i.tick);
-    shader->uniform("ttl", i.ttl);
+    shader->uniform("inverse_ttl", 1.f / i.ttl);
     sprite->texture->bind(0);
     glm::mat4 model = {};
     model = glm::translate(model, {i.position.x, i.position.y, 0});
