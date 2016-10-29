@@ -204,7 +204,7 @@ void GameStateDemo::draw(){
         model = glm::scale(model, {enemies[i]->getScale().x, enemies[i]->getScale().y, 1});
         shader_hitpoints->uniform("model", model);
         //1.f/0.01f per point with max points === 200
-        shader_hitpoints->uniform("hitpoints", 1.f / enemies[i]->getHitpoints() * 1.f / .0001f);
+        shader_hitpoints->uniform("hitpoints", 1.f / enemies[i]->getHitpoints() * enemies[i]->max_hitpoints/2);
         Game::i().render()->renderQuad();
     }
 

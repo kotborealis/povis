@@ -14,6 +14,7 @@ Player::Player(){
 Player::~Player(){}
 
 void Player::tick(StateInfo* stateInfo){
+    Entity::tick(stateInfo);
     bulletHell.tick(stateInfo);
 
     glm::vec2 a_velocity = {0, 0};

@@ -22,8 +22,10 @@ public:
 
     unsigned int getHitpoints();
 
+    const unsigned int max_hitpoints = 2000;
+
 protected:
-    unsigned int hitpoints = 20000;
+    unsigned int hitpoints = 2000;
 };
 
 }
