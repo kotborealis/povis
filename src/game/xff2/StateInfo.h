@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <game/xff2/Player.h>
-
 namespace PovisEngine{
+
+class Player;
 
 struct StateInfo{
     long long unsigned int tick = 0;

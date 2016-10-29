@@ -4,6 +4,7 @@
 
 #include <render/ResourceManager.h>
 #include "EnemyCirno.h"
+#include "Player.h"
 
 namespace PovisEngine{
 
@@ -27,8 +28,8 @@ EnemyCirno::EnemyCirno(){
                                                          {0, 0}
                                                  }};
     const Sprite::Ptr bulletRed01_sprite = ResourceSprite->create(bullets_texture, bullets_uv, {.5f, 0}, 2, 0);
-    const Shader::Ptr bulletRed01_shader = ResourceShader->load("assets/xff2/shaders/bullets/bulletRed01.vert",
-                                                                "assets/xff2/shaders/bullets/bulletRed01.frag");
+    const Shader::Ptr bulletRed01_shader = ResourceShader->load("assets/xff2/shaders/bullets/bullet_default.vert",
+                                                                "assets/xff2/shaders/bullets/bullet_default.frag");
     bulletRed01 = new Bullet(bulletRed01_shader, bulletRed01_sprite, 10.f, 20.f);
 }
 
@@ -46,9 +47,6 @@ void EnemyCirno::tick(StateInfo* stateInfo){
 
     if(localTick % 12 == 0)
         sprite->tick();
-
-    if(localTick % 3 == 0 && hitpoints > 0)
-        hitpoints--;
 }
 
 void EnemyCirno::pattern01(StateInfo* stateInfo){

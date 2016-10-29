@@ -24,4 +24,10 @@ unsigned int Enemy::getHitpoints(){
     return hitpoints;
 }
 
+void Enemy::hit() {
+    if(hitpoints > 0){
+        hitpoints--;
+    }
+}
+
 }

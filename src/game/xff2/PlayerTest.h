@@ -12,6 +12,11 @@ class PlayerTest:public Player{
 public:
     PlayerTest();
     virtual ~PlayerTest();
+
+    void tick(StateInfo* stateInfo);
+    void draw(glm::mat4& view, glm::mat4& projection);
+
+    Bullet* bulletBlue01;
 };
 
 }

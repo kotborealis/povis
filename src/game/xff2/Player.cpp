@@ -14,6 +14,8 @@ Player::Player(){
 Player::~Player(){}
 
 void Player::tick(StateInfo* stateInfo){
+    bulletHell.tick(stateInfo);
+
     glm::vec2 a_velocity = {0, 0};
 
     if(moving[0])
@@ -54,6 +56,9 @@ void Player::handleEvent(SDL_Event* event){
             case SDLK_LEFT:
                 moving[3] = true;
                 break;
+            case SDLK_z:
+                shooting = true;
+                break;
             default:
                 break;
         }
@@ -75,6 +80,9 @@ void Player::handleEvent(SDL_Event* event){
             case SDLK_LEFT:
                 moving[3] = false;
                 break;
+            case SDLK_z:
+                shooting = false;
+                break;
             default:
                 break;
         }
@@ -88,10 +96,12 @@ void Player::hit(){
     }
 }
 
-void Player::draw(glm::mat4& view, glm::mat4& projection) const{
+void Player::draw(glm::mat4& view, glm::mat4& projection){
     if(hitFrames == 0){
+
         Entity::draw(view, projection);
-    }else if(hitFrames % 4 == 0){
+    }
+    else if(hitFrames % 4 == 0){
         Entity::draw(view, projection);
     }
 }

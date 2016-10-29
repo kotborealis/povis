@@ -106,6 +106,17 @@ void GameStateDemo::update(float delta){
                 player->hit();
             }
         }
+
+        for(auto jt = player->bulletHell.bullets.begin(); jt != player->bulletHell.bullets.end(); jt++){
+            glm::vec2 _dist = (*it)->getPosition() - jt->position;
+            float dist = (float)sqrt(_dist.x * _dist.x + _dist.y * _dist.y);
+
+            float min_dist = (*it)->getScale().x + jt->type->getHitbox_radius();
+
+            if(dist <= min_dist){
+                (*it)->hit();
+            }
+        }
     }
 }
 
@@ -193,11 +204,11 @@ void GameStateDemo::draw(){
         model = glm::scale(model, {enemies[i]->getScale().x, enemies[i]->getScale().y, 1});
         shader_hitpoints->uniform("model", model);
         //1.f/0.01f per point with max points === 200
-        shader_hitpoints->uniform("hitpoints", 1.f / enemies[i]->getHitpoints() * 1.f / .01f);
+        shader_hitpoints->uniform("hitpoints", 1.f / enemies[i]->getHitpoints() * 1.f / .0001f);
         Game::i().render()->renderQuad();
     }
 
-    Game::i().render()->swap();
+    Game::i().render()->swap();;
 }
 
 } /* namespace PovisEngine */

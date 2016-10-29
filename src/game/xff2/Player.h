@@ -7,6 +7,8 @@
 #include <render/resources/Sprite.h>
 #include <SDL_events.h>
 #include "Entity.h"
+#include "BulletHell.h"
+
 
 namespace PovisEngine{
 
@@ -15,20 +17,24 @@ public:
     Player();
     virtual ~Player();
 
-    void tick(StateInfo* stateInfo);
-    void handleEvent(SDL_Event* event);
+    virtual void tick(StateInfo* stateInfo);
+    virtual void handleEvent(SDL_Event* event);
 
-    void draw(glm::mat4& view, glm::mat4& projection) const;
+    virtual void draw(glm::mat4& view, glm::mat4& projection);
 
     void hit();
 
     bool moving[4] = {false, false, false, false}; //up right down left
     float velocity = 6.f;
 
+    bool shooting = false;
+
     int lives = 4;
     int bombs = 4;
 
     int hitFrames = 0;
+
+    BulletHell bulletHell;
 };
 
 
