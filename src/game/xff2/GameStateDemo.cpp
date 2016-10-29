@@ -149,7 +149,7 @@ void GameStateDemo::draw(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-    const int lights = enemies.size() + 1;
+    const int lights = (const int) (enemies.size() + 1);
     shader_shading->bind();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
@@ -208,7 +208,7 @@ void GameStateDemo::draw(){
         Game::i().render()->renderQuad();
     }
 
-    Game::i().render()->swap();;
+    Game::i().render()->swap();
 }
 
 } /* namespace PovisEngine */
