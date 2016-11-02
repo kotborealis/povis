@@ -98,11 +98,7 @@ void Player::hit(){
 }
 
 void Player::draw(glm::mat4& view, glm::mat4& projection){
-    if(hitFrames == 0){
-
-        Entity::draw(view, projection);
-    }
-    else if(hitFrames % 4 == 0){
+    if(hitFrames % 4 == 0){
         Entity::draw(view, projection);
     }
 }

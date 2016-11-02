@@ -21,10 +21,10 @@ public:
     void hit();
 
     unsigned int getHitpoints();
-
-    const unsigned int max_hitpoints = 2000;
+    unsigned int getMaxHitpoints();
 
 protected:
+    unsigned int max_hitpoints = 2000;
     unsigned int hitpoints = 2000;
 };
 

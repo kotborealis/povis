@@ -9,6 +9,8 @@
 namespace PovisEngine{
 
 EnemyCirno::EnemyCirno(){
+    max_hitpoints = 2000;
+    hitpoints = 2000;
     scale = {80.f, 78.f / 63.f * 80.f};
 
     const Texture::Ptr sprite_texture = ResourceTexture->load("assets/xff2/textures/cirno.png");

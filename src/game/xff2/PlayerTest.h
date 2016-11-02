@@ -15,8 +15,6 @@ public:
 
     void tick(StateInfo* stateInfo);
     void draw(glm::mat4& view, glm::mat4& projection);
-
-    Bullet* bulletBlue01;
 };
 
 }

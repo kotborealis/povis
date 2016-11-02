@@ -24,6 +24,8 @@ public:
 
     void hit();
 
+    Bullet* bulletBlue01;
+
     bool moving[4] = {false, false, false, false}; //up right down left
     float velocity = 6.f;
 

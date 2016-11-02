@@ -24,6 +24,10 @@ unsigned int Enemy::getHitpoints(){
     return hitpoints;
 }
 
+unsigned int Enemy::getMaxHitpoints() {
+    return max_hitpoints;
+}
+
 void Enemy::hit() {
     if(hitpoints > 0){
         hitpoints--;
