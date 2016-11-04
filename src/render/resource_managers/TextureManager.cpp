@@ -58,4 +58,24 @@ Texture::WeakPtr TextureManager::search(std::string filename){
     return Texture::WeakPtr();
 }
 
+Texture::Ptr TextureManager::create(unsigned int width, unsigned int height){
+    GLuint textureId;
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+                 width, height,
+                 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    Texture::Ptr texture(new Texture(textureId));
+    Texture::WeakPtr textureWeakPtr(texture);
+
+    //Save texture to texture list
+    list.insert(std::make_pair(TO_STRING("created_texture_" << textureId), textureWeakPtr));
+
+    return texture;
+}
+
 }

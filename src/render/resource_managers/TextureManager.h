@@ -22,6 +22,7 @@ public:
     ~TextureManager();
 
     Texture::Ptr load(std::string filename);
+    Texture::Ptr create(unsigned int width, unsigned int height);
 
 private:
     Texture::WeakPtr search(std::string filename);

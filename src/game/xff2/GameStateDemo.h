@@ -2,6 +2,7 @@
 
 #include <list>
 #include <vector>
+#include <render/Framebuffer.h>
 
 #include "GameState.h"
 #include "Logger.h"
@@ -25,6 +26,7 @@ public:
 
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
+    Framebuffer* framebuffer = new Framebuffer(1);
 
     Shader::Ptr shader_sprite;
     Shader::Ptr shader_shading;

@@ -14,37 +14,10 @@
 
 namespace PovisEngine{
 
-GLuint framebuffer;
-GLuint framebuffer_texture;
-
 int mouse_x, mouse_y;
 
 GameStateDemo::GameStateDemo(){
     Logger::info("GameStateDemo");
-
-    glGenFramebuffers(1, &framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-
-    glGenTextures(1, &framebuffer_texture);
-    glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-                 Game::i().render()->window()->width(),
-                 Game::i().render()->window()->height(),
-                 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, framebuffer_texture, 0);
-
-    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-    glDrawBuffers(1, DrawBuffers);
-
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-        Logger::error("glFrameBuffer fucked up!");
-    }else{
-        Logger::info("Framebuffer OK");
-    }
 
     shader_sprite = ResourceShader->load("assets/xff2/shaders/sprite.vert",
                                          "assets/xff2/shaders/sprite.frag");
@@ -121,7 +94,7 @@ void GameStateDemo::update(float delta){
 }
 
 void GameStateDemo::draw(){
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    framebuffer->bind();
     Game::i().render()->clear();
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -142,7 +115,7 @@ void GameStateDemo::draw(){
         (*it)->draw(view, projection);
     }
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    Framebuffer::Default::bind();
     Game::i().render()->clear();
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -151,8 +124,7 @@ void GameStateDemo::draw(){
 
     const int lights = (const int) (enemies.size() + 1);
     shader_shading->bind();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, framebuffer_texture);
+    framebuffer->textures[0]->bind(0);
     shader_shading->uniform("view", view);
     shader_shading->uniform("projection", projection);
     shader_shading->uniform("diffuseTexture", 0);
