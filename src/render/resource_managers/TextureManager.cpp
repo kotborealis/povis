@@ -25,7 +25,7 @@ Texture::Ptr TextureManager::load(std::string filename){
 
     if(!surface){
         Logger::warn(IMG_GetError());
-        return nullptr;
+        throw new Exception();
     }
 
     GLuint textureId;

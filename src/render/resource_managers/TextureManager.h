@@ -24,6 +24,12 @@ public:
     Texture::Ptr load(std::string filename);
     Texture::Ptr create(unsigned int width, unsigned int height);
 
+    class Exception:public std::exception{
+        virtual const char* what() const throw(){
+            return "TextureManager Exception";
+        }
+    };
+
 private:
     Texture::WeakPtr search(std::string filename);
 

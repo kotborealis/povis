@@ -40,7 +40,7 @@ Shader::Ptr ShaderManager::load(std::string vert, std::string frag){
     std::ifstream vert_stream(vert, std::ios::in);
     if(!vert_stream.is_open()){
         Logger::error("Could not open vert shader " << vert);
-        return nullptr;
+        throw new Exception();
     }
     line = "";
     while(std::getline(vert_stream, line))
@@ -52,7 +52,7 @@ Shader::Ptr ShaderManager::load(std::string vert, std::string frag){
     std::ifstream frag_stream(frag, std::ios::in);
     if(!frag_stream.is_open()){
         Logger::error("Could not open frag shader " << frag);
-        return nullptr;
+        throw new Exception();
     }
     line = "";
     while(std::getline(frag_stream, line))
@@ -75,6 +75,7 @@ Shader::Ptr ShaderManager::load(std::string vert, std::string frag){
         std::vector<char> vert_error((unsigned int)(log_length + 1));
         glGetShaderInfoLog(vert_id, log_length, NULL, &vert_error[0]);
         Logger::error(&vert_error[0]);
+        throw new Exception();
     }
 
     //compile fragment shader
@@ -90,6 +91,7 @@ Shader::Ptr ShaderManager::load(std::string vert, std::string frag){
         std::vector<char> frag_error((unsigned int)(log_length + 1));
         glGetShaderInfoLog(frag_id, log_length, NULL, &frag_error[0]);
         Logger::error(&frag_error[0]);
+        throw new Exception();
     }
 
     //linking
