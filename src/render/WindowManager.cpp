@@ -55,6 +55,11 @@ void WindowManager::init_gl(){
         throw new Init_GL_Exception();
 
     SDL_GL_SetSwapInterval(1);
+
+    const GLubyte* vendor = glGetString(GL_VENDOR);
+    const GLubyte* renderer = glGetString(GL_RENDERER);
+    const GLubyte* version = glGetString(GL_VERSION);
+    Logger::info("OpenGL " << vendor << " " << renderer << " " << version);
 }
 
 unsigned int WindowManager::width() const{
