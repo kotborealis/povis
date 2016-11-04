@@ -29,8 +29,6 @@ set(SOURCE_FILES
         src/render/ResourceManager.h
         src/render/resources/Sprite.cpp
         src/render/resources/Sprite.h
-        src/render/resource_managers/SpriteManager.cpp
-        src/render/resource_managers/SpriteManager.h
         src/game/xff2/GameStateDemo.cpp
         src/game/xff2/GameStateDemo.h
         src/game/xff2/xff2_game.h

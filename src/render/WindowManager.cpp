@@ -33,9 +33,18 @@ void WindowManager::init_sdl_img(){
 }
 
 void WindowManager::init_gl(){
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    if(SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3) != 0){
+        Logger::error("Error setting GL_CONTEXT_MINOR_VERSION");
+        throw new Init_GL_Exception();
+    }
+    if(SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1) != 0){
+        Logger::error("Error setting GL_CONTEXT_MINOR_VERSION");
+        throw new Init_GL_Exception();
+    }
+    if(SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE) != 0){
+        Logger::error("Error setting GL_CONTEXT_PROFILE_MASK");
+        throw new Init_GL_Exception();
+    }
 
     gl_context = SDL_GL_CreateContext(sdl_window);
 
