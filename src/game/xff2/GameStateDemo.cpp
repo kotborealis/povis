@@ -30,17 +30,17 @@ GameStateDemo::GameStateDemo(){
 
     background = new Background(ResourceShader->load("assets/xff2/shaders/background.vert",
                                                      "assets/xff2/shaders/background.frag"),
-                                ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
-                                                       {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0));
+                                new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
+                                           {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0));
 
     Logger::info("GameStateDemo");
-    sprite_player_lives = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
-                                                 {{
+    sprite_player_lives = new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
+                                     {{
                                                           {1 / 16.f, 1.f / 16.f},
                                                           {1.f / 16.f * 2, 1.f / 16.f},
                                                           {1.f / 16.f * 2, 0},
                                                           {1 / 16.f, 0}}},
-                                                 {0, 1 / 16.f}, 16, 10);
+                                     {0, 1 / 16.f}, 16, 10);
 
     player = new PlayerTest();
 

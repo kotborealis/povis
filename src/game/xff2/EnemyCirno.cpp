@@ -20,7 +20,7 @@ EnemyCirno::EnemyCirno(){
                                                         {1.f / 6.f, 0},
                                                         {0, 0},
                                                 }};
-    sprite = ResourceSprite->create(sprite_texture, sprite_uv, {1.f / 6.f, 0}, 6, 0);
+    sprite = new Sprite(sprite_texture, sprite_uv, {1.f / 6.f, 0}, 6, 0);
 
     const Texture::Ptr bullets_texture = ResourceTexture->load("assets/xff2/textures/cirno_bullets.png");
     const std::array<glm::vec2, 4> bullets_uv = {{
@@ -29,7 +29,7 @@ EnemyCirno::EnemyCirno(){
                                                          {.5f, 0},
                                                          {0, 0}
                                                  }};
-    const Sprite::Ptr bulletRed01_sprite = ResourceSprite->create(bullets_texture, bullets_uv, {.5f, 0}, 2, 0);
+    Sprite* bulletRed01_sprite = new Sprite(bullets_texture, bullets_uv, {.5f, 0}, 2, 0);
     const Shader::Ptr bulletRed01_shader = ResourceShader->load("assets/xff2/shaders/bullets/bullet_default.vert",
                                                                 "assets/xff2/shaders/bullets/bullet_default.frag");
     bulletRed01 = new Bullet(bulletRed01_shader, bulletRed01_sprite, 10.f, 20.f);

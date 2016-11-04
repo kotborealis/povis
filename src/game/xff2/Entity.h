@@ -17,17 +17,17 @@ public:
     Entity();
     virtual ~Entity();
 
-    virtual void draw(glm::mat4& view, glm::mat4& projection) const;
+    virtual void draw(glm::mat4& view, glm::mat4& projection);
     virtual void tick(StateInfo* stateInfo);
 
     const glm::vec2& getPosition() const;
-    const Sprite::Ptr& getSprite() const;
+    const Sprite* getSprite() const;
     glm::vec2 getScale() const;
 
     void moveTo(StateInfo* stateInfo, glm::vec2 target, float ticks);
 
 protected:
-    Sprite::Ptr sprite = nullptr;
+    Sprite* sprite = nullptr;
     Shader::Ptr shader = nullptr;
 
     glm::vec2 position = {0, 0};

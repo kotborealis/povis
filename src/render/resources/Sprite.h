@@ -18,9 +18,7 @@ class Sprite{
     friend class SpriteManager;
 
 public:
-    typedef std::shared_ptr<Sprite> Ptr;
-    typedef std::weak_ptr<Sprite> WeakPtr;
-
+    Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, float frames, float startFrame);
     ~Sprite();
 
     void tick();
@@ -33,9 +31,6 @@ public:
     float frames = 0;
     float startFrame = 0;
     float current_frame = 0;
-
-private:
-    Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, float frames, float startFrame);
 };
 
 }

@@ -7,12 +7,10 @@
 
 #include "render/resource_managers/TextureManager.h"
 #include "render/resource_managers/ShaderManager.h"
-#include "render/resource_managers/SpriteManager.h"
 
 
 #define ResourceTexture ResourceManager::i().texture()
 #define ResourceShader ResourceManager::i().shader()
-#define ResourceSprite ResourceManager::i().sprite()
 
 namespace PovisEngine{
 
@@ -35,10 +33,6 @@ public:
         return (TextureManager*)m_textureManager;
     }
 
-    SpriteManager* sprite() const{
-        return (SpriteManager*)m_spriteManager;
-    }
-
 private:
     //Singletone
     ResourceManager(){
@@ -51,7 +45,6 @@ private:
 
     const ShaderManager* m_shaderManager = new ShaderManager();
     const TextureManager* m_textureManager = new TextureManager();
-    const SpriteManager* m_spriteManager = new SpriteManager();
 };
 
 }

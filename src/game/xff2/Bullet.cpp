@@ -7,8 +7,8 @@
 #include "Bullet.h"
 
 namespace PovisEngine{
-Bullet::Bullet(Shader::Ptr shader, const Sprite::Ptr& sprite, float hitbox_radius, float render_radius)
-        :sprite(sprite),
+Bullet::Bullet(Shader::Ptr shader, const Sprite* sprite, float hitbox_radius, float render_radius)
+        :sprite((Sprite*)sprite),
          render_radius(render_radius),
          hitbox_radius(hitbox_radius), shader(shader){}
 
@@ -29,7 +29,7 @@ void Bullet::draw(glm::mat4& view, glm::mat4& projection, BulletInstance& i){
     sprite->drawSprite();
 }
 
-const Sprite::Ptr& Bullet::getSprite() const{
+const Sprite* Bullet::getSprite() const{
     return sprite;
 }
 

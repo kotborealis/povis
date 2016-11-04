@@ -9,13 +9,13 @@ namespace PovisEngine{
 
 PlayerTest::PlayerTest(){
     velocity = 12.f;
-    sprite = ResourceSprite->create(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
-                                    {{
+    sprite = new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"),
+                        {{
                                              {1 / 16.f, 1.f / 16.f},
                                              {1.f / 16.f * 2, 1.f / 16.f},
                                              {1.f / 16.f * 2, 0},
                                              {1 / 16.f, 0}}},
-                                    {0, 1 / 16.f}, 16, 10);
+                        {0, 1 / 16.f}, 16, 10);
 
     const Texture::Ptr bullets_texture = ResourceTexture->load("assets/xff2/textures/cirno_bullets.png");
     const std::array<glm::vec2, 4> bullets_uv = {{
@@ -24,7 +24,7 @@ PlayerTest::PlayerTest(){
                                                          {.5f, 0},
                                                          {0, 0}
                                                  }};
-    const Sprite::Ptr bulletBlue01_sprite = ResourceSprite->create(bullets_texture, bullets_uv, {.5f, 0}, 2, 1);
+    Sprite* bulletBlue01_sprite = new Sprite(bullets_texture, bullets_uv, {.5f, 0}, 2, 1);
     const Shader::Ptr bulletRed01_shader = ResourceShader->load("assets/xff2/shaders/bullets/bullet_default.vert",
                                                                 "assets/xff2/shaders/bullets/bullet_playertest.frag");
     bulletBlue01 = new Bullet(bulletRed01_shader, bulletBlue01_sprite, 10.f, 20.f);

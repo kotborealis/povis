@@ -14,7 +14,7 @@ Entity::Entity(){
     shader = ResourceShader->load("assets/xff2/shaders/sprite.vert", "assets/xff2/shaders/sprite.frag");
 }
 
-const Sprite::Ptr& Entity::getSprite() const{
+const Sprite* Entity::getSprite() const{
     return sprite;
 }
 
@@ -22,7 +22,7 @@ const glm::vec2& Entity::getPosition() const{
     return position;
 }
 
-void Entity::draw(glm::mat4& view, glm::mat4& projection) const{
+void Entity::draw(glm::mat4& view, glm::mat4& projection){
     shader->bind();
     shader->uniform("view", view);
     shader->uniform("projection", projection);

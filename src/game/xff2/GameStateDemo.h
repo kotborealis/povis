@@ -38,7 +38,7 @@ private:
     std::vector<Enemy*> enemies;
 
     StateInfo stateInfo;
-    Sprite::Ptr sprite_player_lives;
+    Sprite* sprite_player_lives;
 };
 
 }
