@@ -124,7 +124,7 @@ void GameStateDemo::draw(){
 
     const int lights = (const int) (enemies.size() + 1);
     shader_shading->bind();
-    framebuffer->textures[1]->bind(0);
+    framebuffer->textures[0]->bind(0);
     shader_shading->uniform("view", view);
     shader_shading->uniform("projection", projection);
     shader_shading->uniform("diffuseTexture", 0);
