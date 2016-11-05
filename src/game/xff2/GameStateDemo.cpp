@@ -25,6 +25,9 @@ GameStateDemo::GameStateDemo(){
     shader_shading = ResourceShader->load("assets/xff2/shaders/shading.vert",
                                           "assets/xff2/shaders/shading.frag");
 
+    shader_lighting = ResourceShader->load("assets/xff2/shaders/default.vert",
+                                           "assets/xff2/shaders/lighting.frag");
+
     shader_hitpoints = ResourceShader->load("assets/xff2/shaders/hitpoints.vert",
                                             "assets/xff2/shaders/hitpoints.frag");
 
@@ -94,7 +97,8 @@ void GameStateDemo::update(float delta){
 }
 
 void GameStateDemo::draw(){
-    framebuffer->bind();
+    //Render on diffuseFramebuffer
+    diffuseFramebuffer->bind();
     Game::i().render()->clear();
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -104,6 +108,8 @@ void GameStateDemo::draw(){
     glm::mat4 view = camera->getView();
     glm::mat4 projection = camera->getProjection(4.f / 3.f);
 
+
+    //Render on diffuseFramebuffer
     //Background
     background->draw(view, projection);
 
@@ -115,19 +121,17 @@ void GameStateDemo::draw(){
         (*it)->draw(view, projection);
     }
 
-    Framebuffer::Default::bind();
+    //Render on shadingFramebuffer
+    shadingFramebuffer->bind();
     Game::i().render()->clear();
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
     const int lights = (const int) (enemies.size() + 1);
     shader_shading->bind();
-    framebuffer->textures[0]->bind(0);
     shader_shading->uniform("view", view);
     shader_shading->uniform("projection", projection);
-    shader_shading->uniform("diffuseTexture", 0);
     shader_shading->uniform("color", 1.f, 1.f, 1.f);
     shader_shading->uniform("actual_lights", lights);
 
@@ -154,7 +158,21 @@ void GameStateDemo::draw(){
 
     Game::i().render()->renderQuad();
 
-    //HUD
+    //Render diffuseFramebuffer on default diffuseFramebuffer
+    Framebuffer::Default::bind();
+    Game::i().render()->clear();
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    shader_lighting->bind();
+    diffuseFramebuffer->texture->bind(0);
+    shadingFramebuffer->texture->bind(1);
+    shader_lighting->uniform("diffuseTexture", 0);
+    shader_lighting->uniform("shadingTexture", 1);
+    Game::i().render()->renderQuad();
+
+    //Render HUD
     shader_sprite->bind();
     shader_sprite->uniform("diffuseTexture", 0);
     shader_sprite->uniform("color", 1.f, 1.f, 1.f);

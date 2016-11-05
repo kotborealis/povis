@@ -4,10 +4,10 @@ in vec2 fragUV;
 in vec2 fragLocalPos;
 
 uniform sampler2D diffuseTexture;
-uniform vec3 color = vec3(1.f, 1.f, 1.f);
-
+uniform sampler2D shadingTexture;
 out vec4 fragColor;
 
 void main(){
-    fragColor = texture(diffuseTexture, fragUV) * vec4(color, 1);
+
+    fragColor = vec4(texture(diffuseTexture, fragUV) * texture(shadingTexture, fragUV));
 }

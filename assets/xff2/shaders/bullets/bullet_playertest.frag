@@ -9,7 +9,7 @@ uniform vec3 color = vec3(1.f, 1.f, 1.f);
 uniform uint tick;
 uniform float inverse_ttl;
 
-layout (location = 0) out vec4 fragColor;
+out vec4 fragColor;
 
 void main(){
     float _ = 1 - float(tick) * inverse_ttl;

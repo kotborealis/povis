@@ -3,7 +3,6 @@
 in vec2 fragUV;
 in vec2 fragLocalPos;
 
-uniform sampler2D diffuseTexture;
 uniform vec3 color = vec3(1.f, 1.f, 1.f);
 
 uniform mat4 view;
@@ -24,7 +23,6 @@ uniform Light lights[MAX_LIGHTS];
 uniform int actual_lights;
 
 void main(){
-    vec4 diffuse = texture(diffuseTexture, fragUV);
     float lighting = 0.f;
     vec3 lighting_color = vec3(0.f, 0.f, 0.f);
     for(int i = 0; i < actual_lights; i++){
@@ -34,5 +32,5 @@ void main(){
         lighting = min(1.f, lighting + att);
         lighting_color = min(vec3(1.f, 1.f, 1.f), lighting_color + lights[i].color * att);
     }
-    fragColor = diffuse * lighting * vec4(color * lighting_color, 1);
+    fragColor = lighting * vec4(color * lighting_color, 1);
 }
