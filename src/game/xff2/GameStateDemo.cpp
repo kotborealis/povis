@@ -19,19 +19,19 @@ int mouse_x, mouse_y;
 GameStateDemo::GameStateDemo(){
     Logger::info("GameStateDemo");
 
-    shader_sprite = ResourceShader->load("assets/xff2/shaders/sprite.vert",
+    shader_sprite = ResourceShader->load("assets/xff2/shaders/default_mvp.vert",
                                          "assets/xff2/shaders/sprite.frag");
 
-    shader_shading = ResourceShader->load("assets/xff2/shaders/shading.vert",
+    shader_shading = ResourceShader->load("assets/xff2/shaders/default.vert",
                                           "assets/xff2/shaders/shading.frag");
 
     shader_lighting = ResourceShader->load("assets/xff2/shaders/default.vert",
                                            "assets/xff2/shaders/lighting.frag");
 
-    shader_hitpoints = ResourceShader->load("assets/xff2/shaders/hitpoints.vert",
+    shader_hitpoints = ResourceShader->load("assets/xff2/shaders/default_mvp.vert",
                                             "assets/xff2/shaders/hitpoints.frag");
 
-    background = new Background(ResourceShader->load("assets/xff2/shaders/background.vert",
+    background = new Background(ResourceShader->load("assets/xff2/shaders/default_mvp.vert",
                                                      "assets/xff2/shaders/background.frag"),
                                 new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"),
                                            {{{0, 1}, {1, 1}, {1, 0}, {0, 0}}}, {0, 0}, 0, 0));
@@ -104,19 +104,10 @@ void GameStateDemo::draw(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //Camera view
-    glm::mat4 view = camera->getView();
-    glm::mat4 projection = camera->getProjection(4.f / 3.f);
-
-
     //Render on diffuseFramebuffer
-    //Background
     background->draw(view, projection);
-
-    //player
     player->draw(view, projection);
 
-    //Enemy
     for(auto it = enemies.begin(); it != enemies.end(); it++){
         (*it)->draw(view, projection);
     }
@@ -132,7 +123,6 @@ void GameStateDemo::draw(){
     shader_shading->bind();
     shader_shading->uniform("view", view);
     shader_shading->uniform("projection", projection);
-    shader_shading->uniform("color", 1.f, 1.f, 1.f);
     shader_shading->uniform("actual_lights", lights);
 
     for(int i = 0; i < lights - 1; i++){
@@ -141,9 +131,9 @@ void GameStateDemo::draw(){
         model = glm::translate(model, {enemies[i]->getPosition().x, enemies[i]->getPosition().y, 1});
         shader_shading->uniform(TO_STRING("lights[" << i << "].model"), model);
         shader_shading->uniform(TO_STRING("lights[" << i << "].color"), c);
-        shader_shading->uniform(TO_STRING("lights[" << i << "].inverse_constant"), 0.f);
-        shader_shading->uniform(TO_STRING("lights[" << i << "].inverse_linear"), .25f);
-        shader_shading->uniform(TO_STRING("lights[" << i << "].inverse_quadratic"), 1.f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].constant"), 0.f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].linear"), .25f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].quadratic"), 10.f);
     }
     {
         glm::vec3 c = {1, 1, 1};
@@ -151,14 +141,14 @@ void GameStateDemo::draw(){
         model = glm::translate(model, {player->getPosition().x, player->getPosition().y, 1});
         shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].model"), model);
         shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].color"), c);
-        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].inverse_constant"), 0.f);
-        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].inverse_linear"), .25f);
-        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].inverse_quadratic"), 1.f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].constant"), 0.f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].linear"), .25f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].quadratic"), 10.f);
     }
 
     Game::i().render()->renderQuad();
 
-    //Render diffuseFramebuffer on default diffuseFramebuffer
+    //Render on default Framebuffer
     Framebuffer::Default::bind();
     Game::i().render()->clear();
     glDisable(GL_DEPTH_TEST);
@@ -172,10 +162,9 @@ void GameStateDemo::draw(){
     shader_lighting->uniform("shadingTexture", 1);
     Game::i().render()->renderQuad();
 
-    //Render HUD
     shader_sprite->bind();
-    shader_sprite->uniform("diffuseTexture", 0);
-    shader_sprite->uniform("color", 1.f, 1.f, 1.f);
+    shader_sprite->uniform("view", view);
+    shader_sprite->uniform("projection", projection);
     sprite_player_lives->texture->bind(0);
     for(int i = 0; i < player->lives; i++){
         glm::mat4 model;

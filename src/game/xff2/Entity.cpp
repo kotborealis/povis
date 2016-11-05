@@ -11,7 +11,7 @@
 namespace PovisEngine{
 
 Entity::Entity(){
-    shader = ResourceShader->load("assets/xff2/shaders/sprite.vert", "assets/xff2/shaders/sprite.frag");
+    shader = ResourceShader->load("assets/xff2/shaders/default_mvp.vert", "assets/xff2/shaders/sprite.frag");
 }
 
 const Sprite* Entity::getSprite() const{
