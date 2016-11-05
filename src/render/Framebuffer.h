@@ -12,17 +12,10 @@
 
 namespace PovisEngine{
 
-class FramebufferTextureOptions{
-public:
-    unsigned int width = Game::i().render()->window()->width();
-    unsigned int height = Game::i().render()->window()->height();
-};
-
 class Framebuffer{
 public:
-    Framebuffer(unsigned int textures_count, std::vector<FramebufferTextureOptions> textureOptions);
-    Framebuffer(unsigned int textures_count);
     Framebuffer();
+    Framebuffer(unsigned int width, unsigned int height);
     virtual ~Framebuffer();
 
     void bind();
@@ -37,10 +30,12 @@ public:
         static void bind();
     };
 
-    std::vector<Texture::Ptr> textures;
+    Texture::Ptr texture;
 
 private:
     GLuint id;
+    unsigned int width;
+    unsigned int height;
 };
 
 }

@@ -8,32 +8,19 @@
 
 namespace PovisEngine{
 
-Framebuffer::Framebuffer(unsigned int textures_count, std::vector<FramebufferTextureOptions> textureOptions){
+Framebuffer::Framebuffer(unsigned int width, unsigned int height):width(width), height(height){
     glGenFramebuffers(1, &id);
     glBindFramebuffer(GL_FRAMEBUFFER, id);
 
-    for(int i = textureOptions.size(); i < textures_count; i++){
-        textureOptions.push_back(FramebufferTextureOptions());
-    }
-    for(int i = 0; i < textures_count; i++){
-        textures.push_back(ResourceTexture->create(textureOptions[i].width,
-                                                   textureOptions[i].height));
-    }
-
-    GLenum DrawBuffers[textures_count];
-    for(int i = 0; i < textures_count; i++){
-        DrawBuffers[i] = (GLenum)(GL_COLOR_ATTACHMENT0 + i);
-        glFramebufferTexture(GL_FRAMEBUFFER, (GLenum)(GL_COLOR_ATTACHMENT0 + i), textures[i]->id, 0);
-    }
+    texture = ResourceTexture->create(width, height);
+    GLenum DrawBuffers[1];
+    DrawBuffers[0] = GL_COLOR_ATTACHMENT0;
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture->id, 0);
     glDrawBuffers(1, DrawBuffers);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
         throw new Exception();
     }
-}
-
-Framebuffer::Framebuffer(unsigned int textures_count):Framebuffer::Framebuffer(textures_count, {}){
-
 }
 
 Framebuffer::~Framebuffer(){
@@ -42,14 +29,16 @@ Framebuffer::~Framebuffer(){
 
 void Framebuffer::bind(){
     glBindFramebuffer(GL_FRAMEBUFFER, id);
+    glViewport(0, 0, width, height);
 }
 
-Framebuffer::Framebuffer():Framebuffer::Framebuffer(1){
+Framebuffer::Framebuffer():Framebuffer::Framebuffer(Game::i().render()->window()->width(),
+                                                    Game::i().render()->window()->height()){
 
 }
-
 
 void Framebuffer::Default::bind(){
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, Game::i().render()->window()->width(), Game::i().render()->window()->height());
 }
 }
