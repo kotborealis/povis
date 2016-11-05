@@ -8,12 +8,21 @@
 #include <vector>
 #include <exception>
 #include "render/resources/Texture.h"
+#include "game.h"
 
 namespace PovisEngine{
 
+class FramebufferTextureOptions{
+public:
+    unsigned int width = Game::i().render()->window()->width();
+    unsigned int height = Game::i().render()->window()->height();
+};
+
 class Framebuffer{
 public:
+    Framebuffer(unsigned int textures_count, std::vector<FramebufferTextureOptions> textureOptions);
     Framebuffer(unsigned int textures_count);
+    Framebuffer();
     virtual ~Framebuffer();
 
     void bind();
