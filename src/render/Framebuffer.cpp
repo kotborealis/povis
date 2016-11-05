@@ -2,7 +2,6 @@
 // Created by kotborealis on 04.11.2016.
 //
 
-#include <Game.h>
 #include "Framebuffer.h"
 #include "ResourceManager.h"
 

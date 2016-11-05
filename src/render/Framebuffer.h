@@ -8,7 +8,7 @@
 #include <vector>
 #include <exception>
 #include "render/resources/Texture.h"
-#include "game.h"
+#include "Game.h"
 
 namespace PovisEngine{
 
