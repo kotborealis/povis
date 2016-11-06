@@ -98,6 +98,7 @@ void WindowManager::toggleFullscreen(){
         SDL_SetWindowSize(sdl_window, bounds.w, bounds.h);
 
         windowResizeHandler(bounds);
+        SDL_RaiseWindow(sdl_window);
         fullscreen = true;
     }else{
         SDL_SetWindowSize(sdl_window, windowBounds.w, windowBounds.h);
@@ -105,6 +106,7 @@ void WindowManager::toggleFullscreen(){
         SDL_SetWindowBordered(sdl_window, SDL_TRUE);
 
         windowResizeHandler(windowBounds);
+        SDL_RaiseWindow(sdl_window);
         fullscreen = false;
     }
 }
