@@ -22,7 +22,7 @@ GameStateDemo::GameStateDemo(){
     shader_sprite = ResourceShader->load("assets/xff2/shaders/default_mvp.vert",
                                          "assets/xff2/shaders/sprite.frag");
 
-    shader_shading = ResourceShader->load("assets/xff2/shaders/default.vert",
+    shader_shading = ResourceShader->load("assets/xff2/shaders/default_mvp.vert",
                                           "assets/xff2/shaders/shading.frag");
 
     shader_lighting = ResourceShader->load("assets/xff2/shaders/default.vert",
@@ -128,25 +128,25 @@ void GameStateDemo::draw(){
     shader_shading->uniform("view", view);
     shader_shading->uniform("projection", projection);
     shader_shading->uniform("actual_lights", lights);
+    glm::mat4 light_model = glm::scale(glm::mat4(), {1000, 1000, 1});
+    shader_shading->uniform("model", light_model);
 
     for(int i = 0; i < lights - 1; i++){
         glm::vec3 c = {1, 1, 1};
-        glm::mat4 model;
-        model = glm::translate(model, {enemies[i]->getPosition().x, enemies[i]->getPosition().y, 1});
-        shader_shading->uniform(TO_STRING("lights[" << i << "].model"), model);
+        glm::vec2 pos = enemies[i]->getPosition();
+        shader_shading->uniform(TO_STRING("lights[" << i << "].pos"), pos);
         shader_shading->uniform(TO_STRING("lights[" << i << "].color"), c);
-        shader_shading->uniform(TO_STRING("lights[" << i << "].constant"), 0.f);
-        shader_shading->uniform(TO_STRING("lights[" << i << "].linear"), .25f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].constant"), 1.f);
+        shader_shading->uniform(TO_STRING("lights[" << i << "].linear"), 3.f);
         shader_shading->uniform(TO_STRING("lights[" << i << "].quadratic"), 10.f);
     }
     {
         glm::vec3 c = {1, 1, 1};
-        glm::mat4 model;
-        model = glm::translate(model, {player->getPosition().x, player->getPosition().y, 1});
-        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].model"), model);
+        glm::vec2 pos = player->getPosition();
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].pos"), pos);
         shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].color"), c);
-        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].constant"), 0.f);
-        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].linear"), .25f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].constant"), 1.f);
+        shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].linear"), 3.f);
         shader_shading->uniform(TO_STRING("lights[" << lights - 1 << "].quadratic"), 10.f);
     }
 
