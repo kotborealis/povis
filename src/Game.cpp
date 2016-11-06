@@ -31,6 +31,7 @@ void Game::run(){
 
         while(SDL_PollEvent(&event)){
             running = event.type != SDL_QUIT;
+            render()->window()->handleEvent(&event);
             cState->handleEvent(&event);
         }
 

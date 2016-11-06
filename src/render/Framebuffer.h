@@ -7,16 +7,21 @@
 #include <GL/glew.h>
 #include <vector>
 #include <exception>
+#include <list>
 #include "render/resources/Texture.h"
 #include "Game.h"
 
 namespace PovisEngine{
 
 class Framebuffer{
+    friend class WindowManager;
+
 public:
     Framebuffer();
-    Framebuffer(unsigned int width, unsigned int height);
+    Framebuffer(unsigned int width, unsigned int height, bool wh_auto = false);
     virtual ~Framebuffer();
+
+    void reallocate(unsigned int width, unsigned int height);
 
     void bind();
 
@@ -36,6 +41,9 @@ private:
     GLuint id;
     unsigned int width;
     unsigned int height;
+    bool wh_auto = false;
+
+    static std::list<Framebuffer*> list;
 };
 
 }

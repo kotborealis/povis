@@ -26,11 +26,9 @@ public:
 
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
-    glm::mat4 view = camera->getView();
-    glm::mat4 projection = camera->getProjection(4.f / 3.f);
 
     Framebuffer* diffuseFramebuffer = new Framebuffer();
-    Framebuffer* shadingFramebuffer = new Framebuffer(256, 256);
+    Framebuffer* shadingFramebuffer = new Framebuffer(512, 512);
 
     Shader::Ptr shader_sprite;
     Shader::Ptr shader_shading;

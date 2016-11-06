@@ -26,6 +26,8 @@ public:
     unsigned int width() const;
     unsigned int height() const;
 
+    void handleEvent(SDL_Event* pEvent);
+
     class Init_SDL_Exception:public std::exception{
         virtual const char* what() const throw(){
             return "init_sdl_init Exception";
@@ -43,7 +45,6 @@ public:
             return "init_gl Exception";
         }
     };
-
 private:
     void init_sdl();
     void init_sdl_img();
@@ -54,6 +55,12 @@ private:
 
     SDL_Window* sdl_window;
     SDL_GLContext gl_context;
+
+    bool fullscreen = false;
+    SDL_Rect windowBounds;
+
+    void windowResizeHandler(SDL_Rect bounds);
+    void toggleFullscreen();
 };
 
 }

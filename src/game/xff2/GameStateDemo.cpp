@@ -97,6 +97,10 @@ void GameStateDemo::update(float delta){
 }
 
 void GameStateDemo::draw(){
+    glm::mat4 view = camera->getView();
+    glm::mat4 projection = camera->getProjection(
+            (float)Game::i().render()->window()->width() / (float)Game::i().render()->window()->height());
+
     //Render on diffuseFramebuffer
     diffuseFramebuffer->bind();
     Game::i().render()->clear();

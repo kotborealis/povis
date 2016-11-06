@@ -7,7 +7,10 @@
 
 namespace PovisEngine{
 
-Framebuffer::Framebuffer(unsigned int width, unsigned int height):width(width), height(height){
+std::list<Framebuffer*> Framebuffer::list;
+
+Framebuffer::Framebuffer(unsigned int width, unsigned int height, bool wh_auto):width(width), height(height),
+                                                                                wh_auto(wh_auto){
     glGenFramebuffers(1, &id);
     glBindFramebuffer(GL_FRAMEBUFFER, id);
 
@@ -20,10 +23,13 @@ Framebuffer::Framebuffer(unsigned int width, unsigned int height):width(width), 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
         throw new Exception();
     }
+
+    list.push_back(this);
 }
 
 Framebuffer::~Framebuffer(){
-
+    glDeleteFramebuffers(1, &id);
+    list.remove(this);
 }
 
 void Framebuffer::bind(){
@@ -32,8 +38,28 @@ void Framebuffer::bind(){
 }
 
 Framebuffer::Framebuffer():Framebuffer::Framebuffer(Game::i().render()->window()->width(),
-                                                    Game::i().render()->window()->height()){
+                                                    Game::i().render()->window()->height(), true){
 
+}
+
+void Framebuffer::reallocate(unsigned int width, unsigned int height){
+    glDeleteFramebuffers(1, &id);
+
+    this->width = width;
+    this->height = height;
+
+    glGenFramebuffers(1, &id);
+    glBindFramebuffer(GL_FRAMEBUFFER, id);
+
+    texture = ResourceTexture->create(width, height);
+    GLenum DrawBuffers[1];
+    DrawBuffers[0] = GL_COLOR_ATTACHMENT0;
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture->id, 0);
+    glDrawBuffers(1, DrawBuffers);
+
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+        throw new Exception();
+    }
 }
 
 void Framebuffer::Default::bind(){

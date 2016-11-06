@@ -1,4 +1,5 @@
 #include "WindowManager.h"
+#include "Framebuffer.h"
 
 namespace PovisEngine{
 
@@ -22,7 +23,7 @@ void WindowManager::init_sdl(){
         throw new Init_SDL_Exception();
 
     sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height,
-                                  SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+                                  SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
     if(sdl_window == nullptr)
         throw new Init_SDL_Exception();
 }
@@ -72,6 +73,51 @@ unsigned int WindowManager::height() const{
 
 void WindowManager::swap() const{
     SDL_GL_SwapWindow(sdl_window);
+}
+
+void WindowManager::handleEvent(SDL_Event* event){
+    if(event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_RESIZED){
+        windowResizeHandler({0, 0, event->window.data1, event->window.data2});
+    }else if(event->type == SDL_KEYDOWN){
+        if(event->key.keysym.sym == SDLK_f){
+            toggleFullscreen();
+        }
+    }
+}
+
+void WindowManager::toggleFullscreen(){
+    if(!fullscreen){
+        SDL_GetWindowSize(sdl_window, &windowBounds.w, &windowBounds.h);
+        SDL_GetWindowPosition(sdl_window, &windowBounds.x, &windowBounds.y);
+
+        int idx = SDL_GetWindowDisplayIndex(sdl_window);
+        SDL_Rect bounds;
+        SDL_GetDisplayBounds(idx, &bounds);
+        SDL_SetWindowBordered(sdl_window, SDL_FALSE);
+        SDL_SetWindowPosition(sdl_window, bounds.x, bounds.y);
+        SDL_SetWindowSize(sdl_window, bounds.w, bounds.h);
+
+        windowResizeHandler(bounds);
+        fullscreen = true;
+    }else{
+        SDL_SetWindowSize(sdl_window, windowBounds.w, windowBounds.h);
+        SDL_SetWindowPosition(sdl_window, windowBounds.x, windowBounds.y);
+        SDL_SetWindowBordered(sdl_window, SDL_TRUE);
+
+        windowResizeHandler(windowBounds);
+        fullscreen = false;
+    }
+}
+
+void WindowManager::windowResizeHandler(SDL_Rect bounds){
+    m_width = (unsigned int)bounds.w;
+    m_height = (unsigned int)bounds.h;
+
+    for(auto it = Framebuffer::list.begin(); it != Framebuffer::list.end(); it++){
+        if((*it)->wh_auto){
+            (*it)->reallocate(m_width, m_height);
+        }
+    }
 }
 
 }
