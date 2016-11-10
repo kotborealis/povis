@@ -6,7 +6,7 @@
 
 namespace PovisEngine {
 
-struct StateInfo{
+struct RenderInfo{
 
 };
 

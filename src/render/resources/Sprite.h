@@ -18,16 +18,14 @@ class Sprite{
     friend class SpriteManager;
 
 public:
-    Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, float frames, float startFrame);
+    Sprite(Texture::Ptr texture, );
     ~Sprite();
 
     void tick();
-    void drawSprite();
+    void draw(RenderInfo* renderInfo);
 
     Texture::Ptr texture;
     Mesh* mesh;
-    std::array<glm::vec2, 4> uv;
-    glm::vec2 frameOffset;
     float frames = 0;
     float startFrame = 0;
     float current_frame = 0;

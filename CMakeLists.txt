@@ -21,6 +21,8 @@ set(SOURCE_FILES
         src/render/RenderManager.cpp
         src/render/WindowManager.cpp
         src/render/WindowManager.h
+        src/render/Framebuffer.cpp
+        src/render/Framebuffer.h
         src/render/resources/Mesh.cpp
         src/render/resources/Mesh.h
         src/render/resources/Vertex.h
@@ -29,23 +31,6 @@ set(SOURCE_FILES
         src/render/ResourceManager.h
         src/render/resources/Sprite.cpp
         src/render/resources/Sprite.h
-        src/game/xff2/GameStateDemo.cpp
-        src/game/xff2/GameStateDemo.h
-        src/game/xff2/xff2_game.h
-        src/game/xff2/BulletHell.cpp
-        src/game/xff2/BulletHell.h
-        src/game/xff2/Player.cpp
-        src/game/xff2/Player.h
-        src/game/xff2/Enemy.cpp
-        src/game/xff2/Enemy.h
-        src/game/xff2/PlayerTest.cpp
-        src/game/xff2/PlayerTest.h
-        src/game/xff2/Entity.cpp
-        src/game/xff2/Entity.h src/game/xff2/StateInfo.h
-        src/game/xff2/EnemyCirno.cpp
-        src/game/xff2/EnemyCirno.h
-        src/game/xff2/Bullet.cpp
-        src/game/xff2/Bullet.h
         src/easing/Back.cpp
         src/easing/Back.h
         src/easing/Back.cpp
@@ -69,7 +54,12 @@ set(SOURCE_FILES
         src/easing/Quint.cpp
         src/easing/Quint.h
         src/easing/Sine.cpp
-        src/easing/Sine.h src/game/xff2/Background.cpp src/game/xff2/Background.h src/game/xff2/BulletInstance.h src/utils/to_string.h src/render/Framebuffer.cpp src/render/Framebuffer.h)
+        src/easing/Sine.h
+        src/utils/to_string.h
+
+        src/game/xff2/Entity.h
+        src/game/xff2/Entity.cpp
+        src/game/xff2/StateInfo.h)
 
 add_executable(povis ${SOURCE_FILES})
 

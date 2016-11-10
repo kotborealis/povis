@@ -1,49 +1,37 @@
-//
-// Created by kotborealis on 18.09.2016.
-//
-
 #pragma once
 
-#include <render/resources/Sprite.h>
+#include <cstdint>
 #include <glm/vec2.hpp>
-#include <easing/Back.h>
+#include <render/resources/Shader.h>
+#include <render/resources/Sprite.h>
 
 namespace PovisEngine{
 
-class StateInfo;
+struct RenderInfo;
+struct StateInfo;
 
 class Entity{
 public:
-    Entity();
-    virtual ~Entity();
+	Entity();
+	virtual ~Entity();
 
-    virtual void draw(glm::mat4& view, glm::mat4& projection);
-    virtual void tick(StateInfo* stateInfo);
+	virtual void draw(RenderInfo* renderInfo) const;
+	virtual void update(StateInfo* stateInfo);
 
-    const glm::vec2& getPosition() const;
-    const Sprite* getSprite() const;
-    glm::vec2 getScale() const;
+	const glm::vec2& pos() const;
+	void pos(glm::vec2&);
 
-    void moveTo(StateInfo* stateInfo, glm::vec2 target, float ticks);
+	const glm::vec2& hitbox() const;
+	void hitbox(glm::vec2&);
 
 protected:
-    Sprite* sprite = nullptr;
-    Shader::Ptr shader = nullptr;
+	uint64_t tick = 0;
 
-    glm::vec2 position = {0, 0};
-    glm::vec2 scale = {1, 1};
+	glm::vec2 m_pos;
+	glm::vec2 m_hitbox;
 
-    long long unsigned int localTick = 0;
-
-    bool moving = false;
-    float pos_interp_current_ticks = 0;
-    float pos_interp_duration = 0;
-    glm::vec2 pos_interp_start_pos = glm::vec2();
-    glm::vec2 pos_interp_target_pos = glm::vec2();
-
-    float (* interpolation)(float, float, float, float) = &Easing::Back::easeInOut;
-};
-
+	Sprite* m_sprite;
+	Shader::Ptr m_shader;
 }
 
-
+}
