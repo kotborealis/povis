@@ -32,8 +32,6 @@ void Sprite::draw(RenderInfo* renderInfo){
     shader->uniform("projection", renderInfo->projection);
 
     mesh->drawElements();
-
-    Logger::info("cur" << current);
 }
 
 void Sprite::tick(){
