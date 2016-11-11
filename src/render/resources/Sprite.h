@@ -32,6 +32,7 @@ private:
     static Shader::Ptr shader;
 
     Texture::Ptr texture;
+    int width, height;
     float inv_width;
     float inv_height;
     int start;

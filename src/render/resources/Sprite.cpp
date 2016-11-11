@@ -10,7 +10,9 @@ namespace PovisEngine{
 Sprite::~Sprite(){}
 
 Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end)
-        :texture(texture), inv_width(1.f / (float)width), inv_height(1.f / (float)height), start(start), end(end),
+        :texture(texture), width(width), height(height),
+         inv_width(1.f / (float)width), inv_height(1.f / (float)height),
+         start(start), end(end),
          current(start){
 
 }
@@ -23,6 +25,8 @@ void Sprite::draw(RenderInfo* renderInfo){
     model = glm::scale(model, {100, 100, 1});
 
     shader->bind();
+    shader->uniform("width", width);
+    shader->uniform("height", height);
     shader->uniform("inv_width", inv_width);
     shader->uniform("inv_height", inv_height);
     shader->uniform("cur", current);
@@ -35,7 +39,7 @@ void Sprite::draw(RenderInfo* renderInfo){
 }
 
 void Sprite::tick(){
-    current = current >= end ? start : current + 1;
+    current = current >= end - 1 ? start : current + 1;
 }
 
 Mesh* Sprite::mesh;
