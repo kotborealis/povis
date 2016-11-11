@@ -2,57 +2,64 @@
 // Created by kotborealis on 09.09.2016.
 //
 
+#include <glm/gtc/matrix_transform.hpp>
 #include "Sprite.h"
 
 namespace PovisEngine{
 
-// = {{0,0},{1,0},{1,1},{0,1}}
-Sprite::Sprite(Texture::Ptr texture, std::array<glm::vec2, 4> uv, glm::vec2 frameOffset, float frames, float startFrame)
-        :
-        texture(texture),
-        uv(uv),
-        frameOffset(frameOffset),
-        frames(frames),
-        startFrame(startFrame){
+Sprite::~Sprite(){}
 
-    current_frame = startFrame;
+Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end)
+        :texture(texture), inv_width(1.f / (float)width), inv_height(1.f / (float)height), start(start), end(end),
+         current(start){
 
-    std::vector<Vertex> vertices = {
-            Vertex{
-                    {-1, -1, 0}, //position
-                    uv[0] + frameOffset * current_frame //uv
-            },
-            Vertex{
-                    {1, -1, 0}, //position
-                    uv[1] + frameOffset * current_frame //uv
-            },
-            Vertex{
-                    {1, 1, 0}, //position
-                    uv[2] + frameOffset * current_frame //uv
-            },
-            Vertex{
-                    {-1, 1, 0}, //position
-                    uv[3] + frameOffset * current_frame //uv
-            }
-    };
-    std::vector<GLuint> indices = {0, 1, 3, 1, 3, 2};
-    mesh = new Mesh(vertices, indices);
 }
 
+void Sprite::draw(RenderInfo* renderInfo){
+    texture->bind(0);
+
+    glm::mat4 model = {};
+    model = glm::translate(model, {0, 0, 1});
+    model = glm::scale(model, {100, 100, 1});
+
+    shader->bind();
+    shader->uniform("inv_width", inv_width);
+    shader->uniform("inv_height", inv_height);
+    shader->uniform("cur", current);
+    shader->uniform("diffuseTexture", 0);
+    shader->uniform("model", model);
+    shader->uniform("view", renderInfo->view);
+    shader->uniform("projection", renderInfo->projection);
+
+    mesh->drawElements();
+
+    Logger::info("cur" << current);
+}
 
 void Sprite::tick(){
-    current_frame = (int)(current_frame + 1) % (int)frames + startFrame;
-    for(int i = 0; i < 4; i++)
-        mesh->vertices[i].uv = uv[i] + frameOffset * current_frame;
-    mesh->updateUV();
+    current = current >= end ? start : current + 1;
 }
 
-void Sprite::drawSprite(){
-    texture->bind(0);
-    mesh->drawElements();
-}
+Mesh* Sprite::mesh;
+Shader::Ptr Sprite::shader;
 
-Sprite::~Sprite(){
+void Sprite::__init_sprite_system(){
+    if(!mesh){
+        std::vector<Vertex> vertices = {
+                Vertex{{-1, -1, 0},
+                       {0,  1}}, //bottom left
+                Vertex{{1, -1, 0},
+                       {1, 1}}, //bottom right
+                Vertex{{1, 1, 0},
+                       {1, 0}}, //top right
+                Vertex{{-1, 1, 0},
+                       {0,  0}}  //top left
+        };
 
+        std::vector<GLuint> indices = {0, 1, 3, 1, 3, 2};
+
+        mesh = new Mesh(vertices, indices);
+        shader = ResourceShader->load("assets/xff2/shaders/sprite.vert", "assets/xff2/shaders/sprite.frag");
+    }
 }
 }

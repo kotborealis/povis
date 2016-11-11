@@ -57,10 +57,5 @@ void Mesh::drawElements() const{
     glBindVertexArray(0);
 }
 
-void Mesh::updateUV(){
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-}
-
 
 }

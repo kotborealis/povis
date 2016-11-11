@@ -8,6 +8,8 @@
 #include <array>
 #include <glm/detail/type_mat.hpp>
 #include <glm/detail/type_mat4x4.hpp>
+#include <render/RenderInfo.h>
+#include <render/ResourceManager.h>
 #include "Shader.h"
 #include "Texture.h"
 #include "Mesh.h"
@@ -15,20 +17,27 @@
 namespace PovisEngine{
 
 class Sprite{
-    friend class SpriteManager;
 
 public:
-    Sprite(Texture::Ptr texture, );
+    Sprite(const Texture::Ptr& texture, int width, int height, int start, int end);
     ~Sprite();
 
     void tick();
     void draw(RenderInfo* renderInfo);
 
+    static void __init_sprite_system();
+
+private:
+    static Mesh* mesh;
+    static Shader::Ptr shader;
+
     Texture::Ptr texture;
-    Mesh* mesh;
-    float frames = 0;
-    float startFrame = 0;
-    float current_frame = 0;
+    float inv_width;
+    float inv_height;
+    int start;
+    int end;
+
+    int current;
 };
 
 }

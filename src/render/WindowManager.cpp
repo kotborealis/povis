@@ -1,3 +1,4 @@
+#include <render/resources/Sprite.h>
 #include "WindowManager.h"
 #include "Framebuffer.h"
 
@@ -10,6 +11,7 @@ WindowManager::WindowManager(std::string& title, unsigned int width, unsigned in
     init_sdl();
     init_sdl_img();
     init_gl();
+    Sprite::__init_sprite_system();
 }
 
 WindowManager::~WindowManager(){
