@@ -1,6 +1,6 @@
 #include "Logger.h"
 #include "Game.h"
-#include "game/xff2/GameStateDemo.h"
+#include "game/xff2/GameStateTest.h"
 
 using namespace PovisEngine;
 
@@ -15,7 +15,7 @@ int main(int argc, char* args[]){
 
     Logger::info("Starting");
     Game::initialize("Povis", width, height);
-    GameState* _ = new GameStateDemo();
+    GameState* _ = new GameStateTest();
     Game::i().pushState(_);
     Game::i().run();
     return 0;

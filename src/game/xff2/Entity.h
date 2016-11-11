@@ -4,6 +4,7 @@
 #include <glm/vec2.hpp>
 #include <render/resources/Shader.h>
 #include <render/resources/Sprite.h>
+#include "Hitbox.h"
 
 namespace PovisEngine{
 
@@ -19,19 +20,18 @@ public:
 	virtual void update(StateInfo* stateInfo);
 
 	const glm::vec2& pos() const;
-	void pos(glm::vec2&);
+    void pos(glm::vec2& _pos);
 
-	const glm::vec2& hitbox() const;
-	void hitbox(glm::vec2&);
+    const Hitbox* hitbox() const;
 
 protected:
 	uint64_t tick = 0;
 
 	glm::vec2 m_pos;
-	glm::vec2 m_hitbox;
+    Hitbox* m_hitbox;
 
 	Sprite* m_sprite;
 	Shader::Ptr m_shader;
-}
+};
 
 }

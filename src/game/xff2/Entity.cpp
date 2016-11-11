@@ -19,12 +19,8 @@ void Entity::pos(glm::vec2& _pos) {
     m_pos = _pos;
 }
 
-const glm::vec2& Entity::hitbox() const {
+const Hitbox* Entity::hitbox() const{
     return m_hitbox;
-}
-
-void Entity::hitbox(glm::vec2& _hitbox) {
-    m_hitbox = _hitbox;
 }
 
 Entity::Entity() {
