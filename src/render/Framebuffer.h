@@ -16,6 +16,8 @@ namespace PovisEngine{
 class Framebuffer{
     friend class WindowManager;
 
+    friend class RenderManager;
+
 public:
     Framebuffer();
     Framebuffer(unsigned int width, unsigned int height, bool wh_auto = false);

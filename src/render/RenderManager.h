@@ -11,6 +11,8 @@
 
 namespace PovisEngine{
 
+struct RenderInfo;
+
 class RenderManager{
 public:
     RenderManager(std::string title, unsigned int width, unsigned int height);
@@ -20,8 +22,13 @@ public:
 
     void clear() const;
     void swap() const;
+
     void renderQuad() const;
+
+    void composeFramebuffers(RenderInfo* renderInfo) const;
 private:
+    Shader::Ptr composeFramebuffersShader;
+
     const WindowManager* m_windowManager;
 };
 

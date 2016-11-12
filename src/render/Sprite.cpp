@@ -61,7 +61,7 @@ void Sprite::__init_sprite_system(){
         std::vector<GLuint> indices = {0, 1, 3, 1, 3, 2};
 
         mesh = new Mesh(vertices, indices);
-        shader = ResourceShader->load("assets/xff2/shaders/sprite.vert", "assets/xff2/shaders/sprite.frag");
+        shader = ResourceShader->load("assets/common/shaders/sprite.vert", "assets/common/shaders/sprite.frag");
     }
 }
 }
