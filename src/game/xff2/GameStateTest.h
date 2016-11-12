@@ -21,6 +21,7 @@ public:
 
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
+    RenderInfo renderInfo;
 
     Sprite* sprite_test;
 };

@@ -4,11 +4,13 @@
 namespace PovisEngine{
 
 void Entity::draw(RenderInfo *renderInfo) const {
+    renderInfo->framebufferDefault->bind();
     m_sprite->draw(renderInfo);
 }
 
 void Entity::update(StateInfo *stateInfo) {
     tick++;
+    m_sprite->tick();
 }
 
 const glm::vec2& Entity::pos() const {

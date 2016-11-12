@@ -9,7 +9,11 @@ namespace PovisEngine{
 
 
 GameStateTest::GameStateTest(){
-    sprite_test = new Sprite(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 5);
+    sprite_test = new Sprite(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 6);
+
+    renderInfo.framebufferDefault = new Framebuffer();
+    renderInfo.framebufferShading = new Framebuffer(512, 512);
+    renderInfo.framebufferUI = new Framebuffer();
 }
 
 GameStateTest::~GameStateTest(){
@@ -30,10 +34,10 @@ void GameStateTest::draw(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    RenderInfo renderInfo;
-    renderInfo.projection = camera->getProjection(
-            (float)Game::i().render()->window()->width() / (float)Game::i().render()->window()->height());
+    renderInfo.projection = camera->getProjection((float)Game::i().render()->window()->width()
+                                                  / (float)Game::i().render()->window()->height());
     renderInfo.view = camera->getView();
+
     sprite_test->draw(&renderInfo);
 
     Game::i().render()->swap();
