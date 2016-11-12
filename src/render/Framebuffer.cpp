@@ -25,6 +25,8 @@ Framebuffer::Framebuffer(unsigned int width, unsigned int height, bool wh_auto):
     }
 
     list.push_back(this);
+
+    Framebuffer::Default::bind();
 }
 
 Framebuffer::~Framebuffer(){

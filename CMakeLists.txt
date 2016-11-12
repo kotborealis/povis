@@ -59,7 +59,7 @@ set(SOURCE_FILES
 
         src/game/xff2/Entity.h
         src/game/xff2/Entity.cpp
-        src/game/xff2/StateInfo.h src/game/xff2/HitboxCircle.cpp src/game/xff2/HitboxCircle.h src/game/xff2/HitboxLaser.cpp src/game/xff2/HitboxLaser.h src/game/xff2/Hitbox.cpp src/game/xff2/Hitbox.h src/game/xff2/GameStateTest.cpp src/game/xff2/GameStateTest.h)
+        src/game/xff2/StateInfo.h src/game/xff2/HitboxCircle.cpp src/game/xff2/HitboxCircle.h src/game/xff2/HitboxLaser.cpp src/game/xff2/HitboxLaser.h src/game/xff2/Hitbox.cpp src/game/xff2/Hitbox.h src/game/xff2/GameStateTest.cpp src/game/xff2/GameStateTest.h src/game/xff2/Enemy.cpp src/game/xff2/Enemy.h)
 
 add_executable(povis ${SOURCE_FILES})
 
