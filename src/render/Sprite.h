@@ -19,7 +19,7 @@ namespace PovisEngine{
 class Sprite{
 
 public:
-    Sprite(const Texture::Ptr& texture, int width, int height, int start, int end);
+    Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, glm::vec2 scale);
     ~Sprite();
 
     void tick();
@@ -30,6 +30,8 @@ public:
 private:
     static Mesh* mesh;
     static Shader::Ptr shader;
+
+    glm::vec2 m_scale;
 
     Texture::Ptr texture;
     int width, height;

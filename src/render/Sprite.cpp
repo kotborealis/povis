@@ -9,11 +9,11 @@ namespace PovisEngine{
 
 Sprite::~Sprite(){}
 
-Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end)
+Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, glm::vec2 scale)
         :texture(texture), width(width), height(height),
          inv_width(1.f / (float)width), inv_height(1.f / (float)height),
          start(start), end(end),
-         current(start){
+         current(start), m_scale(scale){
 
 }
 
@@ -21,8 +21,8 @@ void Sprite::draw(RenderInfo* renderInfo){
     texture->bind(0);
 
     glm::mat4 model = {};
-    model = glm::translate(model, {renderInfo->position.x, renderInfo->position.y, 0});
-    model = glm::scale(model, {100, 100, 100});
+    model = glm::translate(model, {renderInfo->position, 0});
+    model = glm::scale(model, {m_scale, 1});
 
     shader->bind();
     shader->uniform("width", width);
