@@ -21,4 +21,12 @@ void Texture::bind(GLuint index){
     glBindTexture(GL_TEXTURE_2D, id);
 }
 
+glm::vec2 Texture::scale() const{
+    return m_scale;
+}
+
+float Texture::ratio() const{
+    return m_ratio;
+}
+
 }

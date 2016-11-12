@@ -40,10 +40,13 @@ Texture::Ptr TextureManager::load(std::string filename){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    SDL_FreeSurface(surface);
-
     Texture::Ptr texture(new Texture(textureId));
     Texture::WeakPtr textureWeakPtr(texture);
+
+    texture->m_scale = glm::vec2(surface->w, surface->h);
+    texture->m_ratio = (float)surface->w / (float)surface->h;
+
+    SDL_FreeSurface(surface);
 
     //Save texture to texture list
     list.insert(std::make_pair(filename, textureWeakPtr));

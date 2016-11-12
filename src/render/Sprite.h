@@ -20,6 +20,7 @@ class Sprite{
 
 public:
     Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, glm::vec2 scale);
+    Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, float scale);
     ~Sprite();
 
     void tick();

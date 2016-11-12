@@ -6,6 +6,7 @@
 
 #include <GL/glew.h>
 #include <memory>
+#include <glm/vec2.hpp>
 
 #include "Logger.h"
 
@@ -23,10 +24,16 @@ public:
     void use();
     void bind(GLuint index);
 
+    glm::vec2 scale() const;
+    float ratio() const;
+
     const GLuint id;
 
 private:
     Texture(GLuint m_id);
+
+    glm::vec2 m_scale;
+    float m_ratio = 1;
 };
 
 }
