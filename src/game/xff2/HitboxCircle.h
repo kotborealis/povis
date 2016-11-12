@@ -20,7 +20,7 @@ public:
     void pos(glm::vec2& _pos);
 
     const float& radius() const;
-    void radius(float& _radius);
+    void radius(float _radius);
 
     bool collision(HitboxLaser& laser);
     bool collision(HitboxCircle& circle);

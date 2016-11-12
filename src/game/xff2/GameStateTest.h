@@ -8,6 +8,7 @@
 #include <render/Camera.h>
 #include <render/Sprite.h>
 #include "Entity.h"
+#include "StateInfo.h"
 
 namespace PovisEngine{
 
@@ -23,10 +24,9 @@ public:
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
     RenderInfo renderInfo;
+    StateInfo stateInfo;
 
     std::vector<Entity*> entities;
-
-    Sprite* sprite_test;
 };
 
 }

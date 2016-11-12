@@ -10,5 +10,5 @@ uniform sampler2D uiTexture;
 out vec4 fragColor;
 
 void main(){
-    fragColor = vec4(texture(defaultTexture, fragUV) * texture(shadingTexture, fragUV) + texture(uiTexture, fragUV));
+    fragColor = vec4(texture(defaultTexture, fragUV) /** texture(shadingTexture, fragUV)*/ + texture(uiTexture, fragUV));
 }

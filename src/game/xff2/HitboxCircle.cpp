@@ -19,7 +19,7 @@ const float& HitboxCircle::radius() const{
     return m_radius;
 }
 
-void HitboxCircle::radius(float& _radius){
+void HitboxCircle::radius(float _radius){
     m_radius = _radius;
 }
 

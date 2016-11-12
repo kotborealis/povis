@@ -4,6 +4,7 @@
 
 #include <Game.h>
 #include "GameStateTest.h"
+#include "EnemyCirno.h"
 
 namespace PovisEngine{
 
@@ -13,15 +14,15 @@ GameStateTest::GameStateTest(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    sprite_test = new Sprite(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 6);
-
     renderInfo.framebufferDefault = new Framebuffer();
     renderInfo.framebufferShading = new Framebuffer(512, 512);
     renderInfo.framebufferUI = new Framebuffer();
+
+    entities.push_back(new EnemyCirno());
 }
 
 GameStateTest::~GameStateTest(){
-    delete sprite_test;
+
 }
 
 void GameStateTest::handleEvent(SDL_Event* event){
@@ -29,7 +30,10 @@ void GameStateTest::handleEvent(SDL_Event* event){
 }
 
 void GameStateTest::update(float delta){
-    sprite_test->tick();
+    stateInfo.tick++;
+    for(auto&& item : entities){
+        item->update(&stateInfo);
+    }
 }
 
 void GameStateTest::draw(){
@@ -37,6 +41,10 @@ void GameStateTest::draw(){
     renderInfo.projection = camera->getProjection((float)Game::i().render()->window()->width()
                                                   / (float)Game::i().render()->window()->height());
     renderInfo.view = camera->getView();
+
+    for(auto&& item : entities){
+        item->draw(&renderInfo);
+    }
 
     Game::i().render()->composeFramebuffers(&renderInfo);
     Game::i().render()->swap();

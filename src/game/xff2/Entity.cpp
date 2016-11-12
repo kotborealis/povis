@@ -5,6 +5,7 @@ namespace PovisEngine{
 
 void Entity::draw(RenderInfo *renderInfo) const {
     renderInfo->framebufferDefault->bind();
+    renderInfo->position = pos();
     m_sprite->draw(renderInfo);
 }
 
