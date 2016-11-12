@@ -21,8 +21,8 @@ void Sprite::draw(RenderInfo* renderInfo){
     texture->bind(0);
 
     glm::mat4 model = {};
-    model = glm::translate(model, {renderInfo->position, 0});
-    model = glm::scale(model, {m_scale, 1});
+    model = glm::translate(model, {renderInfo->position.x, renderInfo->position.y, 0});
+    model = glm::scale(model, {m_scale.x, m_scale.y, 1});
 
     shader->bind();
     shader->uniform("width", width);
