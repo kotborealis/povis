@@ -10,8 +10,8 @@
 #include <glm/detail/type_mat4x4.hpp>
 #include <render/RenderInfo.h>
 #include <render/ResourceManager.h>
-#include "Shader.h"
-#include "Texture.h"
+#include "render/resources/Shader.h"
+#include "render/resources/Texture.h"
 #include "Mesh.h"
 
 namespace PovisEngine{

@@ -38,7 +38,6 @@ void GameStateTest::draw(){
                                                   / (float)Game::i().render()->window()->height());
     renderInfo.view = camera->getView();
 
-    sprite_test->draw(&renderInfo);
 
     Game::i().render()->swap();
 }

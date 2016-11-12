@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <glm/vec2.hpp>
 #include <render/resources/Shader.h>
-#include <render/resources/Sprite.h>
+#include <render/Sprite.h>
 #include "Hitbox.h"
 
 namespace PovisEngine{

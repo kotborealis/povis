@@ -1,6 +1,4 @@
-#include <render/resources/Sprite.h>
-#include "WindowManager.h"
-#include "Framebuffer.h"
+#include <render/Sprite.h>
 
 namespace PovisEngine{
 

@@ -23,14 +23,14 @@ set(SOURCE_FILES
         src/render/WindowManager.h
         src/render/Framebuffer.cpp
         src/render/Framebuffer.h
-        src/render/resources/Mesh.cpp
-        src/render/resources/Mesh.h
-        src/render/resources/Vertex.h
+        src/render/Mesh.cpp
+        src/render/Mesh.h
+        src/render/Vertex.h
         src/render/Camera.h
         src/render/Camera.cpp
         src/render/ResourceManager.h
-        src/render/resources/Sprite.cpp
-        src/render/resources/Sprite.h
+        src/render/Sprite.cpp
+        src/render/Sprite.h
         src/easing/Back.cpp
         src/easing/Back.h
         src/easing/Back.cpp
