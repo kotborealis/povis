@@ -14,11 +14,11 @@ GameStateTest::GameStateTest(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    renderInfo.framebufferDefault = new Framebuffer();
-    renderInfo.framebufferShading = new Framebuffer(512, 512);
-    renderInfo.framebufferUI = new Framebuffer();
+    renderInfo.framebufferDefault = std::unique_ptr<Framebuffer>(new Framebuffer());
+    renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
+    renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
-    entities.push_back(new EnemyCirno());
+    entities.push_back(std::make_shared<EnemyCirno>());
 }
 
 GameStateTest::~GameStateTest(){

@@ -17,9 +17,9 @@ struct RenderInfo{
     glm::vec2 position;
     glm::vec2 scale;
 
-    Framebuffer* framebufferDefault = nullptr;
-    Framebuffer* framebufferShading = nullptr;
-    Framebuffer* framebufferUI = nullptr;
+    std::unique_ptr<Framebuffer> framebufferDefault;
+    std::unique_ptr<Framebuffer> framebufferShading;
+    std::unique_ptr<Framebuffer> framebufferUI;
 };
 
 }

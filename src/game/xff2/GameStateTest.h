@@ -26,7 +26,7 @@ private:
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
-    std::vector<Entity*> entities;
+    std::vector<std::shared_ptr<Entity>> entities;
 };
 
 }
