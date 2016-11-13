@@ -69,4 +69,8 @@ Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, in
         Sprite::Sprite(texture, width, height, start, end, {scale * texture->ratio() / width, scale / height}){
 
 }
+
+glm::vec2 Sprite::scale() const{
+    return m_scale;
+}
 }

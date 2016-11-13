@@ -26,6 +26,8 @@ public:
     void tick();
     void draw(RenderInfo* renderInfo);
 
+    glm::vec2 scale() const;
+
     static void __init_sprite_system();
 
 private:
