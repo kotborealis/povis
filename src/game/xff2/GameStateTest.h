@@ -17,9 +17,9 @@ public:
     GameStateTest();
     ~GameStateTest();
 
-    void handleEvent(SDL_Event* event);
-    void update(float delta);
-    void draw();
+    void handleEvent(SDL_Event* event) override;
+    void update(float delta) override;
+    void draw() override;
 
 private:
     Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);

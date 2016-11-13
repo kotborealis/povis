@@ -30,7 +30,7 @@ protected:
 	glm::vec2 m_pos;
     Hitbox* m_hitbox;
 
-	Sprite* m_sprite;
+	std::shared_ptr<Sprite> m_sprite;
 	Shader::Ptr m_shader;
 };
 

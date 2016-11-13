@@ -13,8 +13,8 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    void draw(RenderInfo* renderInfo) const;
-    void update(StateInfo* stateInfo);
+    void draw(RenderInfo* renderInfo) const override;
+    void update(StateInfo* stateInfo) override;
 
     bool isBoss() const;
 

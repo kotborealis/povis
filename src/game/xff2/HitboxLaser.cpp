@@ -39,11 +39,11 @@ void HitboxLaser::posB(glm::vec2& _pos_b){
     m_pos_b = _pos_b;
 }
 
-bool HitboxLaser::collision(HitboxLaser& laser){
+bool HitboxLaser::collision(HitboxLaser& laser) const{
     return false;
 }
 
-bool HitboxLaser::collision(HitboxCircle& circle){
+bool HitboxLaser::collision(HitboxCircle& circle) const{
     return false;
 }
 }

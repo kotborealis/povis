@@ -9,6 +9,10 @@
 
 namespace PovisEngine{
 
+class HitboxLaser;
+
+class HitboxCircle;
+
 class Hitbox{
 public:
     Hitbox();
@@ -16,9 +20,11 @@ public:
 
     virtual void draw(RenderInfo* renderInfo) const = 0;
 
+    virtual bool collision(HitboxLaser& laser) const = 0;
+    virtual bool collision(HitboxCircle& circle) const = 0;
+
 protected:
     Shader::Ptr m_shader;
-
 };
 
 

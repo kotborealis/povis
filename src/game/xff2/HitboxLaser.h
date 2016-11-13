@@ -25,8 +25,8 @@ public:
     const glm::vec2& posB() const;
     void posB(glm::vec2& _pos_b);
 
-    bool collision(HitboxLaser& laser);
-    bool collision(HitboxCircle& circle);
+    bool collision(HitboxLaser& laser) const override;
+    bool collision(HitboxCircle& circle) const override;
 
 private:
     glm::vec2 m_pos_a;

@@ -25,8 +25,8 @@ public:
     const float& radius() const;
     void radius(float _radius);
 
-    bool collision(HitboxLaser& laser);
-    bool collision(HitboxCircle& circle);
+    bool collision(HitboxLaser& laser) const override;
+    bool collision(HitboxCircle& circle) const override;
 
 private:
     Shader::Ptr m_shader = ResourceShader->load("assets/common/shaders/default_mvp.vert",

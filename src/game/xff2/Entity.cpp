@@ -33,7 +33,7 @@ Entity::Entity() {
 }
 
 Entity::~Entity() {
-    delete m_sprite;
+
 }
 
 }

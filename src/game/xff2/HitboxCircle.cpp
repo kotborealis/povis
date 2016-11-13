@@ -23,7 +23,7 @@ void HitboxCircle::radius(float _radius){
     m_radius = _radius;
 }
 
-bool HitboxCircle::collision(HitboxLaser& laser){
+bool HitboxCircle::collision(HitboxLaser& laser) const{
     const glm::fvec2 direction = laser.posB() - laser.posB();
 
     const float dot = direction.x * laser.posA().x + direction.y * laser.posA().y;
@@ -35,7 +35,7 @@ bool HitboxCircle::collision(HitboxLaser& laser){
     return d >= 0;
 }
 
-bool HitboxCircle::collision(HitboxCircle& circle){
+bool HitboxCircle::collision(HitboxCircle& circle) const{
     const glm::vec2 d = circle.pos() - pos();
     const float r = circle.radius() + radius();
     return d.length() < r * r;
