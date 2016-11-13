@@ -9,8 +9,8 @@ namespace PovisEngine{
 
 
 EnemyCirno::EnemyCirno(){
-    static_cast<HitboxCircle*>(m_hitbox)->radius(100);
     m_sprite = new Sprite(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 6, 100);
+    static_cast<HitboxCircle*>(m_hitbox)->radius(50);
 }
 
 EnemyCirno::~EnemyCirno(){

@@ -9,6 +9,17 @@ uniform sampler2D uiTexture;
 
 out vec4 fragColor;
 
+#define PRECISION 0.0001
+
 void main(){
-    fragColor = vec4(texture(defaultTexture, fragUV) /** texture(shadingTexture, fragUV)*/ + texture(uiTexture, fragUV));
+    vec4 default_t = texture(defaultTexture, fragUV);
+    vec4 shading_t = texture(shadingTexture, fragUV);
+    vec4 ui_t = texture(uiTexture, fragUV);
+
+    if(ui_t.x > PRECISION || ui_t.y > PRECISION || ui_t.z > PRECISION){
+        fragColor = ui_t;
+    }
+    else{
+        fragColor = default_t;
+    }
 }

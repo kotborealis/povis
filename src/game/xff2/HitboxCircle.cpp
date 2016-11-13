@@ -49,4 +49,19 @@ void HitboxCircle::pos(glm::vec2& _pos){
     m_pos = _pos;
 }
 
+void HitboxCircle::draw(RenderInfo* renderInfo) const{
+    renderInfo->framebufferUI->bind();
+
+    glm::mat4 model = {};
+    model = glm::translate(model, {m_pos.x, m_pos.y, 0});
+    model = glm::scale(model, {m_radius, m_radius, 1});
+
+    m_shader->bind();
+    m_shader->uniform("model", model);
+    m_shader->uniform("view", renderInfo->view);
+    m_shader->uniform("projection", renderInfo->projection);
+
+    Game::i().render()->renderQuad();
+}
+
 }

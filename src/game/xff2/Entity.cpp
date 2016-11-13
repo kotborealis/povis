@@ -7,6 +7,8 @@ void Entity::draw(RenderInfo *renderInfo) const {
     renderInfo->framebufferDefault->bind();
     renderInfo->position = pos();
     m_sprite->draw(renderInfo);
+
+    m_hitbox->draw(renderInfo);
 }
 
 void Entity::update(StateInfo *stateInfo) {

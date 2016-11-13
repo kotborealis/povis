@@ -27,6 +27,8 @@ Shader::Ptr ShaderManager::load(std::string vert, std::string frag){
     if(!cached_shader.expired()){
         Logger::info("Already loaded");
         return cached_shader.lock();
+    }else{
+        Logger::info("NOT LOADED");
     }
 
 
