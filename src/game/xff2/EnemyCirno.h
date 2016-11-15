@@ -12,6 +12,11 @@ class EnemyCirno:public Enemy{
 public:
     EnemyCirno();
     virtual ~EnemyCirno();
+
+    void update(StateInfo* stateInfo) override;
+
+private:
+    BulletType* m_bullet01;
 };
 
 }

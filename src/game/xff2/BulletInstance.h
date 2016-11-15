@@ -16,6 +16,7 @@ public:
 
     uint64_t tick = 0;
     glm::vec2 pos;
+    glm::vec2 vel;
     Hitbox* hitbox = nullptr;
     BulletType* type = nullptr;
 };

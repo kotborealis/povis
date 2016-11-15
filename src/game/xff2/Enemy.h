@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "BulletHell.h"
 
 namespace PovisEngine{
 
@@ -23,6 +24,8 @@ protected:
     float hit_points;
 
     bool m_isBoss = false;
+
+    BulletHell bulletHell;
 };
 
 }

@@ -16,5 +16,5 @@ float arc(vec2 pos, float radius1, float radius2){
 }
 
 void main(){
-	fragColor = vec4(1.f, 0.f, 0.5f, 1.f) * arc(fragLocalPos, 0.95f, 1.f);
+	fragColor = vec4(1.f, 0.f, 0.5f, 1.f) * arc(fragLocalPos, 0.6f, 1.f);
 }

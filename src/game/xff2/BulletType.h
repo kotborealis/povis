@@ -17,7 +17,6 @@ public:
     BulletType();
     virtual ~BulletType();
 
-    Shader::Ptr shader;
     std::unique_ptr<Sprite> sprite;
 
     void render(RenderInfo* renderInfo, BulletInstance* bulletInstance);

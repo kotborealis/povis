@@ -3,12 +3,11 @@
 //
 
 #include "Enemy.h"
-#include "HitboxCircle.h"
 
 namespace PovisEngine{
 
 Enemy::Enemy(){
-    m_hitbox = new HitboxCircle();
+    m_hitbox = new Hitbox(0);
 }
 
 Enemy::~Enemy(){
@@ -17,10 +16,12 @@ Enemy::~Enemy(){
 
 void Enemy::draw(RenderInfo* renderInfo) const{
     Entity::draw(renderInfo);
+    bulletHell.draw(renderInfo);
 }
 
 void Enemy::update(StateInfo* stateInfo){
     Entity::update(stateInfo);
+    bulletHell.update(stateInfo);
 }
 
 bool Enemy::isBoss() const{

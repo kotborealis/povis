@@ -18,8 +18,10 @@ public:
     void draw(RenderInfo* renderInfo) const;
     void update(StateInfo* stateInfo);
 
+    void push(BulletInstance* bulletInstance);
+
 private:
-    std::vector<BulletInstance> bullets;
+    std::vector<BulletInstance*> bullets;
 };
 
 }
