@@ -34,6 +34,8 @@ private:
     static Mesh* mesh;
     static Shader::Ptr shader;
 
+    Shader::Ptr c_shader;
+
     glm::vec2 m_scale;
 
     Texture::Ptr texture;

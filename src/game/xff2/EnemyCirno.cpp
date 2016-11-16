@@ -22,7 +22,7 @@ EnemyCirno::~EnemyCirno(){
 
 void EnemyCirno::update(StateInfo *stateInfo){
     Enemy::update(stateInfo);
-    if(tick){
+    if(tick % 60 == 0){
         BulletInstance* i = new BulletInstance();
         i->pos = pos();
         i->vel = {0, -1};

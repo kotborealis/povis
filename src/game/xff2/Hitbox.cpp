@@ -14,6 +14,7 @@ Hitbox::~Hitbox(){
 }
 
 void Hitbox::draw(RenderInfo *renderInfo) const {
+#if HITBOX_DEBUG
     renderInfo->framebufferUI->bind();
     renderInfo->position = pos();
 
@@ -27,6 +28,7 @@ void Hitbox::draw(RenderInfo *renderInfo) const {
     m_shader->uniform("projection", renderInfo->projection);
 
     Game::i().render()->renderQuad();
+#endif
 }
 
 bool Hitbox::collision(Hitbox &hitbox) const {
