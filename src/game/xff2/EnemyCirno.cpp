@@ -20,13 +20,13 @@ EnemyCirno::~EnemyCirno(){
     delete m_bullet01;
 }
 
-void EnemyCirno::update(StateInfo *stateInfo) {
+void EnemyCirno::update(StateInfo *stateInfo){
     Enemy::update(stateInfo);
     if(tick){
         BulletInstance* i = new BulletInstance();
         i->pos = pos();
         i->vel = {0, -1};
-        i->hitbox = new Hitbox(30);
+        i->hitbox = new Hitbox(40);
         i->type = m_bullet01;
         bulletHell.push(i);
     }
