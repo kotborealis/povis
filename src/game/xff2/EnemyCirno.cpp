@@ -14,6 +14,9 @@ EnemyCirno::EnemyCirno(){
 
     m_bullet01 = new BulletType();
     m_bullet01->sprite = std::unique_ptr<Sprite>( new Sprite(ResourceTexture->load("assets/xff2/textures/cirno_bullets.png"), 2, 1, 0, 0, 50));
+    m_bullet01->sprite->custom_shader =
+            ResourceShader->load("assets/common/shaders/sprite.vert",
+                                 "assets/xff2/shaders/bullets/bullet_default.frag");
 }
 
 EnemyCirno::~EnemyCirno(){
@@ -22,10 +25,10 @@ EnemyCirno::~EnemyCirno(){
 
 void EnemyCirno::update(StateInfo *stateInfo){
     Enemy::update(stateInfo);
-    if(tick % 60 == 0){
+    if(tick % 10 == 1){
         BulletInstance* i = new BulletInstance();
         i->pos = pos();
-        i->vel = {0, -1};
+        i->vel = {0, -5};
         i->hitbox = new Hitbox(40);
         i->type = m_bullet01;
         bulletHell.push(i);

@@ -18,6 +18,11 @@ BulletType::~BulletType(){
 void BulletType::render(RenderInfo *renderInfo, BulletInstance *bulletInstance){
     renderInfo->framebufferDefault->bind();
     renderInfo->position = bulletInstance->pos;
+
+    if(sprite->custom_shader){
+        sprite->custom_shader->uniform("tick", bulletInstance->tick);
+        sprite->custom_shader->uniform("inverse_ttl", 1.f / (float)bulletInstance->ttl);
+    }
     sprite->draw(renderInfo);
 
     bulletInstance->hitbox->draw(renderInfo);

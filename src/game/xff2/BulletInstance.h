@@ -14,7 +14,8 @@ public:
     BulletInstance();
     virtual ~BulletInstance();
 
-    uint64_t tick = 0;
+    unsigned tick = 0;
+    unsigned ttl = 100;
     glm::vec2 pos;
     glm::vec2 vel;
     Hitbox* hitbox = nullptr;

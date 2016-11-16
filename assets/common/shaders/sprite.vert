@@ -15,11 +15,14 @@ uniform int cur;
 
 out vec2 fragUV;
 out vec2 fragLocalPos;
+out vec2 fragScreenPos;
 
 void main(){
 	gl_Position = projection * view * model * vec4(position, 1.0f);
 
     vec2 sprite_uv = vec2(inv_width, inv_height);
     fragUV = UV * sprite_uv + sprite_uv * vec2(mod(cur, width), int(cur)/int(width));
+
     fragLocalPos = position.xy;
+    fragScreenPos = gl_Position.xy;
 }

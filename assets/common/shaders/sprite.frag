@@ -2,6 +2,7 @@
 
 in vec2 fragUV;
 in vec2 fragLocalPos;
+in vec2 fragScreenPos;
 
 uniform sampler2D diffuseTexture;
 
