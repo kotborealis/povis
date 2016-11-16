@@ -24,16 +24,17 @@ void Sprite::draw(RenderInfo* renderInfo){
     model = glm::translate(model, {renderInfo->position.x, renderInfo->position.y, 0});
     model = glm::scale(model, {m_scale.x, m_scale.y, 1});
 
-    shader->bind();
-    shader->uniform("width", width);
-    shader->uniform("height", height);
-    shader->uniform("inv_width", inv_width);
-    shader->uniform("inv_height", inv_height);
-    shader->uniform("cur", current);
-    shader->uniform("diffuseTexture", 0);
-    shader->uniform("model", model);
-    shader->uniform("view", renderInfo->view);
-    shader->uniform("projection", renderInfo->projection);
+    Shader::Ptr s = custom_shader ? custom_shader : shader;
+    s->bind();
+    s->uniform("width", width);
+    s->uniform("height", height);
+    s->uniform("inv_width", inv_width);
+    s->uniform("inv_height", inv_height);
+    s->uniform("cur", current);
+    s->uniform("diffuseTexture", 0);
+    s->uniform("model", model);
+    s->uniform("view", renderInfo->view);
+    s->uniform("projection", renderInfo->projection);
 
     mesh->drawElements();
 }

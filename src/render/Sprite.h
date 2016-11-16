@@ -28,13 +28,13 @@ public:
 
     glm::vec2 scale() const;
 
+    Shader::Ptr custom_shader;
+
     static void __init_sprite_system();
 
 private:
     static Mesh* mesh;
     static Shader::Ptr shader;
-
-    Shader::Ptr c_shader;
 
     glm::vec2 m_scale;
 
