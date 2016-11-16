@@ -1,4 +1,5 @@
 #include <render/Sprite.h>
+#include "WindowManager.h"
 
 namespace PovisEngine{
 

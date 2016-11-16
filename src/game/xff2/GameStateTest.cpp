@@ -46,7 +46,7 @@ void GameStateTest::draw(){
         item->draw(&renderInfo);
     }
 
-    Game::i().render()->composeFramebuffers(&renderInfo);
+    Game::i().render()->deferred(&renderInfo);
     Game::i().render()->swap();
 }
 }

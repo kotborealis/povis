@@ -2,6 +2,8 @@
 // Created by kotborealis on 11.11.2016.
 //
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <Game.h>
 #include "Hitbox.h"
 
 namespace PovisEngine{

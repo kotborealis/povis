@@ -9,13 +9,11 @@
 #include <exception>
 #include <list>
 #include "render/resources/Texture.h"
-#include "Game.h"
 
 namespace PovisEngine{
 
 class Framebuffer{
     friend class WindowManager;
-
     friend class RenderManager;
 
 public:

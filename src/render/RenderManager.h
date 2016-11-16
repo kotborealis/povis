@@ -8,6 +8,7 @@
 #include "render/resource_managers/ShaderManager.h"
 #include "render/resource_managers/TextureManager.h"
 #include "WindowManager.h"
+#include "Framebuffer.h"
 
 namespace PovisEngine{
 
@@ -25,9 +26,10 @@ public:
 
     void renderQuad() const;
 
-    void composeFramebuffers(RenderInfo* renderInfo) const;
+    void deferred(RenderInfo* renderInfo) const;
 private:
-    Shader::Ptr composeFramebuffersShader;
+    Shader::Ptr deferred_shading_pass;
+    Shader::Ptr deferred_ui_pass;
 
     const WindowManager* m_windowManager;
 };

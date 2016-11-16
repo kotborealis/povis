@@ -7,7 +7,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "RenderManager.h"
 #include "ResourceManager.h"
-#include "Framebuffer.h"
 #include "RenderInfo.h"
 
 namespace PovisEngine{
@@ -15,12 +14,13 @@ namespace PovisEngine{
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
         :m_windowManager(new WindowManager(title, width, height)){
-    composeFramebuffersShader = ResourceShader->load("assets/common/shaders/default.vert",
-                                                     "assets/common/shaders/compose_framebuffers.frag");
+    deferred_shading_pass = ResourceShader->load("assets/common/shaders/default.vert",
+                                                 "assets/common/shaders/deferred_shading_pass.frag");
+    deferred_ui_pass = ResourceShader->load("assets/common/shaders/default.vert",
+                                            "assets/common/shaders/deferred_ui_pass.frag");
 }
 
 RenderManager::~RenderManager(){
-
 }
 
 WindowManager* RenderManager::window() const{
@@ -30,7 +30,7 @@ WindowManager* RenderManager::window() const{
 void RenderManager::clear() const{
     for(auto it = Framebuffer::list.begin(); it != Framebuffer::list.end(); it++){
         (*it)->bind();
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -75,18 +75,21 @@ void RenderManager::renderQuad() const{
     glBindVertexArray(0);
 }
 
-void RenderManager::composeFramebuffers(RenderInfo* renderInfo) const{
-    Framebuffer::Default::bind();
-
-    composeFramebuffersShader->bind();
+void RenderManager::deferred(RenderInfo* renderInfo) const{
+    renderInfo->framebufferDefault->bind();
+    deferred_shading_pass->bind();
     renderInfo->framebufferDefault->texture->bind(0);
     renderInfo->framebufferShading->texture->bind(1);
-    renderInfo->framebufferUI->texture->bind(2);
+    deferred_shading_pass->uniform("defaultTexture", 0);
+    deferred_shading_pass->uniform("shadingTexture", 1);
+    renderQuad();
 
-    composeFramebuffersShader->uniform("defaultTexture", 0);
-    composeFramebuffersShader->uniform("shadingTexture", 1);
-    composeFramebuffersShader->uniform("uiTexture", 2);
-
+    Framebuffer::Default::bind();
+    deferred_ui_pass->bind();
+    renderInfo->framebufferDefault->texture->bind(0);
+    renderInfo->framebufferUI->texture->bind(1);
+    deferred_ui_pass->uniform("defaultTexture", 0);
+    deferred_ui_pass->uniform("uiTexture", 1);
     renderQuad();
 }
 

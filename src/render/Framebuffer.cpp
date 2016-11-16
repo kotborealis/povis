@@ -4,6 +4,7 @@
 
 #include "Framebuffer.h"
 #include "ResourceManager.h"
+#include <Game.h>
 
 namespace PovisEngine{
 
