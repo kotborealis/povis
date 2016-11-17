@@ -8,10 +8,10 @@
 
 namespace PovisEngine{
 
-class EnemyCirno:public Enemy{
+class EnemyGenericInvader:public Enemy{
 public:
-    EnemyCirno();
-    virtual ~EnemyCirno();
+    EnemyGenericInvader(int sprite_n);
+    virtual ~EnemyGenericInvader();
 
     void update(StateInfo* stateInfo) override;
 

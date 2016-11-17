@@ -4,7 +4,7 @@
 
 #include <Game.h>
 #include "GameStateTest.h"
-#include "EnemyCirno.h"
+#include "EnemyGenericInvader.h"
 
 namespace PovisEngine{
 
@@ -18,7 +18,13 @@ GameStateTest::GameStateTest(){
     renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
-    entities.push_back(std::make_shared<EnemyCirno>());
+    for(int k = 0; k < 5; k++){
+        for(int i = 0; i < 10; i++){
+            auto e = std::make_shared<EnemyGenericInvader>((i + k) % 4);
+            e->pos({(i % 2 == 0 ? -1 : 1) * i / 2 * 100, 500 - k * 100});
+            entities.push_back(e);
+        }
+    }
 }
 
 GameStateTest::~GameStateTest(){

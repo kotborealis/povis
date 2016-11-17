@@ -20,7 +20,7 @@ const glm::vec2& Entity::pos() const {
     return m_pos;
 }
 
-void Entity::pos(glm::vec2& _pos) {
+void Entity::pos(glm::vec2 _pos){
     m_pos = _pos;
 }
 

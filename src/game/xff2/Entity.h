@@ -20,7 +20,7 @@ public:
 	virtual void update(StateInfo* stateInfo);
 
 	const glm::vec2& pos() const;
-    void pos(glm::vec2& _pos);
+    void pos(glm::vec2 _pos);
 
     const Hitbox* hitbox() const;
 
