@@ -14,10 +14,8 @@ namespace PovisEngine{
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
         :m_windowManager(new WindowManager(title, width, height)){
-    deferred_shading_pass = ResourceShader->load("assets/common/shaders/default.vert",
-                                                 "assets/common/shaders/deferred_shading_pass.frag");
-    deferred_ui_pass = ResourceShader->load("assets/common/shaders/default.vert",
-                                            "assets/common/shaders/deferred_ui_pass.frag");
+    shader_deferred = ResourceShader->load("assets/common/shaders/default.vert",
+                                           "assets/common/shaders/deferred.frag");
 }
 
 RenderManager::~RenderManager(){
@@ -76,20 +74,14 @@ void RenderManager::renderQuad() const{
 }
 
 void RenderManager::deferred(RenderInfo* renderInfo) const{
-    renderInfo->framebufferDefault->bind();
-    deferred_shading_pass->bind();
+    Framebuffer::Default::bind();
+    shader_deferred->bind();
     renderInfo->framebufferDefault->texture->bind(0);
     renderInfo->framebufferShading->texture->bind(1);
-    deferred_shading_pass->uniform("defaultTexture", 0);
-    deferred_shading_pass->uniform("shadingTexture", 1);
-    renderQuad();
-
-    Framebuffer::Default::bind();
-    deferred_ui_pass->bind();
-    renderInfo->framebufferDefault->texture->bind(0);
-    renderInfo->framebufferUI->texture->bind(1);
-    deferred_ui_pass->uniform("defaultTexture", 0);
-    deferred_ui_pass->uniform("uiTexture", 1);
+    renderInfo->framebufferUI->texture->bind(2);
+    shader_deferred->uniform("defaultTexture", 0);
+    shader_deferred->uniform("shadingTexture", 1);
+    shader_deferred->uniform("uiTexture", 2);
     renderQuad();
 }
 

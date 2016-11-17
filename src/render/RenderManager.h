@@ -28,8 +28,7 @@ public:
 
     void deferred(RenderInfo* renderInfo) const;
 private:
-    Shader::Ptr deferred_shading_pass;
-    Shader::Ptr deferred_ui_pass;
+    Shader::Ptr shader_deferred;
 
     const WindowManager* m_windowManager;
 };
