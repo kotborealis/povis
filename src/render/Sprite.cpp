@@ -21,8 +21,8 @@ void Sprite::draw(RenderInfo* renderInfo){
     texture->bind(0);
 
     glm::mat4 model = {};
-    model = glm::translate(model, {renderInfo->position.x, renderInfo->position.y, 0});
-    model = glm::scale(model, {m_scale.x, m_scale.y, 1});
+    model = glm::translate(model, {glm::round(renderInfo->position.x), glm::round(renderInfo->position.y), 0});
+    model = glm::scale(model, {glm::round(m_scale.x), glm::round(m_scale.y), 1});
 
     Shader::Ptr s = custom_shader ? custom_shader : shader;
     s->bind();
