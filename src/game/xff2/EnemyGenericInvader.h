@@ -17,6 +17,12 @@ public:
 
 private:
     BulletType* m_bullet01;
+
+    int move_step = 0;
+    int move_dir = 1;
+
+    const int tick_per_move = 60;
+    const glm::vec2 offset = {60, 60};
 };
 
 }
