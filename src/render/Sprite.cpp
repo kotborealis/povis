@@ -14,7 +14,6 @@ Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, in
          inv_width(1.f / (float)width), inv_height(1.f / (float)height),
          start(start), end(end),
          current(start), m_scale(scale){
-
 }
 
 void Sprite::draw(RenderInfo* renderInfo){

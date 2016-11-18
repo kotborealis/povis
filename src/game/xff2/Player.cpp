@@ -9,11 +9,24 @@ namespace PovisEngine{
 
 void Player::draw(RenderInfo* renderInfo) const{
     Entity::draw(renderInfo);
+    bulletHell.draw(renderInfo);
 }
 
 void Player::update(StateInfo* stateInfo){
     Entity::update(stateInfo);
     bulletHell.update(stateInfo);
+
+    if(shoot_cooldown > 0){
+        shoot_cooldown--;
+    }else if(shooting){
+        BulletInstance* i = new BulletInstance();
+        i->pos = pos();
+        i->vel = {0, 5};
+        i->hitbox = new Hitbox(10);
+        i->type = bullet01;
+        bulletHell.push(i);
+        shoot_cooldown = base_shoot_cooldown;
+    }
 
     velocityInterpXAcc->update();
     velocityInterpYAcc->update();
@@ -52,7 +65,7 @@ void Player::handleEvent(SDL_Event* event){
                 velocityInterpXAcc->target(-1, acceleration_ticks);
                 break;
             case SDLK_z:
-                //shoot the boolet, stoopeed
+                shooting = true;
                 break;
             default:
                 break;
@@ -104,7 +117,7 @@ void Player::handleEvent(SDL_Event* event){
                 }
                 break;
             case SDLK_z:
-                //staph
+                shooting = false;
                 break;
             default:
                 break;
@@ -115,11 +128,15 @@ void Player::handleEvent(SDL_Event* event){
 Player::Player(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
     m_hitbox = new Hitbox(40);
+
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, Easing::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, Easing::Expo::easeIn);
     velocityInterpXDec = new Interpolator<float>(&velocity.x, Easing::Expo::easeOut);
     velocityInterpYDec = new Interpolator<float>(&velocity.y, Easing::Expo::easeOut);
 
+    bullet01 = new BulletType();
+    bullet01->sprite = std::unique_ptr<Sprite>(
+            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 19, 0, 350));
 }
 
 Player::~Player(){

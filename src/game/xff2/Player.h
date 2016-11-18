@@ -20,6 +20,7 @@ public:
 
 protected:
     BulletHell bulletHell;
+    BulletType* bullet01;
 
     const unsigned acceleration_ticks = 2;
     const unsigned deceleration_ticks = 4;
@@ -33,8 +34,9 @@ protected:
 
     glm::vec4 move_direction = {0, 0, 0, 0};
 
-    unsigned base_shoot_cooldown = 60;
+    unsigned base_shoot_cooldown = 40;
     unsigned shoot_cooldown = 0;
+    bool shooting = false;
 
     unsigned lives = 3;
 };
