@@ -24,7 +24,10 @@ public:
 	virtual void update(StateInfo* stateInfo);
 
 	const glm::vec2& pos() const;
-    void pos(glm::vec2 _pos);
+	void pos(glm::vec2 _pos);
+
+	const float& rotation() const;
+	void rotation(float _rotation);
 
     const Hitbox* hitbox() const;
 
@@ -32,6 +35,7 @@ protected:
 	uint64_t tick = 0;
 
 	glm::vec2 m_pos;
+	float m_rotation = 0;
     Hitbox* m_hitbox;
 
 	std::shared_ptr<Sprite> m_sprite;

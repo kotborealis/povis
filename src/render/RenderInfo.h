@@ -16,6 +16,7 @@ struct RenderInfo{
 
     glm::vec2 position;
     glm::vec2 scale;
+    float rotation;
 
     std::unique_ptr<Framebuffer> framebufferDefault;
     std::unique_ptr<Framebuffer> framebufferShading;

@@ -36,4 +36,12 @@ Entity::~Entity() {
 
 }
 
+const float& Entity::rotation() const{
+    return m_rotation;
+}
+
+void Entity::rotation(float _rotation){
+    m_rotation = _rotation;
+}
+
 }

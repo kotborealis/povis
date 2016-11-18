@@ -35,9 +35,12 @@ protected:
     BulletHell bulletHell;
 
     state_enum m_state = ALIVE;
-    unsigned base_death_animation = 60;
-    unsigned death_animation = 0;
-    unsigned death_animation_state = 0; //0 - not dead, 1 - dead and animating, 2 - totally dead
+    unsigned base_death_anim_leave_ticks = 60;
+    unsigned death_anim_leave_ticks = 0;
+
+    Interpolator<float>* death_anim_rotation_interp;
+    unsigned base_death_anim_rotation_ticks = 60;
+    unsigned death_anim_rotation_ticks = 0;
 };
 
 }

@@ -29,4 +29,10 @@ void EnemyGenericInvader::update(StateInfo* stateInfo){
         moveInterp->offset(glm::vec2(offset.x * move_dir, 0), (unsigned int)tick_per_move);
     }
 }
+
+void EnemyGenericInvader::draw(RenderInfo* renderInfo) const{
+    renderInfo->rotation = m_rotation;
+    Enemy::draw(renderInfo);
+    renderInfo->rotation = 0;
+}
 }

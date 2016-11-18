@@ -14,6 +14,7 @@ public:
     virtual ~EnemyGenericInvader();
 
     void update(StateInfo* stateInfo) override;
+    void draw(RenderInfo* renderInfo) const override;
 
 
 private:
