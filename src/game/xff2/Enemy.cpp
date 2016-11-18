@@ -8,7 +8,7 @@ namespace PovisEngine{
 
 Enemy::Enemy(){
     m_hitbox = new Hitbox(0);
-    moveInterp = new Interpolator(&m_pos, &Easing::Expo::easeInOut);
+    moveInterp = new Interpolator<glm::vec2>(&m_pos, &Easing::Expo::easeInOut);
 }
 
 Enemy::~Enemy(){

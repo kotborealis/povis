@@ -13,27 +13,49 @@ namespace PovisEngine{
 
 class Entity;
 
+template<typename T>
 struct InterpolatorEntity{
     unsigned current = 0;
     unsigned duration = 0;
-    glm::vec2 start;
-    glm::vec2 target;
+    T start;
+    T target;
 };
 
+template<typename T>
 class Interpolator{
 public:
-    Interpolator(glm::vec2* target_entity, float (*)(float, float, float, float));
+    Interpolator(T* target_entity, float (*)(float, float, float, float));
     float (* interpolation)(float, float, float, float);
 
     void update();
 
-    void offset(glm::vec2 offset, unsigned ticks);
-    void target(glm::vec2 target, unsigned ticks);
+    void offset(T offset, unsigned ticks);
+    void target(T target, unsigned ticks);
 
 private:
-    glm::vec2* m_target;
-    InterpolatorEntity move_entity;
+    T* m_target;
+    InterpolatorEntity<T> move_entity;
 };
+
+template<typename T>
+Interpolator<T>::Interpolator(T* target_entity, float (* interpolation)(float, float, float, float))
+        :m_target(target_entity), interpolation(interpolation){}
+
+template<typename T>
+void Interpolator<T>::offset(T offset, unsigned ticks){
+    move_entity.current = 0;
+    move_entity.duration = ticks;
+    move_entity.start = *m_target;
+    move_entity.target = *m_target + offset;
+}
+
+template<typename T>
+void Interpolator<T>::target(T target, unsigned ticks){
+    move_entity.current = 0;
+    move_entity.duration = ticks;
+    move_entity.target = target;
+    move_entity.start = *m_target;
+}
 
 }
 

@@ -19,7 +19,7 @@ public:
 
     bool isBoss() const;
 
-    Interpolator* moveInterp;
+    Interpolator<glm::vec2>* moveInterp;
 
 protected:
     float hit_points_max;
