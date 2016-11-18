@@ -28,8 +28,6 @@ public:
 
     const Hitbox* hitbox() const;
 
-	Interpolator* moveInterp;
-
 protected:
 	uint64_t tick = 0;
 

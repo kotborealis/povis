@@ -8,34 +8,35 @@
 namespace PovisEngine{
 
 Interpolator::Interpolator(glm::vec2* target_entity, float (* interpolation)(float, float, float, float))
-        :target(target_entity), interpolation(interpolation){}
+        :m_target(target_entity), interpolation(interpolation){}
 
 void Interpolator::update(){
-    if(queue.size() > 0 && current_move_entity.duration == 0){
-        current_move_entity = queue.front();
-        current_move_entity.start = *target;
-        current_move_entity.target = *target + current_move_entity.offset;
-        queue.pop();
-    }else if(current_move_entity.duration > 0){
-        auto _ = current_move_entity;
+    if(move_entity.duration > 0){
+        auto _ = move_entity;
         glm::vec2 p(interpolation(_.current, _.start.x, _.target.x - _.start.x, _.duration),
                     interpolation(_.current, _.start.y, _.target.y - _.start.y, _.duration));
 
-        *target = p;
+        *m_target = p;
 
-        current_move_entity.current++;
+        move_entity.current++;
 
         if(_.current >= _.duration){
-            current_move_entity.duration = 0;
+            move_entity.duration = 0;
         }
     }
 }
 
-void Interpolator::pushOffset(glm::vec2 offset, unsigned ticks){
-    InterpolatorEntity moveEntity;
-    moveEntity.offset = offset;
-    moveEntity.duration = ticks;
-    moveEntity.target = offset;
-    queue.push(moveEntity);
+void Interpolator::offset(glm::vec2 offset, unsigned ticks){
+    move_entity.current = 0;
+    move_entity.duration = ticks;
+    move_entity.start = *m_target;
+    move_entity.target = *m_target + offset;
+}
+
+void Interpolator::target(glm::vec2 target, unsigned ticks){
+    move_entity.current = 0;
+    move_entity.duration = ticks;
+    move_entity.target = target;
+    move_entity.start = *m_target;
 }
 }

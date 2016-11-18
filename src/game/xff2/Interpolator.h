@@ -18,8 +18,6 @@ struct InterpolatorEntity{
     unsigned duration = 0;
     glm::vec2 start;
     glm::vec2 target;
-
-    glm::vec2 offset;
 };
 
 class Interpolator{
@@ -29,12 +27,12 @@ public:
 
     void update();
 
-    void pushOffset(glm::vec2 offset, unsigned ticks);
+    void offset(glm::vec2 offset, unsigned ticks);
+    void target(glm::vec2 target, unsigned ticks);
 
 private:
-    glm::vec2* target;
-    std::queue<InterpolatorEntity> queue;
-    InterpolatorEntity current_move_entity;
+    glm::vec2* m_target;
+    InterpolatorEntity move_entity;
 };
 
 }

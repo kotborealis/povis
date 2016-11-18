@@ -13,7 +13,6 @@ void Entity::draw(RenderInfo *renderInfo) const {
 void Entity::update(StateInfo *stateInfo) {
     tick++;
     m_sprite->tick();
-    moveInterp->update();
 }
 
 const glm::vec2& Entity::pos() const {
@@ -29,11 +28,11 @@ const Hitbox* Entity::hitbox() const{
 }
 
 Entity::Entity() {
-    moveInterp = new Interpolator(&m_pos, &Easing::Expo::easeInOut);
+
 }
 
 Entity::~Entity() {
-    delete moveInterp;
+
 }
 
 }

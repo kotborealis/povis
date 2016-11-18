@@ -19,6 +19,8 @@ public:
 
     bool isBoss() const;
 
+    Interpolator* moveInterp;
+
 protected:
     float hit_points_max;
     float hit_points;

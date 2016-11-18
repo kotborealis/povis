@@ -24,9 +24,9 @@ void EnemyGenericInvader::update(StateInfo* stateInfo){
         move_step += move_dir;
         if(move_step >= 450 / offset.x || move_step <= -300 / offset.x){
             move_dir *= -1;
-            moveInterp->pushOffset(glm::vec2(0, -offset.y), (unsigned int)tick_per_move);
+            moveInterp->offset(glm::vec2(0, -offset.y), (unsigned int)tick_per_move);
         }
-        moveInterp->pushOffset(glm::vec2(offset.x * move_dir, 0), (unsigned int)tick_per_move);
+        moveInterp->offset(glm::vec2(offset.x * move_dir, 0), (unsigned int)tick_per_move);
     }
 }
 }

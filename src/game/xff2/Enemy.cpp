@@ -8,6 +8,7 @@ namespace PovisEngine{
 
 Enemy::Enemy(){
     m_hitbox = new Hitbox(0);
+    moveInterp = new Interpolator(&m_pos, &Easing::Expo::easeInOut);
 }
 
 Enemy::~Enemy(){
@@ -21,6 +22,7 @@ void Enemy::draw(RenderInfo* renderInfo) const{
 
 void Enemy::update(StateInfo* stateInfo){
     Entity::update(stateInfo);
+    moveInterp->update();
     bulletHell.update(stateInfo);
 }
 
