@@ -6,11 +6,11 @@
 
 namespace PovisEngine{
 
-template<typename T>
-void Interpolator<T>::update(){
+template<>
+void Interpolator<float>::update(){
     if(move_entity.duration > 0){
         auto _ = move_entity;
-        T p(interpolation(_.current, _.start, _.target - _.start, _.duration));
+        float p(interpolation(_.current, _.start, _.target - _.start, _.duration));
 
         *m_target = p;
 
