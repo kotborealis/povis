@@ -30,6 +30,8 @@ private:
 
     std::list<Enemy*> enemies;
     Player* player;
+
+    Sprite* background;
 };
 
 }

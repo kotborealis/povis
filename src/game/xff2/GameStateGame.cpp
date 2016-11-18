@@ -18,6 +18,8 @@ GameStateGame::GameStateGame(){
     renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
+    background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 800);
+
     player = new Player();
 
     for(int k = 0; k < 5; k++){
@@ -66,6 +68,10 @@ void GameStateGame::draw(){
     renderInfo.projection = camera->getProjection((float)Game::i().render()->window()->width()
                                                   / (float)Game::i().render()->window()->height());
     renderInfo.view = camera->getView();
+
+    renderInfo.framebufferDefault->bind();
+    renderInfo.position = glm::vec2(0, 0);
+    background->draw(&renderInfo);
 
     for(auto&& item : enemies){
         item->draw(&renderInfo);
