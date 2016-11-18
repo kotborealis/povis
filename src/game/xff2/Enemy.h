@@ -19,6 +19,8 @@ public:
 
     bool isBoss() const;
 
+    void kill();
+
     Interpolator<glm::vec2>* moveInterp;
 
 protected:
@@ -28,6 +30,11 @@ protected:
     bool m_isBoss = false;
 
     BulletHell bulletHell;
+
+    bool dead = false;
+    unsigned base_death_animation = 60;
+    unsigned death_animation = 0;
+    unsigned death_animation_state = 0; //0 - not dead, 1 - dead and animating, 2 - totally dead
 };
 
 }

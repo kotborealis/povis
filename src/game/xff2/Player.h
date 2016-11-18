@@ -18,8 +18,9 @@ public:
     void update(StateInfo* stateInfo) override;
     void handleEvent(SDL_Event* event);
 
-protected:
     BulletHell bulletHell;
+
+protected:
     BulletType* bullet01;
 
     const unsigned acceleration_ticks = 2;

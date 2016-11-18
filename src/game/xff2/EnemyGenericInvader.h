@@ -15,6 +15,7 @@ public:
 
     void update(StateInfo* stateInfo) override;
 
+
 private:
     BulletType* m_bullet01;
 

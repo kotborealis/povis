@@ -10,13 +10,14 @@
 #include "Entity.h"
 #include "StateInfo.h"
 #include "Player.h"
+#include "Enemy.h"
 
 namespace PovisEngine{
 
-class GameStateTest:public GameState{
+class GameStateGame:public GameState{
 public:
-    GameStateTest();
-    ~GameStateTest();
+    GameStateGame();
+    ~GameStateGame();
 
     void handleEvent(SDL_Event* event) override;
     void update(float delta) override;
@@ -27,7 +28,7 @@ private:
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
-    std::vector<std::shared_ptr<Entity>> entities;
+    std::vector<std::shared_ptr<Enemy>> enemies;
     Player* player;
 };
 

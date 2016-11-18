@@ -3,13 +3,13 @@
 //
 
 #include <Game.h>
-#include "GameStateTest.h"
+#include "GameStateGame.h"
 #include "EnemyGenericInvader.h"
 
 namespace PovisEngine{
 
 
-GameStateTest::GameStateTest(){
+GameStateGame::GameStateGame(){
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -24,34 +24,45 @@ GameStateTest::GameStateTest(){
         for(int i = 0; i < 10; i++){
             auto e = std::make_shared<EnemyGenericInvader>((i + k) % 4);
             e->pos({(i % 2 == 0 ? -1 : 1) * i / 2 * 100, 500 - k * 100});
-            entities.push_back(e);
+            enemies.push_back(e);
         }
     }
 }
 
-GameStateTest::~GameStateTest(){
+GameStateGame::~GameStateGame(){
 
 }
 
-void GameStateTest::handleEvent(SDL_Event* event){
+void GameStateGame::handleEvent(SDL_Event* event){
     player->handleEvent(event);
 }
 
-void GameStateTest::update(float delta){
+void GameStateGame::update(float delta){
     stateInfo.tick++;
-    for(auto&& item : entities){
+
+    player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+        for(auto&& enemy : enemies){
+            if(enemy->hitbox()->collision(*bullet->hitbox)){
+                enemy->kill();
+                return true;
+            }
+        }
+        return false;
+    });
+
+    for(auto&& item : enemies){
         item->update(&stateInfo);
     }
     player->update(&stateInfo);
 }
 
-void GameStateTest::draw(){
+void GameStateGame::draw(){
     Game::i().render()->clear();
     renderInfo.projection = camera->getProjection((float)Game::i().render()->window()->width()
                                                   / (float)Game::i().render()->window()->height());
     renderInfo.view = camera->getView();
 
-    for(auto&& item : entities){
+    for(auto&& item : enemies){
         item->draw(&renderInfo);
     }
     player->draw(&renderInfo);

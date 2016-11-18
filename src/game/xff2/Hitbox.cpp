@@ -36,7 +36,11 @@ void Hitbox::draw(RenderInfo *renderInfo) const {
 bool Hitbox::collision(Hitbox &hitbox) const {
     const glm::vec2 d = hitbox.pos() - pos();
     const float r = hitbox.radius() + radius();
-    return d.length() < r * r;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "IncompatibleTypes"
+    const float _ = glm::length(d);
+#pragma clang diagnostic pop
+    return _ < r;
 }
 
 const glm::vec2 &Hitbox::pos() const {

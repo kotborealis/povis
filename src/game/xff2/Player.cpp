@@ -13,20 +13,7 @@ void Player::draw(RenderInfo* renderInfo) const{
 }
 
 void Player::update(StateInfo* stateInfo){
-    Entity::update(stateInfo);
     bulletHell.update(stateInfo);
-
-    if(shoot_cooldown > 0){
-        shoot_cooldown--;
-    }else if(shooting){
-        BulletInstance* i = new BulletInstance();
-        i->pos = pos();
-        i->vel = {0, 5};
-        i->hitbox = new Hitbox(10);
-        i->type = bullet01;
-        bulletHell.push(i);
-        shoot_cooldown = base_shoot_cooldown;
-    }
 
     velocityInterpXAcc->update();
     velocityInterpYAcc->update();
@@ -35,6 +22,21 @@ void Player::update(StateInfo* stateInfo){
 
     if(velocity.x != 0 || velocity.y != 0)
         pos(pos() + glm::normalize(velocity) * base_velocity);
+
+    if(shoot_cooldown > 0){
+        shoot_cooldown--;
+    }else if(shooting){
+        BulletInstance* i = new BulletInstance();
+        i->pos = pos();
+        i->vel = {0, 5};
+        i->hitbox = new Hitbox(10);
+        i->hitbox->pos(pos());
+        i->type = bullet01;
+        bulletHell.push(i);
+        shoot_cooldown = base_shoot_cooldown;
+    }
+
+    Entity::update(stateInfo);
 }
 
 void Player::handleEvent(SDL_Event* event){
@@ -127,7 +129,7 @@ void Player::handleEvent(SDL_Event* event){
 
 Player::Player(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
-    m_hitbox = new Hitbox(40);
+    m_hitbox = new Hitbox(20);
 
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, Easing::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, Easing::Expo::easeIn);

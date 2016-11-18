@@ -20,8 +20,7 @@ public:
 
     void push(BulletInstance* bulletInstance);
 
-private:
-    std::vector<BulletInstance*> bullets;
+    std::list<BulletInstance*> bullets;
 };
 
 }
