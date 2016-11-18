@@ -11,6 +11,8 @@ namespace PovisEngine{
 
 class Enemy:public Entity{
 public:
+    enum state_enum{ALIVE, DEATH_ANIMATION, DEAD};
+
     Enemy();
     virtual ~Enemy();
 
@@ -18,6 +20,7 @@ public:
     void update(StateInfo* stateInfo) override;
 
     bool isBoss() const;
+    state_enum state() const;
 
     void kill();
 
@@ -31,7 +34,7 @@ protected:
 
     BulletHell bulletHell;
 
-    bool dead = false;
+    state_enum m_state = ALIVE;
     unsigned base_death_animation = 60;
     unsigned death_animation = 0;
     unsigned death_animation_state = 0; //0 - not dead, 1 - dead and animating, 2 - totally dead

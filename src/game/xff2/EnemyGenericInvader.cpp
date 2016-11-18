@@ -20,7 +20,7 @@ EnemyGenericInvader::~EnemyGenericInvader(){
 
 void EnemyGenericInvader::update(StateInfo* stateInfo){
     Enemy::update(stateInfo);
-    if(!dead && tick % tick_per_move == 0){
+    if(!(m_state == DEAD || m_state == DEATH_ANIMATION) && tick % tick_per_move == 0){
         move_step += move_dir;
         if(move_step >= 450 / offset.x || move_step <= -300 / offset.x){
             move_dir *= -1;

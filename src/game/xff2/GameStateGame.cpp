@@ -22,7 +22,7 @@ GameStateGame::GameStateGame(){
 
     for(int k = 0; k < 5; k++){
         for(int i = 0; i < 10; i++){
-            auto e = std::make_shared<EnemyGenericInvader>((i + k) % 4);
+            auto e = new EnemyGenericInvader((i + k) % 4);
             e->pos({(i % 2 == 0 ? -1 : 1) * i / 2 * 100, 500 - k * 100});
             enemies.push_back(e);
         }
@@ -42,7 +42,7 @@ void GameStateGame::update(float delta){
 
     player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
         for(auto&& enemy : enemies){
-            if(enemy->hitbox()->collision(*bullet->hitbox)){
+            if(enemy->state() == Enemy::state_enum::ALIVE && enemy->hitbox()->collision(*bullet->hitbox)){
                 enemy->kill();
                 return true;
             }
@@ -50,9 +50,14 @@ void GameStateGame::update(float delta){
         return false;
     });
 
+    enemies.remove_if([](Enemy* enemy){
+        return enemy->state() == Enemy::state_enum::DEAD;
+    });
+
     for(auto&& item : enemies){
         item->update(&stateInfo);
     }
+
     player->update(&stateInfo);
 }
 

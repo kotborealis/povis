@@ -15,7 +15,7 @@ public:
     virtual ~BulletInstance();
 
     unsigned tick = 0;
-    unsigned ttl = 100;
+    unsigned ttl = 1000;
     glm::vec2 pos;
     glm::vec2 vel;
     Hitbox* hitbox = nullptr;

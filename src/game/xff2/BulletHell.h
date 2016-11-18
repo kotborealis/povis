@@ -21,6 +21,7 @@ public:
     void push(BulletInstance* bulletInstance);
 
     std::list<BulletInstance*> bullets;
+    void validate();
 };
 
 }

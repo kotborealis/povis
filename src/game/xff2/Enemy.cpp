@@ -21,10 +21,12 @@ void Enemy::draw(RenderInfo* renderInfo) const{
 }
 
 void Enemy::update(StateInfo* stateInfo){
-    if(dead && base_death_animation <= 0){
+    if(m_state == DEAD){
         return;
-    }else if(death_animation > 0){
-        death_animation--;
+    }else if(m_state == DEATH_ANIMATION && death_animation > 0){
+        if(--death_animation == 0){
+            m_state = DEAD;
+        }
     }
 
     Entity::update(stateInfo);
@@ -38,12 +40,16 @@ bool Enemy::isBoss() const{
 
 
 void Enemy::kill(){
-    if(dead)
+    if(m_state == DEAD || m_state == DEATH_ANIMATION)
         return;
 
-    dead = true;
+    m_state = DEATH_ANIMATION;
     death_animation = base_death_animation;
     moveInterp->target({0, 1000}, base_death_animation);
+}
+
+Enemy::state_enum Enemy::state() const{
+    return m_state;
 }
 
 }

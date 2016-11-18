@@ -28,7 +28,7 @@ private:
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
-    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::list<Enemy*> enemies;
     Player* player;
 };
 
