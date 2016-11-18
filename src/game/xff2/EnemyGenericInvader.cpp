@@ -31,8 +31,6 @@ void EnemyGenericInvader::update(StateInfo* stateInfo){
 }
 
 void EnemyGenericInvader::draw(RenderInfo* renderInfo) const{
-    renderInfo->rotation = m_rotation;
     Enemy::draw(renderInfo);
-    renderInfo->rotation = 0;
 }
 }

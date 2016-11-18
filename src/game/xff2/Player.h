@@ -33,6 +33,10 @@ protected:
     Interpolator<float>* velocityInterpXDec;
     Interpolator<float>* velocityInterpYDec;
 
+    const unsigned rotation_ticks = 15;
+    const int rotation_to = 45;
+    Interpolator<float>* rotation_interp;
+
     glm::vec4 move_direction = {0, 0, 0, 0};
 
     unsigned base_shoot_cooldown = 40;

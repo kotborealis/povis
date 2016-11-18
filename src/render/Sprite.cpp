@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Sprite.h"
 
+#define GLM_FORCE_RADIANS
+
 namespace PovisEngine{
 
 Sprite::~Sprite(){}
@@ -22,7 +24,7 @@ void Sprite::draw(RenderInfo* renderInfo){
     glm::mat4 model = {};
     model = glm::translate(model, {glm::round(renderInfo->position.x), glm::round(renderInfo->position.y), 0});
     model = glm::scale(model, {glm::round(m_scale.x), glm::round(m_scale.y), 1});
-    model = glm::rotate(model, glm::round(renderInfo->rotation), {0, 0, 1});
+    model = glm::rotate(model, renderInfo->rotation * 3.14f / 180.f, {0, 0, 1});
 
     Shader::Ptr s = custom_shader ? custom_shader : shader;
     s->bind();

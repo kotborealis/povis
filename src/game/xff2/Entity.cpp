@@ -6,8 +6,10 @@ namespace PovisEngine{
 void Entity::draw(RenderInfo *renderInfo) const {
     renderInfo->framebufferDefault->bind();
     renderInfo->position = pos();
+    renderInfo->rotation = m_rotation;
     m_sprite->draw(renderInfo);
     m_hitbox->draw(renderInfo);
+    renderInfo->rotation = 0;
 }
 
 void Entity::update(StateInfo *stateInfo) {

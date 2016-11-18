@@ -2,6 +2,7 @@
 // Created by kotborealis on 18.11.2016.
 //
 
+#include <easing/Quad.h>
 #include "Player.h"
 
 namespace PovisEngine{
@@ -19,6 +20,8 @@ void Player::update(StateInfo* stateInfo){
     velocityInterpYAcc->update();
     velocityInterpXDec->update();
     velocityInterpYDec->update();
+
+    rotation_interp->update();
 
     if(velocity.x != 0 || velocity.y != 0)
         pos(pos() + glm::normalize(velocity) * base_velocity);
@@ -59,12 +62,14 @@ void Player::handleEvent(SDL_Event* event){
                 move_direction.b = 1;
                 velocityInterpXDec->cancel();
                 velocityInterpXAcc->target(1, acceleration_ticks);
+                rotation_interp->target(-rotation_to, rotation_ticks);
                 break;
             case SDLK_a:
             case SDLK_LEFT:
                 move_direction.a = 1;
                 velocityInterpXDec->cancel();
                 velocityInterpXAcc->target(-1, acceleration_ticks);
+                rotation_interp->target(rotation_to, rotation_ticks);
                 break;
             case SDLK_z:
                 shooting = true;
@@ -102,9 +107,11 @@ void Player::handleEvent(SDL_Event* event){
                 if(move_direction.a != 0){
                     velocityInterpXDec->cancel();
                     velocityInterpXAcc->target(-1, acceleration_ticks);
+                    rotation_interp->target(rotation_to, rotation_ticks);
                 }else{
                     velocityInterpXAcc->cancel();
                     velocityInterpXDec->target(0, deceleration_ticks);
+                    rotation_interp->target(0, rotation_ticks);
                 }
                 break;
             case SDLK_a:
@@ -113,9 +120,11 @@ void Player::handleEvent(SDL_Event* event){
                 if(move_direction.b != 0){
                     velocityInterpXDec->cancel();
                     velocityInterpXAcc->target(1, acceleration_ticks);
+                    rotation_interp->target(-rotation_to, rotation_ticks);
                 }else{
                     velocityInterpXAcc->cancel();
                     velocityInterpXDec->target(0, deceleration_ticks);
+                    rotation_interp->target(0, rotation_ticks);
                 }
                 break;
             case SDLK_z:
@@ -135,6 +144,8 @@ Player::Player(){
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, Easing::Expo::easeIn);
     velocityInterpXDec = new Interpolator<float>(&velocity.x, Easing::Expo::easeOut);
     velocityInterpYDec = new Interpolator<float>(&velocity.y, Easing::Expo::easeOut);
+
+    rotation_interp = new Interpolator<float>(&m_rotation, Easing::Quad::easeIn);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(

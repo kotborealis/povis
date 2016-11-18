@@ -52,7 +52,7 @@ void Enemy::kill(){
     moveInterp->target({0, 1000}, base_death_anim_leave_ticks);
 
     death_anim_rotation_ticks = base_death_anim_rotation_ticks;
-    death_anim_rotation_interp->offset(3.14f * 10, base_death_anim_rotation_ticks);
+    death_anim_rotation_interp->offset(720, base_death_anim_rotation_ticks);
 }
 
 Enemy::state_enum Enemy::state() const{

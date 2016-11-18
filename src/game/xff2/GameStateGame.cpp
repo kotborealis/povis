@@ -21,6 +21,7 @@ GameStateGame::GameStateGame(){
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 800);
 
     player = new Player();
+    player->pos({0, -500});
 
     for(int k = 0; k < 5; k++){
         for(int i = 0; i < 10; i++){
