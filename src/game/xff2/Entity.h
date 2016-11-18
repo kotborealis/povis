@@ -8,7 +8,7 @@
 #include <easing/Back.h>
 #include <easing/Expo.h>
 #include "Hitbox.h"
-#include "MoveInterp.h"
+#include "Interpolator.h"
 
 namespace PovisEngine{
 
@@ -28,7 +28,7 @@ public:
 
     const Hitbox* hitbox() const;
 
-    MoveInterp* moveInterp;
+	Interpolator* moveInterp;
 
 protected:
 	uint64_t tick = 0;
