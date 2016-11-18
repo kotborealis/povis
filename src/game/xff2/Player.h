@@ -1,0 +1,44 @@
+//
+// Created by kotborealis on 18.11.2016.
+//
+
+#pragma once
+
+#include "Entity.h"
+#include "BulletHell.h"
+
+namespace PovisEngine{
+
+class Player:public Entity{
+public:
+    Player();
+    virtual ~Player();
+
+    void draw(RenderInfo* renderInfo) const override;
+    void update(StateInfo* stateInfo) override;
+    void handleEvent(SDL_Event* event);
+
+protected:
+    BulletHell bulletHell;
+
+    const unsigned acceleration_ticks = 2;
+    const unsigned deceleration_ticks = 4;
+
+    float base_velocity = 10.f;
+    glm::vec2 velocity = glm::vec2(0, 0);
+    Interpolator<float>* velocityInterpXAcc;
+    Interpolator<float>* velocityInterpYAcc;
+    Interpolator<float>* velocityInterpXDec;
+    Interpolator<float>* velocityInterpYDec;
+
+    glm::vec4 move_direction = {0, 0, 0, 0};
+
+    unsigned base_shoot_cooldown = 60;
+    unsigned shoot_cooldown = 0;
+
+    unsigned lives = 3;
+};
+
+}
+
+

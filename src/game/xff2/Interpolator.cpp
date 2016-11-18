@@ -17,9 +17,14 @@ void Interpolator<float>::update(){
         move_entity.current++;
 
         if(_.current >= _.duration){
-            move_entity.duration = 0;
+            cancel();
         }
     }
+}
+
+template<typename T>
+void Interpolator<T>::cancel(){
+    move_entity.duration = 0;
 }
 
 template<>

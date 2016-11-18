@@ -32,6 +32,8 @@ public:
     void offset(T offset, unsigned ticks);
     void target(T target, unsigned ticks);
 
+    void cancel();
+
 private:
     T* m_target;
     InterpolatorEntity<T> move_entity;

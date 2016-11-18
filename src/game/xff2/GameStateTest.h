@@ -9,6 +9,7 @@
 #include <render/Sprite.h>
 #include "Entity.h"
 #include "StateInfo.h"
+#include "Player.h"
 
 namespace PovisEngine{
 
@@ -27,6 +28,7 @@ private:
     StateInfo stateInfo;
 
     std::vector<std::shared_ptr<Entity>> entities;
+    Player* player;
 };
 
 }

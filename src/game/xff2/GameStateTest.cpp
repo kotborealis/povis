@@ -18,6 +18,8 @@ GameStateTest::GameStateTest(){
     renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
+    player = new Player();
+
     for(int k = 0; k < 5; k++){
         for(int i = 0; i < 10; i++){
             auto e = std::make_shared<EnemyGenericInvader>((i + k) % 4);
@@ -32,7 +34,7 @@ GameStateTest::~GameStateTest(){
 }
 
 void GameStateTest::handleEvent(SDL_Event* event){
-
+    player->handleEvent(event);
 }
 
 void GameStateTest::update(float delta){
@@ -40,6 +42,7 @@ void GameStateTest::update(float delta){
     for(auto&& item : entities){
         item->update(&stateInfo);
     }
+    player->update(&stateInfo);
 }
 
 void GameStateTest::draw(){
@@ -51,6 +54,7 @@ void GameStateTest::draw(){
     for(auto&& item : entities){
         item->draw(&renderInfo);
     }
+    player->draw(&renderInfo);
 
     Game::i().render()->deferred(&renderInfo);
     Game::i().render()->swap();
