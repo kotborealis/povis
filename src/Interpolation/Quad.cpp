@@ -1,7 +1,7 @@
 #include "Quad.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Quad::easeIn(float t, float b, float c, float d){
     return c * (t /= d) * t + b;

@@ -1,21 +1,17 @@
 #pragma once
 
-#include <math.h>
-
-#ifndef PI
-#define PI  3.14159265
-#endif
-
 namespace pse{
-namespace Easing{
+namespace interp{
 
-class Elastic{
+class Linear{
 
 public:
 
+    static float easeNone(float t, float b, float c, float d); // ??
     static float easeIn(float t, float b, float c, float d);
     static float easeOut(float t, float b, float c, float d);
     static float easeInOut(float t, float b, float c, float d);
+
 };
 
 }

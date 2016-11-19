@@ -1,11 +1,9 @@
 #pragma once
 
-#include <math.h>
-
 namespace pse{
-namespace Easing{
+namespace interp{
 
-class Circ{
+class Cubic{
 
 public:
 

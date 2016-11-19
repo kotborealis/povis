@@ -2,15 +2,15 @@
 // Created by kotborealis on 11.11.2016.
 //
 
-#include <easing/Linear.h>
+#include <Interpolation/Linear.h>
 #include "Enemy.h"
 
 namespace pse{
 
 Enemy::Enemy(){
     m_hitbox = new Hitbox(0);
-    moveInterp = new Interpolator<glm::vec2>(&m_pos, &Easing::Expo::easeInOut);
-    death_anim_rotation_interp = new Interpolator<float>(&m_rotation, Easing::Linear::easeNone);
+    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Expo::easeInOut);
+    death_anim_rotation_interp = new Interpolator<float>(&m_rotation, interp::Linear::easeNone);
 }
 
 Enemy::~Enemy(){

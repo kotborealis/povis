@@ -1,9 +1,11 @@
 #pragma once
 
-namespace pse{
-namespace Easing{
+#include <math.h>
 
-class Quart{
+namespace pse{
+namespace interp{
+
+class Expo{
 
 public:
 

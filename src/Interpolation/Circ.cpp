@@ -1,7 +1,7 @@
 #include "Circ.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Circ::easeIn(float t, float b, float c, float d){
     return (float)(-c * (sqrt(1 - (t /= d) * t) - 1) + b);

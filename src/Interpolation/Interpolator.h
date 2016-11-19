@@ -6,8 +6,8 @@
 
 #include <glm/vec2.hpp>
 #include <queue>
-#include <easing/Expo.h>
-#include "StateInfo.h"
+#include <Interpolation/Expo.h>
+#include "game/xff2/StateInfo.h"
 
 namespace pse{
 

@@ -5,10 +5,10 @@
 #include <render/resources/Shader.h>
 #include <render/Sprite.h>
 #include <queue>
-#include <easing/Back.h>
-#include <easing/Expo.h>
+#include <Interpolation/Back.h>
+#include <Interpolation/Expo.h>
 #include "Hitbox.h"
-#include "Interpolator.h"
+#include "Interpolation/Interpolator.h"
 
 namespace pse{
 

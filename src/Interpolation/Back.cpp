@@ -1,7 +1,7 @@
 #include "Back.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Back::easeIn(float t, float b, float c, float d){
     float s = 1.70158f;

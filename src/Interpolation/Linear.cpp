@@ -1,7 +1,7 @@
 #include "Linear.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Linear::easeNone(float t, float b, float c, float d){
     return c * t / d + b;

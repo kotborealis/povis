@@ -1,9 +1,10 @@
 #pragma once
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
-class Cubic{
+
+class Quint{
 
 public:
 

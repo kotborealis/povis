@@ -1,7 +1,7 @@
 #include "Elastic.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Elastic::easeIn(float t, float b, float c, float d){
     if(t == 0) return b;

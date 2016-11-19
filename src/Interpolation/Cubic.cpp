@@ -1,7 +1,7 @@
 #include "Cubic.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Cubic::easeIn(float t, float b, float c, float d){
     return c * (t /= d) * t * t + b;

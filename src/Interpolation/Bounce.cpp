@@ -1,7 +1,7 @@
 #include "Bounce.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Bounce::easeIn(float t, float b, float c, float d){
     return c - easeOut(d - t, 0, c, d) + b;

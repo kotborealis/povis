@@ -1,9 +1,15 @@
 #pragma once
 
-namespace pse{
-namespace Easing{
+#include <math.h>
 
-class Quad{
+#ifndef PI
+#define PI  3.14159265
+#endif
+
+namespace pse{
+namespace interp{
+
+class Elastic{
 
 public:
 

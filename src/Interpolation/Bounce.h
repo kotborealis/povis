@@ -1,7 +1,7 @@
 #pragma once
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 class Bounce{
 

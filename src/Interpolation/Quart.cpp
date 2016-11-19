@@ -1,7 +1,7 @@
 #include "Quart.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 float Quart::easeIn(float t, float b, float c, float d){
     return c * (t /= d) * t * t * t + b;

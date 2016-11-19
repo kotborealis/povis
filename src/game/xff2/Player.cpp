@@ -2,7 +2,7 @@
 // Created by kotborealis on 18.11.2016.
 //
 
-#include <easing/Quad.h>
+#include <Interpolation/Quad.h>
 #include "Player.h"
 
 namespace pse{
@@ -140,12 +140,12 @@ Player::Player(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
     m_hitbox = new Hitbox(20);
 
-    velocityInterpXAcc = new Interpolator<float>(&velocity.x, Easing::Expo::easeIn);
-    velocityInterpYAcc = new Interpolator<float>(&velocity.y, Easing::Expo::easeIn);
-    velocityInterpXDec = new Interpolator<float>(&velocity.x, Easing::Expo::easeOut);
-    velocityInterpYDec = new Interpolator<float>(&velocity.y, Easing::Expo::easeOut);
+    velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
+    velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
+    velocityInterpXDec = new Interpolator<float>(&velocity.x, interp::Expo::easeOut);
+    velocityInterpYDec = new Interpolator<float>(&velocity.y, interp::Expo::easeOut);
 
-    rotation_interp = new Interpolator<float>(&m_rotation, Easing::Quad::easeIn);
+    rotation_interp = new Interpolator<float>(&m_rotation, interp::Quad::easeIn);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(

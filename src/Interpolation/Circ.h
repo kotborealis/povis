@@ -2,22 +2,16 @@
 
 #include <math.h>
 
-#ifndef PI
-#define PI  3.14159265
-#endif
-
 namespace pse{
-namespace Easing{
+namespace interp{
 
-
-class Sine{
+class Circ{
 
 public:
 
     static float easeIn(float t, float b, float c, float d);
     static float easeOut(float t, float b, float c, float d);
     static float easeInOut(float t, float b, float c, float d);
-
 };
 
 }

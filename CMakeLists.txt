@@ -31,35 +31,35 @@ set(SOURCE_FILES
         src/render/ResourceManager.h
         src/render/Sprite.cpp
         src/render/Sprite.h
-        src/easing/Back.cpp
-        src/easing/Back.h
-        src/easing/Back.cpp
-        src/easing/Back.h
-        src/easing/Bounce.cpp
-        src/easing/Bounce.h
-        src/easing/Circ.cpp
-        src/easing/Circ.h
-        src/easing/Cubic.cpp
-        src/easing/Cubic.h
-        src/easing/Elastic.cpp
-        src/easing/Elastic.h
-        src/easing/Expo.cpp
-        src/easing/Expo.h
-        src/easing/Linear.cpp
-        src/easing/Linear.h
-        src/easing/Quad.cpp
-        src/easing/Quad.h
-        src/easing/Quart.cpp
-        src/easing/Quart.h
-        src/easing/Quint.cpp
-        src/easing/Quint.h
-        src/easing/Sine.cpp
-        src/easing/Sine.h
+        src/Interpolation/Back.cpp
+        src/Interpolation/Back.h
+        src/Interpolation/Back.cpp
+        src/Interpolation/Back.h
+        src/Interpolation/Bounce.cpp
+        src/Interpolation/Bounce.h
+        src/Interpolation/Circ.cpp
+        src/Interpolation/Circ.h
+        src/Interpolation/Cubic.cpp
+        src/Interpolation/Cubic.h
+        src/Interpolation/Elastic.cpp
+        src/Interpolation/Elastic.h
+        src/Interpolation/Expo.cpp
+        src/Interpolation/Expo.h
+        src/Interpolation/Linear.cpp
+        src/Interpolation/Linear.h
+        src/Interpolation/Quad.cpp
+        src/Interpolation/Quad.h
+        src/Interpolation/Quart.cpp
+        src/Interpolation/Quart.h
+        src/Interpolation/Quint.cpp
+        src/Interpolation/Quint.h
+        src/Interpolation/Sine.cpp
+        src/Interpolation/Sine.h
         src/utils/to_string.h
 
         src/game/xff2/Entity.h
         src/game/xff2/Entity.cpp
-        src/game/xff2/StateInfo.h src/game/xff2/Hitbox.cpp src/game/xff2/Hitbox.h src/game/xff2/GameStateGame.cpp src/game/xff2/GameStateGame.h src/game/xff2/Enemy.cpp src/game/xff2/Enemy.h src/game/xff2/EnemyGenericInvader.cpp src/game/xff2/EnemyGenericInvader.h src/game/xff2/BulletHell.cpp src/game/xff2/BulletHell.h src/game/xff2/BulletInstance.cpp src/game/xff2/BulletInstance.h src/game/xff2/BulletType.cpp src/game/xff2/BulletType.h src/game/xff2/Interpolator.h src/game/xff2/Player.cpp src/game/xff2/Player.h src/game/xff2/Interpolator.cpp src/render/Font.h src/render/Font.cpp)
+        src/game/xff2/StateInfo.h src/game/xff2/Hitbox.cpp src/game/xff2/Hitbox.h src/game/xff2/GameStateGame.cpp src/game/xff2/GameStateGame.h src/game/xff2/Enemy.cpp src/game/xff2/Enemy.h src/game/xff2/EnemyGenericInvader.cpp src/game/xff2/EnemyGenericInvader.h src/game/xff2/BulletHell.cpp src/game/xff2/BulletHell.h src/game/xff2/BulletInstance.cpp src/game/xff2/BulletInstance.h src/game/xff2/BulletType.cpp src/game/xff2/BulletType.h src/Interpolation/Interpolator.h src/game/xff2/Player.cpp src/game/xff2/Player.h src/Interpolation/Interpolator.cpp src/render/Font.h src/render/Font.cpp)
 
 add_executable(povis ${SOURCE_FILES})
 

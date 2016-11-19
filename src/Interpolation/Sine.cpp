@@ -1,7 +1,7 @@
 #include "Sine.h"
 
 namespace pse{
-namespace Easing{
+namespace interp{
 
 
 float Sine::easeIn(float t, float b, float c, float d){
