@@ -27,6 +27,8 @@ public:
     void draw(RenderInfo* renderInfo);
 
     glm::vec2 scale() const;
+    void scale(glm::vec2);
+    void scale(float);
 
     Shader::Ptr custom_shader;
 

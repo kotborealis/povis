@@ -8,7 +8,6 @@
 
 namespace PovisEngine{
 
-
 GameStateGame::GameStateGame(){
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -17,6 +16,10 @@ GameStateGame::GameStateGame(){
     renderInfo.framebufferDefault = std::unique_ptr<Framebuffer>(new Framebuffer());
     renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
+
+    defaultFont = new SpriteFont(ResourceTexture->load("assets/common/textures/font_default.png"), 13, 8);
+
+    str_test = defaultFont->string("Soldier is dead\nI'm not dead\nShhh, you're dead\nOkay.", 20);
 
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
@@ -74,6 +77,9 @@ void GameStateGame::draw(){
     renderInfo.framebufferDefault->bind();
     renderInfo.position = glm::vec2(0, 0);
     background->draw(&renderInfo);
+
+    renderInfo.position = {-800, -200};
+    str_test->draw(&renderInfo);
 
     for(auto&& item : enemies){
         item->draw(&renderInfo);

@@ -70,11 +70,19 @@ void Sprite::__init_sprite_system(){
 
 Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, float scale):
         Sprite::Sprite(texture, width, height, start, end,
-                       {scale * (texture->scale().y / height) / (texture->scale().x / width), scale}){
+                       {scale, scale * (texture->scale().x / width) / (texture->scale().y / height)}){
 
 }
 
 glm::vec2 Sprite::scale() const{
     return m_scale;
+}
+
+void Sprite::scale(glm::vec2 _scale){
+    m_scale = _scale;
+}
+
+void Sprite::scale(float _scale){
+    m_scale = {_scale, _scale * (texture->scale().x / width) / (texture->scale().y / height)};
 }
 }

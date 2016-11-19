@@ -7,6 +7,7 @@
 #include <GameState.h>
 #include <render/Camera.h>
 #include <render/Sprite.h>
+#include <render/SpriteFont.h>
 #include "Entity.h"
 #include "StateInfo.h"
 #include "Player.h"
@@ -32,6 +33,9 @@ private:
     Player* player;
 
     Sprite* background;
+
+    SpriteFont* defaultFont;
+    SpriteFont::String* str_test;
 };
 
 }
