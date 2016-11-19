@@ -23,10 +23,11 @@ GameStateGame::GameStateGame(){
     player = new Player();
     player->pos({0, -500});
 
+
     for(int k = 0; k < 5; k++){
         for(int i = 0; i < 10; i++){
             auto e = new EnemyGenericInvader((i + k) % 4);
-            e->pos({(i % 2 == 0 ? -1 : 1) * i / 2 * 100, 500 - k * 100});
+            e->pos({-500 + i * 100, 500 - k * 100});
             enemies.push_back(e);
         }
     }

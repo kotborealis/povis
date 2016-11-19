@@ -25,7 +25,6 @@ template<typename T>
 class Interpolator{
 public:
     Interpolator(T* target_entity, float (*)(float, float, float, float));
-    float (* interpolation)(float, float, float, float);
 
     void update();
 
@@ -36,6 +35,7 @@ public:
 
 private:
     T* m_target;
+    float (* interpolation)(float, float, float, float);
     InterpolatorEntity<T> move_entity;
 };
 
