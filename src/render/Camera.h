@@ -14,10 +14,14 @@ namespace pse{
 
 class Camera{
 public:
-    Camera();
+    Camera(float);
     ~Camera();
 
     glm::mat4 getProjection(GLfloat ratio);
+    float scale() const;
+    void scale(float);
+private:
+    float m_scale;
 };
 
 }

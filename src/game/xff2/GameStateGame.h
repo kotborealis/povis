@@ -25,7 +25,7 @@ public:
     void draw() override;
 
 private:
-    Camera* camera = new Camera();
+    Camera* camera = new Camera(500);
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
