@@ -41,7 +41,10 @@ private:
 
 template<typename T>
 Interpolator<T>::Interpolator(T* target_entity, float (* interpolation)(float, float, float, float))
-        :m_target(target_entity), interpolation(interpolation){}
+        :m_target(target_entity), interpolation(interpolation){
+    static_assert(std::is_arithmetic<T>::value || std::is_same<T, glm::vec2>::value,
+                  "Non-arithmetic and Non-glm::vec2 type passed to Interpolator constuctor");
+}
 
 template<typename T>
 void Interpolator<T>::offset(T offset, unsigned ticks){
@@ -57,6 +60,28 @@ void Interpolator<T>::target(T target, unsigned ticks){
     move_entity.duration = ticks;
     move_entity.target = target;
     move_entity.start = *m_target;
+}
+
+template<typename T>
+void Interpolator<T>::cancel(){
+    move_entity.duration = 0;
+}
+
+template<> void Interpolator<glm::vec2>::update();
+
+template<typename T> void Interpolator<T>::update(){
+    if(move_entity.duration > 0){
+        auto _ = move_entity;
+        float p(interpolation(_.current, _.start, _.target - _.start, _.duration));
+
+        *m_target = p;
+
+        move_entity.current++;
+
+        if(_.current >= _.duration){
+            cancel();
+        }
+    }
 }
 
 }
