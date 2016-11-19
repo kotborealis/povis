@@ -6,8 +6,7 @@
 
 namespace PovisEngine{
 
-template<>
-void Interpolator<float>::update(){
+template<> void Interpolator<float>::update(){
     if(move_entity.duration > 0){
         auto _ = move_entity;
         float p(interpolation(_.current, _.start, _.target - _.start, _.duration));
@@ -20,11 +19,6 @@ void Interpolator<float>::update(){
             cancel();
         }
     }
-}
-
-template<typename T>
-void Interpolator<T>::cancel(){
-    move_entity.duration = 0;
 }
 
 template<>
@@ -42,6 +36,11 @@ void Interpolator<glm::vec2>::update(){
             move_entity.duration = 0;
         }
     }
+}
+
+template<typename T>
+void Interpolator<T>::cancel(){
+    move_entity.duration = 0;
 }
 
 }
