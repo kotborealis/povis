@@ -56,7 +56,8 @@ void Camera::addPitch(GLfloat pitch){
 }
 
 glm::mat4 Camera::getProjection(GLfloat ratio){
-    return glm::perspective(fov, ratio, .1f, 10000.f);
+    //return glm::perspective(fov, ratio, .1f, 10000.f);
+    return glm::ortho(-500.0f * ratio, 500.0f * ratio, -500.0f, 500.0f, 1000.0f, -1000.0f);
 }
 
 const glm::vec3& Camera::getFront() const{

@@ -21,13 +21,13 @@ GameStateGame::GameStateGame(){
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
     player = new Player();
-    player->pos({0, -500});
+    player->pos({0, -400});
 
 
     for(int k = 0; k < 5; k++){
         for(int i = 0; i < 10; i++){
             auto e = new EnemyGenericInvader((i + k) % 4);
-            e->pos({-500 + i * 100, 500 - k * 100});
+            e->pos({-500 + i * 100, 400 - k * 100});
             enemies.push_back(e);
         }
     }
