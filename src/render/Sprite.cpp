@@ -35,7 +35,6 @@ void Sprite::draw(RenderInfo* renderInfo){
     s->uniform("cur", current);
     s->uniform("diffuseTexture", 0);
     s->uniform("model", model);
-    s->uniform("view", renderInfo->view);
     s->uniform("projection", renderInfo->projection);
 
     mesh->drawElements();

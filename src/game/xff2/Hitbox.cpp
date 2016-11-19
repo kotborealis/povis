@@ -26,7 +26,6 @@ void Hitbox::draw(RenderInfo *renderInfo) const {
 
     m_shader->bind();
     m_shader->uniform("model", model);
-    m_shader->uniform("view", renderInfo->view);
     m_shader->uniform("projection", renderInfo->projection);
 
     Game::i().render()->renderQuad();

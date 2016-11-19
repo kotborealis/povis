@@ -14,7 +14,6 @@ GameStateGame::GameStateGame(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     renderInfo.framebufferDefault = std::unique_ptr<Framebuffer>(new Framebuffer());
-    renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
     str_test = Font::Default->string("Yes! I am!");
@@ -69,7 +68,6 @@ void GameStateGame::draw(){
     Game::i().render()->clear();
     renderInfo.projection = camera->getProjection((float)Game::i().render()->window()->width()
                                                   / (float)Game::i().render()->window()->height());
-    renderInfo.view = camera->getView();
 
     renderInfo.framebufferDefault->bind();
     renderInfo.position = glm::vec2(0, 0);

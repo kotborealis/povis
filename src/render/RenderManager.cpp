@@ -77,11 +77,9 @@ void RenderManager::deferred(RenderInfo* renderInfo) const{
     Framebuffer::Default::bind();
     shader_deferred->bind();
     renderInfo->framebufferDefault->texture->bind(0);
-    renderInfo->framebufferShading->texture->bind(1);
-    renderInfo->framebufferUI->texture->bind(2);
+    renderInfo->framebufferUI->texture->bind(1);
     shader_deferred->uniform("defaultTexture", 0);
-    shader_deferred->uniform("shadingTexture", 1);
-    shader_deferred->uniform("uiTexture", 2);
+    shader_deferred->uniform("uiTexture", 1);
     renderQuad();
 }
 

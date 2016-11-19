@@ -11,7 +11,6 @@
 namespace pse{
 
 struct RenderInfo{
-    glm::mat4 view;
     glm::mat4 projection;
 
     glm::vec2 position;
@@ -19,7 +18,6 @@ struct RenderInfo{
     float rotation;
 
     std::unique_ptr<Framebuffer> framebufferDefault;
-    std::unique_ptr<Framebuffer> framebufferShading;
     std::unique_ptr<Framebuffer> framebufferUI;
 };
 

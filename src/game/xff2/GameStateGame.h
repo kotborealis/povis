@@ -25,7 +25,7 @@ public:
     void draw() override;
 
 private:
-    Camera* camera = new Camera(glm::vec3(0, 0, 1000), 45);
+    Camera* camera = new Camera();
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
