@@ -8,7 +8,7 @@
 #include <render/Sprite.h>
 #include "StateInfo.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class BulletInstance;
 

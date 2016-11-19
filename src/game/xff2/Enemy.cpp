@@ -5,7 +5,7 @@
 #include <easing/Linear.h>
 #include "Enemy.h"
 
-namespace PovisEngine{
+namespace pse{
 
 Enemy::Enemy(){
     m_hitbox = new Hitbox(0);

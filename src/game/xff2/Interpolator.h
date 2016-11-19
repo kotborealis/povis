@@ -9,7 +9,7 @@
 #include <easing/Expo.h>
 #include "StateInfo.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class Entity;
 

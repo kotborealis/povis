@@ -9,7 +9,7 @@
 #include <glm/glm.hpp>
 #include <cstring>
 
-namespace PovisEngine{
+namespace pse{
 
 struct Vertex{
     glm::vec3 position;

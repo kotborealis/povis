@@ -6,7 +6,7 @@
 #define PI  3.14159265
 #endif
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 

@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "game/xff2/GameStateGame.h"
 
-using namespace PovisEngine;
+using namespace pse;
 
 int main(int argc, char* args[]){
     unsigned int width = 720;

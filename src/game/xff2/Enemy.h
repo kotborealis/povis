@@ -7,7 +7,7 @@
 #include "Entity.h"
 #include "BulletHell.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class Enemy:public Entity{
 public:

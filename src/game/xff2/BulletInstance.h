@@ -7,7 +7,7 @@
 #include "Hitbox.h"
 #include "BulletType.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class BulletInstance {
 public:

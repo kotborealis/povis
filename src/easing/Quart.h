@@ -1,6 +1,6 @@
 #pragma once
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 class Quart{

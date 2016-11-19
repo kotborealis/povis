@@ -1,6 +1,6 @@
 #include "Quint.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Quint::easeIn(float t, float b, float c, float d){

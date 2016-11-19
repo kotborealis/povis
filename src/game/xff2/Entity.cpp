@@ -1,7 +1,7 @@
 #include <glm/vec2.hpp>
 #include "game/xff2/Entity.h"
 
-namespace PovisEngine{
+namespace pse{
 
 void Entity::draw(RenderInfo *renderInfo) const {
     renderInfo->framebufferDefault->bind();

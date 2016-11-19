@@ -6,7 +6,7 @@
 #include "ResourceManager.h"
 #include <Game.h>
 
-namespace PovisEngine{
+namespace pse{
 
 std::list<Framebuffer*> Framebuffer::list;
 

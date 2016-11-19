@@ -10,7 +10,7 @@
 #include <glm/vec2.hpp>
 #include <glm/detail/type_mat.hpp>
 
-namespace PovisEngine{
+namespace pse{
 
 class Shader{
     friend class ShaderManager;

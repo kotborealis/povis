@@ -10,7 +10,7 @@
 #include "WindowManager.h"
 #include "Framebuffer.h"
 
-namespace PovisEngine{
+namespace pse{
 
 struct RenderInfo;
 

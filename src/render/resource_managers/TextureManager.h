@@ -14,7 +14,7 @@
 
 #include "Logger.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class TextureManager{
 public:

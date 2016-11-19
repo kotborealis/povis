@@ -8,7 +8,7 @@
 #include <glm/detail/type_mat4x4.hpp>
 #include "Framebuffer.h"
 
-namespace PovisEngine {
+namespace pse{
 
 struct RenderInfo{
     glm::mat4 view;

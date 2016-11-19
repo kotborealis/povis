@@ -7,7 +7,7 @@
 
 #define GLM_FORCE_RADIANS
 
-namespace PovisEngine{
+namespace pse{
 
 Sprite::~Sprite(){}
 

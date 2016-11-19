@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
 
-namespace PovisEngine{
+namespace pse{
 
 Shader::Shader(GLuint id):id(id){}
 

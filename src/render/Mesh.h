@@ -9,7 +9,7 @@
 
 #include "Vertex.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class Mesh{
 public:

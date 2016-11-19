@@ -10,7 +10,7 @@
 #define error(str) log(__FILE__,__LINE__,"error",TO_STRING(str));
 #define note(str) log(__FILE__,__LINE__,"note",TO_STRING(str));
 
-namespace PovisEngine{
+namespace pse{
 
 class Logger{
 public:

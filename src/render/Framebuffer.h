@@ -10,7 +10,7 @@
 #include <list>
 #include "render/resources/Texture.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class Framebuffer{
     friend class WindowManager;

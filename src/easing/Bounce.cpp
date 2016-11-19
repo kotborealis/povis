@@ -1,6 +1,6 @@
 #include "Bounce.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Bounce::easeIn(float t, float b, float c, float d){

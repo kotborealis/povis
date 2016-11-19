@@ -5,7 +5,7 @@
 #include "BulletType.h"
 #include "BulletInstance.h"
 
-namespace PovisEngine {
+namespace pse{
 
 BulletType::BulletType(){
 

@@ -14,7 +14,7 @@
 #include "render/resources/Texture.h"
 #include "Mesh.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class Sprite{
 

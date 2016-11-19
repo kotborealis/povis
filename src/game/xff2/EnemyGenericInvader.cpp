@@ -5,7 +5,7 @@
 
 #include "EnemyGenericInvader.h"
 
-namespace PovisEngine{
+namespace pse{
 
 
 EnemyGenericInvader::EnemyGenericInvader(int sprite_n){

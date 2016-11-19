@@ -1,6 +1,6 @@
 #include "Cubic.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Cubic::easeIn(float t, float b, float c, float d){

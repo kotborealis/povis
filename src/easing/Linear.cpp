@@ -1,6 +1,6 @@
 #include "Linear.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Linear::easeNone(float t, float b, float c, float d){

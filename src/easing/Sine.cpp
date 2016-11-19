@@ -1,6 +1,6 @@
 #include "Sine.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 

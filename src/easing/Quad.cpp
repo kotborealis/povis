@@ -1,6 +1,6 @@
 #include "Quad.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Quad::easeIn(float t, float b, float c, float d){

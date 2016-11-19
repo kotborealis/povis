@@ -4,7 +4,7 @@
 
 #include "BulletInstance.h"
 
-namespace PovisEngine{
+namespace pse{
 
 
 BulletInstance::BulletInstance(){

@@ -4,7 +4,7 @@
 
 #include "Texture.h"
 
-namespace PovisEngine{
+namespace pse{
 
 Texture::Texture(GLuint m_id):id(m_id){}
 

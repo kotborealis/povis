@@ -12,7 +12,7 @@
 #define ResourceTexture ResourceManager::i().texture()
 #define ResourceShader ResourceManager::i().shader()
 
-namespace PovisEngine{
+namespace pse{
 
 class ResourceManager{
 public:

@@ -13,7 +13,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class GameStateGame:public GameState{
 public:

@@ -7,7 +7,7 @@
 #include <fstream>
 #include <vector>
 
-namespace PovisEngine{
+namespace pse{
 
 ShaderManager::ShaderManager(){}
 

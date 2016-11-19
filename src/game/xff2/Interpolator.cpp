@@ -5,7 +5,7 @@
 #include <glm/vec3.hpp>
 #include "Interpolator.h"
 
-namespace PovisEngine{
+namespace pse{
 
 template<> void Interpolator<glm::vec2>::update(){
     if(move_entity.duration > 0){

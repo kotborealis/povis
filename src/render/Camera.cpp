@@ -4,7 +4,7 @@
 
 #include "Camera.h"
 
-namespace PovisEngine{
+namespace pse{
 
 Camera::Camera(const glm::vec3& position, GLfloat fov, GLfloat yaw, GLfloat pitch):position(position), fov(fov),
                                                                                    yaw(yaw), pitch(pitch){}

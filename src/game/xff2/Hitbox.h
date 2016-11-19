@@ -10,7 +10,7 @@
 
 #define HITBOX_DEBUG false
 
-namespace PovisEngine{
+namespace pse{
 
 class HitboxLaser;
 

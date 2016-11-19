@@ -1,6 +1,6 @@
 #include "Circ.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Circ::easeIn(float t, float b, float c, float d){

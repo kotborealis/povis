@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 class Expo{

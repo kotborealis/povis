@@ -5,7 +5,7 @@
 #include <easing/Quad.h>
 #include "Player.h"
 
-namespace PovisEngine{
+namespace pse{
 
 
 void Player::draw(RenderInfo* renderInfo) const{

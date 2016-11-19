@@ -2,7 +2,7 @@
 #include "WindowManager.h"
 #include "render/Font.h"
 
-namespace PovisEngine{
+namespace pse{
 
 
 WindowManager::WindowManager(std::string& title, unsigned int width, unsigned int height):m_width(width),

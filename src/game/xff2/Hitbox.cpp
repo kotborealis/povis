@@ -6,7 +6,7 @@
 #include <Game.h>
 #include "Hitbox.h"
 
-namespace PovisEngine{
+namespace pse{
 
 
 Hitbox::Hitbox(float radius) : m_radius(radius) {}

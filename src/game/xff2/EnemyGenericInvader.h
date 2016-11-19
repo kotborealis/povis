@@ -6,7 +6,7 @@
 
 #include "Enemy.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class EnemyGenericInvader:public Enemy{
 public:

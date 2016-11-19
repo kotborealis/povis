@@ -10,7 +10,7 @@
 #include "Hitbox.h"
 #include "Interpolator.h"
 
-namespace PovisEngine{
+namespace pse{
 
 struct RenderInfo;
 struct StateInfo;

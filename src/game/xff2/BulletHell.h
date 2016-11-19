@@ -8,7 +8,7 @@
 #include "StateInfo.h"
 #include "BulletInstance.h"
 
-namespace PovisEngine {
+namespace pse{
 
 class BulletHell {
 public:

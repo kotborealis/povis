@@ -4,7 +4,7 @@
 
 #include "BulletHell.h"
 
-namespace PovisEngine {
+namespace pse{
 
 BulletHell::BulletHell() {}
 

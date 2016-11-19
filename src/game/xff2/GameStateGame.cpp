@@ -6,7 +6,7 @@
 #include "GameStateGame.h"
 #include "EnemyGenericInvader.h"
 
-namespace PovisEngine{
+namespace pse{
 
 GameStateGame::GameStateGame(){
     glDisable(GL_DEPTH_TEST);

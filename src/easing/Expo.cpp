@@ -1,6 +1,6 @@
 #include "Expo.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Expo::easeIn(float t, float b, float c, float d){

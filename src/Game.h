@@ -9,7 +9,7 @@
 #include "Logger.h"
 #include "render/RenderManager.h"
 
-namespace PovisEngine{
+namespace pse{
 
 class GameState;
 

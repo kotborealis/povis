@@ -9,7 +9,7 @@
 #include "ResourceManager.h"
 #include "RenderInfo.h"
 
-namespace PovisEngine{
+namespace pse{
 
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)

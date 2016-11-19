@@ -4,7 +4,7 @@
 
 #include "Font.h"
 
-namespace PovisEngine {
+namespace pse{
 
 
 Font::Font(const Texture::Ptr& m_texture, unsigned int sprite_w, unsigned int sprite_h):m_texture(

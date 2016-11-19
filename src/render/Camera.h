@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 
-namespace PovisEngine{
+namespace pse{
 
 class Camera{
 public:

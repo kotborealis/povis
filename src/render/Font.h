@@ -8,7 +8,7 @@
 #include <vector>
 #include "Sprite.h"
 
-namespace PovisEngine {
+namespace pse{
 
 enum GlyphInstanceSpecial{NONE, LINE_BREAK};
 

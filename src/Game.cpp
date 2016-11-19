@@ -1,6 +1,6 @@
 #include "Game.h"
 
-namespace PovisEngine{
+namespace pse{
 
 Game::Game(){
     Logger::info("Initializing engine");

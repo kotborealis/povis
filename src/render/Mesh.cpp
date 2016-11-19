@@ -5,7 +5,7 @@
 #include "Mesh.h"
 #include "Logger.h"
 
-namespace PovisEngine{
+namespace pse{
 
 Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
         :vertices(vertices), indices(indices){

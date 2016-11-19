@@ -1,6 +1,6 @@
 #include "Back.h"
 
-namespace PovisEngine{
+namespace pse{
 namespace Easing{
 
 float Back::easeIn(float t, float b, float c, float d){

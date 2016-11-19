@@ -4,7 +4,7 @@
 
 #include "TextureManager.h"
 
-namespace PovisEngine{
+namespace pse{
 
 TextureManager::TextureManager(){}
 
