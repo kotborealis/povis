@@ -2,12 +2,12 @@
 // Created by kotborealis on 19.11.16.
 //
 
-#include "SpriteFont.h"
+#include "Font.h"
 
 namespace PovisEngine {
 
 
-SpriteFont::SpriteFont(const Texture::Ptr &m_texture, unsigned int sprite_w, unsigned int sprite_h) :m_texture(
+Font::Font(const Texture::Ptr& m_texture, unsigned int sprite_w, unsigned int sprite_h):m_texture(
         m_texture), sprite_w(sprite_w), sprite_h(sprite_h){
     for(int i = 0; i < sprite_w; i++){
         for(int j = 0; j < sprite_h; j++){
@@ -19,30 +19,12 @@ SpriteFont::SpriteFont(const Texture::Ptr &m_texture, unsigned int sprite_w, uns
     }
 }
 
-SpriteFont::~SpriteFont() {
+Font::~Font(){
 
 }
 
-// 0 - ABCDEFGHIJKLMNOPQRSTUVWXYZ
-// 26 - abcdefghijklmnopqrstuvwxyz
-// 52 - 0123456789
-// 53 - .
-// 54 - ,
-// 55 - !
-// 56 - ?
-// 57 - '
-// 58 - @
-// 59 - #
-// 60 - $
-// 61 - %
-// 62 - &
-// 63 - ()
-// 65 - /
-// 66 - -
-// 67 - +
-// 68 - =
-// 69 - …
-unsigned int SpriteFont::charToGlyphID(char c){
+
+unsigned int Font::charToGlyphID(char c){
     if(c >= 'A' && c <= 'Z'){
         return (unsigned int)(c - 'A');
     }
@@ -91,8 +73,8 @@ unsigned int SpriteFont::charToGlyphID(char c){
     }
 }
 
-SpriteFont::String* SpriteFont::string(std::string str, float size){
-    SpriteFont::String* s = new SpriteFont::String();
+Font::String* Font::string(std::string str, float size){
+    Font::String* s = new Font::String();
     s->glyph_map = &glyph_map;
     s->size = size;
     for(auto&& i : str){
@@ -106,7 +88,13 @@ SpriteFont::String* SpriteFont::string(std::string str, float size){
     return s;
 }
 
-void SpriteFont::String::draw(RenderInfo* renderInfo){
+Font* Font::Default;
+
+void Font::__init(){
+    Default = new Font(ResourceTexture->load("assets/common/textures/font_default.png"), 13, 8);
+}
+
+void Font::String::draw(RenderInfo* renderInfo){
     glm::vec2 pos = renderInfo->position;
     int x_offset = 0;
     int y_offset = 0;

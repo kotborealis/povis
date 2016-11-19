@@ -1,5 +1,6 @@
 #include <render/Sprite.h>
 #include "WindowManager.h"
+#include "render/Font.h"
 
 namespace PovisEngine{
 
@@ -10,7 +11,8 @@ WindowManager::WindowManager(std::string& title, unsigned int width, unsigned in
     init_sdl();
     init_sdl_img();
     init_gl();
-    Sprite::__init_sprite_system();
+    Sprite::__init();
+    Font::__init();
 }
 
 WindowManager::~WindowManager(){

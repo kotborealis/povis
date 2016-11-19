@@ -48,7 +48,7 @@ void Sprite::tick(){
 Mesh* Sprite::mesh;
 Shader::Ptr Sprite::shader;
 
-void Sprite::__init_sprite_system(){
+void Sprite::__init(){
     if(!mesh){
         std::vector<Vertex> vertices = {
                 Vertex{{-1, -1, 0},

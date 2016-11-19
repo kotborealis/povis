@@ -12,7 +12,7 @@ namespace PovisEngine {
 
 enum GlyphInstanceSpecial{NONE, LINE_BREAK};
 
-class SpriteFont {
+class Font{
 public:
     struct Glyph{
         Sprite* sprite;
@@ -24,8 +24,7 @@ public:
     };
 
     class String{
-        friend class SpriteFont;
-
+        friend class Font;
     public:
         void draw(RenderInfo* renderInfo);
         float size;
@@ -34,13 +33,17 @@ public:
         std::map<unsigned, Glyph*>* glyph_map;
     };
 
-    SpriteFont(const Texture::Ptr &m_texture, unsigned int sprite_w, unsigned int sprite_h);
-    virtual ~SpriteFont();
+    virtual Font::String* string(std::string, float size = 50);
 
-    virtual SpriteFont::String* string(std::string, float size = 50);
-    virtual unsigned int charToGlyphID(char c);
+    static void __init();
+    static Font* Default;
 
 private:
+    Font(const Texture::Ptr& m_texture, unsigned int sprite_w, unsigned int sprite_h);
+    virtual ~Font();
+
+    virtual unsigned int charToGlyphID(char c);
+
     Texture::Ptr m_texture;
     unsigned sprite_w;
     unsigned sprite_h;

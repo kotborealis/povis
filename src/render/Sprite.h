@@ -32,7 +32,7 @@ public:
 
     Shader::Ptr custom_shader;
 
-    static void __init_sprite_system();
+    static void __init();
 
 private:
     static Mesh* mesh;

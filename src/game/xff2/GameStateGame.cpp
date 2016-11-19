@@ -17,10 +17,7 @@ GameStateGame::GameStateGame(){
     renderInfo.framebufferShading = std::unique_ptr<Framebuffer>(new Framebuffer(512, 512));
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
-    defaultFont = new SpriteFont(ResourceTexture->load("assets/common/textures/font_default.png"), 13, 8);
-
-    str_test = defaultFont->string("Soldier is dead\nI'm not dead\nShhh, you're dead\nOkay.", 20);
-
+    str_test = Font::Default->string("Yes! I am!");
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
     player = new Player();
@@ -78,7 +75,6 @@ void GameStateGame::draw(){
     renderInfo.position = glm::vec2(0, 0);
     background->draw(&renderInfo);
 
-    renderInfo.position = {-800, -200};
     str_test->draw(&renderInfo);
 
     for(auto&& item : enemies){
