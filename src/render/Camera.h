@@ -18,10 +18,9 @@ public:
     ~Camera();
 
     glm::mat4 getProjection(GLfloat ratio);
-    float scale() const;
-    void scale(float);
-private:
-    float m_scale;
+
+    float scale;
+    glm::vec2 offset;
 };
 
 }

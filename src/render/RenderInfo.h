@@ -12,6 +12,7 @@ namespace pse{
 
 struct RenderInfo{
     glm::mat4 projection;
+    glm::mat4 view;
 
     glm::vec2 position;
     glm::vec2 scale;

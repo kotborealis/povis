@@ -26,14 +26,19 @@ class Interpolator{
 public:
     Interpolator(T* target_entity, float (*)(float, float, float, float));
 
-    void update();
+    bool update();
 
     void offset(T offset, unsigned ticks);
     void target(T target, unsigned ticks);
 
     void cancel();
 
+    void interpEntity(InterpolatorEntity<T> entity){
+        move_entity = entity;
+    }
+
 private:
+
     T* m_target;
     float (* interpolation)(float, float, float, float);
     InterpolatorEntity<T> move_entity;
@@ -67,10 +72,13 @@ void Interpolator<T>::cancel(){
     move_entity.duration = 0;
 }
 
-template<> void Interpolator<glm::vec2>::update();
-template<> void Interpolator<glm::vec3>::update();
+template<>
+bool Interpolator<glm::vec2>::update();
+template<>
+bool Interpolator<glm::vec3>::update();
 
-template<typename T> void Interpolator<T>::update(){
+template<typename T>
+bool Interpolator<T>::update(){
     if(move_entity.duration > 0){
         auto _ = move_entity;
         float p(interpolation(_.current, _.start, _.target - _.start, _.duration));
@@ -82,7 +90,9 @@ template<typename T> void Interpolator<T>::update(){
         if(_.current >= _.duration){
             cancel();
         }
+        return true;
     }
+    return false;
 }
 
 }

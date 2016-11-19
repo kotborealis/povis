@@ -22,11 +22,12 @@ void Hitbox::draw(RenderInfo *renderInfo) const {
 
     glm::mat4 model = {};
     model = glm::translate(model, {m_pos.x, m_pos.y, 0});
-    model = glm::m_scale(model, {m_radius, m_radius, 1});
+    model = glm::scale(model, {m_radius, m_radius, 1});
 
     m_shader->bind();
     m_shader->uniform("model", model);
     m_shader->uniform("projection", renderInfo->projection);
+    m_shader->uniform("view", renderInfo->view);
 
     Game::i().render()->renderQuad();
 #endif

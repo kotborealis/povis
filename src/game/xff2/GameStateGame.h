@@ -8,6 +8,8 @@
 #include <render/Camera.h>
 #include <render/Sprite.h>
 #include <render/Font.h>
+#include <Interpolation/Bounce.h>
+#include <Interpolation/InterpolatorQueue.h>
 #include "Entity.h"
 #include "StateInfo.h"
 #include "Player.h"
@@ -26,6 +28,10 @@ public:
 
 private:
     Camera* camera = new Camera(500);
+
+    InterpolatorQueue<glm::vec2>* shakeInterp = new InterpolatorQueue<glm::vec2>(&camera->offset,
+                                                                                 &interp::Bounce::easeInOut);
+
     RenderInfo renderInfo;
     StateInfo stateInfo;
 

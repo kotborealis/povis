@@ -7,7 +7,8 @@
 
 namespace pse{
 
-template<> void Interpolator<glm::vec2>::update(){
+template<>
+bool Interpolator<glm::vec2>::update(){
     if(move_entity.duration > 0){
         auto _ = move_entity;
         glm::vec2 p(interpolation(_.current, _.start.x, _.target.x - _.start.x, _.duration),
@@ -18,10 +19,13 @@ template<> void Interpolator<glm::vec2>::update(){
         if(_.current >= _.duration){
             move_entity.duration = 0;
         }
+        return true;
     }
+    return false;
 }
 
-template<> void Interpolator<glm::vec3>::update(){
+template<>
+bool Interpolator<glm::vec3>::update(){
     if(move_entity.duration > 0){
         auto _ = move_entity;
         glm::vec3 p(interpolation(_.current, _.start.x, _.target.x - _.start.x, _.duration),
@@ -33,7 +37,9 @@ template<> void Interpolator<glm::vec3>::update(){
         if(_.current >= _.duration){
             move_entity.duration = 0;
         }
+        return true;
     }
+    return false;
 }
 
 }

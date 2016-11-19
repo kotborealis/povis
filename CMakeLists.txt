@@ -59,7 +59,7 @@ set(SOURCE_FILES
 
         src/game/xff2/Entity.h
         src/game/xff2/Entity.cpp
-        src/game/xff2/StateInfo.h src/game/xff2/Hitbox.cpp src/game/xff2/Hitbox.h src/game/xff2/GameStateGame.cpp src/game/xff2/GameStateGame.h src/game/xff2/Enemy.cpp src/game/xff2/Enemy.h src/game/xff2/EnemyGenericInvader.cpp src/game/xff2/EnemyGenericInvader.h src/game/xff2/BulletHell.cpp src/game/xff2/BulletHell.h src/game/xff2/BulletInstance.cpp src/game/xff2/BulletInstance.h src/game/xff2/BulletType.cpp src/game/xff2/BulletType.h src/Interpolation/Interpolator.h src/game/xff2/Player.cpp src/game/xff2/Player.h src/Interpolation/Interpolator.cpp src/render/Font.h src/render/Font.cpp)
+        src/game/xff2/StateInfo.h src/game/xff2/Hitbox.cpp src/game/xff2/Hitbox.h src/game/xff2/GameStateGame.cpp src/game/xff2/GameStateGame.h src/game/xff2/Enemy.cpp src/game/xff2/Enemy.h src/game/xff2/EnemyGenericInvader.cpp src/game/xff2/EnemyGenericInvader.h src/game/xff2/BulletHell.cpp src/game/xff2/BulletHell.h src/game/xff2/BulletInstance.cpp src/game/xff2/BulletInstance.h src/game/xff2/BulletType.cpp src/game/xff2/BulletType.h src/Interpolation/Interpolator.h src/game/xff2/Player.cpp src/game/xff2/Player.h src/Interpolation/Interpolator.cpp src/render/Font.h src/render/Font.cpp src/Interpolation/InterpolatorQueue.h)
 
 add_executable(povis ${SOURCE_FILES})
 
