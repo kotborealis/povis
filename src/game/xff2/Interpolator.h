@@ -68,6 +68,7 @@ void Interpolator<T>::cancel(){
 }
 
 template<> void Interpolator<glm::vec2>::update();
+template<> void Interpolator<glm::vec3>::update();
 
 template<typename T> void Interpolator<T>::update(){
     if(move_entity.duration > 0){
