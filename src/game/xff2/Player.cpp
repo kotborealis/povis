@@ -149,7 +149,7 @@ Player::Player(){
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
-            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 19, 0, 350));
+            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 19, 0, 20));
 }
 
 Player::~Player(){

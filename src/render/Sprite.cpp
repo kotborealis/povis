@@ -69,7 +69,8 @@ void Sprite::__init_sprite_system(){
 }
 
 Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, float scale):
-        Sprite::Sprite(texture, width, height, start, end, {scale * texture->ratio() / width, scale / height}){
+        Sprite::Sprite(texture, width, height, start, end,
+                       {scale * (texture->scale().y / height) / (texture->scale().x / width), scale}){
 
 }
 
