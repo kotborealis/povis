@@ -26,7 +26,9 @@ void EnemyGenericInvader::update(StateInfo* stateInfo){
             move_dir *= -1;
             moveInterp->offset(glm::vec2(0, -offset.y), (unsigned int)tick_per_move);
         }
-        moveInterp->offset(glm::vec2(offset.x * move_dir, 0), (unsigned int)tick_per_move);
+        else{
+            moveInterp->offset(glm::vec2(offset.x * move_dir, 0), (unsigned int)tick_per_move);
+        }
     }
 }
 
