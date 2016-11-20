@@ -3,18 +3,26 @@
 //
 
 #include <Interpolation/Quad.h>
+#include <render/Font.h>
 #include "Player.h"
 
 namespace pse{
 
 
 void Player::draw(RenderInfo* renderInfo) const{
-    Entity::draw(renderInfo);
+    if(hit_cooldown == 0 || hit_cooldown % 3 != 1)
+        Entity::draw(renderInfo);
     bulletHell.draw(renderInfo);
+
+    renderInfo->framebufferUI->bind();
+    renderInfo->position = pos() + glm::vec2(20, -40);
+    lives_ui_string->draw(renderInfo);
 }
 
 void Player::update(StateInfo* stateInfo){
     bulletHell.update(stateInfo);
+
+    if(hit_cooldown > 0) hit_cooldown--;
 
     velocityInterpXAcc->update();
     velocityInterpYAcc->update();
@@ -140,6 +148,8 @@ Player::Player(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
     m_hitbox = new Hitbox(15);
 
+    lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
+
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
     velocityInterpXDec = new Interpolator<float>(&velocity.x, interp::Expo::easeOut);
@@ -158,5 +168,18 @@ Player::~Player(){
 
 glm::vec2 Player::vel() const{
     return velocity;
+}
+
+void Player::hit(){
+    if(hit_cooldown == 0){
+        lives--;
+        delete lives_ui_string;
+        lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
+        hit_cooldown = base_hit_cooldown;
+    }
+}
+
+unsigned short Player::getLives() const{
+    return lives;
 }
 }

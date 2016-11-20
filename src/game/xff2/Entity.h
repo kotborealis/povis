@@ -29,7 +29,7 @@ public:
 	const float& rotation() const;
 	void rotation(float _rotation);
 
-    const Hitbox* hitbox() const;
+	Hitbox* hitbox() const;
 
 protected:
 	uint64_t tick = 0;

@@ -18,7 +18,11 @@ public:
     void update(StateInfo* stateInfo) override;
     void handleEvent(SDL_Event* event);
 
+    void hit();
+
     glm::vec2 vel() const;
+
+    unsigned short getLives() const;
 
     BulletHell bulletHell;
 
@@ -28,7 +32,7 @@ protected:
     const unsigned acceleration_ticks = 2;
     const unsigned deceleration_ticks = 4;
 
-    float base_velocity = 10.f;
+    const float base_velocity = 10.f;
     glm::vec2 velocity = glm::vec2(0, 0);
     Interpolator<float>* velocityInterpXAcc;
     Interpolator<float>* velocityInterpYAcc;
@@ -41,11 +45,15 @@ protected:
 
     glm::vec4 move_direction = {0, 0, 0, 0};
 
-    unsigned base_shoot_cooldown = 40;
+    const unsigned base_shoot_cooldown = 40;
     unsigned shoot_cooldown = 0;
     bool shooting = false;
 
-    unsigned lives = 3;
+    unsigned short lives = 3;
+    Font::String* lives_ui_string;
+
+    const unsigned base_hit_cooldown = 60;
+    unsigned hit_cooldown = 0;
 };
 
 }

@@ -24,9 +24,10 @@ const glm::vec2& Entity::pos() const {
 
 void Entity::pos(glm::vec2 _pos){
     m_pos = _pos;
+    hitbox()->pos(_pos);
 }
 
-const Hitbox* Entity::hitbox() const{
+Hitbox* Entity::hitbox() const{
     return m_hitbox;
 }
 
@@ -35,7 +36,7 @@ Entity::Entity() {
 }
 
 Entity::~Entity() {
-
+    delete m_hitbox;
 }
 
 const float& Entity::rotation() const{

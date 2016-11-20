@@ -34,11 +34,28 @@ GameStateGame::GameStateGame(){
 }
 
 GameStateGame::~GameStateGame(){
-
+    delete camera;
+    delete shakeInterp;
+    delete player_death;
+    for(auto* item : enemies){
+        delete item;
+    }
+    delete player;
+    delete background;
+    delete bullet01;
 }
 
 void GameStateGame::handleEvent(SDL_Event* event){
-    player->handleEvent(event);
+    if(!player_dead)
+        player->handleEvent(event);
+
+    if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r){
+        hold_to_restart_active = true;
+    }
+    if(event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_r){
+        hold_to_restart_active = false;
+        hold_to_restart = 0;
+    }
 }
 
 void GameStateGame::update(float delta){
@@ -46,18 +63,48 @@ void GameStateGame::update(float delta){
 
     stateInfo.tick++;
 
-    player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
-        for(auto&& enemy : enemies){
-            if(enemy->state() == Enemy::state_enum::ALIVE && enemy->hitbox()->collision(*bullet->hitbox)){
-                enemy->kill();
-                return true;
-            }
+    if(hold_to_restart_active){
+        if(++hold_to_restart >= base_hold_to_restart){
+            GameState* _ = new GameStateGame();
+            Game::i().setState(_);
+            return;
         }
-        return false;
-    });
+    }
+
+    if(!player_dead){
+        player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+            for(auto&& enemy : enemies){
+                if(enemy->state() == Enemy::state_enum::ALIVE && enemy->hitbox()->collision(*bullet->hitbox)){
+                    enemy->kill();
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
     enemies.remove_if([](Enemy* enemy){
         return enemy->state() == Enemy::state_enum::DEAD;
     });
+
+    if(!player_dead){
+        bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+            if(player->hitbox()->collision(*bullet->hitbox)){
+                player->hit();
+                return true;
+            }
+            return false;
+        });
+
+        for(auto&& item : enemies){
+            if(player->hitbox()->collision(*item->hitbox())){
+                player->hit();
+            }
+        }
+    }
+
+    if(player->getLives() == 0){
+        player_dead = true;
+    }
 
     if(spawn_bullet_timeout > 0) spawn_bullet_timeout--;
 
@@ -79,7 +126,10 @@ void GameStateGame::update(float delta){
             bulletHell.push(i);
         }
     }
-    player->update(&stateInfo);
+
+
+    if(!player_dead)
+        player->update(&stateInfo);
     bulletHell.update(&stateInfo);
 
 
@@ -134,11 +184,16 @@ void GameStateGame::draw(){
     background->draw(&renderInfo);
 
     bulletHell.draw(&renderInfo);
-
     for(auto&& item : enemies){
         item->draw(&renderInfo);
     }
-    player->draw(&renderInfo);
+    if(!player_dead){
+        player->draw(&renderInfo);
+    }else{
+        renderInfo.framebufferUI->bind();
+        renderInfo.position = {-500, -380};
+        player_death->draw(&renderInfo);
+    }
 
     Game::i().render()->deferred(&renderInfo);
     Game::i().render()->swap();

@@ -34,6 +34,13 @@ private:
     InterpolatorQueue<glm::vec2>* shakeInterp = new InterpolatorQueue<glm::vec2>(&camera->offset,
                                                                                  &interp::Bounce::easeInOut);
 
+    bool player_dead = false;
+    Font::String* player_death = Font::Default->string("You're dead.\nHold R to try again.");
+
+    const unsigned base_hold_to_restart = 60;
+    unsigned hold_to_restart = 0;
+    bool hold_to_restart_active = false;
+
     const unsigned base_shake_timeout = 15;
     unsigned shake_timeout = 0;
 

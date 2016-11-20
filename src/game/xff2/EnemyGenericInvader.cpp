@@ -15,7 +15,7 @@ EnemyGenericInvader::EnemyGenericInvader(int sprite_n){
 }
 
 EnemyGenericInvader::~EnemyGenericInvader(){
-    delete m_bullet01;
+
 }
 
 void EnemyGenericInvader::update(StateInfo* stateInfo){
