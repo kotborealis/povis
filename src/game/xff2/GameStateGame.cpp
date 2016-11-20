@@ -15,6 +15,11 @@ GameStateGame::GameStateGame(){
     renderInfo.framebufferDefault = std::unique_ptr<Framebuffer>(new Framebuffer());
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
+    fadeInShader = ResourceShader->load("assets/common/shaders/default.vert", "assets/xff2/shaders/fadein.frag");
+    fadeInSprite = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 0);
+    fadeInSprite->custom_shader = fadeInShader;
+    fadeInInterp->target(100, 60);
+
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
     bullet01 = new BulletType();
@@ -133,6 +138,8 @@ void GameStateGame::update(float delta){
     bulletHell.update(&stateInfo);
 
 
+    fadeInInterp->update();
+
     /*
      * Screen shake
      */
@@ -194,6 +201,11 @@ void GameStateGame::draw(){
         renderInfo.position = {-500, -380};
         player_death->draw(&renderInfo);
     }
+
+    renderInfo.framebufferDefault->bind();
+    fadeInShader->bind();
+    fadeInShader->uniform("step", fadeInStep / 100.f);
+    fadeInSprite->draw(&renderInfo);
 
     Game::i().render()->deferred(&renderInfo);
     Game::i().render()->swap();

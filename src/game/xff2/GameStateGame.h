@@ -57,6 +57,11 @@ private:
     Sprite* background;
     BulletType* bullet01;
 
+    Shader::Ptr fadeInShader;
+    Sprite* fadeInSprite;
+    float fadeInStep = 0;
+    Interpolator<float>* fadeInInterp = new Interpolator<float>(&fadeInStep, &interp::Expo::easeOut);
+
     const unsigned base_spawn_bullet_timeout = 30;
     unsigned spawn_bullet_timeout = 0;
 };
