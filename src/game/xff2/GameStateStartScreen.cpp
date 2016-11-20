@@ -65,8 +65,12 @@ void GameStateStartScreen::update(float delta){
 
     if(fade_to_game > 0) fade_to_game--;
     else if(fade_to_game == 0 && fading_to_game){
+        fade_to_game = 0;
+        fading_to_game = false;
+        fadeInOutStep = 0;
+        fadeInOutInterp->target(100, 60);
         GameState* _ = new GameStateGame();
-        Game::i().setState(_);
+        Game::i().pushState(_);
     }
 }
 
@@ -88,7 +92,7 @@ void GameStateStartScreen::draw(){
 
     renderInfo.framebufferUI->bind();
     fadeInOutShader->bind();
-    fadeInOutShader->uniform("step", fadeInStep / 100.f);
+    fadeInOutShader->uniform("step", fadeInOutStep / 100.f);
     fadeInOutSprite->draw(&renderInfo);
 
     Game::i().render()->deferred(&renderInfo);

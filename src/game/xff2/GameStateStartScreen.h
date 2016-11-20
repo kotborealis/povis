@@ -40,8 +40,8 @@ private:
 
     Shader::Ptr fadeInOutShader;
     Sprite* fadeInOutSprite;
-    float fadeInStep = 0;
-    Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInStep, &interp::Expo::easeOut);
+    float fadeInOutStep = 0;
+    Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInOutStep, &interp::Expo::easeOut);
 
     const unsigned base_fade_to_game = 60;
     unsigned fade_to_game = 0;

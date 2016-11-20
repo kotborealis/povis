@@ -49,6 +49,10 @@ void GameStateGame::handleEvent(SDL_Event* event){
     if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r){
         hold_to_restart_active = true;
     }
+    if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE){
+        Game::i().popState();
+        return;
+    }
     if(event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_r){
         hold_to_restart_active = false;
         hold_to_restart = 0;
@@ -65,6 +69,7 @@ void GameStateGame::update(float delta){
     if(hold_to_restart_active){
         if(++hold_to_restart >= base_hold_to_restart){
             hold_to_restart = 0;
+            hold_to_restart_active = false;
             fade_to_game = base_fade_to_game;
             fading_to_game = true;
             fadeInOutInterp->target(0, base_fade_to_game);
