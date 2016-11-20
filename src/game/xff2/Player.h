@@ -31,6 +31,8 @@ public:
     BulletHell bulletHell;
 
 protected:
+    Interpolator<glm::vec2>* moveInterp;
+
     enum ControlActionEnum{act_move_up, act_move_down, act_move_left, act_move_right, act_shoot, act_none};
     enum ControlEventEnum{e_key_up, e_key_down, e_none};
 

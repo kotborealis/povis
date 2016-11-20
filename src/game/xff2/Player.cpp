@@ -30,6 +30,7 @@ void Player::update(StateInfo* stateInfo){
     bulletHell.update(stateInfo);
 
     rotation_interp->update();
+    moveInterp->update();
 
     if(isAlive()){
         if(hit_cooldown > 0) hit_cooldown--;
@@ -180,6 +181,8 @@ Player::Player(){
 
     lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
 
+    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Expo::easeInOut);
+
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
     velocityInterpXDec = new Interpolator<float>(&velocity.x, interp::Expo::easeOut);
@@ -213,6 +216,8 @@ bool Player::hit(){
             velocityInterpYAcc->cancel();
             velocityInterpXDec->cancel();
             velocityInterpYDec->cancel();
+            rotation_interp->target(360 * 10, 120);
+            moveInterp->target({0, 1000}, 120);
         }
         return true;
     }
