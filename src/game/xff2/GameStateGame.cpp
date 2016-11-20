@@ -38,11 +38,6 @@ GameStateGame::~GameStateGame(){
 }
 
 void GameStateGame::handleEvent(SDL_Event* event){
-    if(event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_q){
-        shakeInterp->push_target({10, 10}, 5);
-        shakeInterp->push_target({-10, -10}, 5);
-        shakeInterp->push_target({0, 0}, 5);
-    }
     player->handleEvent(event);
 }
 

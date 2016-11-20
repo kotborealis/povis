@@ -37,7 +37,7 @@ private:
     const unsigned base_shake_timeout = 15;
     unsigned shake_timeout = 0;
 
-    const glm::vec2 shake_offset = glm::vec2(5, 5);
+    const glm::vec2 shake_offset = glm::vec2(2, 2);
 
     RenderInfo renderInfo;
     StateInfo stateInfo;
