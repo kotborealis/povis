@@ -36,7 +36,7 @@ Entity::Entity() {
 }
 
 Entity::~Entity() {
-    delete m_hitbox;
+
 }
 
 const float& Entity::rotation() const{

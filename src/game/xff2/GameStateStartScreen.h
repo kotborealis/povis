@@ -37,6 +37,15 @@ private:
     Sprite* background;
     Font::String* game_name;
     Font::String* start_button;
+
+    Shader::Ptr fadeInOutShader;
+    Sprite* fadeInOutSprite;
+    float fadeInStep = 0;
+    Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInStep, &interp::Expo::easeOut);
+
+    const unsigned base_fade_to_game = 60;
+    unsigned fade_to_game = 0;
+    bool fading_to_game = false;
 };
 
 }

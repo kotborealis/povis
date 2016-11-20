@@ -61,10 +61,14 @@ private:
     Sprite* background;
     BulletType* bullet01;
 
-    Shader::Ptr fadeInShader;
-    Sprite* fadeInSprite;
+    Shader::Ptr fadeInOutShader;
+    Sprite* fadeInOutSprite;
     float fadeInStep = 0;
-    Interpolator<float>* fadeInInterp = new Interpolator<float>(&fadeInStep, &interp::Expo::easeOut);
+    Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInStep, &interp::Expo::easeOut);
+
+    const unsigned base_fade_to_game = 60;
+    unsigned fade_to_game = 0;
+    bool fading_to_game = false;
 
     const unsigned base_spawn_bullet_timeout = 30;
     unsigned spawn_bullet_timeout = 0;
