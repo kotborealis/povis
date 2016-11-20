@@ -16,6 +16,7 @@ WindowManager::WindowManager(std::string& title, unsigned int width, unsigned in
 }
 
 WindowManager::~WindowManager(){
+    SDL_GL_DeleteContext(gl_context);
     SDL_DestroyWindow(sdl_window);
     IMG_Quit();
     SDL_Quit();
