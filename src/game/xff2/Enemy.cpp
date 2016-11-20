@@ -23,12 +23,12 @@ void Enemy::draw(RenderInfo* renderInfo) const{
 }
 
 void Enemy::update(StateInfo* stateInfo){
-    if(m_state == DEAD){
+    if(m_state == ENEMY_STATE_DEAD){
         return;
-    }else if(m_state == DEATH_ANIMATION && death_anim_leave_ticks > 0){
+    }else if(m_state == ENEMY_STATE_DEATH_ANIMATION && death_anim_leave_ticks > 0){
         death_anim_rotation_interp->update();
         if(--death_anim_leave_ticks == 0){
-            m_state = DEAD;
+            m_state = ENEMY_STATE_DEAD;
         }
     }
 
@@ -43,10 +43,10 @@ bool Enemy::isBoss() const{
 
 
 void Enemy::kill(){
-    if(m_state == DEAD || m_state == DEATH_ANIMATION)
+    if(m_state == ENEMY_STATE_DEAD || m_state == ENEMY_STATE_DEATH_ANIMATION)
         return;
 
-    m_state = DEATH_ANIMATION;
+    m_state = ENEMY_STATE_DEATH_ANIMATION;
 
     death_anim_leave_ticks = base_death_anim_leave_ticks;
     moveInterp->target({0, 1000}, base_death_anim_leave_ticks);

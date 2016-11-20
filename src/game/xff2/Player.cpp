@@ -10,41 +10,50 @@ namespace pse{
 
 
 void Player::draw(RenderInfo* renderInfo) const{
-    if(hit_cooldown == 0 || hit_cooldown % 3 != 1)
+    if(m_state == PLAYER_STATE_HIT_ANIMATION){
+        if(hit_cooldown % 3 != 1){
+            Entity::draw(renderInfo);
+        }
+    }else{
         Entity::draw(renderInfo);
+    }
     bulletHell.draw(renderInfo);
 
-    renderInfo->framebufferUI->bind();
-    renderInfo->position = pos() + glm::vec2(20, -40);
-    lives_ui_string->draw(renderInfo);
+    if(isAlive()){
+        renderInfo->framebufferUI->bind();
+        renderInfo->position = pos() + glm::vec2(20, -40);
+        lives_ui_string->draw(renderInfo);
+    }
 }
 
 void Player::update(StateInfo* stateInfo){
     bulletHell.update(stateInfo);
 
-    if(hit_cooldown > 0) hit_cooldown--;
-
-    velocityInterpXAcc->update();
-    velocityInterpYAcc->update();
-    velocityInterpXDec->update();
-    velocityInterpYDec->update();
-
     rotation_interp->update();
 
-    if(velocity.x != 0 || velocity.y != 0)
-        pos(pos() + glm::normalize(velocity) * base_velocity);
+    if(isAlive()){
+        if(hit_cooldown > 0) hit_cooldown--;
 
-    if(shoot_cooldown > 0){
-        shoot_cooldown--;
-    }else if(shooting){
-        BulletInstance* i = new BulletInstance();
-        i->pos = pos();
-        i->vel = {0, 5};
-        i->hitbox = new Hitbox(10);
-        i->hitbox->pos(pos());
-        i->type = bullet01;
-        bulletHell.push(i);
-        shoot_cooldown = base_shoot_cooldown;
+        velocityInterpXAcc->update();
+        velocityInterpYAcc->update();
+        velocityInterpXDec->update();
+        velocityInterpYDec->update();
+
+        if(velocity.x != 0 || velocity.y != 0)
+            pos(pos() + glm::normalize(velocity) * base_velocity);
+
+        if(shoot_cooldown > 0){
+            shoot_cooldown--;
+        }else if(shooting){
+            BulletInstance* i = new BulletInstance();
+            i->pos = pos();
+            i->vel = {0, 5};
+            i->hitbox = new Hitbox(10);
+            i->hitbox->pos(pos());
+            i->type = bullet01;
+            bulletHell.push(i);
+            shoot_cooldown = base_shoot_cooldown;
+        }
     }
 
     Entity::update(stateInfo);
@@ -80,8 +89,7 @@ void Player::handleEvent(SDL_Event* event){
                 break;
         }
     }
-
-    if(control_event == e_key_down){
+    if(isAlive() && control_event == e_key_down){
         switch(control){
             case act_move_up:
                 move_direction.r = 1;
@@ -111,7 +119,7 @@ void Player::handleEvent(SDL_Event* event){
             default:
                 break;
         }
-    }else if(control_event == e_key_up){
+    }else if(isAlive() && control_event == e_key_up){
         switch(control){
             case act_move_up:
                 move_direction.r = 0;
@@ -170,7 +178,7 @@ Player::Player(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
     m_hitbox = new Hitbox(15);
 
-    lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
+    lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
 
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
@@ -193,18 +201,34 @@ glm::vec2 Player::vel() const{
 }
 
 bool Player::hit(){
-    if(hit_cooldown == 0){
-        lives--;
+    if(isAlive() && hit_cooldown == 0){
+        m_lives--;
         delete lives_ui_string;
-        lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
+        lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
         hit_cooldown = base_hit_cooldown;
+        m_state = PLAYER_STATE_HIT_ANIMATION;
+        if(m_lives == 0){
+            m_state = PLAYER_STATE_DEATH_ANIMATION;
+            velocityInterpXAcc->cancel();
+            velocityInterpYAcc->cancel();
+            velocityInterpXDec->cancel();
+            velocityInterpYDec->cancel();
+        }
         return true;
     }
     return false;
 }
 
-unsigned short Player::getLives() const{
-    return lives;
+unsigned short Player::lives() const{
+    return m_lives;
+}
+
+Player::state_enum Player::state() const{
+    return m_state;
+}
+
+bool Player::isAlive() const{
+    return m_state != PLAYER_STATE_DEATH_ANIMATION && m_state != PLAYER_STATE_DEAD;
 }
 
 }

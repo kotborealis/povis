@@ -11,6 +11,8 @@ namespace pse{
 
 class Player:public Entity{
 public:
+    enum state_enum{PLAYER_STATE_ALIVE, PLAYER_STATE_HIT_ANIMATION, PLAYER_STATE_DEATH_ANIMATION, PLAYER_STATE_DEAD};
+
     Player();
     virtual ~Player();
 
@@ -21,8 +23,10 @@ public:
     bool hit();
 
     glm::vec2 vel() const;
+    unsigned short lives() const;
+    state_enum state() const;
 
-    unsigned short getLives() const;
+    bool isAlive() const;
 
     BulletHell bulletHell;
 
@@ -52,11 +56,13 @@ protected:
     unsigned shoot_cooldown = 0;
     bool shooting = false;
 
-    unsigned short lives = 3;
+    unsigned short m_lives = 3;
     Font::String* lives_ui_string;
 
     const unsigned base_hit_cooldown = 60;
     unsigned hit_cooldown = 0;
+
+    state_enum m_state = PLAYER_STATE_ALIVE;
 };
 
 }

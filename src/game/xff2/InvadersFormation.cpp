@@ -33,8 +33,8 @@ void InvadersFormation::draw(RenderInfo* renderInfo) const{}
 void InvadersFormation::update(StateInfo* stateInfo){
     tick++;
     for(auto&& item : enemies){
-        if(item->enemy->state() == Enemy::state_enum::DEAD ||
-           item->enemy->state() == Enemy::state_enum::DEATH_ANIMATION){
+        if(item->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEAD ||
+           item->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
             item->interp->cancel();
         }
     }
@@ -49,8 +49,8 @@ void InvadersFormation::update(StateInfo* stateInfo){
     }
     for(auto&& item : enemies){
         item->enemy->update(stateInfo);
-        if(item->enemy->state() != Enemy::state_enum::DEAD &&
-           item->enemy->state() != Enemy::state_enum::DEATH_ANIMATION){
+        if(item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEAD &&
+           item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
             item->interp->update();
             if(tick % ticks_per_move == 0){
                 item->interp->offset({direction * offsets.x, 0}, ticks_per_move);

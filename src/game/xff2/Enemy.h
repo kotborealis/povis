@@ -11,7 +11,7 @@ namespace pse{
 
 class Enemy:public Entity{
 public:
-    enum state_enum{ALIVE, DEATH_ANIMATION, DEAD};
+    enum state_enum{ENEMY_STATE_ALIVE, ENEMY_STATE_DEATH_ANIMATION, ENEMY_STATE_DEAD};
 
     Enemy();
     virtual ~Enemy();
@@ -34,7 +34,7 @@ protected:
 
     BulletHell bulletHell;
 
-    state_enum m_state = ALIVE;
+    state_enum m_state = ENEMY_STATE_ALIVE;
     unsigned base_death_anim_leave_ticks = 60;
     unsigned death_anim_leave_ticks = 0;
 

@@ -43,7 +43,7 @@ GameStateGame::~GameStateGame(){
 }
 
 void GameStateGame::handleEvent(SDL_Event* event){
-    if(!player_dead)
+    if(player->isAlive())
         player->handleEvent(event);
 
     if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r){
@@ -60,7 +60,7 @@ void GameStateGame::update(float delta){
 
     stateInfo.tick++;
 
-    if(!player_dead && !player_won && score > 0) score -= score_penalty_per_tick;
+    if(player->isAlive() && !player_won && score > 0) score -= score_penalty_per_tick;
 
     if(hold_to_restart_active){
         if(++hold_to_restart >= base_hold_to_restart){
@@ -78,11 +78,12 @@ void GameStateGame::update(float delta){
         return;
     }
 
-    if(!player_dead && !player_won){
+    if(player->isAlive() && !player_won){
         player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
             for(auto&& invadersFormationEntity : invadersFormation->enemies){
                 auto enemy = invadersFormationEntity->enemy;
-                if(enemy->state() == Enemy::state_enum::ALIVE && enemy->hitbox()->collision(*bullet->hitbox)){
+                if(enemy->state() == Enemy::state_enum::ENEMY_STATE_ALIVE &&
+                   enemy->hitbox()->collision(*bullet->hitbox)){
                     enemy->kill();
                     score += score_per_enemy;
                     invadersFormation->ticks_per_move -= 2;
@@ -93,10 +94,10 @@ void GameStateGame::update(float delta){
         });
     }
     invadersFormation->enemies.remove_if([](InvadersFormation::InvadersFormationEntity* enemy){
-        return enemy->enemy->state() == Enemy::state_enum::DEAD;
+        return enemy->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEAD;
     });
 
-    if(!player_dead && !player_won){
+    if(player->isAlive() && !player_won){
         bulletHell.bullets.remove_if([this](BulletInstance* bullet){
             if(player->hitbox()->collision(*bullet->hitbox)){
                 if(player->hit())
@@ -114,9 +115,6 @@ void GameStateGame::update(float delta){
         }
     }
 
-    if(player->getLives() == 0){
-        player_dead = true;
-    }
 
     if(spawn_bullet_timeout > 0) spawn_bullet_timeout--;
 
@@ -124,7 +122,7 @@ void GameStateGame::update(float delta){
     for(auto&& item : invadersFormation->enemies){
         item->enemy->update(&stateInfo);
         j++;
-        if(spawn_bullet_timeout == 0 && rand() % invadersFormation->enemies.size() + 1 == j){
+        if(player->isAlive() && spawn_bullet_timeout == 0 && rand() % invadersFormation->enemies.size() + 1 == j){
             spawn_bullet_timeout = base_spawn_bullet_timeout;
 
             float angle_to_player = (float)atan2(item->enemy->pos().x - player->pos().x,
@@ -141,8 +139,7 @@ void GameStateGame::update(float delta){
     }
 
 
-    if(!player_dead)
-        player->update(&stateInfo);
+    player->update(&stateInfo);
     bulletHell.update(&stateInfo);
 
     invadersFormation->constrains.x = camera->getViewport(ratio).y;
@@ -158,36 +155,38 @@ void GameStateGame::update(float delta){
     if(shake_timeout != 0)
         shake_timeout--;
 
-    if(player->pos().y < -viewport_h){
-        if(shake_timeout == 0 && player->vel().y < 0){
-            shakeInterp->push_offset({0, -shake_offset.y}, 5);
-            shakeInterp->push_target({0, shake_offset.y}, 5);
-            shake_timeout = base_shake_timeout;
+    if(player->isAlive()){
+        if(player->pos().y < -viewport_h){
+            if(shake_timeout == 0 && player->vel().y < 0){
+                shakeInterp->push_offset({0, -shake_offset.y}, 5);
+                shakeInterp->push_target({0, shake_offset.y}, 5);
+                shake_timeout = base_shake_timeout;
+            }
+            player->pos({player->pos().x, -viewport_h});
+        }else if(player->pos().y > viewport_h){
+            if(shake_timeout == 0 && player->vel().y > 0){
+                shakeInterp->push_offset({0, shake_offset.y}, 5);
+                shakeInterp->push_target({0, -shake_offset.y}, 5);
+                shake_timeout = base_shake_timeout;
+            }
+            player->pos({player->pos().x, viewport_h});
         }
-        player->pos({player->pos().x, -viewport_h});
-    }else if(player->pos().y > viewport_h){
-        if(shake_timeout == 0 && player->vel().y > 0){
-            shakeInterp->push_offset({0, shake_offset.y}, 5);
-            shakeInterp->push_target({0, -shake_offset.y}, 5);
-            shake_timeout = base_shake_timeout;
-        }
-        player->pos({player->pos().x, viewport_h});
-    }
 
-    if(player->pos().x < camera->getViewport(ratio).x){
-        if(shake_timeout == 0 && player->vel().x < 0){
-            shakeInterp->push_offset({-shake_offset.x, 0}, 5);
-            shakeInterp->push_target({shake_offset.x, 0}, 5);
-            shake_timeout = base_shake_timeout;
+        if(player->pos().x < camera->getViewport(ratio).x){
+            if(shake_timeout == 0 && player->vel().x < 0){
+                shakeInterp->push_offset({-shake_offset.x, 0}, 5);
+                shakeInterp->push_target({shake_offset.x, 0}, 5);
+                shake_timeout = base_shake_timeout;
+            }
+            player->pos({camera->getViewport(ratio).x, player->pos().y});
+        }else if(player->pos().x > camera->getViewport(ratio).y){
+            if(shake_timeout == 0 && player->vel().x > 0){
+                shakeInterp->push_offset({shake_offset.x, 0}, 5);
+                shakeInterp->push_target({-shake_offset.x, 0}, 5);
+                shake_timeout = base_shake_timeout;
+            }
+            player->pos({camera->getViewport(ratio).y, player->pos().y});
         }
-        player->pos({camera->getViewport(ratio).x, player->pos().y});
-    }else if(player->pos().x > camera->getViewport(ratio).y){
-        if(shake_timeout == 0 && player->vel().x > 0){
-            shakeInterp->push_offset({shake_offset.x, 0}, 5);
-            shakeInterp->push_target({-shake_offset.x, 0}, 5);
-            shake_timeout = base_shake_timeout;
-        }
-        player->pos({camera->getViewport(ratio).y, player->pos().y});
     }
 
     if(invadersFormation->enemies.size() == 0){
@@ -208,9 +207,8 @@ void GameStateGame::draw(){
     for(auto&& item : invadersFormation->enemies){
         item->enemy->draw(&renderInfo);
     }
-    if(!player_dead){
-        player->draw(&renderInfo);
-    }else{
+    player->draw(&renderInfo);
+    if(!player->isAlive()){
         renderInfo.framebufferUI->bind();
         renderInfo.position = {-500, -380};
         player_death->draw(&renderInfo);

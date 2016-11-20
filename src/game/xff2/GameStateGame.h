@@ -35,7 +35,6 @@ private:
     InterpolatorQueue<glm::vec2>* shakeInterp = new InterpolatorQueue<glm::vec2>(&camera->offset,
                                                                                  &interp::Bounce::easeInOut);
 
-    bool player_dead = false;
     Font::String* player_death = Font::Default->string("You're dead.\nHold R to try again.");
 
     bool player_won = false;
