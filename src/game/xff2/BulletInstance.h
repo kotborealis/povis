@@ -18,6 +18,7 @@ public:
     unsigned ttl = 1000;
     glm::vec2 pos;
     glm::vec2 vel;
+    float angle = 0;
     Hitbox* hitbox = nullptr;
     BulletType* type = nullptr;
 };

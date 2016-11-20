@@ -4,7 +4,6 @@
 
 #include <Game.h>
 #include "GameStateGame.h"
-#include "EnemyGenericInvader.h"
 
 namespace pse{
 
@@ -17,6 +16,10 @@ GameStateGame::GameStateGame(){
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
+
+    bullet01 = new BulletType();
+    bullet01->sprite = std::unique_ptr<Sprite>(
+            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 34 - 16, 0, 20));
 
     player = new Player();
     player->pos({0, -400});
@@ -60,10 +63,29 @@ void GameStateGame::update(float delta){
     enemies.remove_if([](Enemy* enemy){
         return enemy->state() == Enemy::state_enum::DEAD;
     });
+
+    if(spawn_bullet_timeout > 0) spawn_bullet_timeout--;
+
+    int j = 0;
     for(auto&& item : enemies){
         item->update(&stateInfo);
+        j++;
+        if(spawn_bullet_timeout == 0 && rand() % enemies.size() + 1 == j){
+            spawn_bullet_timeout = base_spawn_bullet_timeout;
+
+            float angle_to_player = (float)atan2(item->pos().x - player->pos().x, item->pos().y - player->pos().y);
+            BulletInstance* i = new BulletInstance();
+            i->pos = item->pos();
+            i->vel = glm::vec2(glm::sin(angle_to_player), glm::cos(angle_to_player)) * -5.f;
+            i->angle = -angle_to_player * 180.f / 3.14f + 180;
+            i->hitbox = new Hitbox(10);
+            i->hitbox->pos(item->pos());
+            i->type = bullet01;
+            bulletHell.push(i);
+        }
     }
     player->update(&stateInfo);
+    bulletHell.update(&stateInfo);
 
 
     /*
@@ -115,6 +137,8 @@ void GameStateGame::draw(){
     renderInfo.framebufferDefault->bind();
     renderInfo.position = glm::vec2(0, 0);
     background->draw(&renderInfo);
+
+    bulletHell.draw(&renderInfo);
 
     for(auto&& item : enemies){
         item->draw(&renderInfo);

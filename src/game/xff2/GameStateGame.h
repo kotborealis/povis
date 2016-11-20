@@ -14,6 +14,7 @@
 #include "StateInfo.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyGenericInvader.h"
 
 namespace pse{
 
@@ -41,10 +42,16 @@ private:
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
-    std::list<Enemy*> enemies;
+    std::list<EnemyGenericInvader*> enemies;
     Player* player;
 
+    BulletHell bulletHell;
+
     Sprite* background;
+    BulletType* bullet01;
+
+    const unsigned base_spawn_bullet_timeout = 30;
+    unsigned spawn_bullet_timeout = 0;
 };
 
 }

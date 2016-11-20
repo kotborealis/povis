@@ -18,6 +18,7 @@ BulletType::~BulletType(){
 void BulletType::render(RenderInfo *renderInfo, BulletInstance *bulletInstance){
     renderInfo->framebufferDefault->bind();
     renderInfo->position = bulletInstance->pos;
+    renderInfo->rotation = bulletInstance->angle;
 
     if(sprite->custom_shader){
         sprite->custom_shader->uniform("tick", bulletInstance->tick);

@@ -138,7 +138,7 @@ void Player::handleEvent(SDL_Event* event){
 
 Player::Player(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
-    m_hitbox = new Hitbox(20);
+    m_hitbox = new Hitbox(15);
 
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);

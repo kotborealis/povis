@@ -16,7 +16,6 @@ public:
     void update(StateInfo* stateInfo) override;
     void draw(RenderInfo* renderInfo) const override;
 
-
 private:
     BulletType* m_bullet01;
 
@@ -25,6 +24,9 @@ private:
 
     const int tick_per_move = 60;
     const glm::vec2 offset = {60, 60};
+
+    unsigned base_shoot_cooldown = 40;
+    unsigned shoot_cooldown = 0;
 };
 
 }
