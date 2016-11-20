@@ -74,15 +74,15 @@ void GameStateGame::update(float delta){
     if(shake_timeout != 0)
         shake_timeout--;
 
-    if(player->pos().y < -viewport_h && player->vel().y < 0){
-        if(shake_timeout == 0){
+    if(player->pos().y < -viewport_h){
+        if(shake_timeout == 0 && player->vel().y < 0){
             shakeInterp->push_offset({0, -shake_offset.y}, 5);
             shakeInterp->push_target({0, shake_offset.y}, 5);
             shake_timeout = base_shake_timeout;
         }
         player->pos({player->pos().x, -viewport_h});
-    }else if(player->pos().y > viewport_h && player->vel().y > 0){
-        if(shake_timeout == 0){
+    }else if(player->pos().y > viewport_h){
+        if(shake_timeout == 0 && player->vel().y > 0){
             shakeInterp->push_offset({0, shake_offset.y}, 5);
             shakeInterp->push_target({0, -shake_offset.y}, 5);
             shake_timeout = base_shake_timeout;
@@ -90,15 +90,15 @@ void GameStateGame::update(float delta){
         player->pos({player->pos().x, viewport_h});
     }
 
-    if(player->pos().x < camera->getViewport(ratio).x && player->vel().x < 0){
-        if(shake_timeout == 0){
+    if(player->pos().x < camera->getViewport(ratio).x){
+        if(shake_timeout == 0 && player->vel().x < 0){
             shakeInterp->push_offset({-shake_offset.x, 0}, 5);
             shakeInterp->push_target({shake_offset.x, 0}, 5);
             shake_timeout = base_shake_timeout;
         }
         player->pos({camera->getViewport(ratio).x, player->pos().y});
-    }else if(player->pos().x > camera->getViewport(ratio).y && player->vel().x > 0){
-        if(shake_timeout == 0){
+    }else if(player->pos().x > camera->getViewport(ratio).y){
+        if(shake_timeout == 0 && player->vel().x > 0){
             shakeInterp->push_offset({shake_offset.x, 0}, 5);
             shakeInterp->push_target({-shake_offset.x, 0}, 5);
             shake_timeout = base_shake_timeout;
