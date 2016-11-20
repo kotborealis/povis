@@ -27,6 +27,9 @@ public:
     BulletHell bulletHell;
 
 protected:
+    enum ControlActionEnum{act_move_up, act_move_down, act_move_left, act_move_right, act_shoot, act_none};
+    enum ControlEventEnum{e_key_up, e_key_down, e_none};
+
     BulletType* bullet01;
 
     const unsigned acceleration_ticks = 2;

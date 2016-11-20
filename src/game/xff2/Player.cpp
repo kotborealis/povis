@@ -51,44 +51,69 @@ void Player::update(StateInfo* stateInfo){
 }
 
 void Player::handleEvent(SDL_Event* event){
-    if(event->type == SDL_KEYDOWN){
+    ControlActionEnum control = act_none;
+    ControlEventEnum control_event = e_none;
+    if(event->type == SDL_KEYDOWN || event->type == SDL_KEYUP){
+        control_event = event->type == SDL_KEYDOWN ? e_key_down : e_key_up;
         switch(event->key.keysym.sym){
             case SDLK_w:
             case SDLK_UP:
+                control = act_move_up;
+                break;
+            case SDLK_s:
+            case SDLK_DOWN:
+                control = act_move_down;
+                break;
+            case SDLK_d:
+            case SDLK_RIGHT:
+                control = act_move_right;
+                break;
+            case SDLK_a:
+            case SDLK_LEFT:
+                control = act_move_left;
+                break;
+            case SDLK_z:
+                control = act_shoot;
+                break;
+            default:
+                control = act_none;
+                break;
+        }
+    }
+
+    if(control_event == e_key_down){
+        switch(control){
+            case act_move_up:
                 move_direction.r = 1;
                 velocityInterpYDec->cancel();
                 velocityInterpYAcc->target(1, acceleration_ticks);
                 break;
-            case SDLK_s:
-            case SDLK_DOWN:
+            case act_move_down:
                 move_direction.g = 1;
                 velocityInterpYDec->cancel();
                 velocityInterpYAcc->target(-1, acceleration_ticks);
                 break;
-            case SDLK_d:
-            case SDLK_RIGHT:
+            case act_move_right:
                 move_direction.b = 1;
                 velocityInterpXDec->cancel();
                 velocityInterpXAcc->target(1, acceleration_ticks);
                 rotation_interp->target(-rotation_to, rotation_ticks);
                 break;
-            case SDLK_a:
-            case SDLK_LEFT:
+            case act_move_left:
                 move_direction.a = 1;
                 velocityInterpXDec->cancel();
                 velocityInterpXAcc->target(-1, acceleration_ticks);
                 rotation_interp->target(rotation_to, rotation_ticks);
                 break;
-            case SDLK_z:
+            case act_shoot:
                 shooting = true;
                 break;
             default:
                 break;
         }
-    }else if(event->type == SDL_KEYUP){
-        switch(event->key.keysym.sym){
-            case SDLK_w:
-            case SDLK_UP:
+    }else if(control_event == e_key_up){
+        switch(control){
+            case act_move_up:
                 move_direction.r = 0;
                 if(move_direction.g != 0){
                     velocityInterpYDec->cancel();
@@ -98,8 +123,7 @@ void Player::handleEvent(SDL_Event* event){
                     velocityInterpYDec->target(0, deceleration_ticks);
                 }
                 break;
-            case SDLK_s:
-            case SDLK_DOWN:
+            case act_move_down:
                 move_direction.g = 0;
                 if(move_direction.r != 0){
                     velocityInterpYDec->cancel();
@@ -109,8 +133,7 @@ void Player::handleEvent(SDL_Event* event){
                     velocityInterpYDec->target(0, deceleration_ticks);
                 }
                 break;
-            case SDLK_d:
-            case SDLK_RIGHT:
+            case act_move_right:
                 move_direction.b = 0;
                 if(move_direction.a != 0){
                     velocityInterpXDec->cancel();
@@ -122,8 +145,7 @@ void Player::handleEvent(SDL_Event* event){
                     rotation_interp->target(0, rotation_ticks);
                 }
                 break;
-            case SDLK_a:
-            case SDLK_LEFT:
+            case act_move_left:
                 move_direction.a = 0;
                 if(move_direction.b != 0){
                     velocityInterpXDec->cancel();
@@ -135,7 +157,7 @@ void Player::handleEvent(SDL_Event* event){
                     rotation_interp->target(0, rotation_ticks);
                 }
                 break;
-            case SDLK_z:
+            case act_shoot:
                 shooting = false;
                 break;
             default:
@@ -182,4 +204,5 @@ void Player::hit(){
 unsigned short Player::getLives() const{
     return lives;
 }
+
 }
