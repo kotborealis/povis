@@ -18,7 +18,7 @@ public:
     void update(StateInfo* stateInfo) override;
     void handleEvent(SDL_Event* event);
 
-    void hit();
+    bool hit();
 
     glm::vec2 vel() const;
 

@@ -68,6 +68,8 @@ void GameStateGame::update(float delta){
 
     stateInfo.tick++;
 
+    if(!player_dead && !player_won && score > 0) score -= score_penalty_per_tick;
+
     if(hold_to_restart_active){
         if(++hold_to_restart >= base_hold_to_restart){
             GameState* _ = new GameStateGame();
@@ -76,11 +78,12 @@ void GameStateGame::update(float delta){
         }
     }
 
-    if(!player_dead){
+    if(!player_dead && !player_won){
         player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
             for(auto&& enemy : enemies){
                 if(enemy->state() == Enemy::state_enum::ALIVE && enemy->hitbox()->collision(*bullet->hitbox)){
                     enemy->kill();
+                    score += score_per_enemy;
                     return true;
                 }
             }
@@ -91,10 +94,11 @@ void GameStateGame::update(float delta){
         return enemy->state() == Enemy::state_enum::DEAD;
     });
 
-    if(!player_dead){
+    if(!player_dead && !player_won){
         bulletHell.bullets.remove_if([this](BulletInstance* bullet){
             if(player->hitbox()->collision(*bullet->hitbox)){
-                player->hit();
+                if(player->hit())
+                    score -= score_penalty_per_live;
                 return true;
             }
             return false;
@@ -102,7 +106,8 @@ void GameStateGame::update(float delta){
 
         for(auto&& item : enemies){
             if(player->hitbox()->collision(*item->hitbox())){
-                player->hit();
+                if(player->hit())
+                    score -= score_penalty_per_live;
             }
         }
     }
@@ -179,6 +184,10 @@ void GameStateGame::update(float delta){
         }
         player->pos({camera->getViewport(ratio).y, player->pos().y});
     }
+
+    if(enemies.size() == 0){
+        player_won = true;
+    }
 }
 
 void GameStateGame::draw(){
@@ -201,6 +210,17 @@ void GameStateGame::draw(){
         renderInfo.position = {-500, -380};
         player_death->draw(&renderInfo);
     }
+
+    if(player_won){
+        renderInfo.framebufferUI->bind();
+        renderInfo.position = {-500, -380};
+        player_won_string->draw(&renderInfo);
+    }
+
+    renderInfo.framebufferUI->bind();
+    renderInfo.position = {camera->getViewport(ratio).x + 50, 450};
+    scoreString = Font::Default->string("Score " + TO_STRING(glm::floor(score)), 40);
+    scoreString->draw(&renderInfo);
 
     renderInfo.framebufferDefault->bind();
     fadeInShader->bind();

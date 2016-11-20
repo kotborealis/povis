@@ -192,13 +192,15 @@ glm::vec2 Player::vel() const{
     return velocity;
 }
 
-void Player::hit(){
+bool Player::hit(){
     if(hit_cooldown == 0){
         lives--;
         delete lives_ui_string;
         lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
         hit_cooldown = base_hit_cooldown;
+        return true;
     }
+    return false;
 }
 
 unsigned short Player::getLives() const{

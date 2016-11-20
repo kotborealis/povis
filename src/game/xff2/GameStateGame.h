@@ -37,6 +37,9 @@ private:
     bool player_dead = false;
     Font::String* player_death = Font::Default->string("You're dead.\nHold R to try again.");
 
+    bool player_won = false;
+    Font::String* player_won_string = Font::Default->string("Well, what's now?\nHold R to restart.");
+
     const unsigned base_hold_to_restart = 60;
     unsigned hold_to_restart = 0;
     bool hold_to_restart_active = false;
@@ -64,6 +67,13 @@ private:
 
     const unsigned base_spawn_bullet_timeout = 30;
     unsigned spawn_bullet_timeout = 0;
+
+    float score = 100;
+    float score_per_enemy = 10;
+    float score_penalty_per_tick = 0.05f;
+    float score_penalty_per_live = 10;
+
+    Font::String* scoreString;
 };
 
 }
