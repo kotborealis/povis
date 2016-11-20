@@ -3,6 +3,7 @@
 #include "game/xff2/GameStateGame.h"
 #include "game/xff2/GameStateStartScreen.h"
 
+
 using namespace pse;
 
 int main(int argc, char* args[]){
@@ -16,7 +17,11 @@ int main(int argc, char* args[]){
 
     Logger::info("Starting");
     Game::initialize("Povis", width, height);
+#ifdef pse_DEBUG
+    GameState* _ = new GameStateGame();
+#else
     GameState* _ = new GameStateStartScreen();
+#endif
     Game::i().pushState(_);
     Game::i().run();
     return 0;
