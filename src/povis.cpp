@@ -1,6 +1,7 @@
 #include "Logger.h"
 #include "Game.h"
 #include "game/xff2/GameStateGame.h"
+#include "game/xff2/GameStateStartScreen.h"
 
 using namespace pse;
 
@@ -15,7 +16,7 @@ int main(int argc, char* args[]){
 
     Logger::info("Starting");
     Game::initialize("Povis", width, height);
-    GameState* _ = new GameStateGame();
+    GameState* _ = new GameStateStartScreen();
     Game::i().pushState(_);
     Game::i().run();
     return 0;
