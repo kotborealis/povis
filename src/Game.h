@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <stack>
 
 #include "SDL2/SDL.h"
 
@@ -37,7 +38,7 @@ private:
     bool running;
 
     inline void CState();
-    std::vector<GameState*> states;
+    std::stack<GameState*> states;
     GameState* cState;
 
     static RenderManager* m_renderManager;

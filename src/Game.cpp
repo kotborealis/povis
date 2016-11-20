@@ -51,19 +51,17 @@ void Game::stop(){
 
 void Game::setState(GameState* newState){
     popState();
-    states.push_back(newState);
-    CState();
+    pushState(newState);
 }
 
 void Game::pushState(GameState* newState){
-    states.push_back(newState);
+    states.push(newState);
     CState();
 }
 
 void Game::popState(){
     if(!states.empty()){
-        delete states.back();
-        states.pop_back();
+        states.pop();
     }
     CState();
 }
@@ -91,9 +89,10 @@ Game& Game::instance(){
 }
 
 void Game::CState(){
-    cState = states.back();
+    cState = states.top();
 }
 
 RenderManager* Game::m_renderManager = nullptr;
+
 
 }
