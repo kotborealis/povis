@@ -16,12 +16,10 @@ GameStateGame::GameStateGame(){
     renderInfo.framebufferDefault = std::unique_ptr<Framebuffer>(new Framebuffer());
     renderInfo.framebufferUI = std::unique_ptr<Framebuffer>(new Framebuffer());
 
-    str_test = Font::Default->string("Yes! I am!");
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
     player = new Player();
     player->pos({0, -400});
-
 
     for(int k = 0; k < 5; k++){
         for(int i = 0; i < 10; i++){
@@ -46,9 +44,9 @@ void GameStateGame::handleEvent(SDL_Event* event){
 }
 
 void GameStateGame::update(float delta){
-    stateInfo.tick++;
+    const float ratio = (float)Game::i().render()->window()->width() / (float)Game::i().render()->window()->height();
 
-    shakeInterp->update();
+    stateInfo.tick++;
 
     player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
         for(auto&& enemy : enemies){
@@ -59,28 +57,64 @@ void GameStateGame::update(float delta){
         }
         return false;
     });
-
     enemies.remove_if([](Enemy* enemy){
         return enemy->state() == Enemy::state_enum::DEAD;
     });
-
     for(auto&& item : enemies){
         item->update(&stateInfo);
     }
-
     player->update(&stateInfo);
+
+
+    /*
+     * Screen shake
+     */
+    shakeInterp->update();
+
+    if(shake_timeout != 0)
+        shake_timeout--;
+
+    if(player->pos().y < -viewport_h && player->vel().y < 0){
+        if(shake_timeout == 0){
+            shakeInterp->push_offset({0, -shake_offset.y}, 5);
+            shakeInterp->push_target({0, shake_offset.y}, 5);
+            shake_timeout = base_shake_timeout;
+        }
+        player->pos({player->pos().x, -viewport_h});
+    }else if(player->pos().y > viewport_h && player->vel().y > 0){
+        if(shake_timeout == 0){
+            shakeInterp->push_offset({0, shake_offset.y}, 5);
+            shakeInterp->push_target({0, -shake_offset.y}, 5);
+            shake_timeout = base_shake_timeout;
+        }
+        player->pos({player->pos().x, viewport_h});
+    }
+
+    if(player->pos().x < camera->getViewport(ratio).x && player->vel().x < 0){
+        if(shake_timeout == 0){
+            shakeInterp->push_offset({-shake_offset.x, 0}, 5);
+            shakeInterp->push_target({shake_offset.x, 0}, 5);
+            shake_timeout = base_shake_timeout;
+        }
+        player->pos({camera->getViewport(ratio).x, player->pos().y});
+    }else if(player->pos().x > camera->getViewport(ratio).y && player->vel().x > 0){
+        if(shake_timeout == 0){
+            shakeInterp->push_offset({shake_offset.x, 0}, 5);
+            shakeInterp->push_target({-shake_offset.x, 0}, 5);
+            shake_timeout = base_shake_timeout;
+        }
+        player->pos({camera->getViewport(ratio).y, player->pos().y});
+    }
 }
 
 void GameStateGame::draw(){
+    const float ratio = (float)Game::i().render()->window()->width() / (float)Game::i().render()->window()->height();
     Game::i().render()->clear();
-    renderInfo.projection = camera->getProjection((float)Game::i().render()->window()->width()
-                                                  / (float)Game::i().render()->window()->height());
+    renderInfo.projection = camera->getProjection(ratio);
 
     renderInfo.framebufferDefault->bind();
     renderInfo.position = glm::vec2(0, 0);
     background->draw(&renderInfo);
-
-    str_test->draw(&renderInfo);
 
     for(auto&& item : enemies){
         item->draw(&renderInfo);

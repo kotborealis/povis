@@ -18,6 +18,7 @@ public:
     ~Camera();
 
     glm::mat4 getProjection(GLfloat ratio);
+    glm::vec4 getViewport(GLfloat ratio);
 
     float scale;
     glm::vec2 offset;

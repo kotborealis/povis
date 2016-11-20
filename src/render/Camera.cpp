@@ -14,4 +14,8 @@ glm::mat4 Camera::getProjection(GLfloat ratio){
                       1000.0f, -1000.0f);
 }
 
+glm::vec4 Camera::getViewport(GLfloat ratio){
+    return glm::vec4(-scale * ratio, scale * ratio, -scale, scale);
+}
+
 }

@@ -18,6 +18,8 @@ public:
     void update(StateInfo* stateInfo) override;
     void handleEvent(SDL_Event* event);
 
+    glm::vec2 vel() const;
+
     BulletHell bulletHell;
 
 protected:

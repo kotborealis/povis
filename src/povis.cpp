@@ -1,8 +1,8 @@
 #include "Logger.h"
 #include "Game.h"
 #include "game/xff2/GameStateGame.h"
-#include "game/xff2/GameStateStartScreen.h"
 
+#define pse_DEBUG
 
 using namespace pse;
 

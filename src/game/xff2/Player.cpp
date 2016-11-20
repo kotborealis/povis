@@ -155,4 +155,8 @@ Player::Player(){
 Player::~Player(){
 
 }
+
+glm::vec2 Player::vel() const{
+    return velocity;
+}
 }

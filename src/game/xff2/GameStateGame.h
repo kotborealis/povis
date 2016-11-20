@@ -27,10 +27,16 @@ public:
     void draw() override;
 
 private:
-    Camera* camera = new Camera(500);
+    const int viewport_h = 500;
+    Camera* camera = new Camera(viewport_h);
 
     InterpolatorQueue<glm::vec2>* shakeInterp = new InterpolatorQueue<glm::vec2>(&camera->offset,
                                                                                  &interp::Bounce::easeInOut);
+
+    const unsigned base_shake_timeout = 15;
+    unsigned shake_timeout = 0;
+
+    const glm::vec2 shake_offset = glm::vec2(5, 5);
 
     RenderInfo renderInfo;
     StateInfo stateInfo;
@@ -39,8 +45,6 @@ private:
     Player* player;
 
     Sprite* background;
-
-    Font::String* str_test;
 };
 
 }
