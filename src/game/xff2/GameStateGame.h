@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "EnemyGenericInvader.h"
+#include "InvadersFormation.h"
 
 namespace pse{
 
@@ -52,7 +53,7 @@ private:
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
-    std::list<EnemyGenericInvader*> enemies;
+    InvadersFormation* invadersFormation;
     Player* player;
 
     BulletHell bulletHell;

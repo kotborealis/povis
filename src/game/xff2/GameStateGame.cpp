@@ -29,22 +29,14 @@ GameStateGame::GameStateGame(){
     player = new Player();
     player->pos({0, -400});
 
-    for(int k = 0; k < 5; k++){
-        for(int i = 0; i < 10; i++){
-            auto e = new EnemyGenericInvader((i + k) % 4);
-            e->pos({-500 + i * 100, 400 - k * 100});
-            enemies.push_back(e);
-        }
-    }
+    invadersFormation = new InvadersFormation({500, 400}, {10, 5});
 }
 
 GameStateGame::~GameStateGame(){
     delete camera;
     delete shakeInterp;
     delete player_death;
-    for(auto* item : enemies){
-        delete item;
-    }
+    delete invadersFormation;
     delete player;
     delete background;
     delete bullet01;
@@ -80,18 +72,20 @@ void GameStateGame::update(float delta){
 
     if(!player_dead && !player_won){
         player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
-            for(auto&& enemy : enemies){
+            for(auto&& invadersFormationEntity : invadersFormation->enemies){
+                auto enemy = invadersFormationEntity->enemy;
                 if(enemy->state() == Enemy::state_enum::ALIVE && enemy->hitbox()->collision(*bullet->hitbox)){
                     enemy->kill();
                     score += score_per_enemy;
+                    invadersFormation->ticks_per_move -= 2;
                     return true;
                 }
             }
             return false;
         });
     }
-    enemies.remove_if([](Enemy* enemy){
-        return enemy->state() == Enemy::state_enum::DEAD;
+    invadersFormation->enemies.remove_if([](InvadersFormation::InvadersFormationEntity* enemy){
+        return enemy->enemy->state() == Enemy::state_enum::DEAD;
     });
 
     if(!player_dead && !player_won){
@@ -104,8 +98,8 @@ void GameStateGame::update(float delta){
             return false;
         });
 
-        for(auto&& item : enemies){
-            if(player->hitbox()->collision(*item->hitbox())){
+        for(auto&& item : invadersFormation->enemies){
+            if(player->hitbox()->collision(*item->enemy->hitbox())){
                 if(player->hit())
                     score -= score_penalty_per_live;
             }
@@ -119,19 +113,20 @@ void GameStateGame::update(float delta){
     if(spawn_bullet_timeout > 0) spawn_bullet_timeout--;
 
     int j = 0;
-    for(auto&& item : enemies){
-        item->update(&stateInfo);
+    for(auto&& item : invadersFormation->enemies){
+        item->enemy->update(&stateInfo);
         j++;
-        if(spawn_bullet_timeout == 0 && rand() % enemies.size() + 1 == j){
+        if(spawn_bullet_timeout == 0 && rand() % invadersFormation->enemies.size() + 1 == j){
             spawn_bullet_timeout = base_spawn_bullet_timeout;
 
-            float angle_to_player = (float)atan2(item->pos().x - player->pos().x, item->pos().y - player->pos().y);
+            float angle_to_player = (float)atan2(item->enemy->pos().x - player->pos().x,
+                                                 item->enemy->pos().y - player->pos().y);
             BulletInstance* i = new BulletInstance();
-            i->pos = item->pos();
+            i->pos = item->enemy->pos();
             i->vel = glm::vec2(glm::sin(angle_to_player), glm::cos(angle_to_player)) * -5.f;
             i->angle = -angle_to_player * 180.f / 3.14f + 180;
             i->hitbox = new Hitbox(10);
-            i->hitbox->pos(item->pos());
+            i->hitbox->pos(item->enemy->pos());
             i->type = bullet01;
             bulletHell.push(i);
         }
@@ -142,6 +137,8 @@ void GameStateGame::update(float delta){
         player->update(&stateInfo);
     bulletHell.update(&stateInfo);
 
+    invadersFormation->constrains.x = camera->getViewport(ratio).y;
+    invadersFormation->update(&stateInfo);
 
     fadeInInterp->update();
 
@@ -185,7 +182,7 @@ void GameStateGame::update(float delta){
         player->pos({camera->getViewport(ratio).y, player->pos().y});
     }
 
-    if(enemies.size() == 0){
+    if(invadersFormation->enemies.size() == 0){
         player_won = true;
     }
 }
@@ -200,8 +197,8 @@ void GameStateGame::draw(){
     background->draw(&renderInfo);
 
     bulletHell.draw(&renderInfo);
-    for(auto&& item : enemies){
-        item->draw(&renderInfo);
+    for(auto&& item : invadersFormation->enemies){
+        item->enemy->draw(&renderInfo);
     }
     if(!player_dead){
         player->draw(&renderInfo);
