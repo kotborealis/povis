@@ -81,8 +81,7 @@ Game& Game::i(){
 Game& Game::instance(){
     if(!m_renderManager){
         Logger::error("You MUST call Game::initialize before doing anything");
-        Logger::error("At this point, your game, going to crash if you'll try to do something opengl related");
-        Logger::error("Because Game initialization initializes opengl context");
+        Logger::error("At this point, your game is going to crash.");
     }
     static Game m_instance;
     return m_instance;
