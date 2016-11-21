@@ -19,12 +19,12 @@ InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):cons
             auto e = new EnemyGenericInvader((i + k) % 4);
             e->pos({-constrains.x + i * 100, constrains.y - k * 100});
 
-            auto interp = new Interpolator<glm::vec2>(&e->m_pos, &interp::Expo::easeInOut);
-            interp->offset({move_offset.x, 0}, ticks_per_move);
+            auto interp = new Interpolator<float>(&e->m_pos.x, &interp::Expo::easeInOut);
+            interp->offset(move_offset.x, ticks_per_move);
 
             InvadersFormationEntity* ent = new InvadersFormationEntity();
             ent->enemy = e;
-            ent->interp = interp;
+            ent->interp_X = interp;
 
             enemies.push_back(ent);
         }
@@ -46,7 +46,7 @@ void InvadersFormation::update(StateInfo* stateInfo){
     for(auto&& item : enemies){
         if(item->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEAD ||
            item->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
-            item->interp->cancel();
+            item->interp_X->cancel();
         }
     }
     for(auto&& item : enemies){
@@ -64,9 +64,9 @@ void InvadersFormation::update(StateInfo* stateInfo){
         item->enemy->update(stateInfo);
         if(item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEAD &&
            item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
-            item->interp->update();
+            item->interp_X->update();
             if(tick % ticks_per_move == 0){
-                item->interp->offset({direction * move_offset.x, 0}, ticks_per_move);
+                item->interp_X->offset(direction * move_offset.x, ticks_per_move);
             }
 
             if(stateInfo->player_alive && spawn_bullet_timeout_timer->finished() && rand() % enemies.size() + 1 == j){

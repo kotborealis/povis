@@ -14,7 +14,7 @@ class InvadersFormation:public Entity{
 public:
     struct InvadersFormationEntity{
         EnemyGenericInvader* enemy;
-        Interpolator<glm::vec2>* interp;
+        Interpolator<float>* interp_X;
         int direction = 1;
     };
     InvadersFormation(glm::vec2 constrains, glm::vec2 count);

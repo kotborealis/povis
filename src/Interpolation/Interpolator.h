@@ -21,9 +21,12 @@ struct InterpolatorEntity{
     T target;
 };
 
+enum interp_state{INTERP_ACTIVE, INTERP_FINISHED};
+
 template<typename T>
 class Interpolator{
 public:
+
     Interpolator(T* target_entity, float (*)(float, float, float, float));
 
     bool update();
@@ -33,15 +36,19 @@ public:
 
     void cancel();
 
+    interp_state state() const;
+    bool finished() const;
+
     void interpEntity(InterpolatorEntity<T> entity){
         move_entity = entity;
     }
 
 private:
-
     T* m_target;
     float (* interpolation)(float, float, float, float);
     InterpolatorEntity<T> move_entity;
+
+    interp_state m_state = INTERP_FINISHED;
 };
 
 template<typename T>
@@ -57,6 +64,7 @@ void Interpolator<T>::offset(T offset, unsigned ticks){
     move_entity.duration = ticks;
     move_entity.start = *m_target;
     move_entity.target = *m_target + offset;
+    m_state = INTERP_ACTIVE;
 }
 
 template<typename T>
@@ -65,11 +73,13 @@ void Interpolator<T>::target(T target, unsigned ticks){
     move_entity.duration = ticks;
     move_entity.target = target;
     move_entity.start = *m_target;
+    m_state = INTERP_ACTIVE;
 }
 
 template<typename T>
 void Interpolator<T>::cancel(){
     move_entity.duration = 0;
+    m_state = INTERP_FINISHED;
 }
 
 template<>
@@ -93,6 +103,16 @@ bool Interpolator<T>::update(){
         return true;
     }
     return false;
+}
+
+template<typename T>
+interp_state Interpolator<T>::state() const{
+    return m_state;
+}
+
+template<typename T>
+bool Interpolator<T>::finished() const{
+    return m_state == INTERP_FINISHED;
 }
 
 }

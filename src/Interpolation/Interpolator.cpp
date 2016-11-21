@@ -17,7 +17,7 @@ bool Interpolator<glm::vec2>::update(){
         *m_target = p;
         move_entity.current++;
         if(_.current >= _.duration){
-            move_entity.duration = 0;
+            cancel();
         }
         return true;
     }
@@ -35,7 +35,7 @@ bool Interpolator<glm::vec3>::update(){
         *m_target = p;
         move_entity.current++;
         if(_.current >= _.duration){
-            move_entity.duration = 0;
+            cancel();
         }
         return true;
     }
