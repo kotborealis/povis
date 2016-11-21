@@ -8,9 +8,7 @@
 namespace pse{
 
 InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):constrains(constrains){
-    spawn_bullet_timeout_timer = new Timer([](){
-        Logger::info("TIMER FIRED");
-    }, 30);
+    spawn_bullet_timeout_timer = new Timer([](){}, 30);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(

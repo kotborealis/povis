@@ -23,7 +23,7 @@ WindowManager::~WindowManager(){
 }
 
 void WindowManager::init_sdl(){
-    if(SDL_Init(SDL_INIT_VIDEO) < 0)
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
         throw new Init_SDL_Exception();
 
     sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height,
