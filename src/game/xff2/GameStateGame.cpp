@@ -22,7 +22,7 @@ GameStateGame::GameStateGame(){
 
     fade_to_game_timer = new Timer([this](){
         GameState* _ = new GameStateGame();
-        Game::i().pushState(_);
+        Game::i().setState(_);
     }, 60, true);
 
     spawn_bullet_timeout_timer = new Timer([](){}, 30);
