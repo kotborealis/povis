@@ -26,14 +26,15 @@ public:
     std::list<InvadersFormationEntity*> enemies;
     glm::vec2 constrains = {500, 500};
 
+    BulletHell bulletHell;
+    unsigned ticks_per_move = 100;
+
 private:
     Timer* spawn_bullet_timeout_timer;
 
-    BulletHell bulletHell;
     BulletType* bullet01;
 
     glm::vec2 move_offset = {50, 50};
-    unsigned ticks_per_move = 100;
     int direction = 1;
 };
 
