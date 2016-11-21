@@ -25,8 +25,6 @@ GameStateGame::GameStateGame(){
         Game::i().setState(_);
     }, 60, true);
 
-    spawn_bullet_timeout_timer = new Timer([](){}, 30);
-
     screen_shake_timeout_timer = new Timer([](){}, 15);
 
     hold_to_restart_timer = new Timer([this](){
@@ -35,10 +33,6 @@ GameStateGame::GameStateGame(){
     }, 60, true);
 
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
-
-    bullet01 = new BulletType();
-    bullet01->sprite = std::unique_ptr<Sprite>(
-            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 34 - 16, 0, 20));
 
     player = new Player();
     player->pos({0, -400});
@@ -53,7 +47,6 @@ GameStateGame::~GameStateGame(){
     delete invadersFormation;
     delete player;
     delete background;
-    delete bullet01;
 }
 
 void GameStateGame::handleEvent(SDL_Event* event){
@@ -76,9 +69,10 @@ void GameStateGame::update(float delta){
     const float ratio = (float)Game::i().render()->window()->width() / (float)Game::i().render()->window()->height();
 
     stateInfo.tick++;
+    stateInfo.player_pos = player->pos();
+    stateInfo.player_alive = player->isAlive();
 
     fade_to_game_timer->update();
-    spawn_bullet_timeout_timer->update();
     screen_shake_timeout_timer->update();
     hold_to_restart_timer->update();
 
@@ -104,7 +98,7 @@ void GameStateGame::update(float delta){
     });
 
     if(player->isAlive() && !player_won){
-        bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+        invadersFormation->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
             if(player->hitbox()->collision(*bullet->hitbox)){
                 if(player->hit())
                     score -= score_penalty_per_live;
@@ -121,32 +115,7 @@ void GameStateGame::update(float delta){
         }
     }
 
-
-
-    int j = 0;
-    for(auto&& item : invadersFormation->enemies){
-        item->enemy->update(&stateInfo);
-        j++;
-        if(player->isAlive() && spawn_bullet_timeout_timer->finished() &&
-           rand() % invadersFormation->enemies.size() + 1 == j){
-            spawn_bullet_timeout_timer->reset();
-
-            float angle_to_player = (float)atan2(item->enemy->pos().x - player->pos().x,
-                                                 item->enemy->pos().y - player->pos().y);
-            BulletInstance* i = new BulletInstance();
-            i->pos = item->enemy->pos();
-            i->vel = glm::vec2(glm::sin(angle_to_player), glm::cos(angle_to_player)) * -5.f;
-            i->angle = -angle_to_player * 180.f / 3.14f + 180;
-            i->hitbox = new Hitbox(10);
-            i->hitbox->pos(item->enemy->pos());
-            i->type = bullet01;
-            bulletHell.push(i);
-        }
-    }
-
-
     player->update(&stateInfo);
-    bulletHell.update(&stateInfo);
 
     invadersFormation->constrains.x = camera->getViewport(ratio).y;
     invadersFormation->update(&stateInfo);
@@ -206,7 +175,7 @@ void GameStateGame::draw(){
     renderInfo.position = glm::vec2(0, 0);
     background->draw(&renderInfo);
 
-    bulletHell.draw(&renderInfo);
+    invadersFormation->bulletHell.draw(&renderInfo);
     for(auto&& item : invadersFormation->enemies){
         item->enemy->draw(&renderInfo);
     }

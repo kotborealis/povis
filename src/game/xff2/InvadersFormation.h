@@ -30,6 +30,11 @@ public:
 
     std::list<InvadersFormationEntity*> enemies;
     glm::vec2 constrains = {500, 500};
+
+    Timer* spawn_bullet_timeout_timer;
+    BulletHell bulletHell;
+
+    BulletType* bullet01;
 };
 
 }

@@ -53,10 +53,7 @@ private:
     InvadersFormation* invadersFormation;
     Player* player;
 
-    BulletHell bulletHell;
-
     Sprite* background;
-    BulletType* bullet01;
 
     Shader::Ptr fadeInOutShader;
     Sprite* fadeInOutSprite;
@@ -64,7 +61,6 @@ private:
     Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInOutStep, &interp::Expo::easeOut);
 
     Timer* fade_to_game_timer;
-    Timer* spawn_bullet_timeout_timer;
 
     float score = 100;
     float score_per_enemy = 10;
