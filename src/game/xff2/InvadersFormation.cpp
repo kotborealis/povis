@@ -22,7 +22,7 @@ InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):cons
             e->pos({-constrains.x + i * 100, constrains.y - k * 100});
 
             auto interp = new Interpolator<glm::vec2>(&e->m_pos, &interp::Expo::easeInOut);
-            interp->offset({offsets.x, 0}, ticks_per_move);
+            interp->offset({move_offset.x, 0}, ticks_per_move);
 
             InvadersFormationEntity* ent = new InvadersFormationEntity();
             ent->enemy = e;
@@ -68,7 +68,7 @@ void InvadersFormation::update(StateInfo* stateInfo){
            item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
             item->interp->update();
             if(tick % ticks_per_move == 0){
-                item->interp->offset({direction * offsets.x, 0}, ticks_per_move);
+                item->interp->offset({direction * move_offset.x, 0}, ticks_per_move);
             }
 
             if(stateInfo->player_alive && spawn_bullet_timeout_timer->finished() && rand() % enemies.size() + 1 == j){

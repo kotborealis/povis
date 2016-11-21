@@ -23,18 +23,18 @@ public:
     void update(StateInfo* stateInfo) override;
     void draw(RenderInfo* renderInfo) const override;
 
-    glm::vec2 offsets = {50, 50};
-    unsigned ticks_per_move = 100;
-
-    int direction = 1;
-
     std::list<InvadersFormationEntity*> enemies;
     glm::vec2 constrains = {500, 500};
 
+private:
     Timer* spawn_bullet_timeout_timer;
-    BulletHell bulletHell;
 
+    BulletHell bulletHell;
     BulletType* bullet01;
+
+    glm::vec2 move_offset = {50, 50};
+    unsigned ticks_per_move = 100;
+    int direction = 1;
 };
 
 }
