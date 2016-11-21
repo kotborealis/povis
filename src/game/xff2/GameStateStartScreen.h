@@ -28,7 +28,7 @@ public:
 private:
     Camera* camera = new Camera(500);
 
-    glm::vec2 game_name_pos = {-600, 0};
+    glm::vec2 game_name_pos = {-500, 0};
 
     InterpolatorQueue<float>* game_name_scale_interp;
     InterpolatorQueue<glm::vec2>* game_name_pos_interp;

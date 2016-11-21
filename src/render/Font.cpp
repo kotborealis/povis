@@ -25,51 +25,10 @@ Font::~Font(){
 
 
 unsigned int Font::charToGlyphID(char c){
-    if(c >= 'A' && c <= 'Z'){
-        return (unsigned int)(c - 'A');
-    }
-    if(c >= 'a' && c <= 'z'){
-        return (unsigned int)(c - 'a' + 26);
-    }
-    if(c >= '0' && c <= '9'){
-        return (unsigned int)(c - '0' + 52);
-    }
-
-    switch(c){
-        case '.':
-            return 63 - 1;
-        case ',':
-            return 64 - 1;
-        case '!':
-            return 65 - 1;
-        case '?':
-            return 66 - 1;
-        case '\'':
-            return 67 - 1;
-        case '@':
-            return 68 - 1;
-        case '#':
-            return 69 - 1;
-        case '$':
-            return 70 - 1;
-        case '%':
-            return 71 - 1;
-        case '(':
-            return 73 - 1;
-        case ')':
-            return 74 - 1;
-        case '/':
-            return 75 - 1;
-        case '-':
-            return 76 - 1;
-        case '+':
-            return 77 - 1;
-        case '=':
-            return 78 - 1;
-        case ' ':
-            return 80 - 1;
-        default:
-            return 65;
+    if(c >= ' ' && c <= 'z'){
+        return (unsigned int)(c - 32);
+    }else{
+        return ('?' - 32);
     }
 }
 
@@ -91,7 +50,7 @@ Font::String* Font::string(std::string str, float size){
 Font* Font::Default;
 
 void Font::__init(){
-    Default = new Font(ResourceTexture->load("assets/common/textures/font_default.png"), 13, 8);
+    Default = new Font(ResourceTexture->load("assets/common/textures/font_default.png"), 16, 8);
 }
 
 void Font::String::draw(RenderInfo* renderInfo){
