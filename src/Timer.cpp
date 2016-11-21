@@ -20,9 +20,9 @@ Timer::~Timer(){
 
 void Timer::update(){
     if(m_state == TIMER_ACTIVE && ++m_current >= m_duration){
-        callback();
         reset();
         m_state = TIMER_FINISHED;
+        callback();
     }
 }
 
@@ -31,8 +31,7 @@ void Timer::cancel(){
 }
 
 void Timer::pause(){
-    if(m_state == TIMER_ACTIVE)
-        m_state = TIMER_PAUSE;
+    m_state = TIMER_PAUSE;
 }
 
 void Timer::resume(){
@@ -42,7 +41,7 @@ void Timer::resume(){
 void Timer::toggle(){
     if(m_state == TIMER_ACTIVE)
         m_state = TIMER_PAUSE;
-    else if(m_state == TIMER_PAUSE)
+    else
         m_state = TIMER_ACTIVE;
 }
 
