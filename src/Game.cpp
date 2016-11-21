@@ -29,18 +29,29 @@ void Game::run(){
 
         accumulator += delta_time;
 
-        while(SDL_PollEvent(&event)){
+        while(running && SDL_PollEvent(&event)){
             running = event.type != SDL_QUIT;
             render()->window()->handleEvent(&event);
             cState->handleEvent(&event);
+            if(!cState){
+                running = false;
+            }
         }
 
-        while(accumulator > 0){
+        while(running && accumulator > 0){
             cState->update(optimal_frame_time);
+            if(!cState){
+                running = false;
+            }
             accumulator -= optimal_frame_time;
         }
 
-        cState->draw();
+        if(running){
+            cState->draw();
+            if(!cState){
+                running = false;
+            }
+        }
     }
     Logger::info("Engine stop");
 }
@@ -88,7 +99,11 @@ Game& Game::instance(){
 }
 
 void Game::CState(){
-    cState = states.top();
+    if(states.empty()){
+        cState = nullptr;
+    }else{
+        cState = states.top();
+    }
 }
 
 RenderManager* Game::m_renderManager = nullptr;

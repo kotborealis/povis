@@ -50,6 +50,10 @@ void GameStateStartScreen::handleEvent(SDL_Event* event){
         fade_to_game_timer->resume();
         fadeInOutInterp->target(0, 60);
     }
+    if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE){
+        Game::i().popState();
+        return;
+    }
 }
 
 void GameStateStartScreen::update(float delta){
