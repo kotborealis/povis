@@ -4,7 +4,6 @@
 
 #include <Game.h>
 #include "GameStateStartScreen.h"
-#include "GameStateGame.h"
 
 namespace pse{
 
@@ -33,6 +32,13 @@ GameStateStartScreen::GameStateStartScreen(){
 
     game_name_scale_interp->push_offset(-10, 60);
     game_name_pos_interp->push_offset({25, 5}, 60);
+
+    fade_to_game_timer = new Timer([this](){
+        fadeInOutStep = 0;
+        fadeInOutInterp->target(100, 60);
+        GameState* _ = new GameStateGame();
+        Game::i().pushState(_);
+    }, 60, true);
 }
 
 GameStateStartScreen::~GameStateStartScreen(){
@@ -41,9 +47,8 @@ GameStateStartScreen::~GameStateStartScreen(){
 
 void GameStateStartScreen::handleEvent(SDL_Event* event){
     if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RETURN){
-        fade_to_game = base_fade_to_game;
-        fading_to_game = true;
-        fadeInOutInterp->target(0, base_fade_to_game);
+        fade_to_game_timer->resume();
+        fadeInOutInterp->target(0, 60);
     }
 }
 
@@ -63,15 +68,7 @@ void GameStateStartScreen::update(float delta){
 
     fadeInOutInterp->update();
 
-    if(fade_to_game > 0) fade_to_game--;
-    else if(fade_to_game == 0 && fading_to_game){
-        fade_to_game = 0;
-        fading_to_game = false;
-        fadeInOutStep = 0;
-        fadeInOutInterp->target(100, 60);
-        GameState* _ = new GameStateGame();
-        Game::i().pushState(_);
-    }
+    fade_to_game_timer->update();
 }
 
 void GameStateStartScreen::draw(){

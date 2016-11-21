@@ -20,6 +20,20 @@ GameStateGame::GameStateGame(){
     fadeInOutSprite->custom_shader = fadeInOutShader;
     fadeInOutInterp->target(100, 60);
 
+    fade_to_game_timer = new Timer([this](){
+        GameState* _ = new GameStateGame();
+        Game::i().pushState(_);
+    }, 60, true);
+
+    spawn_bullet_timeout_timer = new Timer([](){}, 30);
+
+    screen_shake_timeout_timer = new Timer([](){}, 15);
+
+    hold_to_restart_timer = new Timer([this](){
+        fade_to_game_timer->resume();
+        fadeInOutInterp->target(0, 60);
+    }, 60, true);
+
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
     bullet01 = new BulletType();
@@ -47,15 +61,14 @@ void GameStateGame::handleEvent(SDL_Event* event){
         player->handleEvent(event);
 
     if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r){
-        hold_to_restart_active = true;
+        hold_to_restart_timer->resume();
+    }
+    if(event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_r){
+        hold_to_restart_timer->reset();
     }
     if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE){
         Game::i().popState();
         return;
-    }
-    if(event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_r){
-        hold_to_restart_active = false;
-        hold_to_restart = 0;
     }
 }
 
@@ -64,24 +77,12 @@ void GameStateGame::update(float delta){
 
     stateInfo.tick++;
 
+    fade_to_game_timer->update();
+    spawn_bullet_timeout_timer->update();
+    screen_shake_timeout_timer->update();
+    hold_to_restart_timer->update();
+
     if(player->isAlive() && !player_won && score > 0) score -= score_penalty_per_tick;
-
-    if(hold_to_restart_active){
-        if(++hold_to_restart >= base_hold_to_restart){
-            hold_to_restart = 0;
-            hold_to_restart_active = false;
-            fade_to_game = base_fade_to_game;
-            fading_to_game = true;
-            fadeInOutInterp->target(0, base_fade_to_game);
-        }
-    }
-
-    if(fade_to_game > 0) fade_to_game--;
-    else if(fade_to_game == 0 && fading_to_game){
-        GameState* _ = new GameStateGame();
-        Game::i().setState(_);
-        return;
-    }
 
     if(player->isAlive() && !player_won){
         player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
@@ -121,14 +122,14 @@ void GameStateGame::update(float delta){
     }
 
 
-    if(spawn_bullet_timeout > 0) spawn_bullet_timeout--;
 
     int j = 0;
     for(auto&& item : invadersFormation->enemies){
         item->enemy->update(&stateInfo);
         j++;
-        if(player->isAlive() && spawn_bullet_timeout == 0 && rand() % invadersFormation->enemies.size() + 1 == j){
-            spawn_bullet_timeout = base_spawn_bullet_timeout;
+        if(player->isAlive() && spawn_bullet_timeout_timer->finished() &&
+           rand() % invadersFormation->enemies.size() + 1 == j){
+            spawn_bullet_timeout_timer->reset();
 
             float angle_to_player = (float)atan2(item->enemy->pos().x - player->pos().x,
                                                  item->enemy->pos().y - player->pos().y);
@@ -157,38 +158,35 @@ void GameStateGame::update(float delta){
      */
     shakeInterp->update();
 
-    if(shake_timeout != 0)
-        shake_timeout--;
-
     if(player->isAlive()){
         if(player->pos().y < -viewport_h){
-            if(shake_timeout == 0 && player->vel().y < 0){
+            if(screen_shake_timeout_timer->finished() && player->vel().y < 0){
                 shakeInterp->push_offset({0, -shake_offset.y}, 5);
                 shakeInterp->push_target({0, shake_offset.y}, 5);
-                shake_timeout = base_shake_timeout;
+                screen_shake_timeout_timer->reset();
             }
             player->pos({player->pos().x, -viewport_h});
         }else if(player->pos().y > viewport_h){
-            if(shake_timeout == 0 && player->vel().y > 0){
+            if(screen_shake_timeout_timer->finished() == 0 && player->vel().y > 0){
                 shakeInterp->push_offset({0, shake_offset.y}, 5);
                 shakeInterp->push_target({0, -shake_offset.y}, 5);
-                shake_timeout = base_shake_timeout;
+                screen_shake_timeout_timer->reset();
             }
             player->pos({player->pos().x, viewport_h});
         }
 
         if(player->pos().x < camera->getViewport(ratio).x){
-            if(shake_timeout == 0 && player->vel().x < 0){
+            if(screen_shake_timeout_timer->finished() == 0 && player->vel().x < 0){
                 shakeInterp->push_offset({-shake_offset.x, 0}, 5);
                 shakeInterp->push_target({shake_offset.x, 0}, 5);
-                shake_timeout = base_shake_timeout;
+                screen_shake_timeout_timer->reset();
             }
             player->pos({camera->getViewport(ratio).x, player->pos().y});
         }else if(player->pos().x > camera->getViewport(ratio).y){
-            if(shake_timeout == 0 && player->vel().x > 0){
+            if(screen_shake_timeout_timer->finished() == 0 && player->vel().x > 0){
                 shakeInterp->push_offset({shake_offset.x, 0}, 5);
                 shakeInterp->push_target({-shake_offset.x, 0}, 5);
-                shake_timeout = base_shake_timeout;
+                screen_shake_timeout_timer->reset();
             }
             player->pos({camera->getViewport(ratio).y, player->pos().y});
         }
@@ -232,7 +230,7 @@ void GameStateGame::draw(){
 
     renderInfo.framebufferUI->bind();
     fadeInOutShader->bind();
-    fadeInOutShader->uniform("step", fadeInStep / 100.f);
+    fadeInOutShader->uniform("step", fadeInOutStep / 100.f);
     fadeInOutSprite->draw(&renderInfo);
 
     Game::i().render()->deferred(&renderInfo);

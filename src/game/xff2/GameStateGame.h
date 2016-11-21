@@ -10,6 +10,7 @@
 #include <render/Font.h>
 #include <Interpolation/Bounce.h>
 #include <Interpolation/InterpolatorQueue.h>
+#include <Timer.h>
 #include "Entity.h"
 #include "StateInfo.h"
 #include "Player.h"
@@ -40,12 +41,9 @@ private:
     bool player_won = false;
     Font::String* player_won_string = Font::Default->string("Well, what's now?\nHold R to restart.");
 
-    const unsigned base_hold_to_restart = 60;
-    unsigned hold_to_restart = 0;
-    bool hold_to_restart_active = false;
+    Timer* hold_to_restart_timer;
 
-    const unsigned base_shake_timeout = 15;
-    unsigned shake_timeout = 0;
+    Timer* screen_shake_timeout_timer;
 
     const glm::vec2 shake_offset = glm::vec2(2, 2);
 
@@ -62,15 +60,11 @@ private:
 
     Shader::Ptr fadeInOutShader;
     Sprite* fadeInOutSprite;
-    float fadeInStep = 0;
-    Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInStep, &interp::Expo::easeOut);
+    float fadeInOutStep = 0;
+    Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInOutStep, &interp::Expo::easeOut);
 
-    const unsigned base_fade_to_game = 60;
-    unsigned fade_to_game = 0;
-    bool fading_to_game = false;
-
-    const unsigned base_spawn_bullet_timeout = 30;
-    unsigned spawn_bullet_timeout = 0;
+    Timer* fade_to_game_timer;
+    Timer* spawn_bullet_timeout_timer;
 
     float score = 100;
     float score_per_enemy = 10;

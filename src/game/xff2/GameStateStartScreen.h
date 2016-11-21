@@ -10,7 +10,9 @@
 #include <Interpolation/Bounce.h>
 #include <render/Font.h>
 #include <Interpolation/InterpolatorQueue.h>
+#include <Timer.h>
 #include "StateInfo.h"
+#include "GameStateGame.h"
 
 namespace pse{
 
@@ -43,9 +45,7 @@ private:
     float fadeInOutStep = 0;
     Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInOutStep, &interp::Expo::easeOut);
 
-    const unsigned base_fade_to_game = 60;
-    unsigned fade_to_game = 0;
-    bool fading_to_game = false;
+    Timer* fade_to_game_timer;
 };
 
 }
