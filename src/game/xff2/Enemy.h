@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <Timer.h>
 #include "Entity.h"
 #include "BulletHell.h"
 
@@ -28,20 +29,14 @@ public:
 protected:
     Interpolator<glm::vec2>* moveInterp;
 
-    float hit_points_max;
-    float hit_points;
-
     bool m_isBoss = false;
 
     Shader::Ptr hitpoints_shader;
 
     state_enum m_state = ENEMY_STATE_ALIVE;
-    unsigned base_death_anim_leave_ticks = 60;
-    unsigned death_anim_leave_ticks = 0;
+    Timer* death_anim_timer;
 
     Interpolator<float>* death_anim_rotation_interp;
-    unsigned base_death_anim_rotation_ticks = 60;
-    unsigned death_anim_rotation_ticks = 0;
 };
 
 }
