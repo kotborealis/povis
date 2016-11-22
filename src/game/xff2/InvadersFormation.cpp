@@ -19,9 +19,9 @@ InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):cons
     for(int k = 0; k < count.y; k++){
         for(int i = 0; i < count.x; i++){
             auto e = new EnemyGenericInvader((i + k) % 4);
-            e->pos({-constrains.x + i * 100, constrains.y - k * 100});
+            e->setPosition({-constrains.x + i * 100, constrains.y - k * 100});
 
-            auto interp = new Interpolator<float>(&e->m_pos.x, &interp::Expo::easeInOut);
+            auto interp = new Interpolator<float>(&e->position.x, &interp::Expo::easeInOut);
             interp->offset(move_offset.x, ticks_per_move);
 
             InvadersFormationEntity* ent = new InvadersFormationEntity();
@@ -58,10 +58,10 @@ void InvadersFormation::update(StateInfo* stateInfo){
 
     //Check if one of Invaders hit the constrains
     for(auto&& i : enemies){
-        if(i->enemy->pos().x >= constrains.x - 100){
+        if(i->enemy->getPosition().x >= constrains.x - 100){
             direction = -1;
             break;
-        }else if(i->enemy->pos().x <= -constrains.x + 100){
+        }else if(i->enemy->getPosition().x <= -constrains.x + 100){
             direction = 1;
             break;
         }
@@ -89,14 +89,14 @@ void InvadersFormation::update(StateInfo* stateInfo){
 
                 spawn_bullet_timeout_timer->resume();
 
-                auto _ = i->enemy->pos() - stateInfo->player->pos();
+                auto _ = i->enemy->getPosition() - stateInfo->player->getPosition();
                 float angle_to_player = (float)atan2(_.y, _.x);
                 BulletInstance* b = new BulletInstance();
-                b->pos = i->enemy->pos();
+                b->pos = i->enemy->getPosition();
                 b->vel = glm::vec2(glm::cos(angle_to_player), glm::sin(angle_to_player)) * -5.f;
                 b->angle = angle_to_player + glm::half_pi<float>();
                 b->hitbox = new Hitbox(10);
-                b->hitbox->pos(i->enemy->pos());
+                b->hitbox->pos(i->enemy->getPosition());
                 b->type = bullet01;
                 bulletHell.push(b);
             }

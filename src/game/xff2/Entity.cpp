@@ -5,30 +5,30 @@ namespace pse{
 
 void Entity::draw(RenderInfo *renderInfo) const {
     renderInfo->framebufferDefault->bind();
-    renderInfo->position = pos();
-    renderInfo->rotation = m_rotation;
-    m_sprite->draw(renderInfo);
-    m_hitbox->draw(renderInfo);
+    renderInfo->position = getPosition();
+    renderInfo->rotation = rotation;
+    sprite->draw(renderInfo);
+    hitbox->draw(renderInfo);
     renderInfo->rotation = 0;
 }
 
 void Entity::update(StateInfo *stateInfo) {
-    m_hitbox->pos(m_pos);
+    hitbox->pos(position);
     tick++;
     //m_sprite->tick();
 }
 
-const glm::vec2& Entity::pos() const {
-    return m_pos;
+const glm::vec2& Entity::getPosition() const{
+    return position;
 }
 
-void Entity::pos(glm::vec2 _pos){
-    m_pos = _pos;
-    hitbox()->pos(_pos);
+void Entity::setPosition(glm::vec2 _pos){
+    position = _pos;
+    getHitbox()->pos(_pos);
 }
 
-Hitbox* Entity::hitbox() const{
-    return m_hitbox;
+Hitbox* Entity::getHitbox() const{
+    return hitbox;
 }
 
 Entity::Entity() {
@@ -39,12 +39,12 @@ Entity::~Entity() {
 
 }
 
-const float& Entity::rotation() const{
-    return m_rotation;
+const float& Entity::getRotation() const{
+    return rotation;
 }
 
-void Entity::rotation(float _rotation){
-    m_rotation = _rotation;
+void Entity::setRotation(float _rotation){
+    rotation = _rotation;
 }
 
 }

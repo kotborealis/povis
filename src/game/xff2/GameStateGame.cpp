@@ -35,9 +35,9 @@ GameStateGame::GameStateGame(){
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
     player = new Player();
-    player->pos({0, -400});
+    player->setPosition({0, -400});
 
-    invadersFormation = new InvadersFormation({500, 400}, {10, 5});
+    invadersFormation = new InvadersFormation({500, 400}, {10, 0});
 }
 
 GameStateGame::~GameStateGame(){
@@ -70,22 +70,22 @@ void GameStateGame::update(float delta){
 
     stateInfo.tick++;
     stateInfo.player = player;
-    stateInfo.player_pos = player->pos();
+    stateInfo.player_pos = player->getPosition();
     stateInfo.player_alive = player->isAlive();
 
     if(boss){
         boss->update(&stateInfo);
         if(player->isAlive() && !player_won){
             boss->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
-                if(player->hitbox()->collision(*bullet->hitbox)){
+                if(player->getHitbox()->collision(*bullet->hitbox)){
                     if(player->hit())
                         score -= score_penalty_per_live;
                     return true;
                 }
                 return false;
             });
-            player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
-                if(boss->hitbox()->collision(*bullet->hitbox)){
+            player->getBullets()->remove_if([this](BulletInstance* bullet){
+                if(boss->getHitbox()->collision(*bullet->hitbox)){
                     boss->m_boss_hitpoints--;
                     score += score_per_enemy;
                     if(boss->m_boss_hitpoints == 0){
@@ -106,11 +106,11 @@ void GameStateGame::update(float delta){
     if(player->isAlive() && !player_won && score > 0) score -= score_penalty_per_tick;
 
     if(player->isAlive() && !player_won){
-        player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+        player->getBullets()->remove_if([this](BulletInstance* bullet){
             for(auto&& invadersFormationEntity : invadersFormation->enemies){
                 auto enemy = invadersFormationEntity->enemy;
                 if(enemy->state() == Enemy::state_enum::ENEMY_STATE_ALIVE &&
-                   enemy->hitbox()->collision(*bullet->hitbox)){
+                   enemy->getHitbox()->collision(*bullet->hitbox)){
                     enemy->kill();
                     score += score_per_enemy;
                     invadersFormation->ticks_per_move -= 2;
@@ -125,19 +125,22 @@ void GameStateGame::update(float delta){
     });
 
     if(player->isAlive() && !player_won){
-        invadersFormation->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
-            if(player->hitbox()->collision(*bullet->hitbox)){
-                if(player->hit())
+        for(auto&& bullet : invadersFormation->bulletHell.bullets){
+            if(player->getHitbox()->collision(*bullet->hitbox)){
+                if(player->hit()){
                     score -= score_penalty_per_live;
-                return true;
+                    invadersFormation->bulletHell.bullets.remove(bullet);
+                }
+                break;
             }
-            return false;
-        });
+        }
 
-        for(auto&& item : invadersFormation->enemies){
-            if(player->hitbox()->collision(*item->enemy->hitbox())){
-                if(player->hit())
+        for(auto&& enemy : invadersFormation->enemies){
+            if(player->getHitbox()->collision(*enemy->enemy->getHitbox())){
+                if(player->hit()){
                     score -= score_penalty_per_live;
+                }
+                break;
             }
         }
     }
@@ -155,36 +158,36 @@ void GameStateGame::update(float delta){
     shakeInterp->update();
 
     if(player->isAlive()){
-        if(player->pos().y < -viewport_h){
-            if(screen_shake_timeout_timer->finished() && player->vel().y < 0){
+        if(player->getPosition().y < -viewport_h){
+            if(screen_shake_timeout_timer->finished() && player->getVelocity().y < 0){
                 shakeInterp->push_offset({0, -shake_offset.y}, 5);
                 shakeInterp->push_target({0, shake_offset.y}, 5);
                 screen_shake_timeout_timer->reset();
             }
-            player->pos({player->pos().x, -viewport_h});
-        }else if(player->pos().y > viewport_h){
-            if(screen_shake_timeout_timer->finished() == 0 && player->vel().y > 0){
+            player->setPosition({player->getPosition().x, -viewport_h});
+        }else if(player->getPosition().y > viewport_h){
+            if(screen_shake_timeout_timer->finished() == 0 && player->getVelocity().y > 0){
                 shakeInterp->push_offset({0, shake_offset.y}, 5);
                 shakeInterp->push_target({0, -shake_offset.y}, 5);
                 screen_shake_timeout_timer->reset();
             }
-            player->pos({player->pos().x, viewport_h});
+            player->setPosition({player->getPosition().x, viewport_h});
         }
 
-        if(player->pos().x < camera->getViewport(ratio).x){
-            if(screen_shake_timeout_timer->finished() == 0 && player->vel().x < 0){
+        if(player->getPosition().x < camera->getViewport(ratio).x){
+            if(screen_shake_timeout_timer->finished() == 0 && player->getVelocity().x < 0){
                 shakeInterp->push_offset({-shake_offset.x, 0}, 5);
                 shakeInterp->push_target({shake_offset.x, 0}, 5);
                 screen_shake_timeout_timer->reset();
             }
-            player->pos({camera->getViewport(ratio).x, player->pos().y});
-        }else if(player->pos().x > camera->getViewport(ratio).y){
-            if(screen_shake_timeout_timer->finished() == 0 && player->vel().x > 0){
+            player->setPosition({camera->getViewport(ratio).x, player->getPosition().y});
+        }else if(player->getPosition().x > camera->getViewport(ratio).y){
+            if(screen_shake_timeout_timer->finished() == 0 && player->getVelocity().x > 0){
                 shakeInterp->push_offset({shake_offset.x, 0}, 5);
                 shakeInterp->push_target({-shake_offset.x, 0}, 5);
                 screen_shake_timeout_timer->reset();
             }
-            player->pos({camera->getViewport(ratio).y, player->pos().y});
+            player->setPosition({camera->getViewport(ratio).y, player->getPosition().y});
         }
     }
 

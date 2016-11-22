@@ -9,9 +9,9 @@ namespace pse{
 
 
 EnemyGenericInvader::EnemyGenericInvader(int sprite_n){
-    m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, sprite_n, 0,
-                                        50);
-    m_hitbox->radius(50);
+    sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, sprite_n, 0,
+                                      50);
+    hitbox->radius(50);
 }
 
 EnemyGenericInvader::~EnemyGenericInvader(){

@@ -10,9 +10,9 @@
 namespace pse{
 
 Enemy::Enemy(){
-    m_hitbox = new Hitbox(0);
-    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Expo::easeInOut);
-    death_anim_rotation_interp = new Interpolator<float>(&m_rotation, interp::Linear::easeNone);
+    hitbox = new Hitbox(0);
+    moveInterp = new Interpolator<glm::vec2>(&position, &interp::Expo::easeInOut);
+    death_anim_rotation_interp = new Interpolator<float>(&rotation, interp::Linear::easeNone);
 
     death_anim_timer = new Timer([this](){
         m_state = ENEMY_STATE_DEAD;

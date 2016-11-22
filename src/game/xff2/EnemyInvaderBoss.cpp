@@ -10,16 +10,16 @@
 namespace pse{
 
 pse::EnemyInvaderBoss::EnemyInvaderBoss(){
-    m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 5, 100);
-    m_hitbox->radius(100);
+    sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 5, 100);
+    hitbox->radius(100);
 
-    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Elastic::easeInOut);
+    moveInterp = new Interpolator<glm::vec2>(&position, &interp::Elastic::easeInOut);
 
     m_isBoss = true;
     hitpoints_shader = ResourceShader->load("assets/common/shaders/default_mvp.vert",
                                             "assets/xff2/shaders/hitpoints.frag");
 
-    pos({0, 600});
+    setPosition({0, 600});
 
     moveInterp->target({0, 300}, 120);
     start_anim = new Timer([this](){
@@ -27,7 +27,7 @@ pse::EnemyInvaderBoss::EnemyInvaderBoss(){
     }, 130);
 
     sprite_tick_timer = new Timer([this](){
-        m_sprite->tick();
+        sprite->tick();
         sprite_tick_timer->resume();
     }, 5, false);
 
@@ -54,8 +54,8 @@ void EnemyInvaderBoss::draw(RenderInfo* renderInfo) const{
     hitpoints_shader->uniform("view", renderInfo->view);
     hitpoints_shader->uniform("projection", renderInfo->projection);
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(pos(), 0));
-    model = glm::scale(model, glm::vec3(m_sprite->scale(), 1));
+    model = glm::translate(model, glm::vec3(getPosition(), 0));
+    model = glm::scale(model, glm::vec3(sprite->scale(), 1));
     hitpoints_shader->uniform("model", model);
     hitpoints_shader->uniform("hitpoints", 1.f / m_boss_hitpoints * m_boss_max_hitpoints / 2);
     Game::i().render()->renderQuad();

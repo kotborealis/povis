@@ -24,12 +24,14 @@ public:
 
     bool hit();
 
-    glm::vec2 vel() const;
-    unsigned short lives() const;
-    state_enum state() const;
-    bool isAlive() const;
+    bool collision(Hitbox* hitbox);
 
-    BulletHell bulletHell;
+    std::list<BulletInstance*>* getBullets();
+    glm::vec2 getVelocity() const;
+    unsigned short getLives() const;
+    state_enum getState() const;
+
+    bool isAlive() const;
 
 protected:
     void updateLives_ui_string();
@@ -38,6 +40,7 @@ protected:
     enum ControlEventEnum{e_key_up, e_key_down, e_none};
 
     BulletType* bullet01 = nullptr;
+    BulletHell bulletHell;
 
     glm::vec4 move_direction = {0, 0, 0, 0};
 
@@ -60,13 +63,11 @@ protected:
     bool shoot_action = false;
     Timer* shoot_cooldown_timer = nullptr;
 
-    unsigned short m_lives = 3;
+    unsigned short lives = 3;
     Font::String* lives_ui_string = nullptr;
     Timer* hit_cooldown_timer = nullptr;
 
-    state_enum m_state = PLAYER_STATE_ALIVE;
+    state_enum state = PLAYER_STATE_ALIVE;
 };
 
 }
-
-

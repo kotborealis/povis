@@ -11,19 +11,19 @@
 namespace pse{
 
 Player::Player(){
-    m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
-    m_hitbox = new Hitbox(15);
+    sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
+    hitbox = new Hitbox(15);
 
     updateLives_ui_string();
 
-    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Expo::easeInOut);
+    moveInterp = new Interpolator<glm::vec2>(&position, &interp::Expo::easeInOut);
 
     velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
     velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
     velocityInterpXDec = new Interpolator<float>(&velocity.x, interp::Cubic::easeOut);
     velocityInterpYDec = new Interpolator<float>(&velocity.y, interp::Cubic::easeOut);
 
-    rotation_interp = new Interpolator<float>(&m_rotation, interp::Quad::easeIn);
+    rotation_interp = new Interpolator<float>(&rotation, interp::Quad::easeIn);
 
     hit_cooldown_timer = new Timer([](){}, 60, true);
     shoot_cooldown_timer = new Timer([](){}, 40, true);
@@ -34,7 +34,7 @@ Player::Player(){
 }
 
 void Player::draw(RenderInfo* renderInfo) const{
-    if(m_state == PLAYER_STATE_HIT_ANIMATION){
+    if(state == PLAYER_STATE_HIT_ANIMATION){
         if(hit_cooldown_timer->current() % 3 != 1){
             Entity::draw(renderInfo);
         }
@@ -45,7 +45,7 @@ void Player::draw(RenderInfo* renderInfo) const{
 
     if(isAlive()){
         renderInfo->framebufferUI->bind();
-        renderInfo->position = pos() + glm::vec2(20, -40);
+        renderInfo->position = getPosition() + glm::vec2(20, -40);
         lives_ui_string->draw(renderInfo);
     }
 }
@@ -68,15 +68,15 @@ void Player::update(StateInfo* stateInfo){
         velocityInterpYDec->update();
 
         if(velocity.x != 0 || velocity.y != 0){
-            pos(pos() + glm::normalize(velocity) * base_velocity);
+            setPosition(getPosition() + glm::normalize(velocity) * base_velocity);
         }
 
         if(shoot_action && !shoot_cooldown_timer->active()){
             BulletInstance* b = new BulletInstance();
-            b->pos = pos();
+            b->pos = getPosition();
             b->vel = {0, 5};
             b->hitbox = new Hitbox(10);
-            b->hitbox->pos(pos());
+            b->hitbox->pos(getPosition());
             b->type = bullet01;
             bulletHell.push(b);
             shoot_cooldown_timer->resume();
@@ -207,18 +207,18 @@ Player::~Player(){
 
 }
 
-glm::vec2 Player::vel() const{
+glm::vec2 Player::getVelocity() const{
     return velocity;
 }
 
 bool Player::hit(){
     if(isAlive() && !hit_cooldown_timer->active()){
         hit_cooldown_timer->resume();
-        m_lives--;
+        lives--;
         updateLives_ui_string();
-        m_state = PLAYER_STATE_HIT_ANIMATION;
-        if(m_lives == 0){
-            m_state = PLAYER_STATE_DEATH_ANIMATION;
+        state = PLAYER_STATE_HIT_ANIMATION;
+        if(lives == 0){
+            state = PLAYER_STATE_DEATH_ANIMATION;
             velocityInterpXAcc->cancel();
             velocityInterpYAcc->cancel();
             velocityInterpXDec->cancel();
@@ -231,23 +231,31 @@ bool Player::hit(){
     return false;
 }
 
-unsigned short Player::lives() const{
-    return m_lives;
+unsigned short Player::getLives() const{
+    return lives;
 }
 
-Player::state_enum Player::state() const{
-    return m_state;
+Player::state_enum Player::getState() const{
+    return state;
 }
 
 bool Player::isAlive() const{
-    return m_state != PLAYER_STATE_DEATH_ANIMATION && m_state != PLAYER_STATE_DEAD;
+    return state != PLAYER_STATE_DEATH_ANIMATION && state != PLAYER_STATE_DEAD;
 }
 
 void Player::updateLives_ui_string(){
     if(lives_ui_string){
         delete lives_ui_string;
     }
-    lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
+    lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
+}
+
+bool Player::collision(Hitbox* hitbox){
+    return getHitbox()->collision(*getHitbox());
+}
+
+std::list<BulletInstance*>* Player::getBullets(){
+    return &bulletHell.bullets;
 }
 
 }

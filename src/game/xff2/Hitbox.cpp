@@ -21,7 +21,7 @@ void Hitbox::draw(RenderInfo *renderInfo) const {
     renderInfo->position = pos();
 
     glm::mat4 model = {};
-    model = glm::translate(model, {m_pos.x, m_pos.y, 0});
+    model = glm::translate(model, {position.x, position.y, 0});
     model = glm::scale(model, {m_radius, m_radius, 1});
 
     m_shader->bind();
