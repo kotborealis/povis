@@ -16,7 +16,12 @@ pse::EnemyInvaderBoss::EnemyInvaderBoss(){
     hitpoints_shader = ResourceShader->load("assets/common/shaders/default_mvp.vert",
                                             "assets/xff2/shaders/hitpoints.frag");
 
-    pos({0, 300});
+    pos({0, 600});
+
+    moveInterp->target({0, 300}, 120);
+    start_anim = new Timer([this](){
+        start_anim_end = true;
+    }, 130);
 
     sprite_tick_timer = new Timer([this](){
         m_sprite->tick();
@@ -33,7 +38,10 @@ pse::EnemyInvaderBoss::~EnemyInvaderBoss(){
 void EnemyInvaderBoss::update(StateInfo* stateInfo){
     Enemy::update(stateInfo);
     sprite_tick_timer->update();
-    pattern->update(stateInfo);
+    start_anim->update();
+    if(start_anim_end && m_state == ENEMY_STATE_ALIVE){
+        pattern->update(stateInfo);
+    }
 }
 
 void EnemyInvaderBoss::draw(RenderInfo* renderInfo) const{

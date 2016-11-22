@@ -28,6 +28,9 @@ public:
 private:
     Timer* sprite_tick_timer;
     BulletPattern* pattern;
+
+    Timer* start_anim;
+    bool start_anim_end = false;
 };
 
 }
