@@ -17,6 +17,7 @@
 #include "Enemy.h"
 #include "EnemyGenericInvader.h"
 #include "InvadersFormation.h"
+#include "EnemyInvaderBoss.h"
 
 namespace pse{
 
@@ -68,6 +69,8 @@ private:
     float score_penalty_per_live = 10;
 
     Font::String* scoreString;
+
+    EnemyInvaderBoss* boss = nullptr;
 };
 
 }

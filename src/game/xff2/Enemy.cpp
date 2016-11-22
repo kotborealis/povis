@@ -3,6 +3,8 @@
 //
 
 #include <Interpolation/Linear.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <Game.h>
 #include "Enemy.h"
 
 namespace pse{

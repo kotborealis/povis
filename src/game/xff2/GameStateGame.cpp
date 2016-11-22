@@ -72,6 +72,32 @@ void GameStateGame::update(float delta){
     stateInfo.player_pos = player->pos();
     stateInfo.player_alive = player->isAlive();
 
+    if(boss){
+        boss->update(&stateInfo);
+        if(player->isAlive() && !player_won){
+            boss->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+                if(player->hitbox()->collision(*bullet->hitbox)){
+                    if(player->hit())
+                        score -= score_penalty_per_live;
+                    return true;
+                }
+                return false;
+            });
+            player->bulletHell.bullets.remove_if([this](BulletInstance* bullet){
+                if(boss->hitbox()->collision(*bullet->hitbox)){
+                    boss->m_boss_hitpoints--;
+                    score += score_per_enemy;
+                    if(boss->m_boss_hitpoints == 0){
+                        boss->kill();
+                        score += score_per_enemy * 100;
+                    }
+                    return true;
+                }
+                return false;
+            });
+        }
+    }
+
     fade_to_game_timer->update();
     screen_shake_timeout_timer->update();
     hold_to_restart_timer->update();
@@ -161,7 +187,12 @@ void GameStateGame::update(float delta){
         }
     }
 
-    if(invadersFormation->enemies.size() == 0){
+    if(!boss && invadersFormation->enemies.size() == 0){
+        //player_won = true;
+        boss = new EnemyInvaderBoss();
+    }
+    if(boss && boss->state() == Enemy::state_enum::ENEMY_STATE_DEAD){
+        boss->bulletHell.bullets.clear();
         player_won = true;
     }
 }
@@ -179,6 +210,11 @@ void GameStateGame::draw(){
     for(auto&& item : invadersFormation->enemies){
         item->enemy->draw(&renderInfo);
     }
+
+    if(boss){
+        boss->draw(&renderInfo);
+    }
+
     player->draw(&renderInfo);
     if(!player->isAlive()){
         renderInfo.framebufferUI->bind();

@@ -24,6 +24,7 @@ public:
 
     void kill();
 
+    BulletHell bulletHell;
 protected:
     Interpolator<glm::vec2>* moveInterp;
 
@@ -32,7 +33,7 @@ protected:
 
     bool m_isBoss = false;
 
-    BulletHell bulletHell;
+    Shader::Ptr hitpoints_shader;
 
     state_enum m_state = ENEMY_STATE_ALIVE;
     unsigned base_death_anim_leave_ticks = 60;

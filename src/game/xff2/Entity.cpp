@@ -15,7 +15,7 @@ void Entity::draw(RenderInfo *renderInfo) const {
 void Entity::update(StateInfo *stateInfo) {
     m_hitbox->pos(m_pos);
     tick++;
-    m_sprite->tick();
+    //m_sprite->tick();
 }
 
 const glm::vec2& Entity::pos() const {
