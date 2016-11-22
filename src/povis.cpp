@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include "Game.h"
 
-
 using namespace pse;
 
 int main(int argc, char* args[]){

@@ -69,6 +69,7 @@ void GameStateGame::update(float delta){
     const float ratio = (float)Game::i().render()->window()->width() / (float)Game::i().render()->window()->height();
 
     stateInfo.tick++;
+    stateInfo.player = player;
     stateInfo.player_pos = player->pos();
     stateInfo.player_alive = player->isAlive();
 

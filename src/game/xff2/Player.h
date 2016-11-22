@@ -6,6 +6,7 @@
 
 #include "Entity.h"
 #include "BulletHell.h"
+#include <render/Font.h>
 
 namespace pse{
 

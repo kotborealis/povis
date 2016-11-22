@@ -3,7 +3,9 @@
 //
 
 #include <Timer.h>
+#include <glm/gtc/constants.hpp>
 #include "InvadersFormation.h"
+#include "Player.h"
 
 namespace pse{
 
@@ -40,48 +42,63 @@ void InvadersFormation::draw(RenderInfo* renderInfo) const{}
 void InvadersFormation::update(StateInfo* stateInfo){
     tick++;
 
+    //Update Timers
     spawn_bullet_timeout_timer->update();
+
+    //Update BulletHell
     bulletHell.update(stateInfo);
 
-    for(auto&& item : enemies){
-        if(item->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEAD ||
-           item->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
-            item->interp_X->cancel();
+    //Check if Enemies have active animations or if they're dead
+    for(auto&& i : enemies){
+        if(i->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEAD ||
+           i->enemy->state() == Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
+            i->interp_X->cancel();
         }
     }
-    for(auto&& item : enemies){
-        if(item->enemy->pos().x >= constrains.x - 100){
+
+    //Check if one of Invaders hit the constrains
+    for(auto&& i : enemies){
+        if(i->enemy->pos().x >= constrains.x - 100){
             direction = -1;
             break;
-        }else if(item->enemy->pos().x <= -constrains.x + 100){
+        }else if(i->enemy->pos().x <= -constrains.x + 100){
             direction = 1;
             break;
         }
     }
+
+    //Update invaders, spawn new bullets
     int j = 0;
-    for(auto&& item : enemies){
+    for(auto&& i : enemies){
         j++;
-        item->enemy->update(stateInfo);
-        if(item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEAD &&
-           item->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
-            item->interp_X->update();
+        i->enemy->update(stateInfo);
+
+        //If enemy at death/dead, don't move it and don't spawn new bullets from it
+        if(i->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEAD &&
+           i->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
+
+            //Move invader
+            i->interp_X->update();
             if(tick % ticks_per_move == 0){
-                item->interp_X->offset(direction * move_offset.x, ticks_per_move);
+                i->interp_X->offset(direction * move_offset.x, ticks_per_move);
             }
 
-            if(stateInfo->player_alive && spawn_bullet_timeout_timer->finished() && rand() % enemies.size() + 1 == j){
-                spawn_bullet_timeout_timer->reset();
+            //Spawn bullets
+            if(stateInfo->player->isAlive() && spawn_bullet_timeout_timer->finished()
+               && rand() % enemies.size() + 1 == j){
 
-                float angle_to_player = (float)atan2(item->enemy->pos().x - stateInfo->player_pos.x,
-                                                     item->enemy->pos().y - stateInfo->player_pos.y);
-                BulletInstance* i = new BulletInstance();
-                i->pos = item->enemy->pos();
-                i->vel = glm::vec2(glm::sin(angle_to_player), glm::cos(angle_to_player)) * -5.f;
-                i->angle = -angle_to_player * 180.f / 3.14f + 180;
-                i->hitbox = new Hitbox(10);
-                i->hitbox->pos(item->enemy->pos());
-                i->type = bullet01;
-                bulletHell.push(i);
+                spawn_bullet_timeout_timer->resume();
+
+                auto _ = i->enemy->pos() - stateInfo->player->pos();
+                float angle_to_player = (float)atan2(_.y, _.x);
+                BulletInstance* b = new BulletInstance();
+                b->pos = i->enemy->pos();
+                b->vel = glm::vec2(glm::cos(angle_to_player), glm::sin(angle_to_player)) * -5.f;
+                b->angle = angle_to_player + glm::half_pi<float>();
+                b->hitbox = new Hitbox(10);
+                b->hitbox->pos(i->enemy->pos());
+                b->type = bullet01;
+                bulletHell.push(b);
             }
         }
     }
