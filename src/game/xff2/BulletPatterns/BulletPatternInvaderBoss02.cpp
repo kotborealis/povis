@@ -3,7 +3,6 @@
 //
 
 #include "BulletPatternInvaderBoss02.h"
-#include "Timer.h"
 
 namespace pse{
 
@@ -48,7 +47,7 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
         glm::vec2 vel = glm::vec2(glm::sin(angle_to_player), glm::cos(angle_to_player)) * -6.f;;
         for(int k = -cascade_c; k < cascade_c + 1; k++){
             BulletInstance* i = new BulletInstance();
-            i->pos = source->pos() + glm::vec2(40 * k, 0);
+            i->pos = source->pos() + glm::vec2(120 * k, 0);
             i->vel = vel;
             i->angle = -angle_to_player * 180 / 3.14f;
             i->hitbox = new Hitbox(5);

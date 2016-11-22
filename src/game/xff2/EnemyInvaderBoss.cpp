@@ -4,6 +4,7 @@
 
 #include <game/xff2/BulletPatterns/BulletPatternInvaderBoss02.h>
 #include <Game.h>
+#include <Interpolation/Elastic.h>
 #include "EnemyInvaderBoss.h"
 
 namespace pse{
@@ -11,6 +12,8 @@ namespace pse{
 pse::EnemyInvaderBoss::EnemyInvaderBoss(){
     m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 5, 100);
     m_hitbox->radius(100);
+
+    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Elastic::easeInOut);
 
     m_isBoss = true;
     hitpoints_shader = ResourceShader->load("assets/common/shaders/default_mvp.vert",
