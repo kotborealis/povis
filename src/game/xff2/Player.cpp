@@ -4,14 +4,38 @@
 
 #include <Interpolation/Quad.h>
 #include <render/Font.h>
+#include <Interpolation/Cubic.h>
+#include <glm/gtc/constants.hpp>
 #include "Player.h"
 
 namespace pse{
 
+Player::Player(){
+    m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
+    m_hitbox = new Hitbox(15);
+
+    updateLives_ui_string();
+
+    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Expo::easeInOut);
+
+    velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
+    velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
+    velocityInterpXDec = new Interpolator<float>(&velocity.x, interp::Cubic::easeOut);
+    velocityInterpYDec = new Interpolator<float>(&velocity.y, interp::Cubic::easeOut);
+
+    rotation_interp = new Interpolator<float>(&m_rotation, interp::Quad::easeIn);
+
+    hit_cooldown_timer = new Timer([](){}, 60, true);
+    shoot_cooldown_timer = new Timer([](){}, 40, true);
+
+    bullet01 = new BulletType();
+    bullet01->sprite = std::unique_ptr<Sprite>(
+            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 19, 0, 20));
+}
 
 void Player::draw(RenderInfo* renderInfo) const{
     if(m_state == PLAYER_STATE_HIT_ANIMATION){
-        if(hit_cooldown % 3 != 1){
+        if(hit_cooldown_timer->current() % 3 != 1){
             Entity::draw(renderInfo);
         }
     }else{
@@ -29,31 +53,33 @@ void Player::draw(RenderInfo* renderInfo) const{
 void Player::update(StateInfo* stateInfo){
     bulletHell.update(stateInfo);
 
+    //Update interps
     rotation_interp->update();
     moveInterp->update();
 
-    if(isAlive()){
-        if(hit_cooldown > 0) hit_cooldown--;
+    //Update timers
+    hit_cooldown_timer->update();
+    shoot_cooldown_timer->update();
 
+    if(isAlive()){
         velocityInterpXAcc->update();
         velocityInterpYAcc->update();
         velocityInterpXDec->update();
         velocityInterpYDec->update();
 
-        if(velocity.x != 0 || velocity.y != 0)
+        if(velocity.x != 0 || velocity.y != 0){
             pos(pos() + glm::normalize(velocity) * base_velocity);
+        }
 
-        if(shoot_cooldown > 0){
-            shoot_cooldown--;
-        }else if(shooting){
-            BulletInstance* i = new BulletInstance();
-            i->pos = pos();
-            i->vel = {0, 5};
-            i->hitbox = new Hitbox(10);
-            i->hitbox->pos(pos());
-            i->type = bullet01;
-            bulletHell.push(i);
-            shoot_cooldown = base_shoot_cooldown;
+        if(shoot_action && !shoot_cooldown_timer->active()){
+            BulletInstance* b = new BulletInstance();
+            b->pos = pos();
+            b->vel = {0, 5};
+            b->hitbox = new Hitbox(10);
+            b->hitbox->pos(pos());
+            b->type = bullet01;
+            bulletHell.push(b);
+            shoot_cooldown_timer->resume();
         }
     }
 
@@ -63,6 +89,7 @@ void Player::update(StateInfo* stateInfo){
 void Player::handleEvent(SDL_Event* event){
     ControlActionEnum control = act_none;
     ControlEventEnum control_event = e_none;
+
     if(event->type == SDL_KEYDOWN || event->type == SDL_KEYUP){
         control_event = event->type == SDL_KEYDOWN ? e_key_down : e_key_up;
         switch(event->key.keysym.sym){
@@ -90,6 +117,7 @@ void Player::handleEvent(SDL_Event* event){
                 break;
         }
     }
+
     if(isAlive() && control_event == e_key_down){
         switch(control){
             case act_move_up:
@@ -115,7 +143,7 @@ void Player::handleEvent(SDL_Event* event){
                 rotation_interp->target(rotation_to, rotation_ticks);
                 break;
             case act_shoot:
-                shooting = true;
+                shoot_action = true;
                 break;
             default:
                 break;
@@ -167,32 +195,12 @@ void Player::handleEvent(SDL_Event* event){
                 }
                 break;
             case act_shoot:
-                shooting = false;
+                shoot_action = false;
                 break;
             default:
                 break;
         }
     }
-}
-
-Player::Player(){
-    m_sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
-    m_hitbox = new Hitbox(15);
-
-    lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
-
-    moveInterp = new Interpolator<glm::vec2>(&m_pos, &interp::Expo::easeInOut);
-
-    velocityInterpXAcc = new Interpolator<float>(&velocity.x, interp::Expo::easeIn);
-    velocityInterpYAcc = new Interpolator<float>(&velocity.y, interp::Expo::easeIn);
-    velocityInterpXDec = new Interpolator<float>(&velocity.x, interp::Expo::easeOut);
-    velocityInterpYDec = new Interpolator<float>(&velocity.y, interp::Expo::easeOut);
-
-    rotation_interp = new Interpolator<float>(&m_rotation, interp::Quad::easeIn);
-
-    bullet01 = new BulletType();
-    bullet01->sprite = std::unique_ptr<Sprite>(
-            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 19, 0, 20));
 }
 
 Player::~Player(){
@@ -204,11 +212,10 @@ glm::vec2 Player::vel() const{
 }
 
 bool Player::hit(){
-    if(isAlive() && hit_cooldown == 0){
+    if(isAlive() && !hit_cooldown_timer->active()){
+        hit_cooldown_timer->resume();
         m_lives--;
-        delete lives_ui_string;
-        lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
-        hit_cooldown = base_hit_cooldown;
+        updateLives_ui_string();
         m_state = PLAYER_STATE_HIT_ANIMATION;
         if(m_lives == 0){
             m_state = PLAYER_STATE_DEATH_ANIMATION;
@@ -216,7 +223,7 @@ bool Player::hit(){
             velocityInterpYAcc->cancel();
             velocityInterpXDec->cancel();
             velocityInterpYDec->cancel();
-            rotation_interp->target(360 * 10, 120);
+            rotation_interp->target(glm::pi<float>() * 20, 120);
             moveInterp->target({0, 1000}, 120);
         }
         return true;
@@ -234,6 +241,13 @@ Player::state_enum Player::state() const{
 
 bool Player::isAlive() const{
     return m_state != PLAYER_STATE_DEATH_ANIMATION && m_state != PLAYER_STATE_DEAD;
+}
+
+void Player::updateLives_ui_string(){
+    if(lives_ui_string){
+        delete lives_ui_string;
+    }
+    lives_ui_string = Font::Default->string("x" + TO_STRING(m_lives), 20);
 }
 
 }
