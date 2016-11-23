@@ -16,9 +16,6 @@ public:
 
     void update(StateInfo* stateInfo) override;
     void draw(RenderInfo* renderInfo) const override;
-
-private:
-    BulletType* m_bullet01;
 };
 
 }
