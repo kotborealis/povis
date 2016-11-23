@@ -3,6 +3,7 @@
 //
 
 #include "BulletPatternInvaderBoss02.h"
+#include "game/xff2/Player.h"
 
 namespace pse{
 
@@ -88,12 +89,7 @@ BulletPatternInvaderBoss02::~BulletPatternInvaderBoss02(){
 void BulletPatternInvaderBoss02::update(StateInfo* stateInfo){
     if(m_state == PATTERN_FINISHED)
         return;
-    latest_player_pos = stateInfo->player_pos;
-//    angle_to_player_interp->update();
-//    if(angle_to_player_interp->finished()){
-//        angle_to_player_interp->target((float)atan2(source->pos().x - stateInfo->player_pos.x,
-//                                                    source->pos().y - stateInfo->player_pos.y), 30);
-//    }
+    latest_player_pos = stateInfo->player->getPosition();
 }
 
 }

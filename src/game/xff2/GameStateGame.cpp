@@ -37,7 +37,7 @@ GameStateGame::GameStateGame(){
     player = new Player();
     player->setPosition({0, -400});
 
-    invadersFormation = new InvadersFormation({500, 400}, {10, 0});
+    invadersFormation = new InvadersFormation({500, 400}, {10, 5});
 }
 
 GameStateGame::~GameStateGame(){
@@ -70,8 +70,6 @@ void GameStateGame::update(float delta){
 
     stateInfo.tick++;
     stateInfo.player = player;
-    stateInfo.player_pos = player->getPosition();
-    stateInfo.player_alive = player->isAlive();
 
     if(boss){
         boss->update(&stateInfo);

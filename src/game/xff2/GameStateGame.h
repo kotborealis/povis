@@ -51,6 +51,8 @@ private:
     RenderInfo renderInfo;
     StateInfo stateInfo;
 
+    BulletHell bulletHell;
+
     InvadersFormation* invadersFormation;
     Player* player;
 
