@@ -41,6 +41,7 @@ void Player::draw(RenderInfo* renderInfo) const{
     }else{
         Entity::draw(renderInfo);
     }
+    renderInfo->rotation = 0;
     bulletHell.draw(renderInfo);
 
     if(isAlive()){
