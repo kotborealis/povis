@@ -61,11 +61,11 @@ protected:
     Interpolator<float>* rotation_interp = nullptr;
 
     bool shoot_action = false;
-    Timer* shoot_cooldown_timer = nullptr;
+    Timer::Ptr shoot_cooldown_timer = nullptr;
 
     unsigned short lives = 3;
     Font::String* lives_ui_string = nullptr;
-    Timer* hit_cooldown_timer = nullptr;
+    Timer::Ptr hit_cooldown_timer = nullptr;
 
     state_enum state = PLAYER_STATE_ALIVE;
 };

@@ -18,6 +18,12 @@ Timer::~Timer(){
 
 }
 
+Timer::Ptr Timer::create(std::function<void()> callback, unsigned int m_duration, bool paused) {
+    Timer::Ptr timer = std::shared_ptr<Timer>(new Timer(callback, m_duration, paused));
+    internal_list.push_back(std::weak_ptr<Timer>(timer));
+    return timer;
+}
+
 void Timer::update(){
     if(m_state == TIMER_ACTIVE && ++m_current >= m_duration){
         reset();
@@ -73,4 +79,7 @@ bool Timer::active() const{
 bool Timer::paused() const{
     return m_state == TIMER_PAUSE;
 }
+
+std::list<Timer::WeakPtr> Timer::internal_list;
+
 }

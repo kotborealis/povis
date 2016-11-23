@@ -34,7 +34,7 @@ protected:
     Shader::Ptr hitpoints_shader;
 
     state_enum m_state = ENEMY_STATE_ALIVE;
-    Timer* death_anim_timer;
+    Timer::Ptr death_anim_timer;
 
     Interpolator<float>* death_anim_rotation_interp;
 };

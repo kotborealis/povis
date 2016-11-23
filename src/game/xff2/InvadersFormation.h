@@ -30,7 +30,7 @@ public:
     unsigned ticks_per_move = 100;
 
 private:
-    Timer* spawn_bullet_timeout_timer;
+    Timer::Ptr spawn_bullet_timeout_timer;
 
     BulletType* bullet01;
 

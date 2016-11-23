@@ -17,13 +17,13 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
     m_bullet02->sprite = std::unique_ptr<Sprite>(
             new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 32, 0, 40));
 
-    shoot0_t = new Timer([this, source](){
+    shoot0_t = Timer::create([this, source](){
         angle_to_player = (float)atan2(source->getPosition().x - latest_player_pos.x,
                                        source->getPosition().y - latest_player_pos.y);
         shoot1_t->resume();
     }, 40);
 
-    shoot1_t = new Timer([this, bulletHell, source](){
+    shoot1_t = Timer::create([this, bulletHell, source](){
 //        for(int k = 0; k < 5; k++){
 //            float angle = angle_to_player + 20 * k * 3.14f / 180;
 //            BulletInstance* i = new BulletInstance();
@@ -64,7 +64,7 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
         }
     }, 10, true);
 
-    shoot2_t = new Timer([this, bulletHell, source](){
+    shoot2_t = Timer::create([this, bulletHell, source](){
         shoot2_t->resume();
         for(int k = -180 + offset2; k < 180 + offset2; k += 23){
             float angle = k * 3.14f / 180;
@@ -89,9 +89,6 @@ void BulletPatternInvaderBoss02::update(StateInfo* stateInfo){
     if(m_state == PATTERN_FINISHED)
         return;
     latest_player_pos = stateInfo->player_pos;
-    shoot0_t->update();
-    shoot1_t->update();
-    shoot2_t->update();
 //    angle_to_player_interp->update();
 //    if(angle_to_player_interp->finished()){
 //        angle_to_player_interp->target((float)atan2(source->pos().x - stateInfo->player_pos.x,

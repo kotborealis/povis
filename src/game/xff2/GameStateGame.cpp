@@ -20,14 +20,14 @@ GameStateGame::GameStateGame(){
     fadeInOutSprite->custom_shader = fadeInOutShader;
     fadeInOutInterp->target(100, 60);
 
-    fade_to_game_timer = new Timer([this](){
+    fade_to_game_timer = Timer::create([this](){
         GameState* _ = new GameStateGame();
         Game::i().setState(_);
     }, 60, true);
 
-    screen_shake_timeout_timer = new Timer([](){}, 15);
+    screen_shake_timeout_timer = Timer::create([](){}, 15);
 
-    hold_to_restart_timer = new Timer([this](){
+    hold_to_restart_timer = Timer::create([this](){
         fade_to_game_timer->resume();
         fadeInOutInterp->target(0, 60);
     }, 60, true);
@@ -98,10 +98,6 @@ void GameStateGame::update(float delta){
             });
         }
     }
-
-    fade_to_game_timer->update();
-    screen_shake_timeout_timer->update();
-    hold_to_restart_timer->update();
 
     if(player->isAlive() && !player_won && score > 0) score -= score_penalty_per_tick;
 

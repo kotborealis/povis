@@ -45,7 +45,7 @@ private:
     float fadeInOutStep = 0;
     Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInOutStep, &interp::Expo::easeOut);
 
-    Timer* fade_to_game_timer;
+    Timer::Ptr fade_to_game_timer;
 };
 
 }

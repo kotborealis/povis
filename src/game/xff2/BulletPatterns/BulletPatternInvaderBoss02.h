@@ -25,12 +25,12 @@ private:
     float angle_to_player;
     Interpolator<float>* angle_to_player_interp = new Interpolator<float>(&angle_to_player, &interp::Sine::easeInOut);
 
-    Timer* shoot0_t;
+    Timer::Ptr shoot0_t;
 
-    Timer* shoot1_t;
+    Timer::Ptr shoot1_t;
     int cascade_c = 1;
 
-    Timer* shoot2_t;
+    Timer::Ptr shoot2_t;
     int offset2 = 0;
     BulletType* m_bullet02;
 };

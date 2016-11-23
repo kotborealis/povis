@@ -27,13 +27,13 @@ public:
     void setBoss_hitpoints(unsigned int boss_hitpoints);
 
 private:
-    Timer* sprite_tick_timer;
+    Timer::Ptr sprite_tick_timer;
     BulletPattern* pattern;
 
     const unsigned boss_max_hitpoints = 20;
     unsigned boss_hitpoints = 20;
 
-    Timer* start_anim;
+    Timer::Ptr start_anim;
     bool start_anim_end = false;
 };
 

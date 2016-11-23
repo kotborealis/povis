@@ -5,17 +5,21 @@
 #pragma once
 
 #include <functional>
+#include <memory>
+#include <list>
 
 namespace pse{
 
 class Timer{
+    friend class Game;
 public:
+    typedef std::weak_ptr<Timer> WeakPtr;
+    typedef std::shared_ptr<Timer> Ptr;
+
     enum timer_state{TIMER_ACTIVE, TIMER_PAUSE, TIMER_FINISHED};
 
-    Timer(std::function<void()> callback, unsigned int m_duration, bool paused = false);
+    static Ptr create(std::function<void()> callback, unsigned int m_duration, bool paused = false);
     virtual ~Timer();
-
-    void update();
 
     void cancel();
     void pause();
@@ -33,6 +37,10 @@ public:
     bool paused() const;
 
 private:
+    Timer(std::function<void()> callback, unsigned int m_duration, bool paused);
+
+    void update();
+
     unsigned m_duration = 0;
     unsigned m_current = 0;
 
@@ -41,6 +49,8 @@ private:
     timer_state m_state = TIMER_ACTIVE;
 
     std::function<void()> callback = nullptr;
+
+    static std::list<WeakPtr> internal_list;
 };
 
 }

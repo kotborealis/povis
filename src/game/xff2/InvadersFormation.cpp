@@ -10,7 +10,7 @@
 namespace pse{
 
 InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):constrains(constrains){
-    spawn_bullet_timeout_timer = new Timer([](){}, 30);
+    spawn_bullet_timeout_timer = Timer::create([](){}, 30);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
@@ -41,10 +41,7 @@ void InvadersFormation::draw(RenderInfo* renderInfo) const{}
 
 void InvadersFormation::update(StateInfo* stateInfo){
     tick++;
-
-    //Update Timers
-    spawn_bullet_timeout_timer->update();
-
+    
     //Update BulletHell
     bulletHell.update(stateInfo);
 

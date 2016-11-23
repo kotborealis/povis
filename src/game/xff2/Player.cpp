@@ -25,8 +25,8 @@ Player::Player(){
 
     rotation_interp = new Interpolator<float>(&rotation, interp::Quad::easeIn);
 
-    hit_cooldown_timer = new Timer([](){}, 60, true);
-    shoot_cooldown_timer = new Timer([](){}, 40, true);
+    hit_cooldown_timer = Timer::create([](){}, 60, true);
+    shoot_cooldown_timer = Timer::create([](){}, 40, true);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
@@ -56,10 +56,6 @@ void Player::update(StateInfo* stateInfo){
     //Update interps
     rotation_interp->update();
     moveInterp->update();
-
-    //Update timers
-    hit_cooldown_timer->update();
-    shoot_cooldown_timer->update();
 
     if(isAlive()){
         velocityInterpXAcc->update();

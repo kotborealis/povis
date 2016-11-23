@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Timer.h"
 
 namespace pse{
 
@@ -39,6 +40,13 @@ void Game::run(){
         }
 
         while(running && accumulator > 0){
+            Timer::internal_list.remove_if([](Timer::WeakPtr timer){
+                if(timer.expired()){
+                    return true;
+                }
+                timer.lock()->update();
+                return false;
+            });
             cState->update(optimal_frame_time);
             if(!cState){
                 running = false;

@@ -14,7 +14,7 @@ Enemy::Enemy(){
     moveInterp = new Interpolator<glm::vec2>(&position, &interp::Expo::easeInOut);
     death_anim_rotation_interp = new Interpolator<float>(&rotation, interp::Linear::easeNone);
 
-    death_anim_timer = new Timer([this](){
+    death_anim_timer = Timer::create([this](){
         m_state = ENEMY_STATE_DEAD;
     }, 60, true);
 }
@@ -34,7 +34,6 @@ void Enemy::update(StateInfo* stateInfo){
     }
 
     death_anim_rotation_interp->update();
-    death_anim_timer->update();
 
     Entity::update(stateInfo);
     moveInterp->update();

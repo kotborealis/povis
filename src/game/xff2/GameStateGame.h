@@ -42,9 +42,9 @@ private:
     bool player_won = false;
     Font::String* player_won_string = Font::Default->string("Well, what's now?\nHold R to restart.");
 
-    Timer* hold_to_restart_timer;
+    Timer::Ptr hold_to_restart_timer;
 
-    Timer* screen_shake_timeout_timer;
+    Timer::Ptr screen_shake_timeout_timer;
 
     const glm::vec2 shake_offset = glm::vec2(2, 2);
 
@@ -61,7 +61,7 @@ private:
     float fadeInOutStep = 0;
     Interpolator<float>* fadeInOutInterp = new Interpolator<float>(&fadeInOutStep, &interp::Expo::easeOut);
 
-    Timer* fade_to_game_timer;
+    Timer::Ptr fade_to_game_timer;
 
     float score = 100;
     float score_per_enemy = 10;

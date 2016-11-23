@@ -22,11 +22,11 @@ pse::EnemyInvaderBoss::EnemyInvaderBoss(){
     setPosition({0, 600});
 
     moveInterp->target({0, 300}, 120);
-    start_anim = new Timer([this](){
+    start_anim = Timer::create([this](){
         start_anim_end = true;
     }, 130);
 
-    sprite_tick_timer = new Timer([this](){
+    sprite_tick_timer = Timer::create([this](){
         sprite->tick();
         sprite_tick_timer->resume();
     }, 5, false);
@@ -40,8 +40,6 @@ pse::EnemyInvaderBoss::~EnemyInvaderBoss(){
 
 void EnemyInvaderBoss::update(StateInfo* stateInfo){
     Enemy::update(stateInfo);
-    sprite_tick_timer->update();
-    start_anim->update();
     if(start_anim_end && m_state == ENEMY_STATE_ALIVE){
         pattern->update(stateInfo);
     }

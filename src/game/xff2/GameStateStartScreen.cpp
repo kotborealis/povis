@@ -33,7 +33,7 @@ GameStateStartScreen::GameStateStartScreen(){
     game_name_scale_interp->push_offset(-10, 60);
     game_name_pos_interp->push_offset({25, 5}, 60);
 
-    fade_to_game_timer = new Timer([this](){
+    fade_to_game_timer = Timer::create([this](){
         fadeInOutStep = 0;
         fadeInOutInterp->target(100, 60);
         GameState* _ = new GameStateGame();
@@ -71,8 +71,6 @@ void GameStateStartScreen::update(float delta){
     game_name_pos_interp->update();
 
     fadeInOutInterp->update();
-
-    fade_to_game_timer->update();
 }
 
 void GameStateStartScreen::draw(){
