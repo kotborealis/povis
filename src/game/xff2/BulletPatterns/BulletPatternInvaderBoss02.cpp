@@ -53,7 +53,7 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
             i->vel = vel;
             i->angle = -angle_to_player * 180 / 3.14f;
             i->hitbox = new Hitbox(5);
-            i->hitbox->pos(source->getPosition());
+            i->hitbox->setPosition(source->getPosition());
             i->type = m_bullet01;
             bulletHell->push(i);
         }
@@ -74,7 +74,7 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
             i->vel = glm::vec2(glm::sin(angle), glm::cos(angle)) * -6.f;
             i->angle = -angle * 180 / 3.14f;
             i->hitbox = new Hitbox(10);
-            i->hitbox->pos(source->getPosition());
+            i->hitbox->setPosition(source->getPosition());
             i->type = m_bullet02;
             bulletHell->push(i);
         }

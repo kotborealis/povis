@@ -41,7 +41,7 @@ void InvadersFormation::draw(RenderInfo* renderInfo) const{}
 
 void InvadersFormation::update(StateInfo* stateInfo){
     tick++;
-    
+
     //Update BulletHell
     bulletHell.update(stateInfo);
 
@@ -93,7 +93,7 @@ void InvadersFormation::update(StateInfo* stateInfo){
                 b->vel = glm::vec2(glm::cos(angle_to_player), glm::sin(angle_to_player)) * -5.f;
                 b->angle = angle_to_player + glm::half_pi<float>();
                 b->hitbox = new Hitbox(10);
-                b->hitbox->pos(i->enemy->getPosition());
+                b->hitbox->setPosition(i->enemy->getPosition());
                 b->type = bullet01;
                 bulletHell.push(b);
             }

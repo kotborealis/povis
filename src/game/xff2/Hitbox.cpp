@@ -34,8 +34,8 @@ void Hitbox::draw(RenderInfo *renderInfo) const {
 }
 
 bool Hitbox::collision(Hitbox &hitbox) const {
-    const glm::vec2 d = hitbox.pos() - pos();
-    const float r = hitbox.radius() + radius();
+    const glm::vec2 d = hitbox.getPosition() - getPosition();
+    const float r = hitbox.getRadius() + getRadius();
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "IncompatibleTypes"
     const float _ = glm::length(d);
@@ -43,19 +43,19 @@ bool Hitbox::collision(Hitbox &hitbox) const {
     return _ < r;
 }
 
-const glm::vec2 &Hitbox::pos() const {
+glm::vec2 Hitbox::getPosition() const {
     return m_pos;
 }
 
-void Hitbox::pos(glm::vec2 _pos) {
+void Hitbox::setPosition(glm::vec2 _pos) {
     m_pos = _pos;
 }
 
-const float &Hitbox::radius() const {
+float Hitbox::getRadius() const {
     return m_radius;
 }
 
-void Hitbox::radius(float _radius) {
+void Hitbox::setRadius(float _radius) {
     m_radius = _radius;
 }
 }

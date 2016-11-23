@@ -21,7 +21,7 @@ void Entity::draw(RenderInfo *renderInfo) const {
 }
 
 void Entity::update(StateInfo *stateInfo) {
-    hitbox->pos(position);
+    hitbox->setPosition(position);
     tick++;
 }
 
@@ -31,7 +31,7 @@ const glm::vec2& Entity::getPosition() const{
 
 void Entity::setPosition(glm::vec2 _pos){
     position = _pos;
-    getHitbox()->pos(_pos);
+    getHitbox()->setPosition(_pos);
 }
 
 Hitbox* Entity::getHitbox() const{

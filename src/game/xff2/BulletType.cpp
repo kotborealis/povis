@@ -30,7 +30,7 @@ void BulletType::render(RenderInfo *renderInfo, BulletInstance *bulletInstance){
 }
 
 void BulletType::update(StateInfo *stateInfo, BulletInstance *bulletInstance){
-    bulletInstance->hitbox->pos(bulletInstance->hitbox->pos() + bulletInstance->vel);
+    bulletInstance->hitbox->setPosition(bulletInstance->hitbox->getPosition() + bulletInstance->vel);
     bulletInstance->pos += bulletInstance->vel;
     bulletInstance->tick++;
 }

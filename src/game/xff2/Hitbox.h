@@ -25,11 +25,11 @@ public:
 
     bool collision(Hitbox& laser) const;
 
-    const glm::vec2& pos() const;
-    void pos(glm::vec2 _pos);
+    glm::vec2 getPosition() const;
+    void setPosition(glm::vec2 _pos);
 
-    const float& radius() const;
-    void radius(float _radius);
+    float getRadius() const;
+    void setRadius(float _radius);
 
 protected:
 #if HITBOX_DEBUG
