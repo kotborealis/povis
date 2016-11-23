@@ -37,7 +37,7 @@ GameStateGame::GameStateGame(){
     player = new Player();
     player->setPosition({0, -400});
 
-    invadersFormation = new InvadersFormation({500, 400}, {10, 5});
+    invadersFormation = new InvadersFormation({500, 400}, {10, 0});
 }
 
 GameStateGame::~GameStateGame(){

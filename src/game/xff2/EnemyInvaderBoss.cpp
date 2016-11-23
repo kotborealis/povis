@@ -23,15 +23,13 @@ pse::EnemyInvaderBoss::EnemyInvaderBoss(){
 
     moveInterp->target({0, 300}, 120);
     start_anim = Timer::create([this](){
-        start_anim_end = true;
+        pattern = new BulletPatternInvaderBoss02(&bulletHell, this);
     }, 130);
 
     sprite_tick_timer = Timer::create([this](){
         sprite->tick();
         sprite_tick_timer->resume();
-    }, 5, false);
-
-    pattern = new BulletPatternInvaderBoss02(&bulletHell, this);
+    }, 5);
 }
 
 pse::EnemyInvaderBoss::~EnemyInvaderBoss(){
@@ -40,7 +38,7 @@ pse::EnemyInvaderBoss::~EnemyInvaderBoss(){
 
 void EnemyInvaderBoss::update(StateInfo* stateInfo){
     Enemy::update(stateInfo);
-    if(start_anim_end && m_state == ENEMY_STATE_ALIVE){
+    if(pattern && m_state == ENEMY_STATE_ALIVE){
         pattern->update(stateInfo);
     }
 }

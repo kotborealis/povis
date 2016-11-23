@@ -28,13 +28,12 @@ public:
 
 private:
     Timer::Ptr sprite_tick_timer;
-    BulletPattern* pattern;
+    BulletPattern* pattern = nullptr;
 
     const unsigned boss_max_hitpoints = 20;
     unsigned boss_hitpoints = 20;
 
     Timer::Ptr start_anim;
-    bool start_anim_end = false;
 };
 
 }
