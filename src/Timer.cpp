@@ -33,7 +33,7 @@ void Timer::update(){
 }
 
 void Timer::cancel(){
-    m_state == TIMER_FINISHED;
+    m_state = TIMER_FINISHED;
 }
 
 void Timer::pause(){
