@@ -21,7 +21,8 @@ class InterpolatorQueue{
 public:
     InterpolatorQueue(T* target_entity, float (* _interpolation)(float, float, float, float))
             :m_target(target_entity), interpolation(_interpolation){
-        static_assert(std::is_arithmetic<T>::value || std::is_same<T, glm::vec2>::value,
+        static_assert(std::is_arithmetic<T>::value || std::is_same<T, glm::vec2>::value
+                      || std::is_same<T, glm::vec3>::value,
                       "Non-arithmetic and Non-glm::vec2 type passed to Interpolator constuctor");
     }
 
