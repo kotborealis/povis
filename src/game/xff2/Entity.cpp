@@ -3,6 +3,14 @@
 
 namespace pse{
 
+Entity::Entity() {
+
+}
+
+Entity::~Entity() {
+
+}
+
 void Entity::draw(RenderInfo *renderInfo) const {
     renderInfo->framebufferDefault->bind();
     renderInfo->position = getPosition();
@@ -15,7 +23,6 @@ void Entity::draw(RenderInfo *renderInfo) const {
 void Entity::update(StateInfo *stateInfo) {
     hitbox->pos(position);
     tick++;
-    //m_sprite->tick();
 }
 
 const glm::vec2& Entity::getPosition() const{
@@ -29,14 +36,6 @@ void Entity::setPosition(glm::vec2 _pos){
 
 Hitbox* Entity::getHitbox() const{
     return hitbox;
-}
-
-Entity::Entity() {
-
-}
-
-Entity::~Entity() {
-
 }
 
 const float& Entity::getRotation() const{

@@ -86,9 +86,9 @@ void GameStateGame::update(float delta){
             });
             player->getBullets()->remove_if([this](BulletInstance* bullet){
                 if(boss->getHitbox()->collision(*bullet->hitbox)){
-                    boss->m_boss_hitpoints--;
+                    boss->setBoss_hitpoints(boss->getBoss_hitpoints() - 1);
                     score += score_per_enemy;
-                    if(boss->m_boss_hitpoints == 0){
+                    if(boss->getBoss_hitpoints() == 0){
                         boss->kill();
                         score += score_per_enemy * 100;
                     }

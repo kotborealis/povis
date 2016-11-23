@@ -57,7 +57,19 @@ void EnemyInvaderBoss::draw(RenderInfo* renderInfo) const{
     model = glm::translate(model, glm::vec3(getPosition(), 0));
     model = glm::scale(model, glm::vec3(sprite->scale(), 1));
     hitpoints_shader->uniform("model", model);
-    hitpoints_shader->uniform("hitpoints", 1.f / m_boss_hitpoints * m_boss_max_hitpoints / 2);
+    hitpoints_shader->uniform("hitpoints", 1.f / boss_hitpoints * boss_max_hitpoints / 2);
     Game::i().render()->renderQuad();
+}
+
+const unsigned int EnemyInvaderBoss::getBoss_max_hitpoints() const {
+    return boss_max_hitpoints;
+}
+
+unsigned int EnemyInvaderBoss::getBoss_hitpoints() const {
+    return boss_hitpoints;
+}
+
+void EnemyInvaderBoss::setBoss_hitpoints(unsigned int boss_hitpoints) {
+    EnemyInvaderBoss::boss_hitpoints = boss_hitpoints;
 }
 }

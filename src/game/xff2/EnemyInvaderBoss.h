@@ -21,13 +21,17 @@ public:
     void update(StateInfo* stateInfo) override;
     void draw(RenderInfo* renderInfo) const override;
 
+    const unsigned int getBoss_max_hitpoints() const;
+    unsigned int getBoss_hitpoints() const;
 
-    const unsigned m_boss_max_hitpoints = 20;
-    unsigned m_boss_hitpoints = 20;
+    void setBoss_hitpoints(unsigned int boss_hitpoints);
 
 private:
     Timer* sprite_tick_timer;
     BulletPattern* pattern;
+
+    const unsigned boss_max_hitpoints = 20;
+    unsigned boss_hitpoints = 20;
 
     Timer* start_anim;
     bool start_anim_end = false;
