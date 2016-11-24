@@ -33,10 +33,8 @@ void Enemy::update(StateInfo* stateInfo){
         return;
     }
 
-//    death_anim_rotation_interp->update();
-
     Entity::update(stateInfo);
-//    moveInterp->update();
+
     bulletHell.update(stateInfo);
 }
 

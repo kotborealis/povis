@@ -66,11 +66,6 @@ void GameStateStartScreen::update(float delta){
         game_name_scale_interp->push_offset(-10, 60);
         game_name_pos_interp->push_offset({25, 5}, 60);
     }
-
-//    game_name_scale_interp->update();
-//    game_name_pos_interp->update();
-
-//    fadeInOutInterp->update();
 }
 
 void GameStateStartScreen::draw(){
