@@ -16,7 +16,7 @@ Enemy::Enemy(){
 
     death_anim_timer = Timer::create([this](){
         m_state = ENEMY_STATE_DEAD;
-    }, 60, true);
+    }, 60, false, true);
 }
 
 Enemy::~Enemy(){
@@ -33,10 +33,10 @@ void Enemy::update(StateInfo* stateInfo){
         return;
     }
 
-    death_anim_rotation_interp->update();
+//    death_anim_rotation_interp->update();
 
     Entity::update(stateInfo);
-    moveInterp->update();
+//    moveInterp->update();
     bulletHell.update(stateInfo);
 }
 

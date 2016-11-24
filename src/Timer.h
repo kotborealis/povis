@@ -18,35 +18,35 @@ public:
 
     enum timer_state{TIMER_ACTIVE, TIMER_PAUSE, TIMER_FINISHED};
 
-    static Ptr create(std::function<void()> callback, unsigned int m_duration, bool paused = false);
+    static Ptr create(std::function<void()> callback, unsigned int m_duration, bool repeat, bool paused);
     virtual ~Timer();
 
     void cancel();
     void pause();
     void resume();
     void toggle();
-
     void reset();
 
-    unsigned duration() const;
-    unsigned current() const;
+    unsigned int getDuration() const;
+    unsigned int getCurrent() const;
+    timer_state getState() const;
 
-    timer_state state() const;
-    bool finished() const;
-    bool active() const;
-    bool paused() const;
+    bool isFinished() const;
+    bool isActive() const;
+    bool isPaused() const;
 
 private:
-    Timer(std::function<void()> callback, unsigned int m_duration, bool paused);
+    Timer(std::function<void()> callback, unsigned int m_duration, bool repeat, bool paused);
 
     void update();
 
-    unsigned m_duration = 0;
-    unsigned m_current = 0;
+    unsigned duration = 0;
+    unsigned current = 0;
 
+    bool repeat = false;
     bool paused_initial = false;
 
-    timer_state m_state = TIMER_ACTIVE;
+    timer_state state = TIMER_ACTIVE;
 
     std::function<void()> callback = nullptr;
 

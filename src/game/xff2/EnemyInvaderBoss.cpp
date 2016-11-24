@@ -24,12 +24,12 @@ pse::EnemyInvaderBoss::EnemyInvaderBoss(){
     moveInterp->target({0, 300}, 120);
     start_anim = Timer::create([this](){
         pattern = new BulletPatternInvaderBoss02(&bulletHell, this);
-    }, 130);
+    }, 130, false, false);
 
     sprite_tick_timer = Timer::create([this](){
         sprite->tick();
         sprite_tick_timer->resume();
-    }, 5);
+    }, 5, false, false);
 }
 
 pse::EnemyInvaderBoss::~EnemyInvaderBoss(){

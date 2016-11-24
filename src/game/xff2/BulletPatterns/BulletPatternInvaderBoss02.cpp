@@ -22,30 +22,30 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
         angle_to_player = (float)atan2(source->getPosition().x - latest_player_pos.x,
                                        source->getPosition().y - latest_player_pos.y);
         shoot1_t->resume();
-    }, 40);
+    }, 40, false, false);
 
     shoot1_t = Timer::create([this, bulletHell, source](){
-//        for(int k = 0; k < 5; k++){
-//            float angle = angle_to_player + 20 * k * 3.14f / 180;
-//            BulletInstance* i = new BulletInstance();
-//            i->pos = source->pos();
-//            i->vel = glm::vec2(glm::sin(angle), glm::cos(angle)) * -6.f;
-//            i->angle = -angle * 180 / 3.14f;
-//            i->getHitbox = new Hitbox(5);
-//            i->getHitbox->pos(source->pos());
-//            i->type = m_bullet01;
-//            bulletHell->push(i);
-//
-//            angle = angle_to_player - 20 * k * 3.14f / 180;
-//            BulletInstance* i2 = new BulletInstance();
-//            i2->pos = source->pos();
-//            i2->vel = glm::vec2(glm::sin(angle), glm::cos(angle)) * -6.f;
-//            i2->angle = -angle * 180 / 3.14f;
-//            i2->getHitbox = new Hitbox(5);
-//            i2->getHitbox->pos(source->pos());
-//            i2->type = m_bullet01;
-//            bulletHell->push(i2);
-//        }
+        //        for(int k = 0; k < 5; k++){
+        //            float angle = angle_to_player + 20 * k * 3.14f / 180;
+        //            BulletInstance* i = new BulletInstance();
+        //            i->pos = source->pos();
+        //            i->vel = glm::vec2(glm::sin(angle), glm::cos(angle)) * -6.f;
+        //            i->angle = -angle * 180 / 3.14f;
+        //            i->getHitbox = new Hitbox(5);
+        //            i->getHitbox->pos(source->pos());
+        //            i->type = m_bullet01;
+        //            bulletHell->push(i);
+        //
+        //            angle = angle_to_player - 20 * k * 3.14f / 180;
+        //            BulletInstance* i2 = new BulletInstance();
+        //            i2->pos = source->pos();
+        //            i2->vel = glm::vec2(glm::sin(angle), glm::cos(angle)) * -6.f;
+        //            i2->angle = -angle * 180 / 3.14f;
+        //            i2->getHitbox = new Hitbox(5);
+        //            i2->getHitbox->pos(source->pos());
+        //            i2->type = m_bullet01;
+        //            bulletHell->push(i2);
+        //        }
         glm::vec2 vel = glm::vec2(glm::sin(angle_to_player), glm::cos(angle_to_player)) * -6.f;;
         for(int k = -cascade_c; k < cascade_c + 1; k++){
             BulletInstance* i = new BulletInstance();
@@ -63,7 +63,7 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
         }else{
             shoot1_t->resume();
         }
-    }, 10, true);
+    }, 10, false, true);
 
     shoot2_t = Timer::create([this, bulletHell, source](){
         shoot2_t->resume();
@@ -79,7 +79,7 @@ BulletPatternInvaderBoss02::BulletPatternInvaderBoss02(BulletHell* bulletHell, E
             bulletHell->push(i);
         }
         offset2 += 13;
-    }, 60);
+    }, 60, false, false);
 }
 
 BulletPatternInvaderBoss02::~BulletPatternInvaderBoss02(){
