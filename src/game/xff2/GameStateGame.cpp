@@ -23,14 +23,14 @@ GameStateGame::GameStateGame(){
     fade_to_game_timer = Timer::create([this](){
         GameState* _ = new GameStateGame();
         Game::i().setState(_);
-    }, 60, true);
+    }, 60, false, true);
 
-    screen_shake_timeout_timer = Timer::create([](){}, 15);
+    screen_shake_timeout_timer = Timer::create([](){}, 15, false, false);
 
     hold_to_restart_timer = Timer::create([this](){
         fade_to_game_timer->resume();
         fadeInOutInterp->target(0, 60);
-    }, 60, true);
+    }, 60, false, true);
 
     background = new Sprite(ResourceTexture->load("assets/xff2/textures/stg1bg.png"), 1, 1, 0, 0, 1100);
 
@@ -153,14 +153,14 @@ void GameStateGame::update(float delta){
 
     if(player->isAlive()){
         if(player->getPosition().y < -viewport_h){
-            if(screen_shake_timeout_timer->finished() && player->getVelocity().y < 0){
+            if(screen_shake_timeout_timer->isFinished() && player->getVelocity().y < 0){
                 shakeInterp->push_offset({0, -shake_offset.y}, 5);
                 shakeInterp->push_target({0, shake_offset.y}, 5);
                 screen_shake_timeout_timer->reset();
             }
             player->setPosition({player->getPosition().x, -viewport_h});
         }else if(player->getPosition().y > viewport_h){
-            if(screen_shake_timeout_timer->finished() == 0 && player->getVelocity().y > 0){
+            if(screen_shake_timeout_timer->isFinished() == 0 && player->getVelocity().y > 0){
                 shakeInterp->push_offset({0, shake_offset.y}, 5);
                 shakeInterp->push_target({0, -shake_offset.y}, 5);
                 screen_shake_timeout_timer->reset();
@@ -169,14 +169,14 @@ void GameStateGame::update(float delta){
         }
 
         if(player->getPosition().x < camera->getViewport(ratio).x){
-            if(screen_shake_timeout_timer->finished() == 0 && player->getVelocity().x < 0){
+            if(screen_shake_timeout_timer->isFinished() == 0 && player->getVelocity().x < 0){
                 shakeInterp->push_offset({-shake_offset.x, 0}, 5);
                 shakeInterp->push_target({shake_offset.x, 0}, 5);
                 screen_shake_timeout_timer->reset();
             }
             player->setPosition({camera->getViewport(ratio).x, player->getPosition().y});
         }else if(player->getPosition().x > camera->getViewport(ratio).y){
-            if(screen_shake_timeout_timer->finished() == 0 && player->getVelocity().x > 0){
+            if(screen_shake_timeout_timer->isFinished() == 0 && player->getVelocity().x > 0){
                 shakeInterp->push_offset({shake_offset.x, 0}, 5);
                 shakeInterp->push_target({-shake_offset.x, 0}, 5);
                 screen_shake_timeout_timer->reset();

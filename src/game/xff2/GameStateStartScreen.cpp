@@ -38,7 +38,7 @@ GameStateStartScreen::GameStateStartScreen(){
         fadeInOutInterp->target(100, 60);
         GameState* _ = new GameStateGame();
         Game::i().pushState(_);
-    }, 60, true);
+    }, 60, false, true);
 }
 
 GameStateStartScreen::~GameStateStartScreen(){

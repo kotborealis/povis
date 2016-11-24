@@ -10,7 +10,7 @@
 namespace pse{
 
 InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):constrains(constrains){
-    spawn_bullet_timeout_timer = Timer::create([](){}, 30);
+    spawn_bullet_timeout_timer = Timer::create([](){}, 30, false, false);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
@@ -81,7 +81,7 @@ void InvadersFormation::update(StateInfo* stateInfo){
             }
 
             //Spawn bullets
-            if(stateInfo->player->isAlive() && spawn_bullet_timeout_timer->finished()
+            if(stateInfo->player->isAlive() && spawn_bullet_timeout_timer->isFinished()
                && rand() % enemies.size() + 1 == j){
 
                 spawn_bullet_timeout_timer->resume();

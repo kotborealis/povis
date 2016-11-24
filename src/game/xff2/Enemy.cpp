@@ -16,7 +16,7 @@ Enemy::Enemy(){
 
     death_anim_timer = Timer::create([this](){
         m_state = ENEMY_STATE_DEAD;
-    }, 60, true);
+    }, 60, false, true);
 }
 
 Enemy::~Enemy(){

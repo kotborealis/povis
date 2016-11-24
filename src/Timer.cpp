@@ -7,10 +7,10 @@
 namespace pse{
 
 
-Timer::Timer(std::function<void()> callback, unsigned int m_duration, bool paused)
-        :m_duration(m_duration), callback(callback), paused_initial(paused){
+Timer::Timer(std::function<void()> callback, unsigned int duration, bool repeat, bool paused)
+        :duration(duration), callback(callback), repeat(repeat), paused_initial(paused){
     if(paused){
-        m_state = TIMER_PAUSE;
+        state = TIMER_PAUSE;
     }
 }
 
@@ -18,66 +18,66 @@ Timer::~Timer(){
 
 }
 
-Timer::Ptr Timer::create(std::function<void()> callback, unsigned int m_duration, bool paused) {
-    Timer::Ptr timer = std::shared_ptr<Timer>(new Timer(callback, m_duration, paused));
+Timer::Ptr Timer::create(std::function<void()> callback, unsigned int duration, bool repeat, bool paused){
+    Timer::Ptr timer = std::shared_ptr<Timer>(new Timer(callback, duration, repeat, paused));
     internal_list.push_back(std::weak_ptr<Timer>(timer));
     return timer;
 }
 
 void Timer::update(){
-    if(m_state == TIMER_ACTIVE && ++m_current >= m_duration){
+    if(state == TIMER_ACTIVE && ++current >= duration){
         reset();
-        m_state = TIMER_FINISHED;
+        state = repeat ? TIMER_ACTIVE : TIMER_FINISHED;
         callback();
     }
 }
 
 void Timer::cancel(){
-    m_state = TIMER_FINISHED;
+    state = TIMER_FINISHED;
 }
 
 void Timer::pause(){
-    m_state = TIMER_PAUSE;
+    state = TIMER_PAUSE;
 }
 
 void Timer::resume(){
-    m_state = TIMER_ACTIVE;
+    state = TIMER_ACTIVE;
 }
 
 void Timer::toggle(){
-    if(m_state == TIMER_ACTIVE)
-        m_state = TIMER_PAUSE;
+    if(state == TIMER_ACTIVE)
+        state = TIMER_PAUSE;
     else
-        m_state = TIMER_ACTIVE;
-}
-
-unsigned Timer::duration() const{
-    return m_duration;
-}
-
-unsigned Timer::current() const{
-    return m_current;
+        state = TIMER_ACTIVE;
 }
 
 void Timer::reset(){
-    m_state = paused_initial ? TIMER_PAUSE : TIMER_ACTIVE;
-    m_current = 0;
+    state = paused_initial ? TIMER_PAUSE : TIMER_ACTIVE;
+    current = 0;
 }
 
-Timer::timer_state Timer::state() const{
-    return m_state;
+Timer::timer_state Timer::getState() const{
+    return state;
 }
 
-bool Timer::finished() const{
-    return m_state == TIMER_FINISHED;
+bool Timer::isFinished() const{
+    return state == TIMER_FINISHED;
 }
 
-bool Timer::active() const{
-    return m_state == TIMER_ACTIVE;
+bool Timer::isActive() const{
+    return state == TIMER_ACTIVE;
 }
 
-bool Timer::paused() const{
-    return m_state == TIMER_PAUSE;
+bool Timer::isPaused() const{
+    return state == TIMER_PAUSE;
+}
+
+unsigned int Timer::getDuration() const{
+    return duration;
+}
+
+unsigned int Timer::getCurrent() const{
+    return current;
 }
 
 std::list<Timer::WeakPtr> Timer::internal_list;

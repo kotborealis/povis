@@ -25,8 +25,8 @@ Player::Player(){
 
     rotation_interp = new Interpolator<float>(&rotation, interp::Quad::easeIn);
 
-    hit_cooldown_timer = Timer::create([](){}, 60, true);
-    shoot_cooldown_timer = Timer::create([](){}, 40, true);
+    hit_cooldown_timer = Timer::create([](){}, 60, false, true);
+    shoot_cooldown_timer = Timer::create([](){}, 40, false, true);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
@@ -35,7 +35,7 @@ Player::Player(){
 
 void Player::draw(RenderInfo* renderInfo) const{
     if(state == PLAYER_STATE_HIT_ANIMATION){
-        if(hit_cooldown_timer->current() % 3 != 1){
+        if(hit_cooldown_timer->getCurrent() % 3 != 1){
             Entity::draw(renderInfo);
         }
     }else{
@@ -68,7 +68,7 @@ void Player::update(StateInfo* stateInfo){
             setPosition(getPosition() + glm::normalize(velocity) * base_velocity);
         }
 
-        if(shoot_action && !shoot_cooldown_timer->active()){
+        if(shoot_action && !shoot_cooldown_timer->isActive()){
             BulletInstance* b = new BulletInstance();
             b->pos = getPosition();
             b->vel = {0, 5};
@@ -209,7 +209,7 @@ glm::vec2 Player::getVelocity() const{
 }
 
 bool Player::hit(){
-    if(isAlive() && !hit_cooldown_timer->active()){
+    if(isAlive() && !hit_cooldown_timer->isActive()){
         hit_cooldown_timer->resume();
         lives--;
         updateLives_ui_string();

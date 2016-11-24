@@ -40,6 +40,8 @@ public:
 
     void interpEntity(InterpolatorEntity<T> entity){
         move_entity = entity;
+        m_state = INTERP_ACTIVE;
+        update_timer->resume();
     }
 
 private:
@@ -61,8 +63,7 @@ Interpolator<T>::Interpolator(T* target_entity, float (* interpolation)(float, f
                   "Non-arithmetic and Non-glm::vec2 type passed to Interpolator constuctor");
     update_timer = Timer::create([this](){
         this->update();
-        update_timer->resume();
-    }, 1);
+    }, 1, true, false);
 }
 
 template<typename T>
@@ -72,6 +73,7 @@ void Interpolator<T>::offset(T offset, unsigned ticks){
     move_entity.start = *m_target;
     move_entity.target = *m_target + offset;
     m_state = INTERP_ACTIVE;
+    update_timer->resume();
 }
 
 template<typename T>
@@ -81,12 +83,14 @@ void Interpolator<T>::target(T target, unsigned ticks){
     move_entity.target = target;
     move_entity.start = *m_target;
     m_state = INTERP_ACTIVE;
+    update_timer->resume();
 }
 
 template<typename T>
 void Interpolator<T>::cancel(){
     move_entity.duration = 0;
     m_state = INTERP_FINISHED;
+    update_timer->pause();
 }
 
 template<>
