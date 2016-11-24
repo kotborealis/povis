@@ -64,7 +64,7 @@ void Player::update(StateInfo* stateInfo){
             b->pos = getPosition();
             b->vel = {0, 5};
             b->hitbox = new Hitbox(10);
-            b->hitbox->pos(getPosition());
+            b->hitbox->setPosition(getPosition());
             b->type = bullet01;
             bulletHell.push(b);
             shoot_cooldown_timer->resume();

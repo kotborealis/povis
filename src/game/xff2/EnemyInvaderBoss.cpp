@@ -11,7 +11,7 @@ namespace pse{
 
 pse::EnemyInvaderBoss::EnemyInvaderBoss(){
     sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 5, 100);
-    hitbox->radius(100);
+    hitbox->setRadius(100);
 
     moveInterp = new Interpolator<glm::vec2>(&position, &interp::Elastic::easeInOut);
 
