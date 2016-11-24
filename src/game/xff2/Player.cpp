@@ -55,14 +55,14 @@ void Player::update(StateInfo* stateInfo){
     bulletHell.update(stateInfo);
 
     //Update interps
-    rotation_interp->update();
-    moveInterp->update();
+//    rotation_interp->update();
+//    moveInterp->update();
 
     if(isAlive()){
-        velocityInterpXAcc->update();
-        velocityInterpYAcc->update();
-        velocityInterpXDec->update();
-        velocityInterpYDec->update();
+//        velocityInterpXAcc->update();
+//        velocityInterpYAcc->update();
+//        velocityInterpXDec->update();
+//        velocityInterpYDec->update();
 
         if(velocity.x != 0 || velocity.y != 0){
             setPosition(getPosition() + glm::normalize(velocity) * base_velocity);

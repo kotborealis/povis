@@ -75,7 +75,7 @@ void InvadersFormation::update(StateInfo* stateInfo){
            i->enemy->state() != Enemy::state_enum::ENEMY_STATE_DEATH_ANIMATION){
 
             //Move invader
-            i->interp_X->update();
+//            i->interp_X->update();
             if(tick % ticks_per_move == 0){
                 i->interp_X->offset(direction * move_offset.x, ticks_per_move);
             }

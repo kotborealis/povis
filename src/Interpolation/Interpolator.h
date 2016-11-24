@@ -7,6 +7,7 @@
 #include <glm/vec2.hpp>
 #include <queue>
 #include <Interpolation/Expo.h>
+#include <Timer.h>
 #include "game/xff2/StateInfo.h"
 
 namespace pse{
@@ -29,8 +30,6 @@ public:
 
     Interpolator(T* target_entity, float (*)(float, float, float, float));
 
-    bool update();
-
     void offset(T offset, unsigned ticks);
     void target(T target, unsigned ticks);
 
@@ -44,9 +43,13 @@ public:
     }
 
 private:
+    bool update();
+
     T* m_target;
     float (* interpolation)(float, float, float, float);
     InterpolatorEntity<T> move_entity;
+
+    Timer::Ptr update_timer;
 
     interp_state m_state = INTERP_FINISHED;
 };
@@ -56,6 +59,10 @@ Interpolator<T>::Interpolator(T* target_entity, float (* interpolation)(float, f
         :m_target(target_entity), interpolation(interpolation){
     static_assert(std::is_arithmetic<T>::value || std::is_same<T, glm::vec2>::value,
                   "Non-arithmetic and Non-glm::vec2 type passed to Interpolator constuctor");
+    update_timer = Timer::create([this](){
+        this->update();
+        update_timer->resume();
+    }, 1);
 }
 
 template<typename T>

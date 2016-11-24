@@ -144,12 +144,12 @@ void GameStateGame::update(float delta){
     invadersFormation->constrains.x = camera->getViewport(ratio).y;
     invadersFormation->update(&stateInfo);
 
-    fadeInOutInterp->update();
+//    fadeInOutInterp->update();
 
     /*
      * Screen shake
      */
-    shakeInterp->update();
+//    shakeInterp->update();
 
     if(player->isAlive()){
         if(player->getPosition().y < -viewport_h){
