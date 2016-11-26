@@ -98,6 +98,7 @@ void Player::handleEvent(SDL_Event* event){
                 control = act_move_left;
                 break;
             case SDLK_z:
+            case SDLK_SPACE:
                 control = act_shoot;
                 break;
             default:
