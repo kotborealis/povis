@@ -33,12 +33,12 @@ public:
 
 protected:
 #if HITBOX_DEBUG
-    Shader::Ptr m_shader = ResourceShader->load("assets/common/shaders/default_mvp.vert",
+    Shader::Ptr shader = ResourceShader->load("assets/common/shaders/default_mvp.vert",
                                                 "assets/xff2/shaders/hitbox_circle.frag");
 #endif
 
-    glm::vec2 m_pos;
-    float m_radius;
+    glm::vec2 position;
+    float radius;
 };
 
 

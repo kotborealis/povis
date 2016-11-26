@@ -9,7 +9,7 @@
 namespace pse{
 
 
-Hitbox::Hitbox(float radius) : m_radius(radius) {}
+Hitbox::Hitbox(float radius) : radius(radius) {}
 
 Hitbox::~Hitbox(){
 
@@ -18,16 +18,16 @@ Hitbox::~Hitbox(){
 void Hitbox::draw(RenderInfo *renderInfo) const {
 #if HITBOX_DEBUG
     renderInfo->framebufferUI->bind();
-    renderInfo->position = pos();
+    renderInfo->position = getPosition();
 
     glm::mat4 model = {};
     model = glm::translate(model, {position.x, position.y, 0});
-    model = glm::scale(model, {m_radius, m_radius, 1});
+    model = glm::scale(model, {radius, radius, 1});
 
-    m_shader->bind();
-    m_shader->uniform("model", model);
-    m_shader->uniform("projection", renderInfo->projection);
-    m_shader->uniform("view", renderInfo->view);
+    shader->bind();
+    shader->uniform("model", model);
+    shader->uniform("projection", renderInfo->projection);
+    shader->uniform("view", renderInfo->view);
 
     Game::i().render()->renderQuad();
 #endif
@@ -44,18 +44,18 @@ bool Hitbox::collision(Hitbox &hitbox) const {
 }
 
 glm::vec2 Hitbox::getPosition() const {
-    return m_pos;
+    return position;
 }
 
 void Hitbox::setPosition(glm::vec2 _pos) {
-    m_pos = _pos;
+    position = _pos;
 }
 
 float Hitbox::getRadius() const {
-    return m_radius;
+    return radius;
 }
 
 void Hitbox::setRadius(float _radius) {
-    m_radius = _radius;
+    radius = _radius;
 }
 }
