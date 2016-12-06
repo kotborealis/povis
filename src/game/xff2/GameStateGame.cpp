@@ -97,7 +97,12 @@ void GameStateGame::update(float delta){
         }
     }
 
-    if(player->isAlive() && !player_won && score > 0) score -= score_penalty_per_tick;
+    if(player->isAlive() && !player_won && score > 0) {
+        score -= score_penalty_per_tick;
+        if(score < 0){
+            score = 0;
+        }
+    }
 
     if(player->isAlive() && !player_won){
         player->getBullets()->remove_if([this](BulletInstance* bullet){
