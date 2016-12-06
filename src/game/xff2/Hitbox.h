@@ -23,7 +23,7 @@ public:
 
     void draw(RenderInfo* renderInfo) const;
 
-    bool collision(Hitbox& laser) const;
+    bool collision(Hitbox& hitbox) const;
 
     glm::vec2 getPosition() const;
     void setPosition(glm::vec2 _pos);
