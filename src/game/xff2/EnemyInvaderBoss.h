@@ -5,11 +5,11 @@
 #pragma once
 
 #include <render/RenderInfo.h>
+#include <Interpolation/Sine.h>
 #include <Timer.h>
 #include "StateInfo.h"
 #include "BulletType.h"
 #include "Enemy.h"
-#include "BulletPattern.h"
 
 namespace pse{
 
@@ -28,12 +28,27 @@ public:
 
 private:
     Timer::Ptr sprite_tick_timer;
-    BulletPattern* pattern = nullptr;
 
     const unsigned boss_max_hitpoints = 25;
     unsigned boss_hitpoints = 25;
 
     Timer::Ptr start_anim;
+
+    //Pattern
+    BulletType* m_bullet01;
+
+    glm::vec2 latest_player_pos;
+    float angle_to_player;
+    Interpolator<float>* angle_to_player_interp = new Interpolator<float>(&angle_to_player, &interp::Sine::easeInOut);
+
+    Timer::Ptr shoot0_t;
+
+    Timer::Ptr shoot1_t;
+    int cascade_c = 1;
+
+    Timer::Ptr shoot2_t;
+    int offset2 = 0;
+    BulletType* m_bullet02;
 };
 
 }
