@@ -11,7 +11,7 @@
 namespace pse{
 
 Player::Player(){
-    sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
+    sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/Doll_2.png"), 12, 8, 46, 0, 50);
     hitbox = new Hitbox(20);
 
     updateLives_ui_string();
@@ -30,7 +30,7 @@ Player::Player(){
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
-            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 19, 0, 20));
+            new Sprite(ResourceTexture->load("assets/xff2/textures/bullet1.png"), 16, 16, 131, 0, 20));
 }
 
 void Player::draw(RenderInfo* renderInfo) const{
