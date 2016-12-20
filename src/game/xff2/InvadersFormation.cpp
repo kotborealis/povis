@@ -18,7 +18,7 @@ InvadersFormation::InvadersFormation(glm::vec2 constrains, glm::vec2 count):cons
 
     for(int k = 0; k < count.y; k++){
         for(int i = 0; i < count.x; i++){
-            auto e = new EnemyGenericInvader(rand() % 7);
+            auto e = new EnemyGenericInvader((i + k) % 4);
             e->setPosition({-constrains.x + i * 100, constrains.y - k * 100});
 
             auto interp = new Interpolator<float>(&e->position.x, &interp::Expo::easeInOut);
