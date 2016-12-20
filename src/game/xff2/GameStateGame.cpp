@@ -112,7 +112,9 @@ void GameStateGame::update(float delta){
                    enemy->getHitbox()->collision(*bullet->hitbox)){
                     enemy->kill();
                     score += score_per_enemy;
-                    invadersFormation->ticks_per_move -= 2;
+                    if(invadersFormation->ticks_per_move > 25){
+                        invadersFormation->ticks_per_move -= 2;
+                    }
                     return true;
                 }
             }

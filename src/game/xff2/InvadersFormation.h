@@ -27,14 +27,14 @@ public:
     glm::vec2 constrains = {500, 500};
 
     BulletHell bulletHell;
-    unsigned ticks_per_move = 100;
+    unsigned ticks_per_move = 85;
 
 private:
     Timer::Ptr spawn_bullet_timeout_timer;
 
     BulletType* bullet01;
 
-    glm::vec2 move_offset = {50, 50};
+    glm::vec2 move_offset = {100, 50};
     int direction = 1;
 };
 

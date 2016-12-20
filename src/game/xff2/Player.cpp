@@ -12,7 +12,7 @@ namespace pse{
 
 Player::Player(){
     sprite = std::make_shared<Sprite>(ResourceTexture->load("assets/xff2/textures/characters.png"), 5, 1, 4, 0, 50);
-    hitbox = new Hitbox(15);
+    hitbox = new Hitbox(20);
 
     updateLives_ui_string();
 
@@ -26,7 +26,7 @@ Player::Player(){
     rotation_interp = new Interpolator<float>(&rotation, interp::Quad::easeIn);
 
     hit_cooldown_timer = Timer::create([](){}, 60, false, true);
-    shoot_cooldown_timer = Timer::create([](){}, 40, false, true);
+    shoot_cooldown_timer = Timer::create([](){}, 30, false, true);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(
@@ -46,7 +46,7 @@ void Player::draw(RenderInfo* renderInfo) const{
 
     if(isAlive()){
         renderInfo->framebufferUI->bind();
-        renderInfo->position = getPosition() + glm::vec2(20, -40);
+        renderInfo->position = getPosition() + glm::vec2(25, -45);
         lives_ui_string->draw(renderInfo);
     }
 }
@@ -62,7 +62,7 @@ void Player::update(StateInfo* stateInfo){
         if(shoot_action && !shoot_cooldown_timer->isActive()){
             BulletInstance* b = new BulletInstance();
             b->pos = getPosition();
-            b->vel = {0, 5};
+            b->vel = {0, 12};
             b->hitbox = new Hitbox(10);
             b->hitbox->setPosition(getPosition());
             b->type = bullet01;
@@ -236,7 +236,7 @@ void Player::updateLives_ui_string(){
     if(lives_ui_string){
         delete lives_ui_string;
     }
-    lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 20);
+    lives_ui_string = Font::Default->string("x" + TO_STRING(lives), 25);
 }
 
 bool Player::collision(Hitbox* hitbox){

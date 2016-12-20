@@ -56,8 +56,8 @@ protected:
 
     Interpolator<glm::vec2>* moveInterp = nullptr;
 
-    const unsigned rotation_ticks = 20;
-    float rotation_to = glm::radians(25.f);
+    const unsigned rotation_ticks = 15;
+    float rotation_to = glm::radians(20.f);
     Interpolator<float>* rotation_interp = nullptr;
 
     bool shoot_action = false;
