@@ -21,7 +21,7 @@ void Game::run(){
     float optimal_frame_time = 1000.f / optimal_fps;
 
     float start_time = SDL_GetTicks();
-    float accumulator = 0;
+    long accumulator = 0;
 
     while(running){
         float end_time = SDL_GetTicks();
@@ -60,6 +60,8 @@ void Game::run(){
                 running = false;
             }
         }
+
+        SDL_Delay((Uint32)(optimal_frame_time));
     }
     Logger::info("Engine stop");
 }
