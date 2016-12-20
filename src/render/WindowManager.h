@@ -13,6 +13,7 @@
 #include <GL/gl.h>
 
 #include <Logger.h>
+#include <Timer.h>
 
 namespace pse{
 
@@ -61,6 +62,8 @@ private:
 
     void windowResizeHandler(SDL_Rect bounds);
     void toggleFullscreen();
+
+    pse::Timer::Ptr fullscreen_toggle_timer;
 };
 
 }

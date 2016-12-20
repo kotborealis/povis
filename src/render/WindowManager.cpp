@@ -13,6 +13,8 @@ WindowManager::WindowManager(std::string& title, unsigned int width, unsigned in
     init_gl();
     Sprite::__init();
     Font::__init();
+
+    fullscreen_toggle_timer = pse::Timer::create(15, false, true);
 }
 
 WindowManager::~WindowManager(){
@@ -84,7 +86,10 @@ void WindowManager::handleEvent(SDL_Event* event){
         windowResizeHandler({0, 0, event->window.data1, event->window.data2});
     }else if(event->type == SDL_KEYDOWN){
         if(event->key.keysym.sym == SDLK_f){
-            toggleFullscreen();
+            if(!fullscreen_toggle_timer->isActive()){
+                toggleFullscreen();
+                fullscreen_toggle_timer->resume();
+            }
         }
     }
 }
