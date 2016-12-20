@@ -19,6 +19,7 @@ public:
     enum timer_state{TIMER_ACTIVE, TIMER_PAUSE, TIMER_FINISHED};
 
     static Ptr create(std::function<void()> callback, unsigned int m_duration, bool repeat, bool paused);
+    static Ptr create(unsigned int duration, bool repeat, bool paused);
     virtual ~Timer();
 
     void cancel();

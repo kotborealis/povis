@@ -24,11 +24,19 @@ Timer::Ptr Timer::create(std::function<void()> callback, unsigned int duration, 
     return timer;
 }
 
+Timer::Ptr Timer::create(unsigned int duration, bool repeat, bool paused){
+    Timer::Ptr timer = std::shared_ptr<Timer>(new Timer(nullptr, duration, repeat, paused));
+    internal_list.push_back(std::weak_ptr<Timer>(timer));
+    return timer;
+}
+
 void Timer::update(){
     if(state == TIMER_ACTIVE && ++current >= duration){
         reset();
         state = repeat ? TIMER_ACTIVE : TIMER_FINISHED;
-        callback();
+        if(callback){
+            callback();
+        }
     }
 }
 
