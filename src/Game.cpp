@@ -1,10 +1,12 @@
+#include <ctime>
 #include "Game.h"
-#include "Timer.h"
 
 namespace pse{
 
 Game::Game(){
     Logger::info("Initializing engine");
+
+    srand((unsigned int)time(NULL));
 }
 
 Game::~Game(){
