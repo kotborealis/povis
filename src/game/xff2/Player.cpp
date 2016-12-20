@@ -25,8 +25,8 @@ Player::Player(){
 
     rotation_interp = new Interpolator<float>(&rotation, interp::Quad::easeIn);
 
-    hit_cooldown_timer = Timer::create([](){}, 60, false, true);
-    shoot_cooldown_timer = Timer::create([](){}, 30, false, true);
+    hit_cooldown_timer = Timer::create(60, false, true);
+    shoot_cooldown_timer = Timer::create(30, false, true);
 
     bullet01 = new BulletType();
     bullet01->sprite = std::unique_ptr<Sprite>(

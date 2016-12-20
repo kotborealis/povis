@@ -25,7 +25,7 @@ GameStateGame::GameStateGame(){
         Game::i().setState(_);
     }, 60, false, true);
 
-    screen_shake_timeout_timer = Timer::create([](){}, 15, false, false);
+    screen_shake_timeout_timer = Timer::create(15, false, false);
 
     hold_to_restart_timer = Timer::create([this](){
         fade_to_game_timer->resume();
