@@ -52,6 +52,7 @@ void GameStateStartScreen::handleEvent(SDL_Event* event){
     }
     if(event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE){
         Game::i().popState();
+        Game::i().stop();
         return;
     }
 }
