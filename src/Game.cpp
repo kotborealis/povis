@@ -35,9 +35,12 @@ void Game::run(){
         while(running && SDL_PollEvent(&event)){
             running = event.type != SDL_QUIT;
             render()->window()->handleEvent(&event);
-            cState->handleEvent(&event);
-            if(!cState){
-                running = false;
+
+            if(cState){
+                cState->handleEvent(&event);
+                if(!cState){
+                    running = false;
+                }
             }
         }
 
@@ -49,17 +52,22 @@ void Game::run(){
                 timer.lock()->update();
                 return false;
             });
-            cState->update(optimal_frame_time);
-            if(!cState){
-                running = false;
+
+            if(cState){
+                cState->update(optimal_frame_time);
+                if(!cState){
+                    running = false;
+                }
             }
             accumulator -= optimal_frame_time;
         }
 
         if(running){
-            cState->draw();
-            if(!cState){
-                running = false;
+            if(cState){
+                cState->draw();
+                if(!cState){
+                    running = false;
+                }
             }
         }
 
