@@ -39,7 +39,7 @@ private:
     static bool running;
 
     static std::vector<GameState*> states;
-    static Game* _instance;
+    static Game* m_instance;
     static RenderManager* m_renderManager;
 };
 
