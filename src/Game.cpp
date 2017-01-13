@@ -101,16 +101,17 @@ void Game::popState(){
     }
 }
 
-RenderManager* Game::render() const{
+RenderManager* Game::render(){
     return m_renderManager;
 }
 
 void Game::initialize(std::string title, unsigned int width, unsigned int height){
+    _instance = new Game;
     m_renderManager = new RenderManager(title, width, height);
 }
 
 Game& Game::i(){
-    return instance();
+    return *_instance;
 }
 
 Game& Game::instance(){
@@ -118,11 +119,12 @@ Game& Game::instance(){
         Logger::error("You MUST call Game::initialize before doing anything");
         Logger::error("At this point, your game is going to crash.");
     }
-    static Game m_instance;
-    return m_instance;
+    return *_instance;
 }
 
 RenderManager* Game::m_renderManager = nullptr;
-
+bool Game::running = false;
+std::vector<GameState*> Game::states;
+Game* Game::_instance = nullptr;
 
 }

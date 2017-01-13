@@ -21,13 +21,13 @@ public:
     static Game& i();
     static Game& instance();
 
-    void run();
-    void stop();
-    void setState(GameState* newState);
-    void pushState(GameState* newState);
-    void popState();
+    static void run();
+    static void stop();
+    static void setState(GameState* newState);
+    static void pushState(GameState* newState);
+    static void popState();
 
-    RenderManager* render() const;
+    static RenderManager* render();
 
 private:
     //Singletone
@@ -36,10 +36,10 @@ private:
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
 
-    bool running;
+    static bool running;
 
-    std::vector<GameState*> states;
-
+    static std::vector<GameState*> states;
+    static Game* _instance;
     static RenderManager* m_renderManager;
 };
 
