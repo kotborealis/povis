@@ -17,6 +17,10 @@ public:
     virtual void update(float delta)=0;
 
     virtual void draw()=0;
+
+
+    bool stackPropagationUpdate = false;
+    bool stackPropagationDraw = false;
 };
 
 }

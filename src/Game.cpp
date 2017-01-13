@@ -36,10 +36,11 @@ void Game::run(){
             running = event.type != SDL_QUIT;
             render()->window()->handleEvent(&event);
 
-            if(cState){
-                cState->handleEvent(&event);
-                if(!cState){
-                    running = false;
+            for(auto state = states.rbegin(); state != states.rend(); ++state){
+                const bool propagation = (*state)->stackPropagationUpdate;
+                (*state)->handleEvent(&event);
+                if(!propagation){
+                    break;
                 }
             }
         }
@@ -53,21 +54,26 @@ void Game::run(){
                 return false;
             });
 
-            if(cState){
-                cState->update(optimal_frame_time);
-                if(!cState){
-                    running = false;
+            for(auto state = states.rbegin(); state != states.rend(); ++state){
+                const bool propagation = (*state)->stackPropagationUpdate;
+                (*state)->update(optimal_frame_time);
+                if(!propagation){
+                    break;
                 }
             }
             accumulator -= optimal_frame_time;
         }
 
         if(running){
-            if(cState){
-                cState->draw();
-                if(!cState){
-                    running = false;
+            std::vector<GameState*>::iterator propagationStop = states.begin();
+            for(auto state = states.begin(); state != states.end(); ++state){
+                if(!(*state)->stackPropagationDraw){
+                    propagationStop = state;
                 }
+            }
+
+            for(auto state = propagationStop; state != states.end(); ++state){
+                (*state)->draw();
             }
         }
 
@@ -86,15 +92,13 @@ void Game::setState(GameState* newState){
 }
 
 void Game::pushState(GameState* newState){
-    states.push(newState);
-    CState();
+    states.push_back(newState);
 }
 
 void Game::popState(){
     if(!states.empty()){
-        states.pop();
+        states.pop_back();
     }
-    CState();
 }
 
 RenderManager* Game::render() const{
@@ -116,14 +120,6 @@ Game& Game::instance(){
     }
     static Game m_instance;
     return m_instance;
-}
-
-void Game::CState(){
-    if(states.empty()){
-        cState = nullptr;
-    }else{
-        cState = states.top();
-    }
 }
 
 RenderManager* Game::m_renderManager = nullptr;
