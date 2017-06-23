@@ -1,6 +1,5 @@
 #include <render/Sprite.h>
 #include "WindowManager.h"
-#include "render/Font.h"
 
 namespace pse{
 
@@ -12,7 +11,6 @@ WindowManager::WindowManager(std::string& title, unsigned int width, unsigned in
     init_sdl_img();
     init_gl();
     Sprite::__init();
-    Font::__init();
 
     fullscreen_toggle_timer = pse::Timer::create(15, false, true);
 }

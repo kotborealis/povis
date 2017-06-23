@@ -8,7 +8,6 @@
 #include <queue>
 #include <Interpolation/Expo.h>
 #include <Timer.h>
-#include "game/xff2/StateInfo.h"
 
 namespace pse{
 

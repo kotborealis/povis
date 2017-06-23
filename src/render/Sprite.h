@@ -8,15 +8,17 @@
 #include <array>
 #include <glm/detail/type_mat.hpp>
 #include <glm/detail/type_mat4x4.hpp>
-#include <render/RenderInfo.h>
 #include <render/ResourceManager.h>
 #include "render/resources/Shader.h"
 #include "render/resources/Texture.h"
 #include "Mesh.h"
+#include "render/BatchSprite.h"
 
 namespace pse{
 
 class Sprite{
+
+    friend class BatchSprite;
 
 public:
     Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, glm::vec2 scale);
@@ -24,7 +26,7 @@ public:
     ~Sprite();
 
     void tick();
-    void draw(RenderInfo* renderInfo);
+    void draw(glm::vec2 position, glm::vec2 scale, float rotation = 0, glm::vec2 origin = {0, 0});
 
     glm::vec2 scale() const;
     void scale(glm::vec2);
@@ -48,6 +50,10 @@ private:
     int end;
 
     int current;
+
+    struct SpriteDrawInfo{
+
+    };
 };
 
 }

@@ -65,6 +65,8 @@ void Game::run(){
         }
 
         if(running){
+            Game::i().render()->start();
+
             std::vector<GameState*>::iterator propagationStop = states.begin();
             for(auto state = states.begin(); state != states.end(); ++state){
                 if(!(*state)->stackPropagationDraw){
@@ -75,6 +77,8 @@ void Game::run(){
             for(auto state = propagationStop; state != states.end(); ++state){
                 (*state)->draw();
             }
+
+            Game::i().render()->end();
         }
 
         SDL_Delay((Uint32)(optimal_frame_time));
@@ -109,6 +113,7 @@ void Game::initialize(std::string title, unsigned int width, unsigned int height
     if(!m_instance){
         m_instance = new Game;
         m_renderManager = new RenderManager(title, width, height);
+        m_renderManager->init();
     }
 }
 

@@ -7,15 +7,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "RenderManager.h"
 #include "ResourceManager.h"
-#include "RenderInfo.h"
 
 namespace pse{
 
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
         :m_windowManager(new WindowManager(title, width, height)){
-    shader_deferred = ResourceShader->load("assets/common/shaders/default.vert",
-                                           "assets/common/shaders/deferred.frag");
 }
 
 RenderManager::~RenderManager(){
@@ -73,14 +70,45 @@ void RenderManager::renderQuad() const{
     glBindVertexArray(0);
 }
 
-void RenderManager::deferred(RenderInfo* renderInfo) const{
+void RenderManager::deferred() const{
     Framebuffer::Default::bind();
     shader_deferred->bind();
-    renderInfo->framebufferDefault->texture->bind(0);
-    renderInfo->framebufferUI->texture->bind(1);
+    framebufferDefault->texture->bind(0);
     shader_deferred->uniform("defaultTexture", 0);
-    shader_deferred->uniform("uiTexture", 1);
     renderQuad();
+}
+
+void RenderManager::setCamera(Camera* c){
+    camera = c;
+}
+
+void RenderManager::start(){
+    clear();
+
+    auto ratio = (float)window()->width()
+                 / (float)window()->height();
+
+    batchSprite->clear();
+
+    if(camera != nullptr){
+        batchSprite->projection = camera->getProjection(ratio);
+    }else{
+        batchSprite->projection = glm::mat4x4();
+    }
+}
+
+void RenderManager::end(){
+    batchSprite->draw();
+
+    deferred();
+    swap();
+}
+
+void RenderManager::init(){
+    framebufferDefault = std::shared_ptr<Framebuffer>(new Framebuffer());
+    shader_deferred = ResourceShader->load("assets/common/shaders/default.vert",
+                                           "assets/common/shaders/deferred.frag");
+    batchSprite = new BatchSprite(glm::mat4x4(), glm::mat4x4(), framebufferDefault);
 }
 
 }

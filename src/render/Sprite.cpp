@@ -3,6 +3,7 @@
 //
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <Game.h>
 #include "Sprite.h"
 
 #define GLM_FORCE_RADIANS
@@ -18,27 +19,8 @@ Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, in
          current(start), m_scale(scale){
 }
 
-void Sprite::draw(RenderInfo* renderInfo){
-    texture->bind(0);
-
-    glm::mat4 model = {};
-    model = glm::translate(model, {glm::round(renderInfo->position.x), glm::round(renderInfo->position.y), 0});
-    model = glm::scale(model, {glm::round(m_scale.x), glm::round(m_scale.y), 1});
-    model = glm::rotate(model, renderInfo->rotation, {0, 0, 1});
-
-    Shader::Ptr s = custom_shader ? custom_shader : shader;
-    s->bind();
-    s->uniform("width", width);
-    s->uniform("height", height);
-    s->uniform("inv_width", inv_width);
-    s->uniform("inv_height", inv_height);
-    s->uniform("cur", current);
-    s->uniform("diffuseTexture", 0);
-    s->uniform("model", model);
-    s->uniform("view", renderInfo->view);
-    s->uniform("projection", renderInfo->projection);
-
-    mesh->drawElements();
+void Sprite::draw(glm::vec2 position, glm::vec2 scale, float rotation, glm::vec2 origin){
+    Game::i().render()->batchSprite->add(this, position, scale, rotation, origin);
 }
 
 void Sprite::tick(){
@@ -70,7 +52,11 @@ void Sprite::__init(){
 
 Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, float scale):
         Sprite::Sprite(texture, width, height, start, end,
-                       {scale, scale * (texture->scale().x / width) / (texture->scale().y / height)}){
+                       {texture->scale().x / width * scale, texture->scale().y / height * scale}){
+
+    Logger::info("SPRITE SCALE X Y");
+    Logger::info(texture->scale().x);
+    Logger::info(texture->scale().y);
 
 }
 
