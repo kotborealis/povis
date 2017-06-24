@@ -86,17 +86,21 @@ void RenderManager::start(){
                  / (float)window()->height();
 
     batchSprite->clear();
+    batchPrimitives->clear();
 
     if(camera != nullptr){
         batchSprite->projection = camera->getProjection(ratio);
+        batchPrimitives->projection = camera->getProjection(ratio);
     }else{
         batchSprite->projection = glm::mat4x4();
+        batchPrimitives->projection = glm::mat4x4();
     }
 }
 
 void RenderManager::end(){
     framebufferDefault->bind();
     batchSprite->draw();
+    batchPrimitives->draw();
 
     deferred();
     swap();
@@ -107,6 +111,7 @@ void RenderManager::init(){
     shader_deferred = ResourceShader->load("assets/common/shaders/default.vert",
                                            "assets/common/shaders/deferred.frag");
     batchSprite = new BatchSprite(glm::mat4x4(), glm::mat4x4());
+    batchPrimitives = new BatchPrimitives(glm::mat4x4(), glm::mat4x4());
 }
 
 }

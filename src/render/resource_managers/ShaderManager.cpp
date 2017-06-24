@@ -97,6 +97,7 @@ GLuint ShaderManager::compileShader(std::string& code, GLenum shaderType){
     if(log_length > 1){
         std::vector<char> frag_error((unsigned int)(log_length + 1));
         glGetShaderInfoLog(id, log_length, NULL, &frag_error[0]);
+        Logger::info(code);
         Logger::error(&frag_error[0]);
         throw new Exception();
     }

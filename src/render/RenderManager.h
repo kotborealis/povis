@@ -10,6 +10,7 @@
 #include "WindowManager.h"
 #include "Framebuffer.h"
 #include "BatchSprite.h"
+#include "BatchPrimitives.h"
 
 namespace pse{
 
@@ -35,12 +36,13 @@ public:
     void deferred() const;
 
     void setCamera(Camera*);
+    BatchPrimitives* batchPrimitives;
 private:
+
     Shader::Ptr shader_deferred;
-
     const WindowManager* m_windowManager;
-    std::shared_ptr<Framebuffer> framebufferDefault;
 
+    std::shared_ptr<Framebuffer> framebufferDefault;
     BatchSprite* batchSprite;
     Camera* camera = nullptr;
 };
