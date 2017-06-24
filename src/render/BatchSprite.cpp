@@ -8,8 +8,8 @@
 
 namespace pse{
 
-BatchSprite::BatchSprite(glm::mat4x4 view, glm::mat4x4 projection, std::shared_ptr<Framebuffer> framebufferDefault):
-        view(view), projection(projection), framebufferDefault(framebufferDefault){
+BatchSprite::BatchSprite(glm::mat4x4 view, glm::mat4x4 projection):
+        view(view), projection(projection){
 
 
     glGenVertexArrays(1, &VAO);
@@ -53,7 +53,6 @@ void BatchSprite::clear(){
 
 void BatchSprite::draw(){
     glBindVertexArray(VAO);
-    framebufferDefault->bind();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0);

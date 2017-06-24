@@ -95,6 +95,7 @@ void RenderManager::start(){
 }
 
 void RenderManager::end(){
+    framebufferDefault->bind();
     batchSprite->draw();
 
     deferred();
@@ -105,7 +106,7 @@ void RenderManager::init(){
     framebufferDefault = std::shared_ptr<Framebuffer>(new Framebuffer());
     shader_deferred = ResourceShader->load("assets/common/shaders/default.vert",
                                            "assets/common/shaders/deferred.frag");
-    batchSprite = new BatchSprite(glm::mat4x4(), glm::mat4x4(), framebufferDefault);
+    batchSprite = new BatchSprite(glm::mat4x4(), glm::mat4x4());
 }
 
 }

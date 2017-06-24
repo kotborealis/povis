@@ -16,7 +16,7 @@ class Sprite;
 
 class BatchSprite{
 public:
-    BatchSprite(glm::mat4x4 view, glm::mat4x4 projection, std::shared_ptr<Framebuffer> framebufferDefault);
+    BatchSprite(glm::mat4x4 view, glm::mat4x4 projection);
     ~BatchSprite();
 
     void add(Sprite* sprite, glm::vec3 position, glm::vec2 scale, float rotation = 0, glm::vec2 origin = {0, 0});
@@ -25,8 +25,6 @@ public:
 
     glm::mat4x4 view;
     glm::mat4x4 projection;
-
-    std::shared_ptr<Framebuffer> framebufferDefault;
 
 private:
     typedef struct{
