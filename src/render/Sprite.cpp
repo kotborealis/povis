@@ -16,7 +16,7 @@ Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, in
         :texture(texture), width(width), height(height),
          inv_width(1.f / (float)width), inv_height(1.f / (float)height),
          start(start), end(end),
-         current(start), m_scale(scale){
+         current(start), m_scale({texture->scale().x / width * scale.x, texture->scale().y / height * scale.y}){
 }
 
 void Sprite::draw(glm::vec2 position, glm::vec2 scale, float rotation, glm::vec2 origin){
@@ -36,8 +36,7 @@ void Sprite::__init(){
 }
 
 Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, float scale):
-        Sprite::Sprite(texture, width, height, start, end,
-                       {texture->scale().x / width * scale, texture->scale().y / height * scale}){
+        Sprite::Sprite(texture, width, height, start, end, {scale, scale}){
 
 }
 

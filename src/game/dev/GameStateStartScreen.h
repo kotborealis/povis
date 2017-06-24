@@ -23,7 +23,7 @@ public:
     void draw() override;
 
 private:
-    Camera* camera = new Camera(500);
+    Camera* camera = new Camera(1000);
     Sprite* cirno;
 };
 

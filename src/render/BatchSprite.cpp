@@ -73,12 +73,17 @@ void BatchSprite::draw(){
 
         for(auto entity = bucket->begin(); entity != bucket->end(); ++entity){
             glm::mat4 model = {};
-            model = glm::translate(model, {glm::round(entity->position.x), glm::round(entity->position.y), 0});
+            model = glm::translate(model, {glm::round(entity->position.x),
+                                           glm::round(entity->position.y), 0});
+
+            model = glm::translate(model, {-glm::round(entity->origin.x),
+                                           -glm::round(entity->origin.y), 0});
+            model = glm::rotate(model, entity->rotation, {0, 0, 1});
+            model = glm::translate(model, {glm::round(entity->origin.x),
+                                           glm::round(entity->origin.y), 0});
+
             model = glm::scale(model, {glm::round(sprite->m_scale.x * entity->scale.x),
                                        glm::round(sprite->m_scale.y * entity->scale.y), 1});
-
-            //origiN!
-            model = glm::rotate(model, entity->rotation, {0, 0, 1});
 
 
             s->uniform("model", model);
