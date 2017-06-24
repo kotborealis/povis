@@ -20,7 +20,7 @@ Shader::WeakPtr ShaderManager::search(std::string filename){
     return Shader::WeakPtr();
 }
 
-Shader::Ptr ShaderManager::load(ShaderManager::ShaderInfo* shaderInfo, size_t size){
+Shader::Ptr ShaderManager::load(ShaderInfo* shaderInfo, size_t size){
     GLuint* shaders_id = new GLuint(size);
     std::string name;
 
@@ -52,60 +52,20 @@ Shader::Ptr ShaderManager::load(ShaderManager::ShaderInfo* shaderInfo, size_t si
 }
 
 Shader::Ptr ShaderManager::load(std::string vert, std::string frag){
-    Shader::WeakPtr cached_shader = search(vert + frag);
-    if(!cached_shader.expired()){
-        return cached_shader.lock();
-    }
+    ShaderInfo shaderInfo[2];
+    shaderInfo[0] = {vert, GL_VERTEX_SHADER};
+    shaderInfo[1] = {frag, GL_FRAGMENT_SHADER};
 
-    std::string vert_code = loadCode(vert);
-    std::string frag_code = loadCode(frag);
-
-    GLuint vert_id = compileShader(vert_code, GL_VERTEX_SHADER);
-    GLuint frag_id = compileShader(frag_code, GL_FRAGMENT_SHADER);
-
-    GLuint shaders[] = {vert_id, frag_id};
-    GLuint prog_id = compileProgram(shaders, 2);
-
-    glDeleteShader(vert_id);
-    glDeleteShader(frag_id);
-
-    Shader::Ptr shader(new Shader(prog_id));
-    Shader::WeakPtr shaderWeakPtr(shader);
-
-    //Save shader to shaders list
-    list.insert(std::make_pair(vert + frag, shaderWeakPtr));
-
-    return shader;
+    return load(shaderInfo, 2);
 }
 
 Shader::Ptr ShaderManager::load(std::string geom, std::string vert, std::string frag){
-    Shader::WeakPtr cached_shader = search(geom + vert + frag);
-    if(!cached_shader.expired()){
-        return cached_shader.lock();
-    }
+    ShaderInfo shaderInfo[3];
+    shaderInfo[0] = {vert, GL_VERTEX_SHADER};
+    shaderInfo[1] = {frag, GL_FRAGMENT_SHADER};
+    shaderInfo[2] = {geom, GL_GEOMETRY_SHADER};
 
-    std::string geom_code = loadCode(geom);
-    std::string vert_code = loadCode(vert);
-    std::string frag_code = loadCode(frag);
-
-    GLuint geom_id = compileShader(geom_code, GL_GEOMETRY_SHADER);
-    GLuint vert_id = compileShader(vert_code, GL_VERTEX_SHADER);
-    GLuint frag_id = compileShader(frag_code, GL_FRAGMENT_SHADER);
-
-    GLuint shaders[] = {geom_id, vert_id, frag_id};
-    GLuint prog_id = compileProgram(shaders, 3);
-
-    glDeleteShader(geom_id);
-    glDeleteShader(vert_id);
-    glDeleteShader(frag_id);
-
-    Shader::Ptr shader(new Shader(prog_id));
-    Shader::WeakPtr shaderWeakPtr(shader);
-
-    //Save shader to shaders list
-    list.insert(std::make_pair(vert + frag, shaderWeakPtr));
-
-    return shader;
+    return load(shaderInfo, 3);
 }
 
 std::string ShaderManager::loadCode(std::string& file){
