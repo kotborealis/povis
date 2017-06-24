@@ -27,25 +27,10 @@ void Sprite::tick(){
     current = current >= end - 1 ? start : current + 1;
 }
 
-Mesh* Sprite::mesh;
 Shader::Ptr Sprite::shader;
 
 void Sprite::__init(){
-    if(!mesh){
-        std::vector<Vertex> vertices = {
-                Vertex{{-1, -1, 0},
-                       {0,  1}}, //bottom left
-                Vertex{{1, -1, 0},
-                       {1, 1}}, //bottom right
-                Vertex{{1, 1, 0},
-                       {1, 0}}, //top right
-                Vertex{{-1, 1, 0},
-                       {0,  0}}  //top left
-        };
-
-        std::vector<GLuint> indices = {0, 1, 3, 1, 3, 2};
-
-        mesh = new Mesh(vertices, indices);
+    if(!shader){
         shader = ResourceShader->load("assets/common/shaders/sprite.vert", "assets/common/shaders/sprite.frag");
     }
 }
@@ -53,10 +38,6 @@ void Sprite::__init(){
 Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, int end, float scale):
         Sprite::Sprite(texture, width, height, start, end,
                        {texture->scale().x / width * scale, texture->scale().y / height * scale}){
-
-    Logger::info("SPRITE SCALE X Y");
-    Logger::info(texture->scale().x);
-    Logger::info(texture->scale().y);
 
 }
 

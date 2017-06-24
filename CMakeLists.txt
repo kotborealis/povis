@@ -23,8 +23,6 @@ set(SOURCE_FILES
         src/render/WindowManager.h
         src/render/Framebuffer.cpp
         src/render/Framebuffer.h
-        src/render/Mesh.cpp
-        src/render/Mesh.h
         src/render/Vertex.h
         src/render/Camera.h
         src/render/Camera.cpp

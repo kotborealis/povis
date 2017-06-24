@@ -8,6 +8,7 @@
 #include <list>
 #include <map>
 #include "Framebuffer.h"
+#include "Vertex.h"
 
 namespace pse{
 
@@ -31,12 +32,27 @@ private:
     typedef struct{
         glm::vec2 position;
         glm::vec2 scale;
-        float rotation = 0;
-        glm::vec2 origin = {0, 0};
+        float rotation;
+        glm::vec2 origin;
     } BatchSpriteEntity;
 
     typedef std::list<BatchSpriteEntity> BatchSpriteEntityBucket;
 
     std::map<Sprite*, BatchSpriteEntityBucket*> buckets;
+
+    Vertex vertices[4] = {
+            Vertex{{-1, -1, 0},
+                   {0,  1}}, //bottom left
+            Vertex{{1, -1, 0},
+                   {1, 1}}, //bottom right
+            Vertex{{1, 1, 0},
+                   {1, 0}}, //top right
+            Vertex{{-1, 1, 0},
+                   {0,  0}}  //top left
+    };
+
+    GLuint indices[6] = {0, 1, 3, 1, 3, 2};
+
+    GLuint VAO, VBO, EBO;
 };
 }

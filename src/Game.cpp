@@ -81,7 +81,9 @@ void Game::run(){
             Game::i().render()->end();
         }
 
-        SDL_Delay((Uint32)(optimal_frame_time));
+        int delta = (int)(SDL_GetTicks() - start_time);
+        int sleep_time = (int)(optimal_frame_time - delta);
+        SDL_Delay((Uint32)(sleep_time > 0 ? sleep_time : 0));
     }
     Logger::info("Engine stop");
 }

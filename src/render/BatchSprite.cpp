@@ -11,6 +11,26 @@ namespace pse{
 BatchSprite::BatchSprite(glm::mat4x4 view, glm::mat4x4 projection, std::shared_ptr<Framebuffer> framebufferDefault):
         view(view), projection(projection), framebufferDefault(framebufferDefault){
 
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+
+    //Vertex Position
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+
+    //Vertex Texture
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
 }
 
 BatchSprite::~BatchSprite(){
@@ -24,13 +44,7 @@ void BatchSprite::add(Sprite* sprite, glm::vec2 position, glm::vec2 scale, float
         it = buckets.insert(std::make_pair(sprite, new BatchSpriteEntityBucket)).first;
     }
 
-    BatchSpriteEntity entity;
-    entity.position = position;
-    entity.scale = scale;
-    entity.rotation = rotation;
-    entity.origin = origin;
-
-    it->second->push_back(entity);
+    it->second->push_back(BatchSpriteEntity{position, scale, rotation, origin});
 }
 
 void BatchSprite::clear(){
@@ -38,6 +52,9 @@ void BatchSprite::clear(){
 }
 
 void BatchSprite::draw(){
+    glBindVertexArray(VAO);
+    framebufferDefault->bind();
+
     for(auto it_buckets = buckets.begin(); it_buckets != buckets.end(); ++it_buckets){
         auto sprite = it_buckets->first;
         auto bucket = it_buckets->second;
@@ -65,9 +82,14 @@ void BatchSprite::draw(){
 
 
             s->uniform("model", model);
-            sprite->mesh->drawElements();
+            glDrawElements(GL_TRIANGLES, (GLsizei)6, GL_UNSIGNED_INT, 0);
         }
+
+        bucket->erase(bucket->begin(), bucket->end());
     }
+
+    buckets.erase(buckets.begin(), buckets.end());
+    buckets.clear();
 }
 
 }

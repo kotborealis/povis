@@ -11,7 +11,6 @@
 #include <render/ResourceManager.h>
 #include "render/resources/Shader.h"
 #include "render/resources/Texture.h"
-#include "Mesh.h"
 #include "render/BatchSprite.h"
 
 namespace pse{
@@ -37,7 +36,6 @@ public:
     static void __init();
 
 private:
-    static Mesh* mesh;
     static Shader::Ptr shader;
 
     glm::vec2 m_scale;
