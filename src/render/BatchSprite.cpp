@@ -37,7 +37,7 @@ BatchSprite::~BatchSprite(){
 
 }
 
-void BatchSprite::add(Sprite* sprite, glm::vec2 position, glm::vec2 scale, float rotation, glm::vec2 origin){
+void BatchSprite::add(Sprite* sprite, glm::vec3 position, glm::vec2 scale, float rotation, glm::vec2 origin){
     auto it = buckets.find(sprite);
 
     if(it == buckets.end()){
@@ -54,6 +54,9 @@ void BatchSprite::clear(){
 void BatchSprite::draw(){
     glBindVertexArray(VAO);
     framebufferDefault->bind();
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0);
 
     for(auto it_buckets = buckets.begin(); it_buckets != buckets.end(); ++it_buckets){
         auto sprite = it_buckets->first;
@@ -76,18 +79,15 @@ void BatchSprite::draw(){
 
         size_t instance_id = 0;
         for(auto entity = bucket->begin(); entity != bucket->end(); ++entity){
+            entity->position.z *= -1;
             glm::mat4 model = {};
-            model = glm::translate(model, {glm::round(entity->position.x),
-                                           glm::round(entity->position.y), 0});
+            model = glm::translate(model, entity->position);
 
-            model = glm::translate(model, {-glm::round(entity->origin.x),
-                                           -glm::round(entity->origin.y), 0});
+            model = glm::translate(model, glm::vec3(-entity->origin, 0));
             model = glm::rotate(model, entity->rotation, {0, 0, 1});
-            model = glm::translate(model, {glm::round(entity->origin.x),
-                                           glm::round(entity->origin.y), 0});
+            model = glm::translate(model, glm::vec3(entity->origin, 0));
 
-            model = glm::scale(model, {glm::round(sprite->m_scale.x * entity->scale.x),
-                                       glm::round(sprite->m_scale.y * entity->scale.y), 1});
+            model = glm::scale(model, glm::vec3(sprite->m_scale * entity->scale, 1));
 
             instanceModels[instance_id] = model;
             instance_id++;

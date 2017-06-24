@@ -13,6 +13,7 @@ namespace pse{
 
 RenderManager::RenderManager(std::string title, unsigned int width, unsigned int height)
         :m_windowManager(new WindowManager(title, width, height)){
+    glEnable(GL_DEPTH_TEST);
 }
 
 RenderManager::~RenderManager(){
@@ -27,15 +28,11 @@ void RenderManager::clear() const{
         (*it)->bind();
         glClearColor(0.0f, 0.0f, 0.0f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
     }
 
     Framebuffer::Default::bind();
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
 }
 
 void RenderManager::swap() const{

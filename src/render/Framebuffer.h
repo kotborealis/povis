@@ -39,6 +39,7 @@ public:
 
 private:
     GLuint id;
+    GLuint rbo;
     unsigned int width;
     unsigned int height;
     bool wh_auto = false;

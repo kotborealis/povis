@@ -25,7 +25,7 @@ public:
     ~Sprite();
 
     void tick();
-    void draw(glm::vec2 position, glm::vec2 scale, float rotation = 0, glm::vec2 origin = {0, 0});
+    void draw(glm::vec3 position, glm::vec2 scale, float rotation = 0, glm::vec2 origin = {0, 0});
 
     glm::vec2 scale() const;
     void scale(glm::vec2);

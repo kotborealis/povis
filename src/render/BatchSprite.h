@@ -19,7 +19,7 @@ public:
     BatchSprite(glm::mat4x4 view, glm::mat4x4 projection, std::shared_ptr<Framebuffer> framebufferDefault);
     ~BatchSprite();
 
-    void add(Sprite* sprite, glm::vec2 position, glm::vec2 scale, float rotation = 0, glm::vec2 origin = {0, 0});
+    void add(Sprite* sprite, glm::vec3 position, glm::vec2 scale, float rotation = 0, glm::vec2 origin = {0, 0});
     void clear();
     void draw();
 
@@ -30,7 +30,7 @@ public:
 
 private:
     typedef struct{
-        glm::vec2 position;
+        glm::vec3 position;
         glm::vec2 scale;
         float rotation;
         glm::vec2 origin;
@@ -41,13 +41,13 @@ private:
     std::map<Sprite*, BatchSpriteEntityBucket*> buckets;
 
     Vertex vertices[4] = {
-            Vertex{{-1, -1, 0},
+            Vertex{{-1, -1, 1},
                    {0,  1}}, //bottom left
-            Vertex{{1, -1, 0},
+            Vertex{{1, -1, 1},
                    {1, 1}}, //bottom right
-            Vertex{{1, 1, 0},
+            Vertex{{1, 1, 1},
                    {1, 0}}, //top right
-            Vertex{{-1, 1, 0},
+            Vertex{{-1, 1, 1},
                    {0,  0}}  //top left
     };
 

@@ -11,10 +11,6 @@ namespace pse{
 float r = 0;
 
 GameStateStartScreen::GameStateStartScreen(){
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     cirno = new Sprite(ResourceTexture->load("assets/xff2/textures/cirno.png"), 6, 1, 0, 5, 1);
     Game::i().render()->setCamera(camera);
 
@@ -39,18 +35,18 @@ void GameStateStartScreen::update(float delta){
 }
 
 void GameStateStartScreen::draw(){
-    for(int x = -1777; x < 1777; x += 25){
-        for(int y = -1000; y < 1000; y += 25){
-            cirno->draw({x, y}, {1, 1}, r);
-            i++;
+    for(int x = -1777; x < 1777; x += 200){
+        for(int y = -1000; y < 1000; y += 200){
+            cirno->draw({x, y, 0}, {1, 1}, r);
         }
     }
 
-    cirno->draw({-100, 0}, {1, 1}, r);
-    cirno->draw({100, 0}, {1, 1}, r);
-    cirno->draw({-1777, 0}, {1, 1});
-    cirno->draw({1777, 0}, {1, 1});
-    cirno->draw({0, -1000}, {1, 1});
-    cirno->draw({0, 1000}, {1, 1});
+    cirno->draw({-100, 0, 1}, {5, 5}, r);
+    cirno->draw({100, 0, 1}, {5, 5}, r);
+
+    cirno->draw({-1777, 0, 1}, {1, 1});
+    cirno->draw({1777, 0, 1}, {1, 1});
+    cirno->draw({0, -1000, 1}, {1, 1});
+    cirno->draw({0, 1000, 1}, {1, 1});
 }
 }

@@ -19,7 +19,7 @@ Sprite::Sprite(const Texture::Ptr& texture, int width, int height, int start, in
          current(start), m_scale({texture->scale().x / width * scale.x, texture->scale().y / height * scale.y}){
 }
 
-void Sprite::draw(glm::vec2 position, glm::vec2 scale, float rotation, glm::vec2 origin){
+void Sprite::draw(glm::vec3 position, glm::vec2 scale, float rotation, glm::vec2 origin){
     Game::i().render()->batchSprite->add(this, position, scale, rotation, origin);
 }
 

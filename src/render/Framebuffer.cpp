@@ -19,6 +19,12 @@ Framebuffer::Framebuffer(unsigned int width, unsigned int height, bool wh_auto):
     GLenum DrawBuffers[1];
     DrawBuffers[0] = GL_COLOR_ATTACHMENT0;
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture->id, 0);
+
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
     glDrawBuffers(1, DrawBuffers);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
@@ -47,6 +53,7 @@ Framebuffer::Framebuffer():Framebuffer::Framebuffer(Game::i().render()->window()
 
 void Framebuffer::reallocate(unsigned int width, unsigned int height){
     glDeleteFramebuffers(1, &id);
+    glDeleteRenderbuffers(1, &rbo);
 
     this->width = width;
     this->height = height;
@@ -58,6 +65,12 @@ void Framebuffer::reallocate(unsigned int width, unsigned int height){
     GLenum DrawBuffers[1];
     DrawBuffers[0] = GL_COLOR_ATTACHMENT0;
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture->id, 0);
+
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
     glDrawBuffers(1, DrawBuffers);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
