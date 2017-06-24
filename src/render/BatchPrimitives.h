@@ -35,23 +35,33 @@ public:
 
     void addCircle(Circle circle);
     void draw_rectangles();
+    void draw_circles();
+    void draw();
 
     void clear();
-    glm::mat4 view;
 
+    glm::mat4 view;
     glm::mat4 projection;
-    void draw();
+
 private:
     typedef struct{
         glm::vec3 point;
         glm::vec2 size;
         glm::vec3 color;
     } RawRectangle;
-    std::list<Rectangle> rectangles;
-    std::list<Circle> circles;
 
+    typedef struct{
+        glm::vec3 center;
+        float radius;
+        glm::vec3 color;
+        float segments;
+    } RawCircle;
+
+    std::list<Rectangle> rectangles;
+
+    std::list<Circle> circles;
     Shader::Ptr rectangle_shader;
-    void draw_circles();
+    Shader::Ptr circle_shader;
 };
 
 }

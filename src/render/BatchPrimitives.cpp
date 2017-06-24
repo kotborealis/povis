@@ -11,6 +11,9 @@ BatchPrimitives::BatchPrimitives(glm::mat4x4 view, glm::mat4x4 projection):view(
     rectangle_shader = ResourceShader->load("assets/common/shaders/rectangle.geom",
                                             "assets/common/shaders/rectangle.vert",
                                             "assets/common/shaders/primitive.frag");
+    circle_shader = ResourceShader->load("assets/common/shaders/circle.geom",
+                                         "assets/common/shaders/circle.vert",
+                                         "assets/common/shaders/primitive.frag");
 }
 
 BatchPrimitives::~BatchPrimitives(){
@@ -69,7 +72,7 @@ void BatchPrimitives::draw_rectangles(){
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
                           sizeof(RawRectangle), (void*)(5 * sizeof(float)));
 
-    glDrawArrays(GL_POINTS, 0, 4);
+    glDrawArrays(GL_POINTS, 0, size);
 
     delete[] points;
 
@@ -87,6 +90,57 @@ void BatchPrimitives::draw(){
 }
 
 void BatchPrimitives::draw_circles(){
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0);
+
+    circle_shader->bind();
+    circle_shader->uniform("view", view);
+    circle_shader->uniform("projection", projection);
+
+    size_t size = circles.size();
+
+    if(!size) return;
+
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+
+    RawCircle* points = new RawCircle[size];
+
+    size_t i = 0;
+    for(auto it = circles.begin(); it != circles.end(); ++it){
+        it->center.z *= -1;
+        points[i] = {it->center, it->radius, it->color, it->segments};
+        i++;
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(RawCircle) * size, points, GL_STATIC_DRAW);
+
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
+                          sizeof(RawCircle), 0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE,
+                          sizeof(RawCircle), (void*)(3 * sizeof(float)));
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
+                          sizeof(RawCircle), (void*)(4 * sizeof(float)));
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE,
+                          sizeof(RawCircle), (void*)(7 * sizeof(float)));
+
+    glDrawArrays(GL_POINTS, 0, size);
+
+    delete[] points;
+
     circles.erase(circles.begin(), circles.end());
 }
 }
