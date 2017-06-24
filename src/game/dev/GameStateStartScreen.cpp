@@ -49,11 +49,12 @@ void GameStateStartScreen::draw(){
     cirno->draw({0, -1000, 1}, {1, 1});
     cirno->draw({0, 1000, 1}, {1, 1});
 
-    Game::i().render()->batchPrimitives->addRectangle({{0,  0, 10},
-                                                       {50, 50},
-                                                       {1,  0, 0},
-                                                       1});
-    Game::i().render()->batchPrimitives->addRectangle({{0, 0, 10}, {100, 100}, {1, 1, 0}, 1});
-    Game::i().render()->batchPrimitives->addRectangle({{0, 0, 10}, {200, 200}, {1, 0, 1}, 1});
+//    Game::i().render()->batchPrimitives->addRectangle({{0,  0, 10}, {50, 50}, {1,  0, 0}});
+//    Game::i().render()->batchPrimitives->addRectangle({{0, 0, 10}, {100, 100}, {1, 1, 0}});
+//    Game::i().render()->batchPrimitives->addRectangle({{0, 0, 10}, {200, 200}, {1, 0, 1}});
+//
+//    Game::i().render()->batchPrimitives->addCircle({{0, 0, 0}, 50, {0, 1, 0}});
+//    Game::i().render()->batchPrimitives->addCircle({{0, 0, 0}, 100, {0, 1, 1}});
+//    Game::i().render()->batchPrimitives->addCircle({{0, 0, 0}, 200, {0, 0, 1}});
 }
 }

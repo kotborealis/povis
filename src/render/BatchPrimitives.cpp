@@ -10,7 +10,7 @@ namespace pse{
 BatchPrimitives::BatchPrimitives(glm::mat4x4 view, glm::mat4x4 projection):view(view), projection(projection){
     rectangle_shader = ResourceShader->load("assets/common/shaders/rectangle.geom",
                                             "assets/common/shaders/rectangle.vert",
-                                            "assets/common/shaders/rectangle.frag");
+                                            "assets/common/shaders/primitive.frag");
 }
 
 BatchPrimitives::~BatchPrimitives(){
@@ -35,6 +35,8 @@ void BatchPrimitives::draw_rectangles(){
     rectangle_shader->uniform("projection", projection);
 
     size_t size = rectangles.size();
+
+    if(!size) return;
 
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -68,6 +70,10 @@ void BatchPrimitives::draw_rectangles(){
                           sizeof(RawRectangle), (void*)(5 * sizeof(float)));
 
     glDrawArrays(GL_POINTS, 0, 4);
+
+    delete points;
+
+    rectangles.erase(rectangles.begin(), rectangles.end());
 }
 
 void BatchPrimitives::clear(){
@@ -77,5 +83,10 @@ void BatchPrimitives::clear(){
 
 void BatchPrimitives::draw(){
     draw_rectangles();
+    draw_circles();
+}
+
+void BatchPrimitives::draw_circles(){
+    circles.erase(circles.begin(), circles.end());
 }
 }

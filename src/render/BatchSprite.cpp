@@ -113,6 +113,8 @@ void BatchSprite::draw(){
 
         glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, size);
 
+        delete instanceModels;
+
         bucket->erase(bucket->begin(), bucket->end());
     }
 

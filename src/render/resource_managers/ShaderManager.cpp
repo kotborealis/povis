@@ -42,6 +42,8 @@ Shader::Ptr ShaderManager::load(ShaderInfo* shaderInfo, size_t size){
         glDeleteShader(shaders_id[i]);
     }
 
+    delete shaders_id;
+
     Shader::Ptr shader(new Shader(prog_id));
     Shader::WeakPtr shaderWeakPtr(shader);
 
