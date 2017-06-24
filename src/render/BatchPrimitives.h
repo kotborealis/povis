@@ -5,6 +5,7 @@
 #pragma once
 
 #include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
 #include <list>
 #include <render/resources/Texture.h>
 #include <render/resources/Shader.h>
