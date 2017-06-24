@@ -21,7 +21,8 @@ Shader::WeakPtr ShaderManager::search(std::string filename){
 }
 
 Shader::Ptr ShaderManager::load(ShaderInfo* shaderInfo, size_t size){
-    GLuint* shaders_id = new GLuint(size);
+    GLuint* shaders_id = new GLuint[size];
+
     std::string name;
 
     for(size_t i = 0; i < size; i++) name += shaderInfo[i].file;
@@ -42,7 +43,7 @@ Shader::Ptr ShaderManager::load(ShaderInfo* shaderInfo, size_t size){
         glDeleteShader(shaders_id[i]);
     }
 
-    delete shaders_id;
+    delete[] shaders_id;
 
     Shader::Ptr shader(new Shader(prog_id));
     Shader::WeakPtr shaderWeakPtr(shader);
