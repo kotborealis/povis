@@ -61,7 +61,7 @@ set(SOURCE_FILES
         src/Timer.h
         src/game/dev/GameStateStartScreen.cpp
         src/game/dev/GameStateStartScreen.h
-        src/render/BatchSprite.cpp src/render/BatchSprite.h)
+        src/render/BatchSprite.cpp src/render/BatchSprite.h src/render/BatchPrimitives.cpp src/render/BatchPrimitives.h)
 
 add_executable(povis ${SOURCE_FILES})
 

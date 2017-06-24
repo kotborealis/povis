@@ -39,9 +39,10 @@ void GameStateStartScreen::update(float delta){
 }
 
 void GameStateStartScreen::draw(){
-    for(int x = -1777; x < 1777; x += 50){
-        for(int y = -1000; y < 1000; y += 50){
+    for(int x = -1777; x < 1777; x += 25){
+        for(int y = -1000; y < 1000; y += 25){
             cirno->draw({x, y}, {1, 1}, r);
+            i++;
         }
     }
 

@@ -19,7 +19,7 @@ BatchSprite::BatchSprite(glm::mat4x4 view, glm::mat4x4 projection, std::shared_p
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
@@ -71,6 +71,10 @@ void BatchSprite::draw(){
         s->uniform("view", view);
         s->uniform("projection", projection);
 
+        size_t size = bucket->size();
+        glm::mat4* instanceModels = new glm::mat4[size];
+
+        size_t instance_id = 0;
         for(auto entity = bucket->begin(); entity != bucket->end(); ++entity){
             glm::mat4 model = {};
             model = glm::translate(model, {glm::round(entity->position.x),
@@ -85,10 +89,30 @@ void BatchSprite::draw(){
             model = glm::scale(model, {glm::round(sprite->m_scale.x * entity->scale.x),
                                        glm::round(sprite->m_scale.y * entity->scale.y), 1});
 
-
-            s->uniform("model", model);
-            glDrawElements(GL_TRIANGLES, (GLsizei)6, GL_UNSIGNED_INT, 0);
+            instanceModels[instance_id] = model;
+            instance_id++;
         }
+
+        GLuint instanceVBO;
+        glGenBuffers(1, &instanceVBO);
+        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * size, &instanceModels[0], GL_DYNAMIC_DRAW);
+
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), 0);
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(sizeof(glm::vec4)));
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(2 * sizeof(glm::vec4)));
+        glEnableVertexAttribArray(5);
+        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(3 * sizeof(glm::vec4)));
+
+        glVertexAttribDivisor(2, 1);
+        glVertexAttribDivisor(3, 1);
+        glVertexAttribDivisor(4, 1);
+        glVertexAttribDivisor(5, 1);
+
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, size);
 
         bucket->erase(bucket->begin(), bucket->end());
     }
