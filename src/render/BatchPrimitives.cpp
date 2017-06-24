@@ -71,7 +71,7 @@ void BatchPrimitives::draw_rectangles(){
 
     glDrawArrays(GL_POINTS, 0, 4);
 
-    delete points;
+    delete[] points;
 
     rectangles.erase(rectangles.begin(), rectangles.end());
 }
