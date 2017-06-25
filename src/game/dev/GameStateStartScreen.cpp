@@ -15,7 +15,6 @@ GameStateStartScreen::GameStateStartScreen(){
     Game::i().render()->setCamera(camera);
 
     glm::vec4 view = camera->getViewport((float)16 / 9);
-    Logger::info("View " << view.x << " " << view.y << " " << view.z << " " << view.w);
 }
 
 GameStateStartScreen::~GameStateStartScreen(){

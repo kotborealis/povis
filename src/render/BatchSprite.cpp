@@ -59,7 +59,7 @@ void BatchSprite::draw(){
 
     for(auto it_buckets = buckets.begin(); it_buckets != buckets.end(); ++it_buckets){
         auto sprite = it_buckets->first;
-        auto bucket = it_buckets->second;
+        BatchSpriteEntityBucket* bucket = it_buckets->second;
 
         sprite->texture->bind(0);
         Shader::Ptr s = sprite->custom_shader ? sprite->custom_shader : sprite->shader;
@@ -114,6 +114,7 @@ void BatchSprite::draw(){
         glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, size);
 
         delete[] instanceModels;
+        glDeleteBuffers(1, &instanceVBO);
 
         bucket->erase(bucket->begin(), bucket->end());
     }

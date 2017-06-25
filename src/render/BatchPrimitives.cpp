@@ -74,6 +74,8 @@ void BatchPrimitives::draw_rectangles(){
 
     glDrawArrays(GL_POINTS, 0, size);
 
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
     delete[] points;
 
     rectangles.erase(rectangles.begin(), rectangles.end());
@@ -139,6 +141,8 @@ void BatchPrimitives::draw_circles(){
 
     glDrawArrays(GL_POINTS, 0, size);
 
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
     delete[] points;
 
     circles.erase(circles.begin(), circles.end());
