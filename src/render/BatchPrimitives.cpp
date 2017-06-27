@@ -49,7 +49,7 @@ void BatchPrimitives::draw_rectangles(){
     size_t i = 0;
     for(auto it = rectangles.begin(); it != rectangles.end(); ++it){
         it->point.z *= -1;
-        points[i] = {it->point, it->size, it->color};
+        points[i] = {it->point, it->size, it->color, it->thickness};
         i++;
     }
 
@@ -71,6 +71,10 @@ void BatchPrimitives::draw_rectangles(){
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
                           sizeof(RawRectangle), (void*)(5 * sizeof(float)));
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE,
+                          sizeof(RawRectangle), (void*)(8 * sizeof(float)));
 
     glDrawArrays(GL_POINTS, 0, size);
 

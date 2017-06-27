@@ -22,6 +22,7 @@ public:
         glm::vec3 point;
         glm::vec2 size;
         glm::vec3 color;
+        float thickness;
     } Rectangle;
 
     typedef struct{
@@ -48,6 +49,7 @@ private:
         glm::vec3 point;
         glm::vec2 size;
         glm::vec3 color;
+        float thickness;
     } RawRectangle;
 
     typedef struct{

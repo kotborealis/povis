@@ -50,13 +50,14 @@ void GameStateStartScreen::draw(){
 
     Game::i().render()->batchPrimitives->addRectangle({{0,  0, 10},
                                                        {50, 50},
-                                                       {1,  0, 0}});
+                                                       {1, 0, 0}, 5});
     Game::i().render()->batchPrimitives->addRectangle({{0,   0, 10},
                                                        {100, 100},
-                                                       {1,   1, 0}});
+                                                       {1, 1, 0}, 10});
     Game::i().render()->batchPrimitives->addRectangle({{0,   0, 10},
-                                                       {200, 200},
-                                                       {1,   0, 1}});
+                                                       {500, 500},
+                                                       {1,   0, 1},
+                                                       20});
 
     Game::i().render()->batchPrimitives->addCircle({{0, 0, 100}, 50, {0, 1, 0}, 4});
     Game::i().render()->batchPrimitives->addCircle({{0, 0, 100}, 100, {0, 1, 1}, 16});
